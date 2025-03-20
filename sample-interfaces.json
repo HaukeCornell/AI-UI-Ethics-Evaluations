@@ -1,0 +1,62 @@
+[
+  {
+    "id": "interface_001",
+    "pattern_type": "Nagging",
+    "description": "Please analyze this user interface showing a popup that repeatedly appears asking users to enable notifications or subscribe to a newsletter.",
+    "image_path": "interfaces/nagging.jpg"
+  },
+  {
+    "id": "interface_002",
+    "pattern_type": "Overcomplicated Process",
+    "description": "Please analyze this user interface showing privacy settings with a complicated multi-step process to disable data collection.",
+    "image_path": "interfaces/overcomplicated.jpg"
+  },
+  {
+    "id": "interface_003",
+    "pattern_type": "Hindering Account Deletion",
+    "description": "Please analyze this user interface showing the account deletion screen with multiple confirmation steps and warnings about losing data.",
+    "image_path": "interfaces/hindering_deletion.jpg"
+  },
+  {
+    "id": "interface_004",
+    "pattern_type": "Sneaking Bad Default",
+    "description": "Please analyze this user interface showing pre-defined privacy settings with data sharing and tracking options enabled by default.",
+    "image_path": "interfaces/bad_defaults.jpg"
+  },
+  {
+    "id": "interface_005",
+    "pattern_type": "Expectation Result Mismatch",
+    "description": "Please analyze this user interface showing a popup offering an option to withdraw consent for targeted ads, but the link leads to an explanatory page without the ability to actually withdraw consent.",
+    "image_path": "interfaces/expectation_mismatch.jpg"
+  },
+  {
+    "id": "interface_006",
+    "pattern_type": "False Hierarchy",
+    "description": "Please analyze this user interface showing two different options with one visually emphasized over the other to guide user choice.",
+    "image_path": "interfaces/false_hierarchy.jpg"
+  },
+  {
+    "id": "interface_007",
+    "pattern_type": "Trick Wording",
+    "description": "Please analyze this user interface showing confusing or misleading wording in consent options or privacy settings.",
+    "image_path": "interfaces/trick_wording.jpg"
+  },
+  {
+    "id": "interface_008",
+    "pattern_type": "Toying With Emotion",
+    "description": "Please analyze this user interface using emotional manipulation through sad faces or guilt-inducing messages when users decline certain options.",
+    "image_path": "interfaces/emotional_manipulation.jpg"
+  },
+  {
+    "id": "interface_009",
+    "pattern_type": "Forced Access",
+    "description": "Please analyze this user interface showing a process where users are requested to grant unnecessary permissions to perform a simple task like saving a photo.",
+    "image_path": "interfaces/forced_access.jpg"
+  },
+  {
+    "id": "interface_010",
+    "pattern_type": "Gamification",
+    "description": "Please analyze this user interface showing game-like elements such as points, badges, or progress bars to encourage continued engagement.",
+    "image_path": "interfaces/gamification.jpg"
+  }
+]

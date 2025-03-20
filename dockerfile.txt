@@ -1,0 +1,23 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
+COPY ui_assessment.py .
+COPY run_assessments.py .
+COPY analyze_results.py .
+COPY config.json .
+
+# Create directories for input and output
+RUN mkdir -p interfaces results analysis_output
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Entry point
+ENTRYPOINT ["python"]
+CMD ["--help"]
