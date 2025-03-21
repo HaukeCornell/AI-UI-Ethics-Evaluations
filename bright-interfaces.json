@@ -1,0 +1,20 @@
+[
+  {
+    "id": "bright_001",
+    "pattern_type": "False Hierarchy (Bright Pattern)",
+    "description": "Please analyze this user interface showing a proper hierarchical presentation of options that helps users make informed choices.",
+    "image_path": "bright-patterns/false-hierarchy.png"
+  },
+  {
+    "id": "bright_002",
+    "pattern_type": "Respectful Notification (Bright Pattern)",
+    "description": "Please analyze this user interface showing a notification system that presents options without being intrusive or manipulative.",
+    "image_path": "bright-patterns/nagging.png"
+  },
+  {
+    "id": "bright_003",
+    "pattern_type": "Emotional Support (Bright Pattern)",
+    "description": "Please analyze this user interface that uses emotional cues in a constructive and supportive way to enhance the user experience.",
+    "image_path": "bright-patterns/toying-with-emotion.png"
+  }
+]

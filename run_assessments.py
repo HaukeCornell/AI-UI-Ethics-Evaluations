@@ -52,7 +52,7 @@ def run_assessments(interfaces_path, config_path, output_dir):
             
             # Construct command
             cmd = [
-                "python", "ui_assessment.py",
+                "python", "ui_assessment.py",  # Using the corrected filename
                 "--interfaces", interfaces_path,
                 "--ai_service", service_name,
                 "--model", model_name,

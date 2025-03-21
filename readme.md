@@ -116,4 +116,4 @@ ui-assessment-system/
 
 ### Customizing UEQ scales
 
-Modify the `ueq_scales` section in `config.json` to add, remove, or modify scales.
+Modify the `ueeq_scales` section in `config.json` to add, remove, or modify scales.

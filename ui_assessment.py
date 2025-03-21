@@ -9,6 +9,7 @@ from tqdm import tqdm
 import time
 import logging
 from dotenv import load_dotenv
+import anthropic
 
 # Load environment variables
 load_dotenv()
@@ -50,7 +51,24 @@ class UIAssessmentSystem:
             raise
             
     def format_ueq_prompt(self, ui_description, image_path=None):
-        """Format the prompt for UEQ assessment."""
+        """Format the prompt for UEQ assessment using scales from config."""
+        # Get UEQ scales from config
+        ueeq_scales = self.config.get("assessment", {}).get("ueeq_scales", [])
+        
+        # Build scales text for prompt
+        scales_text = ""
+        example_assessment = "{"
+        
+        for scale in ueeq_scales:
+            name = scale.get("name")
+            left = scale.get("left")
+            right = scale.get("right")
+            scales_text += f"- {left} (1) to {right} (7)\n"
+            example_assessment += f'\n                "{name}": 5,'
+        
+        # Remove trailing comma and add closing brace
+        example_assessment = example_assessment.rstrip(',') + "\n            }"
+        
         prompt = f"""
         Please analyze this user interface and provide an assessment using the UEQ-S and additional questions.
         
@@ -59,39 +77,11 @@ class UIAssessmentSystem:
         Rate this interface on the following scales (1-7 where 1 is the left term and 7 is the right term):
         
         UEQ-S:
-        - inefficient (1) to efficient (7)
-        - interesting (1) to not interesting (7)
-        - clear (1) to confusing (7)
-        - enjoyable (1) to annoying (7)
-        - organized (1) to cluttered (7)
-        - addictive (1) to non-addictive (7)
-        - supportive (1) to obstructive (7)
-        - pressuring (1) to suggesting (7)
-        - boring (1) to exciting (7)
-        - revealed (1) to covert (7)
-        - complicated (1) to easy (7)
-        - unpredictable (1) to predictable (7)
-        - friendly (1) to unfriendly (7)
-        - deceptive (1) to benevolent (7)
+        {scales_text}
         
         Please format your response as a JSON object with the following structure:
         {{
-            "assessment": {{
-                "inefficient_efficient": 5,
-                "interesting_not_interesting": 3,
-                "clear_confusing": 2,
-                "enjoyable_annoying": 4,
-                "organized_cluttered": 3,
-                "addictive_non_addictive": 5,
-                "supportive_obstructive": 2,
-                "pressuring_suggesting": 6,
-                "boring_exciting": 5,
-                "revealed_covert": 3,
-                "complicated_easy": 4,
-                "unpredictable_predictable": 5,
-                "friendly_unfriendly": 2,
-                "deceptive_benevolent": 4
-            }},
+            "assessment": {example_assessment},
             "explanation": "Short explanation of your assessment..."
         }}
         
@@ -99,84 +89,100 @@ class UIAssessmentSystem:
         """
         return prompt
 
-    def call_anthropic_claude(self, prompt, image_path=None):
+    def call_anthropic_claude(self, prompt, image_path=None, model_name=None):
         """Call Anthropic's Claude API with prompt and optional image."""
         api_key = os.getenv("ANTHROPIC_API_KEY")
         if not api_key:
             logger.error("ANTHROPIC_API_KEY not found in environment variables")
             raise ValueError("ANTHROPIC_API_KEY not found")
             
-        headers = {
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json"
-        }
+        # Get service config
+        service_config = self.config.get("ai_services", {}).get("anthropic", {})
         
-        messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+        # Initialize Anthropic client
+        client = anthropic.Anthropic(api_key=api_key)
+        
+        content = [{"type": "text", "text": prompt}]
         
         # Add image if provided
         if image_path:
             base64_image = self.encode_image(image_path)
-            messages[0]["content"].append({
+            # Determine media type based on file extension
+            if image_path.lower().endswith('.png'):
+                media_type = "image/png"
+            elif image_path.lower().endswith(('.jpg', '.jpeg')):
+                media_type = "image/jpeg"
+            else:
+                # Default to jpeg if unknown
+                media_type = "image/jpeg"
+                
+            content.append({
                 "type": "image",
                 "source": {
                     "type": "base64",
-                    "media_type": "image/jpeg",
+                    "media_type": media_type,
                     "data": base64_image
                 }
             })
             
-        payload = {
-            "model": "claude-3-opus-20240229",
-            "max_tokens": 1000,
-            "messages": messages
-        }
-        
         try:
-            response = requests.post(
-                "https://api.anthropic.com/v1/messages",
-                headers=headers,
-                json=payload
+            response = client.messages.create(
+                model=model_name or service_config.get("models", [])[0],
+                max_tokens=1000,
+                messages=[{"role": "user", "content": content}]
             )
-            response.raise_for_status()
-            return response.json()["content"][0]["text"]
-        except requests.exceptions.RequestException as e:
+            return response.content[0].text
+        except Exception as e:
             logger.error(f"API request failed: {str(e)}")
             return None
             
-    def call_openai_gpt4v(self, prompt, image_path=None):
+    def call_openai_gpt4v(self, prompt, image_path=None, model_name=None):
         """Call OpenAI's GPT-4 Vision API with prompt and optional image."""
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             logger.error("OPENAI_API_KEY not found in environment variables")
             raise ValueError("OPENAI_API_KEY not found")
             
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
+        # Get service config
+        service_config = self.config.get("ai_services", {}).get("openai", {})
+        
+        # Use custom headers from config if available
+        headers = service_config.get("headers", {})
+        headers["Authorization"] = f"Bearer {api_key}"
         
         messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
         
         # Add image if provided
         if image_path:
             base64_image = self.encode_image(image_path)
+            # Determine media type based on file extension
+            if image_path.lower().endswith('.png'):
+                media_type = "image/png"
+            elif image_path.lower().endswith(('.jpg', '.jpeg')):
+                media_type = "image/jpeg"
+            else:
+                # Default to jpeg if unknown
+                media_type = "image/jpeg"
+                
             messages[0]["content"].append({
                 "type": "image_url",
                 "image_url": {
-                    "url": f"data:image/jpeg;base64,{base64_image}"
+                    "url": f"data:{media_type};base64,{base64_image}"
                 }
             })
             
         payload = {
-            "model": "gpt-4-vision-preview",
+            "model": model_name or service_config.get("models", [])[0],
             "messages": messages,
             "max_tokens": 1000
         }
         
+        # Use endpoint from config if available
+        endpoint = service_config.get("endpoint", "https://api.openai.com/v1/chat/completions")
+        
         try:
             response = requests.post(
-                "https://api.openai.com/v1/chat/completions",
+                endpoint,
                 headers=headers,
                 json=payload
             )
@@ -211,8 +217,8 @@ class UIAssessmentSystem:
             
         # Call the AI service
         try:
-            logger.info(f"Calling {ai_service} for interface: {pattern_type}")
-            response = ai_service_fn(prompt, image_path)
+            logger.info(f"Calling {ai_service} ({model_name}) for interface: {pattern_type}")
+            response = ai_service_fn(prompt, image_path, model_name)
             
             if not response:
                 logger.error(f"No response from {ai_service} for interface: {pattern_type}")

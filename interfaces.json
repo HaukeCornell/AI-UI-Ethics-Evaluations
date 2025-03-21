@@ -3,60 +3,90 @@
     "id": "interface_001",
     "pattern_type": "Nagging",
     "description": "Please analyze this user interface showing a popup that repeatedly appears asking users to enable notifications or subscribe to a newsletter.",
-    "image_path": "dark-patterns/nagging.jpg"
+    "image_path": "dark-patterns/nagging.png"
   },
   {
     "id": "interface_002",
     "pattern_type": "Overcomplicated Process",
     "description": "Please analyze this user interface showing privacy settings with a complicated multi-step process to disable data collection.",
-    "image_path": "dark-patterns/overcomplicated.jpg"
+    "image_path": "dark-patterns/overcomplicated-process.png"
   },
   {
     "id": "interface_003",
     "pattern_type": "Hindering Account Deletion",
     "description": "Please analyze this user interface showing the account deletion screen with multiple confirmation steps and warnings about losing data.",
-    "image_path": "dark-patterns/hindering_deletion.jpg"
+    "image_path": "dark-patterns/hindering-account-deletion.png"
   },
   {
     "id": "interface_004",
     "pattern_type": "Sneaking Bad Default",
     "description": "Please analyze this user interface showing pre-defined privacy settings with data sharing and tracking options enabled by default.",
-    "image_path": "dark-patterns/bad_defaults.jpg"
+    "image_path": "dark-patterns/bad-defaults.png"
   },
   {
     "id": "interface_005",
     "pattern_type": "Expectation Result Mismatch",
     "description": "Please analyze this user interface showing a popup offering an option to withdraw consent for targeted ads, but the link leads to an explanatory page without the ability to actually withdraw consent.",
-    "image_path": "dark-patterns/expectation_mismatch.jpg"
+    "image_path": "dark-patterns/expectation-result-mismatch.png"
   },
   {
     "id": "interface_006",
     "pattern_type": "False Hierarchy",
     "description": "Please analyze this user interface showing two different options with one visually emphasized over the other to guide user choice.",
-    "image_path": "dark-patterns/false_hierarchy.jpg"
+    "image_path": "dark-patterns/false-hierarchy.png"
   },
   {
     "id": "interface_007",
     "pattern_type": "Trick Wording",
     "description": "Please analyze this user interface showing confusing or misleading wording in consent options or privacy settings.",
-    "image_path": "dark-patterns/trick_wording.jpg"
+    "image_path": "dark-patterns/trick-wording.png"
   },
   {
     "id": "interface_008",
     "pattern_type": "Toying With Emotion",
     "description": "Please analyze this user interface using emotional manipulation through sad faces or guilt-inducing messages when users decline certain options.",
-    "image_path": "dark-patterns/emotional_manipulation.jpg"
+    "image_path": "dark-patterns/toying-with-emotion.png"
   },
   {
     "id": "interface_009",
     "pattern_type": "Forced Access",
     "description": "Please analyze this user interface showing a process where users are requested to grant unnecessary permissions to perform a simple task like saving a photo.",
-    "image_path": "dark-patterns/forced_access.jpg"
+    "image_path": "dark-patterns/forced-access.png"
   },
   {
     "id": "interface_010",
     "pattern_type": "Gamification",
     "description": "Please analyze this user interface showing game-like elements such as points, badges, or progress bars to encourage continued engagement.",
-    "image_path": "dark-patterns/gamification.jpg"
+    "image_path": "dark-patterns/gamification.png"
+  },
+  {
+    "id": "interface_011",
+    "pattern_type": "Content Customization",
+    "description": "Please analyze this user interface showing an interface where users are encouraged to spend time customizing content or experiences.",
+    "image_path": "dark-patterns/content-customization.png"
+  },
+  {
+    "id": "interface_012",
+    "pattern_type": "Endlessness",
+    "description": "Please analyze this user interface showing an infinite scrolling feed designed to keep users engaged for extended periods of time.",
+    "image_path": "dark-patterns/endlessness.png"
+  },
+  {
+    "id": "interface_013",
+    "pattern_type": "Pull to Refresh",
+    "description": "Please analyze this user interface showing a pull-to-refresh mechanism that can create a slot machine-like reward anticipation.",
+    "image_path": "dark-patterns/pull-to-refresh.png"
+  },
+  {
+    "id": "interface_014",
+    "pattern_type": "Social Connector",
+    "description": "Please analyze this user interface showing features that leverage users' social connections to drive engagement.",
+    "image_path": "dark-patterns/social-connector.png"
+  },
+  {
+    "id": "interface_015",
+    "pattern_type": "Social Pressure",
+    "description": "Please analyze this user interface showing elements that create a sense of social pressure to perform certain actions.",
+    "image_path": "dark-patterns/social-pressure.png"
   }
 ]
