@@ -70,13 +70,12 @@ class UIAssessmentSystem:
         example_assessment = example_assessment.rstrip(',') + "\n            }"
         
         prompt = f"""
-        Please analyze this user interface and provide an assessment using the UEQ-S and additional questions.
+        Please analyze this user interface and provide an assessment.
         
         UI Description: {ui_description}
         
         Rate this interface on the following scales (1-7 where 1 is the left term and 7 is the right term):
         
-        UEQ-S:
         {scales_text}
         
         Please format your response as a JSON object with the following structure:
