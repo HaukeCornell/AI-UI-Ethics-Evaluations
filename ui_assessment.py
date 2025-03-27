@@ -70,13 +70,17 @@ class UIAssessmentSystem:
         example_assessment = example_assessment.rstrip(',') + "\n            }"
         
         prompt = f"""
-        Please analyze this user interface and provide an assessment.
+        ## Dark Patterns in Social Media
         
+        Instruction: In this section, social media elements are presented to you. Subsequently, pairs of contrasting adjectives are listed. The numbers 1-7 between the adjectives represent gradations between the opposites. Please express your agreement with the adjectives by selecting one number per line that best aligns with your impression. If you find the feature unclear or believe that the adjectives do not describe the feature accurately, select -1 for "don't know / not applicable".
+
         UI Description: {ui_description}
         
-        Rate this interface on the following scales (1-7 where 1 is the left term and 7 is the right term):
-        
+        I perceive this social media feature as...
+
         {scales_text}
+        
+        Rate 1-7 where 1 is the left term and 7 is the right term, or -1 for not applicable.
         
         Please format your response as a JSON object with the following structure:
         {{
