@@ -52,6 +52,10 @@ Create a JSON file containing the interfaces you want to assess. See `interfaces
 ```bash
 python ui_assessment.py --interfaces interfaces.json --ai_service anthropic --model claude-3-opus-20240229 --output results_anthropic_opus.csv
 ```
+or
+```bash
+python ui_assessment.py --interfaces interfaces.json --ai_service openai --model gpt-4-turbo --output results_openai_gpt4-turbo.csv
+```
 
 Parameters:
 - `--interfaces`: Path to interfaces JSON file (required)
