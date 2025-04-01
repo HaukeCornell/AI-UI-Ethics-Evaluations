@@ -1,0 +1,16 @@
+metadata_ai_service,metadata_model,metadata_pattern_type,score_inefficient_efficient,score_interesting_not_interesting,score_clear_confusing,score_enjoyable_annoying,score_organized_cluttered,score_addictive_non_addictive,score_supportive_obstructive,score_pressuring_suggesting,score_boring_exciting,score_revealed_covert,score_complicated_easy,score_unpredictable_predictable,score_friendly_unfriendly,score_deceptive_benevolent
+anthropic,claude-3-opus-20240229,Content Customization,4.0,3.0,2.0,3.0,4.0,2.0,5.0,2.0,4.0,2.0,6.0,6.0,6.0,4.0
+anthropic,claude-3-opus-20240229,Endlessness,6.0,2.0,2.0,3.0,3.0,1.0,3.0,1.0,5.0,2.0,6.0,6.0,3.0,2.0
+anthropic,claude-3-opus-20240229,Expectation Result Mismatch,2.0,3.0,6.0,6.0,3.0,6.0,6.0,2.0,6.0,6.0,5.0,2.0,6.0,1.0
+anthropic,claude-3-opus-20240229,False Hierarchy,6.0,3.0,2.0,3.0,3.0,3.0,2.0,1.0,2.0,1.0,6.0,6.0,4.0,2.0
+anthropic,claude-3-opus-20240229,Forced Access,2.0,6.0,6.0,6.0,5.0,7.0,6.0,2.0,2.0,3.0,6.0,5.0,6.0,2.0
+anthropic,claude-3-opus-20240229,Gamification,3.0,3.0,2.0,4.0,2.0,3.0,4.0,2.0,4.0,2.0,5.0,4.0,3.0,3.0
+anthropic,claude-3-opus-20240229,Hindering Account Deletion,3.0,6.0,2.0,6.0,3.0,7.0,4.0,3.0,6.0,1.0,2.0,3.0,5.0,1.0
+anthropic,claude-3-opus-20240229,Nagging,1.0,7.0,6.0,7.0,2.0,6.0,7.0,1.0,2.0,2.0,6.0,2.0,7.0,2.0
+anthropic,claude-3-opus-20240229,Overcomplicated Process,2.0,6.0,6.0,6.0,5.0,6.0,5.0,3.0,6.0,6.0,7.0,4.0,6.0,6.0
+anthropic,claude-3-opus-20240229,Pull to Refresh,3.0,2.0,4.0,3.0,5.0,2.0,4.0,2.0,3.0,4.0,5.0,4.0,4.0,3.0
+anthropic,claude-3-opus-20240229,Sneaking Bad Default,4.0,3.0,3.0,4.0,6.0,4.0,3.0,2.0,4.0,2.0,6.0,5.0,4.0,2.0
+anthropic,claude-3-opus-20240229,Social Connector,4.0,2.0,2.0,4.0,3.0,3.0,4.0,3.0,4.0,3.0,5.0,5.0,4.0,4.0
+anthropic,claude-3-opus-20240229,Social Pressure,6.0,3.0,6.0,3.0,6.0,2.0,3.0,1.0,3.0,2.0,6.0,6.0,2.0,3.0
+anthropic,claude-3-opus-20240229,Toying With Emotion,2.0,2.0,5.0,6.0,3.0,3.0,6.0,1.0,3.0,2.0,4.0,3.0,6.0,1.0
+anthropic,claude-3-opus-20240229,Trick Wording,2.0,6.0,6.0,6.0,2.0,5.0,6.0,1.0,6.0,6.0,5.0,2.0,6.0,1.0
