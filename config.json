@@ -32,9 +32,7 @@
     },
     "ollama": {
       "models": [
-        "llava:13b",
-        "bakllava:15b",
-        "moondream"
+      "gemma3"
       ],
       "endpoint": "http://localhost:11434/api/generate",
       "headers": {
