@@ -10,6 +10,7 @@ import time
 import logging
 from dotenv import load_dotenv
 import anthropic
+from openai import OpenAI
 
 # Load environment variables
 load_dotenv()
@@ -26,9 +27,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class UIAssessmentSystem:
-    def __init__(self, config_path='config.json'):
+    def __init__(self, config_path='config.json', temperature=0.0):
         """Initialize the UI Assessment System with configuration."""
         self.load_config(config_path)
+        self.temperature = temperature
         self.results = []
         
     def load_config(self, config_path):
@@ -49,6 +51,16 @@ class UIAssessmentSystem:
         except FileNotFoundError:
             logger.error(f"Image file not found: {image_path}")
             raise
+            
+    def get_media_type(self, image_path):
+        """Determine media type based on file extension."""
+        if image_path.lower().endswith('.png'):
+            return "image/png"
+        elif image_path.lower().endswith(('.jpg', '.jpeg')):
+            return "image/jpeg"
+        else:
+            # Default to jpeg if unknown
+            return "image/jpeg"
             
     def format_ueq_prompt(self, ui_description, image_path=None):
         """Format the prompt for UEQ assessment using scales from config."""
@@ -110,14 +122,7 @@ class UIAssessmentSystem:
         # Add image if provided
         if image_path:
             base64_image = self.encode_image(image_path)
-            # Determine media type based on file extension
-            if image_path.lower().endswith('.png'):
-                media_type = "image/png"
-            elif image_path.lower().endswith(('.jpg', '.jpeg')):
-                media_type = "image/jpeg"
-            else:
-                # Default to jpeg if unknown
-                media_type = "image/jpeg"
+            media_type = self.get_media_type(image_path)
                 
             content.append({
                 "type": "image",
@@ -132,6 +137,7 @@ class UIAssessmentSystem:
             response = client.messages.create(
                 model=model_name or service_config.get("models", [])[0],
                 max_tokens=1000,
+                temperature=self.temperature,
                 messages=[{"role": "user", "content": content}]
             )
             return response.content[0].text
@@ -158,14 +164,7 @@ class UIAssessmentSystem:
         # Add image if provided
         if image_path:
             base64_image = self.encode_image(image_path)
-            # Determine media type based on file extension
-            if image_path.lower().endswith('.png'):
-                media_type = "image/png"
-            elif image_path.lower().endswith(('.jpg', '.jpeg')):
-                media_type = "image/jpeg"
-            else:
-                # Default to jpeg if unknown
-                media_type = "image/jpeg"
+            media_type = self.get_media_type(image_path)
                 
             messages[0]["content"].append({
                 "type": "image_url",
@@ -177,7 +176,8 @@ class UIAssessmentSystem:
         payload = {
             "model": model_name or service_config.get("models", [])[0],
             "messages": messages,
-            "max_tokens": 1000
+            "max_tokens": 1000,
+            "temperature": self.temperature
         }
         
         # Use endpoint from config if available
@@ -195,12 +195,91 @@ class UIAssessmentSystem:
             logger.error(f"API request failed: {str(e)}")
             return None
     
+    
+    def call_qwen(self, prompt, image_path=None, model_name=None):
+        """Call Alibaba Cloud's Qwen API with prompt and optional image."""
+        api_key = os.getenv("ALIBABA_API_KEY")
+        if not api_key:
+            logger.error("ALIBABA_API_KEY not found in environment variables")
+            raise ValueError("ALIBABA_API_KEY not found")
+            
+        # Get service config
+        service_config = self.config.get("ai_services", {}).get("qwen", {})
+        
+        client = OpenAI(
+            api_key=api_key,
+            base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+        )
+        
+        # Format messages for OpenAI-compatible endpoint
+        messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+        
+        # Add image if provided
+        if image_path:
+            base64_image = self.encode_image(image_path)
+            media_type = self.get_media_type(image_path)
+            
+            messages[0]["content"].append({
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:{media_type};base64,{base64_image}"
+                }
+            })
+            
+        try:
+            completion = client.chat.completions.create(
+                model=model_name or service_config.get("models", [])[0],
+                messages=messages,
+                temperature=self.temperature,
+                max_tokens=1000
+            )
+            return completion.choices[0].message.content
+        except Exception as e:
+            logger.error(f"API request failed: {str(e)}")
+            return None
+    
+    
+    def call_ollama(self, prompt, image_path=None, model_name=None):
+        """Call locally hosted Ollama API with prompt and optional image."""
+        # Get service config
+        service_config = self.config.get("ai_services", {}).get("ollama", {})
+        
+        # Format content for Ollama
+        content = {
+            "model": model_name or service_config.get("models", [])[0],
+            "prompt": prompt,
+            "stream": False,
+            "temperature": self.temperature
+        }
+        
+        # Add image if provided
+        if image_path:
+            base64_image = self.encode_image(image_path)
+            # Ollama uses a different format for images
+            content["images"] = [base64_image]
+            
+        # Use endpoint from config if available
+        endpoint = service_config.get("endpoint", "http://localhost:11434/api/generate")
+        
+        try:
+            response = requests.post(
+                endpoint,
+                headers=service_config.get("headers", {}),
+                json=content
+            )
+            response.raise_for_status()
+            return response.json()["response"]
+        except requests.exceptions.RequestException as e:
+            logger.error(f"API request failed: {str(e)}")
+            return None
+    
     def select_ai_service(self, service_name):
         """Select the appropriate AI service function based on name."""
         service_map = {
             "anthropic": self.call_anthropic_claude,
             "openai": self.call_openai_gpt4v,
-            # Add more services as needed
+            "qwen": self.call_qwen,
+            "ollama": self.call_ollama
         }
         
         return service_map.get(service_name.lower())
@@ -244,6 +323,7 @@ class UIAssessmentSystem:
                     "timestamp": datetime.now().isoformat(),
                     "ai_service": ai_service,
                     "model": model_name,
+                    "temperature": self.temperature,
                     "pattern_type": pattern_type,
                     "interface_id": interface_data.get("id", "")
                 }
@@ -322,15 +402,19 @@ def main():
     parser = argparse.ArgumentParser(description="UI Assessment System")
     parser.add_argument("--config", default="config.json", help="Path to configuration file")
     parser.add_argument("--interfaces", required=True, help="Path to interfaces JSON file")
-    parser.add_argument("--ai_service", default="anthropic", choices=["anthropic", "openai"], help="AI service to use")
+    parser.add_argument("--ai_service", default="anthropic", 
+                        choices=["anthropic", "openai", "qwen", "ollama"], 
+                        help="AI service to use")
     parser.add_argument("--model", required=True, help="Model name/version")
     parser.add_argument("--output", default="results.csv", help="Output CSV file path")
+    parser.add_argument("--temperature", type=float, default=0.0, help="Temperature parameter for model (0.0-1.0)")
+    parser.add_argument("--repeat", type=int, default=1, help="Number of times to repeat assessment (usually handled by run_multiple_assessments.py)")
     
     args = parser.parse_args()
     
     try:
-        # Initialize system
-        system = UIAssessmentSystem(args.config)
+        # Initialize system with temperature
+        system = UIAssessmentSystem(args.config, args.temperature)
         
         # Run assessment
         system.run_assessment(args.interfaces, args.ai_service, args.model)

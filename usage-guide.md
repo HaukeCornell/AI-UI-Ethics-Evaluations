@@ -20,8 +20,6 @@ This guide provides instructions for using the UI Assessment System to compare h
    ```
    ANTHROPIC_API_KEY=your_anthropic_api_key
    OPENAI_API_KEY=your_openai_api_key
-   DEEPSEEK_API_KEY=your_deepseek_api_key
-   META_API_KEY=your_meta_api_key
    QWEN_API_KEY=your_qwen_api_key
    ```
 

@@ -49,8 +49,7 @@ def initialize_usage_tracking(output_dir):
                 "run_number", 
                 "num_interfaces",
                 "tokens_in",
-                "tokens_out",
-                "cost_estimate"
+                "tokens_out"
             ])
     
     return usage_file
@@ -67,65 +66,26 @@ def update_usage_tracking(usage_file, usage_data):
             usage_data["run_number"],
             usage_data["num_interfaces"],
             usage_data.get("tokens_in", "N/A"),
-            usage_data.get("tokens_out", "N/A"),
-            usage_data.get("cost_estimate", "N/A")
+            usage_data.get("tokens_out", "N/A")
         ])
 
-def estimate_tokens_and_cost(ai_service, model, num_interfaces):
-    """Provide a rough estimate of token usage and cost."""
+def estimate_tokens(ai_service, model, num_interfaces):
+    """Provide a rough estimate of token usage."""
     # These are very rough estimates and should be adjusted based on actual usage
     tokens_per_interface = {
         "anthropic": {"input": 800, "output": 600},
         "openai": {"input": 700, "output": 550},
-        "deepseek": {"input": 750, "output": 600},
         "qwen": {"input": 700, "output": 550},
-        "meta": {"input": 750, "output": 600},
         "ollama": {"input": 700, "output": 550}
     }
     
-    cost_per_1k_tokens = {
-        "anthropic": {
-            "claude-3-opus-20240229": {"input": 0.015, "output": 0.075},
-            "claude-3-sonnet-20240229": {"input": 0.003, "output": 0.015},
-            "claude-3-haiku-20240307": {"input": 0.00025, "output": 0.00125},
-            "claude-3.5-sonnet-20240620": {"input": 0.003, "output": 0.015}
-        },
-        "openai": {
-            "gpt-4-vision-preview": {"input": 0.01, "output": 0.03},
-            "gpt-4-turbo": {"input": 0.01, "output": 0.03},
-            "gpt-4o": {"input": 0.005, "output": 0.015}
-        },
-        "deepseek": {
-            "deepseek-vision": {"input": 0.004, "output": 0.008},
-            "deepseek-vl-7b-chat": {"input": 0.002, "output": 0.004}
-        },
-        "qwen": {
-            "qwen-vl-max": {"input": 0.004, "output": 0.008},
-            "qwen-vl-plus": {"input": 0.002, "output": 0.004}
-        },
-        "meta": {
-            "llama-3-70b-vision": {"input": 0.0009, "output": 0.0027},
-            "llama-3.1-405b-vision": {"input": 0.0015, "output": 0.0045}
-        },
-        "ollama": {
-            # Ollama is free when run locally, but we'll track token usage
-            "llava:13b": {"input": 0.0, "output": 0.0},
-            "bakllava:15b": {"input": 0.0, "output": 0.0},
-            "moondream": {"input": 0.0, "output": 0.0}
-        }
-    }
-    
-    # Use default values if the specific service/model isn't in our reference
+    # Use default values if the specific service isn't in our reference
     tokens_in = tokens_per_interface.get(ai_service, {"input": 750, "output": 550})["input"] * num_interfaces
     tokens_out = tokens_per_interface.get(ai_service, {"input": 750, "output": 550})["output"] * num_interfaces
     
-    model_costs = cost_per_1k_tokens.get(ai_service, {}).get(model, {"input": 0.002, "output": 0.004})
-    cost_estimate = (tokens_in / 1000 * model_costs["input"]) + (tokens_out / 1000 * model_costs["output"])
-    
     return {
         "tokens_in": tokens_in,
-        "tokens_out": tokens_out,
-        "cost_estimate": round(cost_estimate, 4)
+        "tokens_out": tokens_out
     }
 
 def count_interfaces(interfaces_path):
@@ -202,8 +162,8 @@ def run_multiple_assessments(interfaces_path, config_path, output_dir, temperatu
                         "num_interfaces": num_interfaces
                     }
                     
-                    # Add token/cost estimates
-                    usage_data.update(estimate_tokens_and_cost(service_name, model_name, num_interfaces))
+                    # Add token estimates
+                    usage_data.update(estimate_tokens(service_name, model_name, num_interfaces))
                     
                     try:
                         # Run the assessment
