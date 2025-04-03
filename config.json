@@ -4,7 +4,8 @@
       "models": [
         "claude-3-opus-20240229",
         "claude-3-sonnet-20240229",
-        "claude-3-haiku-20240307"
+        "claude-3-haiku-20240307",
+        "claude-3.5-sonnet-20240620"
       ],
       "endpoint": "https://api.anthropic.com/v1/messages",
       "headers": {
@@ -15,9 +16,51 @@
     "openai": {
       "models": [
         "gpt-4-vision-preview",
-        "gpt-4-turbo"
+        "gpt-4-turbo",
+        "gpt-4o"
       ],
       "endpoint": "https://api.openai.com/v1/chat/completions",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "deepseek": {
+      "models": [
+        "deepseek-vision",
+        "deepseek-vl-7b-chat"
+      ],
+      "endpoint": "https://api.deepseek.com/v1/chat/completions",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "qwen": {
+      "models": [
+        "qwen-vl-max",
+        "qwen-vl-plus"
+      ],
+      "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "meta": {
+      "models": [
+        "llama-3-70b-vision",
+        "llama-3.1-405b-vision"
+      ],
+      "endpoint": "https://api.meta.ai/v1/chat/completions",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "ollama": {
+      "models": [
+        "llava:13b",
+        "bakllava:15b",
+        "moondream"
+      ],
+      "endpoint": "http://localhost:11434/api/generate",
       "headers": {
         "Content-Type": "application/json"
       }

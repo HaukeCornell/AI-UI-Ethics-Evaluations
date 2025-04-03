@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Script to run multiple UI assessments with different AI services and models.
+Script to run multiple UI assessments across different models and with multiple simulations.
+This script extends run_assessments.py to add temperature variation and repeated runs.
 """
 
 import os
@@ -9,13 +10,15 @@ import argparse
 import subprocess
 import logging
 from datetime import datetime
+import csv
+import time
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("run_assessments.log"),
+        logging.FileHandler("run_multiple_assessments.log"),
         logging.StreamHandler()
     ]
 )
@@ -30,60 +33,223 @@ def load_config(config_path):
         logger.error(f"Configuration file not found: {config_path}")
         raise
 
-def run_assessments(interfaces_path, config_path, output_dir):
-    """Run assessments with all configured AI services and models."""
+def initialize_usage_tracking(output_dir):
+    """Initialize a CSV file to track API usage across runs."""
+    usage_file = os.path.join(output_dir, "api_usage.csv")
+    
+    # Check if file exists, if not create with headers
+    if not os.path.exists(usage_file):
+        with open(usage_file, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                "timestamp", 
+                "ai_service", 
+                "model", 
+                "temperature", 
+                "run_number", 
+                "num_interfaces",
+                "tokens_in",
+                "tokens_out",
+                "cost_estimate"
+            ])
+    
+    return usage_file
+
+def update_usage_tracking(usage_file, usage_data):
+    """Append usage data to the tracking CSV."""
+    with open(usage_file, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([
+            usage_data["timestamp"],
+            usage_data["ai_service"],
+            usage_data["model"],
+            usage_data["temperature"],
+            usage_data["run_number"],
+            usage_data["num_interfaces"],
+            usage_data.get("tokens_in", "N/A"),
+            usage_data.get("tokens_out", "N/A"),
+            usage_data.get("cost_estimate", "N/A")
+        ])
+
+def estimate_tokens_and_cost(ai_service, model, num_interfaces):
+    """Provide a rough estimate of token usage and cost."""
+    # These are very rough estimates and should be adjusted based on actual usage
+    tokens_per_interface = {
+        "anthropic": {"input": 800, "output": 600},
+        "openai": {"input": 700, "output": 550},
+        "deepseek": {"input": 750, "output": 600},
+        "qwen": {"input": 700, "output": 550},
+        "meta": {"input": 750, "output": 600},
+        "ollama": {"input": 700, "output": 550}
+    }
+    
+    cost_per_1k_tokens = {
+        "anthropic": {
+            "claude-3-opus-20240229": {"input": 0.015, "output": 0.075},
+            "claude-3-sonnet-20240229": {"input": 0.003, "output": 0.015},
+            "claude-3-haiku-20240307": {"input": 0.00025, "output": 0.00125},
+            "claude-3.5-sonnet-20240620": {"input": 0.003, "output": 0.015}
+        },
+        "openai": {
+            "gpt-4-vision-preview": {"input": 0.01, "output": 0.03},
+            "gpt-4-turbo": {"input": 0.01, "output": 0.03},
+            "gpt-4o": {"input": 0.005, "output": 0.015}
+        },
+        "deepseek": {
+            "deepseek-vision": {"input": 0.004, "output": 0.008},
+            "deepseek-vl-7b-chat": {"input": 0.002, "output": 0.004}
+        },
+        "qwen": {
+            "qwen-vl-max": {"input": 0.004, "output": 0.008},
+            "qwen-vl-plus": {"input": 0.002, "output": 0.004}
+        },
+        "meta": {
+            "llama-3-70b-vision": {"input": 0.0009, "output": 0.0027},
+            "llama-3.1-405b-vision": {"input": 0.0015, "output": 0.0045}
+        },
+        "ollama": {
+            # Ollama is free when run locally, but we'll track token usage
+            "llava:13b": {"input": 0.0, "output": 0.0},
+            "bakllava:15b": {"input": 0.0, "output": 0.0},
+            "moondream": {"input": 0.0, "output": 0.0}
+        }
+    }
+    
+    # Use default values if the specific service/model isn't in our reference
+    tokens_in = tokens_per_interface.get(ai_service, {"input": 750, "output": 550})["input"] * num_interfaces
+    tokens_out = tokens_per_interface.get(ai_service, {"input": 750, "output": 550})["output"] * num_interfaces
+    
+    model_costs = cost_per_1k_tokens.get(ai_service, {}).get(model, {"input": 0.002, "output": 0.004})
+    cost_estimate = (tokens_in / 1000 * model_costs["input"]) + (tokens_out / 1000 * model_costs["output"])
+    
+    return {
+        "tokens_in": tokens_in,
+        "tokens_out": tokens_out,
+        "cost_estimate": round(cost_estimate, 4)
+    }
+
+def count_interfaces(interfaces_path):
+    """Count the number of interfaces in the interfaces file."""
+    try:
+        with open(interfaces_path, 'r') as f:
+            interfaces = json.load(f)
+            return len(interfaces)
+    except Exception as e:
+        logger.error(f"Error counting interfaces: {e}")
+        return 0
+
+def run_multiple_assessments(interfaces_path, config_path, output_dir, temperatures, repeats, selected_services=None, selected_models=None):
+    """Run assessments with multiple AI services, models, temperatures, and repeated runs."""
     # Load configuration
     config = load_config(config_path)
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     
+    # Initialize usage tracking
+    usage_file = initialize_usage_tracking(output_dir)
+    
     # Get timestamp for unique run ID
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    # Loop through all AI services and models
+    # Count number of interfaces
+    num_interfaces = count_interfaces(interfaces_path)
+    
+    # Loop through all AI services
     for service_name, service_config in config["ai_services"].items():
+        # Skip if not in selected services
+        if selected_services and service_name not in selected_services:
+            continue
+            
+        # Loop through all models for this service
         for model_name in service_config["models"]:
-            # Generate output file path
-            output_file = os.path.join(
-                output_dir, 
-                f"results_{service_name}_{model_name.replace('-', '_').replace('.', '_')}_{timestamp}.csv"
-            )
-            
-            # Construct command
-            cmd = [
-                "python", "ui_assessment.py",  # Using the corrected filename
-                "--interfaces", interfaces_path,
-                "--ai_service", service_name,
-                "--model", model_name,
-                "--output", output_file,
-                "--config", config_path
-            ]
-            
-            # Log the command
-            logger.info(f"Running: {' '.join(cmd)}")
-            
-            try:
-                # Run the assessment
-                result = subprocess.run(cmd, check=True)
-                logger.info(f"Assessment completed: {output_file}")
-            except subprocess.CalledProcessError as e:
-                logger.error(f"Assessment failed: {e}")
+            # Skip if not in selected models
+            if selected_models and model_name not in selected_models:
                 continue
+                
+            # Loop through all temperatures
+            for temperature in temperatures:
+                # Loop through all repeats
+                for repeat_num in range(1, repeats + 1):
+                    # Generate output file path
+                    output_file = os.path.join(
+                        output_dir, 
+                        f"results_{service_name}_{model_name.replace('-', '_').replace('.', '_')}_temp{temperature}_run{repeat_num}_{timestamp}.csv"
+                    )
+                    
+                    # Construct command
+                    cmd = [
+                        "python", "ui_assessment.py",
+                        "--interfaces", interfaces_path,
+                        "--ai_service", service_name,
+                        "--model", model_name,
+                        "--output", output_file,
+                        "--config", config_path,
+                        "--temperature", str(temperature),
+                        "--repeat", "1"  # We handle repeats at this level
+                    ]
+                    
+                    # Log the command
+                    logger.info(f"Running: {' '.join(cmd)}")
+                    
+                    # Track usage
+                    usage_data = {
+                        "timestamp": datetime.now().isoformat(),
+                        "ai_service": service_name,
+                        "model": model_name,
+                        "temperature": temperature,
+                        "run_number": repeat_num,
+                        "num_interfaces": num_interfaces
+                    }
+                    
+                    # Add token/cost estimates
+                    usage_data.update(estimate_tokens_and_cost(service_name, model_name, num_interfaces))
+                    
+                    try:
+                        # Run the assessment
+                        start_time = time.time()
+                        result = subprocess.run(cmd, check=True)
+                        end_time = time.time()
+                        
+                        elapsed_time = end_time - start_time
+                        logger.info(f"Assessment completed in {elapsed_time:.2f} seconds: {output_file}")
+                        
+                        # Update usage tracking
+                        update_usage_tracking(usage_file, usage_data)
+                        
+                    except subprocess.CalledProcessError as e:
+                        logger.error(f"Assessment failed: {e}")
+                        continue
+                        
+                    # Add a delay between runs to avoid rate limiting
+                    time.sleep(2)
     
     logger.info("All assessments completed")
+    logger.info(f"API usage tracking saved to {usage_file}")
 
 def main():
     """Main function to parse arguments and run assessments."""
-    parser = argparse.ArgumentParser(description="Run Multiple UI Assessments")
+    parser = argparse.ArgumentParser(description="Run Multiple UI Assessments with Simulations")
     parser.add_argument("--interfaces", required=True, help="Path to interfaces JSON file")
     parser.add_argument("--config", default="config.json", help="Path to configuration file")
     parser.add_argument("--output_dir", default="results", help="Directory to save assessment results")
+    parser.add_argument("--temperatures", type=float, nargs="+", default=[0.0], help="Temperature values to use")
+    parser.add_argument("--repeats", type=int, default=1, help="Number of times to repeat each assessment")
+    parser.add_argument("--services", nargs="+", help="Specific AI services to use (e.g., anthropic openai)")
+    parser.add_argument("--models", nargs="+", help="Specific models to use (e.g., claude-3-opus-20240229 gpt-4o)")
     
     args = parser.parse_args()
     
     try:
-        run_assessments(args.interfaces, args.config, args.output_dir)
+        run_multiple_assessments(
+            args.interfaces, 
+            args.config, 
+            args.output_dir, 
+            args.temperatures, 
+            args.repeats,
+            args.services,
+            args.models
+        )
     except Exception as e:
         logger.error(f"Error running assessments: {e}")
         return 1
