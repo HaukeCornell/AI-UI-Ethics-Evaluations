@@ -1,0 +1,991 @@
+------------------------------------------------------------------------
+
+---
+title: "Survey on Social Media Usage, Problems and Dark Patterns"
+output: html_document
+date: "2024-02-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(modelr)
+library(dplyr)
+library(plyr)
+library(readxl)
+library(reshape2)
+library(hrbrthemes)
+library(viridis)
+library(plotly)
+library(writexl)
+#library(data.table)
+```
+
+```{r data, include=FALSE}
+
+## Loading all the data
+
+# Whole Data saved in MaData
+MaData <- read_excel("/Users/hgs52/Library/CloudStorage/GoogleDrive-hgs52@cornell.edu/My Drive/Bright Patterns/Master Doris - Bright Patterns/data_social-media-usage_2024-02-22_11-14.xlsx")
+
+# Finished Surveys: wenn angegeben wurde, welche SM Plattformen verwendet werden und demografische Seite (Seite 10) abgeschlossen wurde 
+FinishedUser <- filter(MaData, (US01_14 == 1 | US01_14 == 2) & LASTPAGE == 12)
+FinishedUser <- FinishedUser[-(which(FinishedUser$CASE %in% "216")),] # remove my testrun
+
+# Dividing into Users and Non-Users
+NonUser <- filter(FinishedUser, US01_14 == 2)
+User <- filter(FinishedUser, US01_14 == 1)
+
+```
+
+#### Participants
+
+```{r participantsCount, echo=FALSE}
+# avg completion time FinishedUsers
+durationTimesFinishedUser <- as.numeric(FinishedUser$TIME_SUM)
+avgTimeFinishedUser <- mean(durationTimesFinishedUser)/60 #vermutlich ca 12min
+
+# avg completion time Users
+durationTimesUser <- as.numeric(User$TIME_SUM)
+avgTimeUser <- mean(durationTimesUser)/60 #vermutlich ca 12min
+
+# avg completion time Non-Users
+durationTimesNonUser <- as.numeric(NonUser$TIME_SUM)
+avgTimeNonUser <- mean(durationTimesNonUser)/60 #vermutlich ca 2min
+
+tableOfAllPpl <- matrix(ncol=3, nrow=3)
+
+tableOfAllPpl[1,] <- c('All Participants:', nrow(FinishedUser), avgTimeFinishedUser)
+tableOfAllPpl[2,] <- c('User:', nrow(User), avgTimeUser)
+tableOfAllPpl[3,] <- c('Non-User:', nrow(NonUser), avgTimeNonUser)
+
+colnames(tableOfAllPpl) <- c('participants', 'n', 'avg completion time')
+tableOfAllPpl
+
+```
+
+# Social Media Usage
+
+## Used Platforms
+
+```{r platforms, echo=FALSE}
+
+usgDat <- data.frame(FinishedUser$CASE, FinishedUser$US01_01, FinishedUser$US01_02, FinishedUser$US01_03, FinishedUser$US01_04, FinishedUser$US01_05, FinishedUser$US01_06, FinishedUser$US01_07, FinishedUser$US01_08, FinishedUser$US01_09, FinishedUser$US01_10, FinishedUser$US01_11, FinishedUser$US01_13, FinishedUser$US01_14)
+
+colnames(usgDat) <- c("User.CASE", "Facebook", "Instagram", "TikTok", "Snapchat", "LinkedIn", "BeReal", "Reddit", "YouTube", "Twitter/X", "Pinterest", "Twitch", "Other", "None")
+
+usgDatMelt <- melt(usgDat, na.rm = FALSE, id.vars = c("User.CASE"))
+
+usgDatMelt<-usgDatMelt[!(usgDatMelt$value=="1"),]
+table(usgDatMelt$variable)
+
+usgDatMelt %>% 
+  ggplot(aes(x = variable)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "Platform", title = "Which social media platforms do you engage with on a daily basis?") +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+#Other Platforms used
+usgDatOther <- FinishedUser$US01_13a
+usgDatOther <- na.omit(FinishedUser$US01_13a) #removing NA values
+
+print('Others:') 
+usgDatOther[1:length(which(usgDatMelt$variable == "Other"))]
+
+```
+
+## Manipulative Platforms
+
+```{r maniPlatform, echo=FALSE}
+
+maniPlatforms2 <- data.frame(User$CASE, User$ID02_01, User$ID02_02, User$ID02_03, User$ID02_04, User$ID02_05, User$ID02_06, User$ID02_07, User$ID02_08, User$ID02_09, User$ID02_10, User$ID02_11)
+
+# Specify statements
+names(maniPlatforms2) <- c(CASE="CASE",
+                           ID02_01="Facebook",
+                           ID02_02="Instagram",
+                           ID02_03="TikTok",
+                           ID02_04="Snapchat",
+                           ID02_05="Linkedin",
+                           ID02_06="BeReal",
+                           ID02_07="Reddit",
+                           ID02_08="YouTube",
+                           ID02_09="Twitter/X",
+                           ID02_10="Pinterest",
+                           ID02_11="Twitch")
+
+maniPlatforms2Melt <- melt(maniPlatforms2, na.rm = FALSE, id.vars = c("CASE"))
+
+# Create category column
+category <- c()
+for (x in 1:nrow(maniPlatforms2Melt)) {
+  
+  category <- c(category, switch(maniPlatforms2Melt$value[x], "1" = "not manipulative", "2" =  "somewhat manipulative", "3" = "manipulative", "4" = "strongly manipulative", " -1" = "don't know", " -9" = "Not answered", `NA` = "Not answered", .default = "Not answered"))
+  
+}
+maniPlatforms2Melt$category <- category
+
+facLevels <- c('Not answered', "don't know", 'not manipulative', 'somewhat manipulative', 'manipulative', 'strongly manipulative')
+
+maniPlatforms2Melt %>% 
+  ggplot(aes(x = variable, fill = factor(category, levels = facLevels))) +
+  geom_bar() +
+  labs(y = "People", x = "", title = "Indicate to which degree you perceive the following social media platforms as manipulative") + 
+  geom_text(aes(label=after_stat(count)), stat = "count", position = position_stack(vjust = .5), colour = "white") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  #coord_flip() +
+  scale_fill_manual(values=c('#C1C1C1', '#D9D9D9', '#8DCA7D', '#FE7A58', '#FE462E', '#EE220C' )) +
+  guides(fill=guide_legend(title=""))
+
+```
+
+## Usage / Habits
+
+```{r usage, echo=FALSE}
+
+durDat <- data.frame(User$CASE, User$US02)
+
+colnames(durDat) <- c("User.CASE", "Duration")
+
+durDat %>% 
+  ggplot(aes(x = Duration)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", title = "On average, how much time do you spend on social media each day?") + scale_x_discrete(labels=c('1' = '0 - 30 minutes', '2' = '30 minutes - 1 hour', '3' =  '1 - 2 hours',  '4' = '2 - 3 hours', '5' = '3 - 4 hours', '6' = '4 - 5 hours', '7' = '5+ hours', ' -9' = 'Not answered')) + geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+```{r privacyPolicy, echo=FALSE}
+
+privacyPolicyDat <- data.frame(User$CASE, User$US04)
+
+colnames(privacyPolicyDat) <- c("User.CASE", "privacyPolicy")
+
+privacyPolicyDat %>% 
+  ggplot(aes(x = privacyPolicy)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "Privacy Policy Read", title = "Have you ever read the privacy policy of any social media platform?") + scale_x_discrete(labels=c('1' = 'Yes', '2' = 'Some parts of it', '3' =  'No', ' -9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+```
+
+```{r privacySettings, echo=FALSE}
+
+privacySettingsDat <- data.frame(User$CASE, User$US05)
+
+colnames(privacySettingsDat) <- c("User.CASE", "privacySettings")
+
+privacySettingsDat %>% 
+  ggplot(aes(x = privacySettings)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "Privacy Settings Changed", title = "Have you ever changed your privacy settings on any social media platform?") + scale_x_discrete(labels=c('1' = 'Yes', '2' =  'No', ' -9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+```
+
+```{r timeTracking, echo=FALSE}
+
+timeTrackingDat <- data.frame(User$CASE, User$US06)
+
+colnames(timeTrackingDat) <- c("User.CASE", "timeTracking")
+
+timeTrackingDat %>% 
+  ggplot(aes(x = timeTracking)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "Time Tracking Used", title = "Have you ever used time tracking apps or features to control your daily social media usage?") + scale_x_discrete(labels=c('1' = 'Yes', '2' =  'No', ' -9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+```
+
+```{r timeReduction, echo=FALSE}
+
+timeRed <- data.frame(User$CASE, User$US07, User$US08)
+
+colnames(timeRed) <- c("User.CASE", "timeReduction", "successful")
+
+# Remove rows with na in timeReduction column
+timeReductionDat <- timeRed[!is.na(timeRed$timeReduction),]
+
+# Create category column
+category <- c()
+for (x in 1:length(timeReductionDat$successful)) {
+  
+  if (timeReductionDat$timeReduction[x] == '1') {
+    category <- c(category, switch(timeReductionDat$successful[x], '1' = 'I reduced the time drastically', '2' = 'I reduced the time a little bit', '3' = "I didn't reduce the time", " -9" = "Not answered", `NA` = 'Not answered', .default = 'Not answered'))
+  } else {
+    category <- c(category,'Not applicable')
+  }
+  
+}
+timeReductionDat$category <- category
+
+p <- timeReductionDat %>% 
+  ggplot(aes(x = timeReduction, fill = category)) +
+  geom_bar() +
+  labs(y = "People", x = "Time Reduction Attempt", title = "Have you ever tried to reduce the amount of time you spend on social media?") + 
+  scale_x_discrete(labels=c('1' = 'Yes', '2' =  'No', ' -9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", position = position_stack(vjust = .5), colour = "white") +
+  scale_fill_manual(values=c('#FE7A58', '#82A871', '#8DCA7D', '#C1C1C1', '#D9D9D9')) + 
+  guides(fill = guide_legend(title = "Were you able to achieve success?"))
+
+ggsave(p, file=paste0("time-reduction-attempt.png"), dpi=300)
+
+```
+
+```{r notifications, echo=FALSE}
+
+notificationsDat <- data.frame(User$CASE, User$US09)
+
+colnames(notificationsDat) <- c("User.CASE", "notifications")
+
+notificationsDat %>% 
+  ggplot(aes(x = notifications)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "Notifications Enabled", title = "Are the notifications for your social media accounts currently enabled?") + scale_x_discrete(labels=c('1' = 'Yes', '2' = 'Occasionally / for certain apps', '3' =  'No', ' -9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+```
+
+# Social Media Problems
+
+```{r problems, include=FALSE}
+
+options(digits=2)
+
+require(likert)
+
+# Levels (1=strongly disagree, 2=agree,...)
+mylevels <- c('strongly disagree','disagree','somewhat disagree','neither agree nor disagree','somewhat agree','agree','strongly agree')
+#mylevels <- c('strongly disagree','disagree','somewhat disagree','neither agree nor disagree','somewhat agree','agree','strongly agree', "don't know",'not answered')
+
+```
+
+## Time related problems
+
+```{r timeRelatedProbs, echo=FALSE}
+
+# Set names of columns
+listTimeRelatedProb <- c("PR01_01","PR01_02","PR01_03","PR01_04","PR01_05","PR01_06","PR01_07","PR01_08")
+
+# Save columns into new data.frame
+problemTimeDat <- User %>%
+  select(listTimeRelatedProb[1]:listTimeRelatedProb[length(listTimeRelatedProb)])
+
+# Change numbers to meaning
+problemTimeDat <- problemTimeDat %>% 
+  mutate_at(listTimeRelatedProb, ~ dplyr::recode(., 
+                                                 '1' = mylevels[1], 
+                                                 '2' = mylevels[2],
+                                                 '3' = mylevels[3],
+                                                 '4' = mylevels[4],
+                                                 '5' = mylevels[5],
+                                                 '6' = mylevels[6],
+                                                 '7' = mylevels[7],
+                                                 ' -1' = "don't know",
+                                                 ' -9' = 'not answered',
+                                                 .default = 'NaN'))
+
+# Convert char to factor
+problemTimeDat <- as.data.frame(unclass(problemTimeDat), stringsAsFactors = TRUE)
+
+# recode each factor and explicitly set the levels
+for(i in seq_along(problemTimeDat)) {
+  problemTimeDat[,i] <- factor(problemTimeDat[,i], levels=mylevels)
+}
+
+# Specify statements
+names(problemTimeDat) <- c(
+  PR01_01="I am satisfied with the amount of time I spend on social media",
+  PR01_02="I usually spend more time on social media than initially intended",
+  PR01_03="There are instances when I regret the time spent on social media",
+  PR01_04="I sometimes find myself scrolling through social media instead of focusing on the task at hand",
+  PR01_05="I find myself looking at my phone every time there is a notification",
+  PR01_06="I frequently interrupt my ongoing activities to access social media",
+  PR01_07="It would be difficult to live without social media",
+  PR01_08="I consider myself as addicted to social media")
+
+# Create likert scale
+likProblemTime <- likert(problemTimeDat)
+p = plot(likProblemTime, centered = TRUE, low.color = 'maroon') + 
+  guides(fill = guide_legend(title = NULL, direction = "horizontal", nrow = 4)) 
+
+p
+
+ggsave(p, file=paste0("problem_time.png"), dpi=300)
+
+```
+
+## Content related problems
+
+```{r contentRelatedProbs, echo=FALSE}
+
+# Set names of columns
+listContRelatedProb <- c("PR02_01","PR02_02","PR02_03","PR02_04","PR02_05","PR02_06","PR02_07")
+
+# Save columns into new data.frame
+problemContDat <- User %>%
+  select(listContRelatedProb[1]:listContRelatedProb[length(listContRelatedProb)])
+
+# Change numbers to meaning
+problemContDat <- problemContDat %>% 
+  mutate_at(listContRelatedProb, ~ dplyr::recode(., 
+                                                 '1' = mylevels[1], 
+                                                 '2' = mylevels[2],
+                                                 '3' = mylevels[3],
+                                                 '4' = mylevels[4],
+                                                 '5' = mylevels[5],
+                                                 '6' = mylevels[6],
+                                                 '7' = mylevels[7], 
+                                                 .default = 'NaN'))
+
+# Convert char to factor
+problemContDat <- as.data.frame(unclass(problemContDat), stringsAsFactors = TRUE)
+
+# recode each factor and explicitly set the levels
+for(i in seq_along(problemContDat)) {
+  problemContDat[,i] <- factor(problemContDat[,i], levels=mylevels)
+}
+
+# Specify statements
+names(problemContDat) <- c(
+  PR02_01="I filter the content I consume online",
+  PR02_02="I sometimes find myself looking at meaningless content ",
+  PR02_03="There are instances when I regret the time I spent watching random content on social media",
+  PR02_04="I want to have control over the information that social media uses for content personalization",
+  PR02_05="I believe I have control over the information that social media uses for content personalization",
+  PR02_06="I fact-check news articles or information I read on social media",
+  PR02_07="I believe that social media spreads fake news")
+
+# Create likert scale
+likProblemCont <- likert(problemContDat)
+p <- plot(likProblemCont, centered = TRUE, low.color = 'maroon') + guides(fill = guide_legend(title = NULL, direction = "horizontal", nrow = 4))
+
+ggsave(p, file=paste0("problem_content.png"), dpi=300)
+```
+
+## Privacy related problems
+
+```{r priRelatedProbs, echo=FALSE}
+
+# Set names of columns
+listPriRelatedProb <- c("PR03_01","PR03_02","PR03_03","PR03_04")
+
+# Save columns into new data.frame
+problemPriDat <- User %>%
+  select(listPriRelatedProb[1]:listPriRelatedProb[length(listPriRelatedProb)])
+
+# Change numbers to meaning
+problemPriDat <- problemPriDat %>% 
+  mutate_at(listPriRelatedProb, ~ dplyr::recode(., 
+                                                '1' = mylevels[1], 
+                                                '2' = mylevels[2],
+                                                '3' = mylevels[3],
+                                                '4' = mylevels[4],
+                                                '5' = mylevels[5],
+                                                '6' = mylevels[6],
+                                                '7' = mylevels[7], 
+                                                .default = 'NaN'))
+
+# Convert char to factor
+problemPriDat <- as.data.frame(unclass(problemPriDat), stringsAsFactors = TRUE)
+
+# recode each factor and explicitly set the levels
+for(i in seq_along(problemPriDat)) {
+  problemPriDat[,i] <- factor(problemPriDat[,i], levels=mylevels)
+}
+
+# Specify statements
+names(problemPriDat) <- c(
+  PR03_01="I perceive the content and ads I see on social media as an invasion into my privacy",
+  PR03_02="I am concerned about my privacy and security on social media platforms",
+  PR03_03="I am concerned about the amount of personal information social media companies possess about me",
+  PR03_04="I believe I have control over the personal information collected by social media companies about me")
+
+# Create likert scale
+likProblemPri <- likert(problemPriDat)
+p <- plot(likProblemPri, centered = TRUE, low.color = 'maroon') + guides(fill = guide_legend(title = NULL, direction = "horizontal", nrow = 4))
+
+ggsave(p, file=paste0("problem_privacy.png"), dpi=300)
+```
+
+## Well-being related problems
+
+```{r wellRelatedProbs, echo=FALSE}
+
+# Set names of columns
+listWellRelatedProb <- c("PR04_01","PR04_02","PR04_03","PR04_04","PR04_05","PR04_06","PR04_07","PR04_08","PR04_09")
+
+# Save columns into new data.frame
+problemWellDat <- User %>%
+  select(listWellRelatedProb[1]:listWellRelatedProb[length(listWellRelatedProb)])
+
+# Change numbers to meaning
+problemWellDat <- problemWellDat %>% 
+  mutate_at(listWellRelatedProb, ~ dplyr::recode(., 
+                                                 '1' = mylevels[1], 
+                                                 '2' = mylevels[2],
+                                                 '3' = mylevels[3],
+                                                 '4' = mylevels[4],
+                                                 '5' = mylevels[5],
+                                                 '6' = mylevels[6],
+                                                 '7' = mylevels[7], 
+                                                 .default = 'NaN'))
+
+# Convert char to factor
+problemWellDat <- as.data.frame(unclass(problemWellDat), stringsAsFactors = TRUE)
+
+# recode each factor and explicitly set the levels
+for(i in seq_along(problemWellDat)) {
+  problemWellDat[,i] <- factor(problemWellDat[,i], levels=mylevels)
+}
+
+# Specify statements
+names(problemWellDat) <- c(
+  PR04_01="Social media has a positive impact on my mental well-being",
+  PR04_02="Social media has a negative impact on my mental well-being",
+  PR04_03="I compare myself to the people I am connected on social media",
+  PR04_04="The number of friends/followers I have is a representation of people’s approval of me",
+  PR04_05="I envy others' lives based on the snippets they share on social media",
+  PR04_06="Gaining new connections, likes, or positive comments on social media boosts my self-esteem",
+  PR04_07="Losing connections or receiving only a few likes/comments on social media leads to a decrease in my self-esteem",
+  PR04_08="Using social media creates a sense of belonging and connection with others",
+  PR04_09="Using social media makes me feel lonely")
+
+# Create likert scale
+likProblemWell <- likert(problemWellDat)
+p <- plot(likProblemWell, centered = TRUE, low.color = 'maroon') + guides(fill = guide_legend(title = NULL, direction = "horizontal", nrow = 4))
+
+ggsave(p, file=paste0("problem_wellBeing.png"), dpi=300)
+
+```
+
+## Unfavorable Feature
+
+```{r unfavorableFeature, echo=FALSE}
+
+unfavFeat <- na.omit(data.frame(User$PR05_01))
+unfavFeat
+
+nrow(unfavFeat)
+
+```
+
+## Ideas for Changes
+
+```{r ideaChanges, echo=FALSE}
+
+ideasChanges <- na.omit(data.frame(User$ID01_01))
+ideasChanges
+
+nrow(ideasChanges)
+
+```
+
+# Social Media Dark Patterns
+
+```{r datenAufbereiten, include=FALSE}
+
+#adjectives <- c("enjoyable", "unpredictable", "supportive", "interesting", "complicated", "pressuring", "inefficient", "clear", "addictive", "deceptive", "organized", "friendly", "revealed", "boring", "User.CASE")
+
+#posAdjectives <- c("enjoyable", "predictable", "supportive", "interesting", "easy", "suggesting", "efficient", "clear", "nonAddictive", "benevolent", "organized", "friendly", "revealed", "exciting", "User.CASE")
+
+negAdjectives <- c("annoying", "unpredictable", "obstructive", "not interesting", "complicated", "pressuring", "inefficient", "confusing", "addictive", "deceptive", "cluttered", "unfriendly", "covert", "boring", "User.CASE")
+
+toChangeAdjectives <- c("unpredictable", "complicated", "pressuring", "inefficient", "addictive", "deceptive", "boring", "User.CASE")
+
+# Order the negative adjectives
+negLabels <- c("pressuring", "addictive", "covert", "deceptive", "boring", "not interesting", "complicated", "confusing", "inefficient", "cluttered", "unpredictable", "obstructive", "annoying", "unfriendly")
+
+counterparts <- c("pressuring" = "suggesting", "addictive" = "non addictive", "covert" = "revealed", "deceptive" = "benevolent", "boring" = "exciting", "not interesting" = "interesting", "complicated" =  "easy", "confusing" = "clear", "inefficient" = "efficient", "cluttered" = "organized", "unpredictable" = "predictable", "obstructive" = "supportive", "annoying" = "enjoyable", "unfriendly" = "friendly")
+
+# Create dark pattern boxplots and histograms
+dp_plots = list()
+dp_plotsHisto = list()
+
+# Table of all Dark Patterns
+allDpTable <- data.frame(matrix(NA, nrow = 1, ncol = 12))
+colnames(allDpTable) <- c("Name", "Mean", "Mean UEQ", "Attractiveness", "Dependability", "Efficiency", "Pressure", "Addiction", "Covert", "Deception", "Perspicuity", "Stimulation")
+
+allDpPerItemsTable <- data.frame(matrix(NA, nrow = 1, ncol = 15))
+colnames(allDpPerItemsTable) <- c("Name", "pressuring", "addictive", "covert", "deceptive", "boring", "not interesting", "complicated", "confusing", "inefficient", "cluttered", "unpredictable", "obstructive", "annoying", "unfriendly")
+
+```
+
+Based on the dpLoop code chunk and the context provided, here's how to count -1 values per item per pattern:
+
+```{r}
+# Create empty data frame for storing -1 counts
+negOneCountTable <- data.frame(matrix(ncol = 15, nrow = 15))
+colnames(negOneCountTable) <- c("Dark Pattern", negLabels)
+
+# Loop through all dark patterns
+for (number in 1:15) {
+# Get dark pattern name
+dp_name <- switch(number, 
+"1"="Nagging", "2"="Overcomplicated Process", "3"="Hindering Account Deletion",
+"4"="Sneaking Bad Default", "5"="Expectation Result Mismatch", "6"="False Hierarchy",
+"7"="Trick Wording", "8"="Toying With Emotion", "9"="Forced Access", "10"="Gamification",
+"11"="Social Pressure", "12"="Social Connector", "13"="Content Customization",
+"14"="Endlessness", "15"="Pull To Refresh")
+
+# Generate column names
+colDat <- paste0("DP", sprintf("%02d", number), "_", sprintf("%02d", 1:14))
+
+# Get data for this dark pattern
+dpDat <- User[, colDat]
+
+# Count -1 values for each column
+neg_one_counts <- sapply(dpDat, function(x) sum(x == -1 | x == " -1", na.rm = TRUE))
+
+# Add to table
+negOneCountTable[number,] <- c(dp_name, neg_one_counts)
+}
+
+# Convert numeric columns to numeric
+negOneCountTable[,-1] <- lapply(negOneCountTable[,-1], as.numeric)
+
+# Write to Excel
+write_xlsx(negOneCountTable, "negative_one_counts.xlsx")
+```
+
+
+```{r dpLoop, echo=FALSE}
+# Loop through all dark patterns
+for (number in 1:15) {
+  
+  dp_name = switch(number, "01"="Nagging", "02"="Overcomplicated Process", "03"="Hindering Account Deletion", "04"="Sneaking Bad Default", "05"="Expectation Result Mismatch", "06"="False Hierarchy", "07"="Trick Wording", "08"="Toying With Emotion", "09"="Forced Access", "10"="Gamification", "11"="Social Pressure", "12"="Social Connector", "13"="Content Customization", "14"="Endlessness", "15"="Pull To Refresh", "default")
+  
+  # Set number of Dark Pattern
+  number <- if(number < 10) gsub(' ','', paste('0', number)) else number
+  
+  # column names
+  colDat <- c()
+  for (x in 1:9) {
+    colDat[x] <- gsub(' ','', paste('DP',number,'_0',x))
+  }
+  for (x in 10:14) {
+    colDat[x] <- gsub(' ','', paste('DP',number,'_',x))
+  }
+  
+  # Save columns into new data.frame
+  dpDat <- User %>%
+    select(colDat[1]:colDat[length(colDat)])
+  dpDat$User.CASE <- User$CASE
+  
+  # Set column names
+  colnames(dpDat) <- negAdjectives
+  
+  # Changing columns to one column
+  dpDatMelt <- melt(dpDat, na.rm = FALSE, id.vars = c("User.CASE"))
+  
+  # Removing NA values
+  dpDatMelt <- na.omit(dpDatMelt)
+  
+  #dpDatMelt mit -1 values (-1 = Keine Angabe)
+  dpDatMeltMitKA <- dpDatMelt
+  
+  # Removing -1 values
+  dpDatMelt <- dpDatMelt[dpDatMelt$value != "-1", ]
+  dpDatMelt <- dpDatMelt[dpDatMelt$value != " -1", ]
+  
+  # Change numbers for inverted adjectives
+  for (row in 1:nrow(dpDatMelt)) {
+    
+    vari <- dpDatMelt[row, "variable"]
+    
+    if(vari %in% toChangeAdjectives) {
+      
+      dpDatMelt[row, "value"] <- switch(dpDatMelt[row, "value"], '1' = '7', '2' = '6', '3' = '5', '4' = '4', '5' = '3', '6' = '2', '7' = '1', ' -1' = ' -1', 'default')
+      
+    }
+  }
+  
+  # Change number spectrum from [1,7] to [3,-3]
+  for (row in 1:nrow(dpDatMelt)) {
+    dpDatMelt[row, "value"] <- switch(dpDatMelt[row, "value"], '1' = '3', '2' = '2', '3' = '1', '4' = '0', '5' = '-1', '6' = '-2', '7' = '-3', 'default')
+  }
+  
+  # Set numeric numbers
+  dpDatMelt$value <- as.numeric(dpDatMelt$value)
+  
+  # Create category column
+  category <- c()
+  for (x in dpDatMelt$variable) {
+    category <- c(category, switch(x, "annoying"="attractiveness", "unfriendly"="attractiveness", "complicated"="perspicuity", "confusing"="perspicuity", "inefficient"="efficiency", "cluttered"="efficiency", "unpredictable"="dependability", "obstructive"="dependability", "boring"="stimulation", "not interesting"="stimulation", "pressuring"="manipulation items", "addictive"="manipulation items", "covert"="manipulation items", "deceptive"="manipulation items", "default"))
+    
+  }
+  dpDatMelt$category <- category
+  
+  # Order the negative adjectives
+  dpDatMelt$variable <- factor(dpDatMelt$variable, levels = c("pressuring", "addictive", "covert", "deceptive", "boring", "not interesting", "complicated", "confusing", "inefficient", "cluttered", "unpredictable", "obstructive", "annoying", "unfriendly"))
+  
+  
+  # Create dark pattern boxplot
+  means <- aggregate(value ~ variable, dpDatMelt, mean)
+  
+  dp_plots[[number]] <- ggplot(dpDatMelt, aes(x = variable, y = value, fill = category, color = category)) +
+    geom_boxplot(na.rm=TRUE) +
+    stat_summary(fun=mean, geom="point", shape=18, color="black", na.rm=TRUE) +
+    stat_summary(fun=mean, geom="text", color="black", hjust = -0.7, aes(label=round(after_stat(y), digits=2)), na.rm=TRUE) + 
+    scale_fill_viridis(discrete = TRUE, alpha = 0.6) +
+    scale_color_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(legend.position = c(0.3,-0.13), legend.direction = "horizontal") +
+    coord_flip() +
+    xlab('') +
+    ylab('') +
+    ggtitle(dp_name) +
+    theme(plot.title = element_text(hjust = 0, vjust = 0)) +
+    scale_y_continuous(breaks = c(-2,0,2), minor_breaks = c(-3,-1,1,3))
+  
+  for (i in 1:length(counterparts)) {
+    dp_plots[[number]] <- dp_plots[[number]] +
+      annotate("text", x = i, y = 3.5, label = counterparts[i], hjust = 0,vjust = 0.5) + expand_limits(y=c(1,7))+
+      theme(panel.grid.major.y = element_blank())
+  }
+  
+  print(dp_plots[[number]])
+  ggsave(dp_plots[[number]], file=paste0("boxplot_", dp_name,".png"), width = 14, height = 14, units = "cm", dpi=300)
+  
+  
+  # Create dark pattern histogram
+  dp_plotsHisto[[number]] <- ggplot(dpDatMelt, aes(x = value, fill = category)) +
+    geom_histogram(bins=7, color = "black") +
+    theme_minimal() +
+    ggtitle(dp_name) +
+    scale_y_continuous(breaks = c(0, 10, 20, 30)) +
+    facet_wrap(~variable, nrow = 7, strip.position = "bottom") #+
+  #geom_text(aes(label = dpDatMelt$value), stat = dpDatMelt$value, position = position_stack(vjust = .5), colour = "white")
+  
+  print(dp_plotsHisto[[number]])
+  ggsave(dp_plotsHisto[[number]], file=paste0("histogram_", dp_name,".png"), width = 20, height = 30, units = "cm", dpi=300)
+  
+  
+  # Table of how many did / did not answer each item
+  tableOfPpl <- matrix(ncol=4, nrow=length(negLabels))
+  
+  for (i in 1:length(negLabels)) {
+    
+    adjName <- negLabels[i]
+    datafr <- dpDatMeltMitKA[which(dpDatMeltMitKA$variable %in% adjName),]
+    
+    anzahlEval <- nrow(datafr[-(which(datafr$value %in% " -1")),])
+    anzahlNotEval <- nrow(datafr[(which(datafr$value %in% " -1")),])
+    anzahlAll <- anzahlEval+anzahlNotEval
+    
+    tableOfPpl[length(negLabels)-i+1,] <- c(adjName, anzahlAll, anzahlEval, anzahlNotEval)
+  }
+  colnames(tableOfPpl) <- c('dark pattern', 'shown to ', 'evaluated by ', 'not evaluated by ')
+  print(tableOfPpl)
+  
+  
+  # mean, median, sd
+  dpCalc <- dpDatMelt
+  
+  # table with mean, media, sd per variable
+  print("")
+  tbl_valPerVar <- dpCalc %>%
+    group_by(variable) %>%
+    summarise_at(vars(value), list(mean = mean, median = median, sd = sd))
+  print(tbl_valPerVar)
+  
+  # table with mean, media, sd per group
+  print("")
+  tbl_valPerGr <- dpCalc %>%
+    group_by(category) %>%
+    summarise_at(vars(value), list(mean = mean, median = median, sd = sd))
+  print(tbl_valPerGr)
+  
+  
+  # Fill table of all dark patterns not grouped, just by item
+  allDpPerItemsTable <- rbind(allDpPerItemsTable, c(dp_name, tbl_valPerVar[["mean"]]))
+
+  # Fill table of all dark patterns grouped by scale
+  category2 <- c()
+  for (x in dpDatMelt$variable) {
+    category2 <- c(category2, switch(x, "annoying"="attractiveness", "unfriendly"="attractiveness", "complicated"="perspicuity", "confusing"="perspicuity", "inefficient"="efficiency", "cluttered"="efficiency", "unpredictable"="dependability", "obstructive"="dependability", "boring"="stimulation", "not interesting"="stimulation", "pressuring"="pressure", "addictive"="addictive", "covert"="covert", "deceptive"="deceptive", "default"))
+  }
+  dpDatMelt$category2 <- category2
+  
+  chars <- c("attractiveness", "dependability", "efficiency", "pressure", "addictive", "covert", "deceptive", "perspicuity", "stimulation")
+  
+  allDpTable <- rbind(allDpTable, c(dp_name, round(mean(dpDatMelt[["value"]]),2), round(mean(dpDatMelt[dpDatMelt$category2 == chars[1] | dpDatMelt$category2 == chars[2] | dpDatMelt$category2 == chars[3] | dpDatMelt$category2 == chars[8] | dpDatMelt$category2 == chars[9],"value"]),2), round(mean(dpDatMelt[dpDatMelt$category2 == chars[1], "value"]),2),
+                                    round(mean(dpDatMelt[dpDatMelt$category2 == chars[2], "value"]),2), round(mean(dpDatMelt[dpDatMelt$category2 == chars[3], "value"]),2),
+                                    round(mean(dpDatMelt[dpDatMelt$category2 == chars[4], "value"]),2), round(mean(dpDatMelt[dpDatMelt$category2 == chars[5], "value"]),2),
+                                    round(mean(dpDatMelt[dpDatMelt$category2 == chars[6], "value"]),2), round(mean(dpDatMelt[dpDatMelt$category2 == chars[7], "value"]),2),
+                                    round(mean(dpDatMelt[dpDatMelt$category2 == chars[8], "value"]),2), round(mean(dpDatMelt[dpDatMelt$category2 == chars[9], "value"]),2)))
+}
+
+allDpPerItemsTable <- allDpPerItemsTable[2:nrow(allDpPerItemsTable), ]
+allDpPerItemsTable
+
+write_xlsx(allDpPerItemsTable, "tblPerItem.xlsx")
+
+allDpTable <- allDpTable[2:nrow(allDpTable), ]
+allDpTable
+
+write_xlsx(allDpTable, "tbl.xlsx")
+
+```
+
+
+# Non-Social Media User
+
+```{r nonUserCount, echo=FALSE}
+
+nonUserPpl <- data.frame(NonUser$CASE, NonUser$NU01)
+
+colnames(nonUserPpl) <- c("User.CASE", "usedOrNot")
+
+nonUserPpl %>% 
+  ggplot(aes(x = usedOrNot)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "", title = "Have you used social media in previous years?") + scale_x_discrete(labels=c('1' = 'Yes', '2' =  'No', '-9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+```
+
+## Reasons for not using Social Media
+
+```{r reasonsNotUsing, echo=FALSE}
+
+reasonsDeleted <- data.frame(NonUser$CASE, NonUser$NU02_01, NonUser$NU02_01, NonUser$NU02_02, NonUser$NU02_03, NonUser$NU02_04, NonUser$NU02_05, NonUser$NU02_06, NonUser$NU02_07)
+
+colnames(reasonsDeleted) <- c("CASE", "I rarely used it", "I had negative experiences on the platform(s)", "Reasons related to mental health", "Concerns over data privacy", "Concerns over data security", "To reduce time spent on social media", "Other", "None")
+
+reasonsDeletedMelt <- melt(reasonsDeleted, na.rm = FALSE, id.vars = c("CASE"))
+
+reasonsDeletedMelt<-reasonsDeletedMelt[!(reasonsDeletedMelt$value=="1"),]
+
+reasonsDeletedMelt <- na.omit(reasonsDeletedMelt)
+
+ggplot(reasonsDeletedMelt, aes(x=reasonsDeletedMelt$variable, y=after_stat(count))) + 
+  geom_bar(stat="count", fill="steelblue") +
+  labs(y = "People", x = "", title = "Why did you delete your social media account(s)?") + 
+  geom_text(aes(label=after_stat(count)), stat = "count", position = position_stack(vjust = .5), colour = "white") +
+  coord_flip()
+
+reasonsNeverHad <- data.frame(NonUser$CASE, NonUser$NU04_01, NonUser$NU04_01, NonUser$NU04_02, NonUser$NU04_03, NonUser$NU04_05, NonUser$NU04_06, NonUser$NU04_07)
+
+colnames(reasonsNeverHad) <- c("CASE", "I have negative assumptions with social media", "Reasons related to mental health", "Concerns over data privacy", "Concerns over data security", "I just don’t see the point of using it", "Other", "None")
+
+reasonsNeverHadMelt <- melt(reasonsNeverHad, na.rm = FALSE, id.vars = c("CASE"))
+
+reasonsNeverHadMelt<-reasonsNeverHadMelt[!(reasonsNeverHadMelt$value=="1"),]
+
+reasonsNeverHadMelt <- na.omit(reasonsNeverHadMelt)
+
+ggplot(reasonsNeverHadMelt, aes(x=reasonsNeverHadMelt$variable, y=after_stat(count))) + 
+  geom_bar(stat="count", fill="steelblue") +
+  labs(y = "People", x = "", title = "What factors contribute to your decision not to use social media?") + 
+  geom_text(aes(label=after_stat(count)), stat = "count", position = position_stack(vjust = .5), colour = "white") +
+  coord_flip()
+
+#Other Reasons 
+reasonsNeverHadOther <- NonUser$NU04_07a
+reasonsNeverHadOther <- na.omit(reasonsNeverHadOther) #removing NA values
+
+print('Other reasons:') 
+reasonsNeverHadOther[1:2]
+
+```
+
+## Modifications from Non-User
+
+```{r modifi, echo=FALSE}
+
+print('Modifications from People who deleted Social Media') 
+modificationsDeleted <- na.omit(data.frame(NonUser$NU03_01))
+modificationsDeleted
+
+print('Modifications from People who have never used Social Media') 
+modificationsNeverUsed <- na.omit(data.frame(NonUser$NU05_01))
+modificationsNeverUsed
+
+```
+
+# Sociodemographic Data from Users
+
+```{r gender, echo=FALSE}
+
+gender <- data.frame(User$CASE, User$SD01)
+
+colnames(gender) <- c("User.CASE", "Gender")
+
+gender <- na.omit(gender)
+
+gender %>% 
+  ggplot(aes(x = Gender)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", title = "How do you describe yourself?") + scale_x_discrete(labels=c('1' = 'Female', '2' = 'Male', '3' =  'Non-binary / third gender',  '4' = 'Other', '5' = 'Prefer not to say', ' -9' = 'Not answered')) + geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white") 
+#theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+```{r age, echo=FALSE}
+
+age <- data.frame(User$CASE, User$SD02_01)
+
+colnames(age) <- c("User.CASE", "Age")
+
+age <- na.omit(age)
+
+age %>% 
+  ggplot(aes(x = Age)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", title = "How old are you?") + geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white") 
+
+```
+
+```{r country, echo=FALSE}
+
+country <- data.frame(User$CASE, User$SD03)
+
+colnames(country) <- c("User.CASE", "Country")
+
+country <- na.omit(country)
+
+country %>% 
+  ggplot(aes(x = Country)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", title = "In which country do you currently reside?") + scale_x_discrete(labels=c('1' = 'United States', '2' = 'Austria', '4' = 'Other', ' -9' = 'Not answered')) + geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white") 
+#theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+#Other Countries 
+otherCountry <- User$SD03_04
+otherCountry <- na.omit(otherCountry) #removing NA values
+
+print('Other countries:') 
+otherCountry[1:length(otherCountry)]
+
+```
+
+```{r employment, echo=FALSE}
+
+employment <- data.frame(User$CASE, User$SD04)
+
+colnames(employment) <- c("User.CASE", "Employment")
+
+employment <- na.omit(employment)
+
+employment %>% 
+  ggplot(aes(x = Employment)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "", title = "What best describes your employment status over the last three months?") +
+  scale_x_discrete(labels=c('1' = 'Employed full-time', '2' = 'Employed part-time', '3' = 'Maternity leave/taking care of kids', '4' = 'Student', '5' = 'Retired', '6' = 'Unemployed', '7' = 'Other', ' -9' = 'Not answered')) + geom_text(aes(label=after_stat(count)), stat = "count", position = position_stack(vjust = .5), colour = "white") +
+  coord_flip()
+
+
+#Other Countries 
+otherEmployment <- User$SD04_07
+otherEmployment <- na.omit(otherEmployment) #removing NA values
+
+print('Other employment:') 
+otherEmployment[1:length(otherEmployment)]
+
+```
+
+```{r technicalSavvy, echo=FALSE}
+
+technicalSavvy <- data.frame(User$CASE, User$SD05)
+
+colnames(technicalSavvy) <- c("User.CASE", "technicalSavvy")
+
+technicalSavvy <- na.omit(technicalSavvy)
+
+technicalSavvy %>% 
+  ggplot(aes(x = technicalSavvy)) +
+  geom_bar(fill = "steelblue") +
+  labs(y = "People", x = "", title = "Would you consider yourself technically savvy?") + scale_x_discrete(labels=c('1' = 'Yes', '2' = 'A bit', '3' =  'No', ' -9' = 'Not answered')) +
+  geom_text(aes(label=after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+```
+
+# Feedback
+
+```{r feedback, echo=FALSE}
+
+print('Feedback from participants') 
+feedback <- na.omit(data.frame(FinishedUser$GF01_01))
+feedback
+
+```
+
+# Add standard deviation table
+
+```{r}
+allDpPerItemsTable <- data.frame(matrix(NA, nrow = 1, ncol = 29))
+colnames(allDpPerItemsTable) <- c("Name", 
+                                  "pressuring", "pressuring_sd",
+                                  "addictive", "addictive_sd",
+                                  "covert", "covert_sd",
+                                  "deceptive", "deceptive_sd",
+                                  "boring", "boring_sd",
+                                  "not interesting", "not interesting_sd",
+                                  "complicated", "complicated_sd",
+                                  "confusing", "confusing_sd",
+                                  "inefficient", "inefficient_sd",
+                                  "cluttered", "cluttered_sd",
+                                  "unpredictable", "unpredictable_sd",
+                                  "obstructive", "obstructive_sd",
+                                  "annoying", "annoying_sd",
+                                  "unfriendly", "unfriendly_sd")
+# Loop through all dark patterns
+for (number in 1:15) {
+  
+  dp_name <- switch(number, "01"="Nagging", "02"="Overcomplicated Process", "03"="Hindering Account Deletion", 
+                             "04"="Sneaking Bad Default", "05"="Expectation Result Mismatch", "06"="False Hierarchy", 
+                             "07"="Trick Wording", "08"="Toying With Emotion", "09"="Forced Access", "10"="Gamification", 
+                             "11"="Social Pressure", "12"="Social Connector", "13"="Content Customization", 
+                             "14"="Endlessness", "15"="Pull To Refresh", "default")
+  
+  # Generate column names based on actual naming convention in your dataset
+colDat <- c(paste0("DP", sprintf("%02d", number), "_", sprintf("%02d", 1:14)))
+
+# Check if all columns exist before selecting
+validCols <- colDat[colDat %in% colnames(User)]
+
+if (length(validCols) > 0) {
+  # Save columns into a new data frame
+  dpDat <- User %>% select(all_of(validCols))
+  dpDat$User.CASE <- User$CASE
+  
+  # Continue with data processing...
+} else {
+  warning(paste("No valid columns found for pattern", dp_name))
+}
+
+  
+  # Save columns into a new data frame
+  dpDat <- User %>% select(all_of(colDat))
+  dpDat$User.CASE <- User$CASE
+  
+  # Melt and clean data
+  dpDatMelt <- dpDat %>%
+    pivot_longer(-User.CASE, names_to = "variable", values_to = "value") %>%
+    filter(!is.na(value), value != -1)
+  
+  # Convert to numeric and adjust values
+  dpDatMelt <- dpDatMelt %>%
+    mutate(value = as.numeric(value), 
+           value = ifelse(variable %in% toChangeAdjectives, 8 - value, value))
+  
+  # Calculate mean and SD for each variable
+  tbl_valPerVar <- dpDatMelt %>%
+    group_by(variable) %>%
+    summarise(mean = mean(value, na.rm = TRUE), sd = sd(value, na.rm = TRUE))
+  
+  # Add to `allDpPerItemsTable`
+  new_row <- c(dp_name, 
+               as.vector(t(tbl_valPerVar %>% select(mean, sd))))
+  allDpPerItemsTable <- rbind(allDpPerItemsTable, new_row)
+}
+
+# Remove the initial placeholder row
+allDpPerItemsTable <- allDpPerItemsTable[-1, ]
+
+# Save the table
+write_xlsx(allDpPerItemsTable, "tblPerItem_with_SD.xlsx")
+
+```
