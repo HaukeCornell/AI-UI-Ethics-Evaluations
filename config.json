@@ -3,9 +3,6 @@
     "anthropic": {
       "models": [
         "claude-3-opus-20240229",
-        "claude-3-sonnet-20240229",
-        "claude-3-haiku-20240307",
-        "claude-3.5-sonnet-20240620"
       ],
       "endpoint": "https://api.anthropic.com/v1/messages",
       "headers": {
@@ -15,9 +12,7 @@
     },
     "openai": {
       "models": [
-        "gpt-4-vision-preview",
         "gpt-4-turbo",
-        "gpt-4o"
       ],
       "endpoint": "https://api.openai.com/v1/chat/completions",
       "headers": {
@@ -26,8 +21,7 @@
     },
     "qwen": {
       "models": [
-        "qwen-vl-max",
-        "qwen-vl-plus"
+        "qwen-vl-max"
       ]
     },
     "ollama": {
