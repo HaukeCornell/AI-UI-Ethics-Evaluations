@@ -41,7 +41,7 @@
       {"name": "clear_confusing", "left": "clear", "right": "confusing"},
       {"name": "enjoyable_annoying", "left": "enjoyable", "right": "annoying"},
       {"name": "organized_cluttered", "left": "organized", "right": "cluttered"},
-      {"name": "addictive_non_addictive", "left": "addictive", "right": "non-addictive"},
+      {"name": "addictive_non-addictive", "left": "addictive", "right": "non-addictive"},
       {"name": "supportive_obstructive", "left": "supportive", "right": "obstructive"},
       {"name": "pressuring_suggesting", "left": "pressuring", "right": "suggesting"},
       {"name": "boring_exciting", "left": "boring", "right": "exciting"},

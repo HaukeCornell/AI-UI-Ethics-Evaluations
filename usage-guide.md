@@ -57,6 +57,19 @@ This will:
 ```
 python run_multiple_assessments.py --interfaces interfaces.json --output_dir results --temperatures 0.0 0.7 --repeats 3
 ```
+#### Step 1a: Deal with rate limits
+Some of the models have strong rate limits, and might rerunning the assessment at a later time. Check in the log which ones completed and then:
+
+
+```
+python run_multiple_assessments.py \
+  --interfaces interfaces.json \
+  --services openai \
+  --models gpt-4-turbo \
+  --temperatures 0.7 \
+  --repeats 3 \
+  --output_dir results
+```
 
 #### Step 2: Analyze the results
 
