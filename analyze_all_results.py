@@ -173,89 +173,12 @@ def main():
         
         # Create summary report
         print("Creating summary report...")
-        with open(os.path.join(args.output_dir, "analysis_summary.md"), 'w') as f:
-            f.write("# UI Assessment Analysis Summary\n\n")
-            f.write(f"Analysis generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-            
-            f.write("## Overview\n\n")
-            f.write(f"- Total assessments analyzed: {len(df)}\n")
-            f.write(f"- AI services: {', '.join(df['metadata_ai_service'].unique())}\n")
-            f.write(f"- Models: {', '.join(df['metadata_model'].unique())}\n")
-            f.write(f"- Pattern types: {', '.join(df['metadata_pattern_type'].unique())}\n\n")
-            
-            f.write("## Key Findings\n\n")
-            
-            # Add inter-annotator agreement section
-            f.write("### Inter-Annotator Agreement\n\n")
-            f.write("Agreement within models (Krippendorff's Alpha, averaged across metrics):\n\n")
-            f.write("| Service/Model | Agreement |\n")
-            f.write("|---------------|----------|\n")
-            
-            for model_key, model_data in agreement_results["within_ai"].items():
-                try:
-                    alphas = [float(alpha) for alpha in model_data["krippendorff_alpha"].values() 
-                              if isinstance(alpha, (int, float)) or 
-                              (isinstance(alpha, str) and alpha.replace('.', '', 1).isdigit())]
-                    if alphas:
-                        avg_alpha = np.mean(alphas)
-                        f.write(f"| {model_key} | {avg_alpha:.4f} |\n")
-                except Exception as e:
-                    f.write(f"| {model_key} | Error: {str(e)} |\n")
-            
-            if agreement_results["within_human"]:
-                try:
-                    human_alphas = [float(alpha) for alpha in agreement_results["within_human"]["krippendorff_alpha"].values() 
-                                  if isinstance(alpha, (int, float)) or 
-                                  (isinstance(alpha, str) and alpha.replace('.', '', 1).isdigit())]
-                    if human_alphas:
-                        avg_human_alpha = np.mean(human_alphas)
-                        f.write(f"| Human Participants | {avg_human_alpha:.4f} |\n")
-                except Exception as e:
-                    f.write(f"| Human Participants | Error: {str(e)} |\n")
-            
-            f.write("\n")
-            
-            # Most reliable models
-            f.write("### Most Reliable Models\n\n")
-            f.write("Models with the most consistent assessments across runs:\n\n")
-            f.write("| Service | Model | Reliability Score |\n")
-            f.write("|---------|-------|------------------|\n")
-            for _, row in model_reliability.head(5).iterrows():
-                f.write(f"| {row['metadata_ai_service']} | {row['metadata_model']} | {row['reliability_score']:.4f} |\n")
-            f.write("\n")
-            
-            # Human concordance
-            if human_concordance is not None:
-                f.write("### Models Most Similar to Human Assessment\n\n")
-                f.write("| Service | Model | Human Concordance |\n")
-                f.write("|---------|-------|-------------------|\n")
-                for _, row in human_concordance.head(5).iterrows():
-                    f.write(f"| {row['metadata_ai_service']} | {row['metadata_model']} | {row['human_concordance']:.4f} |\n")
-                f.write("\n")
-            
-            # Statistical significance
-            f.write("### Statistically Significant Differences\n\n")
-            for key, value in stats_results.items():
-                if isinstance(value, dict) and 'p_value' in value and value['p_value'] < 0.05:
-                    f.write(f"- {key}: F={value['f_statistic']:.4f}, p={value['p_value']:.4f} (significant)\n")
-            f.write("\n")
-            
-            f.write("## Visualizations\n\n")
-            f.write("The following visualizations have been generated:\n\n")
-            f.write("1. Model comparison heatmap\n")
-            f.write("2. Pattern type heatmaps by model\n")
-            f.write("3. Model reliability comparison\n")
-            f.write("4. Inter-annotator agreement comparison\n")
-            if human_concordance is not None:
-                f.write("5. Human concordance comparison\n")
-                f.write("6. Reliability vs. human concordance\n")
-                f.write("7. AI-Human agreement heatmap\n")
-            f.write("8. Score distributions by model\n")
-            if 'metadata_temperature' in df.columns and len(df['metadata_temperature'].unique()) > 1:
-                f.write("9. Temperature effect plots\n")
-            
-            f.write("\n## Detailed Results\n\n")
-            f.write("Detailed results are available in the CSV files in this directory.\n")
+        try:
+            # Import and use the summary writer module
+            import summary_writer
+            summary_writer.write_summary(df, args, agreement_results, model_reliability, human_concordance)
+        except Exception as e:
+            print(f"Error creating summary report: {e}")
         
         print(f"Analysis complete! Results saved to {args.output_dir}")
         print(f"Summary report: {os.path.join(args.output_dir, 'analysis_summary.md')}")
@@ -522,43 +445,61 @@ def create_visualizations(df, reliability_df, human_concordance=None, output_dir
     score_cols = [col for col in df.columns if col.startswith('score_')]
     
     # 1. Model Comparison Heatmap
-    plt.figure(figsize=(15, 10))
-    pivot = df.pivot_table(
-        index=['metadata_ai_service', 'metadata_model'],
-        values=score_cols,
-        aggfunc='mean'
-    )
-    
-    # Create an annotated heatmap
-    sns.heatmap(pivot, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
-    plt.title('Average Scores by AI Service and Model')
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'model_comparison_heatmap.png'))
-    plt.close()
+    try:
+        plt.figure(figsize=(15, 10))
+        pivot = df.pivot_table(
+            index=['metadata_ai_service', 'metadata_model'],
+            values=score_cols,
+            aggfunc='mean'
+        )
+        
+        # Check if pivot table is empty
+        if not pivot.empty and pivot.size > 0:
+            # Create an annotated heatmap
+            sns.heatmap(pivot, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
+            plt.title('Average Scores by AI Service and Model')
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, 'model_comparison_heatmap.png'))
+        else:
+            print("Warning: Not enough data for model comparison heatmap")
+        plt.close()
+    except Exception as e:
+        print(f"Error creating model comparison heatmap: {e}")
     
     # 2. Pattern Type Heatmap by AI Service/Model
     for service in df['metadata_ai_service'].unique():
-        service_df = df[df['metadata_ai_service'] == service]
-        
-        for model in service_df['metadata_model'].unique():
-            model_df = service_df[service_df['metadata_model'] == model]
+        try:
+            service_df = df[df['metadata_ai_service'] == service]
             
-            # Skip if not enough data
-            if len(model_df) < 3:
-                continue
-            
-            plt.figure(figsize=(15, 10))
-            pivot = model_df.pivot_table(
-                index='metadata_pattern_type',
-                values=score_cols,
-                aggfunc='mean'
-            )
-            
-            sns.heatmap(pivot, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
-            plt.title(f'Average Scores by Pattern Type for {service} {model}')
-            plt.tight_layout()
-            plt.savefig(os.path.join(output_dir, f'pattern_heatmap_{service}_{model}.png'))
-            plt.close()
+            for model in service_df['metadata_model'].unique():
+                try:
+                    model_df = service_df[service_df['metadata_model'] == model]
+                    
+                    # Skip if not enough data
+                    if len(model_df) < 3:
+                        print(f"Warning: Not enough data for pattern heatmap for {service} {model}")
+                        continue
+                    
+                    plt.figure(figsize=(15, 10))
+                    pivot = model_df.pivot_table(
+                        index='metadata_pattern_type',
+                        values=score_cols,
+                        aggfunc='mean'
+                    )
+                    
+                    # Check if pivot table is empty
+                    if not pivot.empty and pivot.size > 0:
+                        sns.heatmap(pivot, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
+                        plt.title(f'Average Scores by Pattern Type for {service} {model}')
+                        plt.tight_layout()
+                        plt.savefig(os.path.join(output_dir, f'pattern_heatmap_{service}_{model}.png'))
+                    else:
+                        print(f"Warning: Empty pivot table for {service} {model}")
+                    plt.close()
+                except Exception as e:
+                    print(f"Error creating pattern heatmap for {service} {model}: {e}")
+        except Exception as e:
+            print(f"Error processing service {service}: {e}")
     
     # 3. Reliability comparison
     if reliability_df is not None:
@@ -624,6 +565,60 @@ def create_visualizations(df, reliability_df, human_concordance=None, output_dir
         plt.tight_layout()
         plt.savefig(os.path.join(output_dir, f'boxplot_{col}.png'))
         plt.close()
+    
+    # UX KPI visualization by model and pattern type
+    if 'ux_kpi' in df.columns:
+        try:
+            # Box plot of UX KPI by model
+            plt.figure(figsize=(15, 10))
+            sns.boxplot(data=df, x='metadata_model', y='ux_kpi', hue='metadata_ai_service')
+            plt.title('Distribution of UX KPI by Model')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, 'boxplot_ux_kpi.png'))
+            plt.close()
+        except Exception as e:
+            print(f"Error creating UX KPI boxplot: {e}")
+        
+        try:
+            # Heatmap of UX KPI by pattern type
+            plt.figure(figsize=(15, 10))
+            pivot = df.pivot_table(
+                index='metadata_pattern_type',
+                columns=['metadata_ai_service', 'metadata_model'],
+                values='ux_kpi',
+                aggfunc='mean'
+            )
+            
+            # Check if pivot table is empty
+            if not pivot.empty and pivot.size > 0:
+                sns.heatmap(pivot, annot=True, cmap='RdYlGn_r', fmt='.2f', linewidths=.5)
+                plt.title('Average UX KPI by Pattern Type and Model')
+                plt.tight_layout()
+                plt.savefig(os.path.join(output_dir, 'ux_kpi_heatmap.png'))
+            else:
+                print("Warning: Not enough data for UX KPI heatmap")
+            plt.close()
+        except Exception as e:
+            print(f"Error creating UX KPI heatmap: {e}")
+        
+        # Generate gauge visualizations using ux_kpi_gauge.py
+        try:
+            # Save the current dataframe to CSV for gauge visualization
+            df_csv_path = os.path.join(output_dir, 'data_for_gauges.csv')
+            df.to_csv(df_csv_path, index=False)
+            
+            import subprocess
+            gauge_output_dir = os.path.join(output_dir, 'gauges')
+            os.makedirs(gauge_output_dir, exist_ok=True)
+            
+            print("Generating UX KPI gauge visualizations...")
+            subprocess.run(['python', 'ux_kpi_gauge.py', 
+                           '--results', df_csv_path, 
+                           '--output_dir', gauge_output_dir])
+            print(f"Gauge visualizations saved to {gauge_output_dir}")
+        except Exception as e:
+            print(f"Warning: Failed to generate gauge visualizations: {e}")
         
     # 7. Temperature effect plots (if temperature data exists)
     if 'metadata_temperature' in df.columns:
@@ -707,10 +702,51 @@ def clean_data(df):
     
     # Clean up service and model names for better readability
     if 'metadata_ai_service' in df.columns:
+        # Convert to string first in case there are numeric values
+        df['metadata_ai_service'] = df['metadata_ai_service'].astype(str)
         df['metadata_ai_service'] = df['metadata_ai_service'].str.capitalize()
+    
+    # Make sure model names are strings
+    if 'metadata_model' in df.columns:
+        df['metadata_model'] = df['metadata_model'].astype(str)
+        
+    # Make sure pattern types are strings
+    if 'metadata_pattern_type' in df.columns:
+        df['metadata_pattern_type'] = df['metadata_pattern_type'].astype(str)
     
     # Extract score columns
     score_cols = [col for col in df.columns if col.startswith('score_')]
+    
+    # Calculate UX KPI based on negative UX aspects
+    # Define mapping from UX KPI items to column names
+    ux_kpi_columns_mapping = {
+        'boring': 'score_boring_exciting',           # Low = boring
+        'not_interesting': 'score_interesting_not_interesting',  # High = not interesting
+        'complicated': 'score_complicated_easy',     # Low = complicated
+        'confusing': 'score_clear_confusing',        # High = confusing
+        'inefficient': 'score_inefficient_efficient', # Low = inefficient
+        'cluttered': 'score_organized_cluttered',     # High = cluttered
+        'unpredictable': 'score_unpredictable_predictable', # Low = unpredictable
+        'obstructive': 'score_supportive_obstructive'  # High = obstructive
+    }
+    
+    # Create inverted values where necessary to ensure all negative aspects are high values
+    for ux_item, column in ux_kpi_columns_mapping.items():
+        if column in df.columns:
+            if ux_item in ['not_interesting', 'confusing', 'cluttered', 'obstructive']:
+                # These columns are already oriented so high values = negative aspect
+                df[f'ux_{ux_item}'] = df[column]
+            else:
+                # These columns need to be inverted so high values = negative aspect
+                df[f'ux_{ux_item}'] = 8 - df[column]  # 8 - value to invert (1-7 scale becomes 7-1)
+    
+    # Calculate UX KPI (mean of all items)
+    ux_items = [f'ux_{item}' for item in ux_kpi_columns_mapping.keys() if f'ux_{item}' in df.columns]
+    
+    if ux_items:
+        df['ux_kpi'] = df[ux_items].mean(axis=1)
+        # Add ux_kpi to score_cols
+        score_cols.append('ux_kpi')
     
     return df, score_cols
 

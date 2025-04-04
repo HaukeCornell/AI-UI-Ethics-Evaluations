@@ -14,6 +14,37 @@ def calculate_metrics(df):
     # Get all score columns
     score_cols = [col for col in df.columns if col.startswith('score_')]
     
+    # Calculate UX KPI based on negative UX aspects
+    # Define mapping from UX KPI items to column names
+    ux_kpi_columns_mapping = {
+        'boring': 'score_boring_exciting',           # Low = boring
+        'not_interesting': 'score_interesting_not_interesting',  # High = not interesting
+        'complicated': 'score_complicated_easy',     # Low = complicated
+        'confusing': 'score_clear_confusing',        # High = confusing
+        'inefficient': 'score_inefficient_efficient', # Low = inefficient
+        'cluttered': 'score_organized_cluttered',     # High = cluttered
+        'unpredictable': 'score_unpredictable_predictable', # Low = unpredictable
+        'obstructive': 'score_supportive_obstructive'  # High = obstructive
+    }
+    
+    # Create inverted values where necessary to ensure all negative aspects are high values
+    for ux_item, column in ux_kpi_columns_mapping.items():
+        if column in df.columns:
+            if ux_item in ['not_interesting', 'confusing', 'cluttered', 'obstructive']:
+                # These columns are already oriented so high values = negative aspect
+                df[f'ux_{ux_item}'] = df[column]
+            else:
+                # These columns need to be inverted so high values = negative aspect
+                df[f'ux_{ux_item}'] = 8 - df[column]  # 8 - value to invert (1-7 scale becomes 7-1)
+    
+    # Calculate UX KPI (mean of all items)
+    ux_items = [f'ux_{item}' for item in ux_kpi_columns_mapping.keys() if f'ux_{item}' in df.columns]
+    
+    if ux_items:
+        df['ux_kpi'] = df[ux_items].mean(axis=1)
+        # Add ux_kpi to score_cols
+        score_cols.append('ux_kpi')
+    
     # Group by AI service and model
     grouped = df.groupby(['metadata_ai_service', 'metadata_model'])
     
@@ -40,6 +71,10 @@ def create_heatmap(df, output_dir):
     # Get all score columns
     score_cols = [col for col in df.columns if col.startswith('score_')]
     
+    # Add ux_kpi if available
+    if 'ux_kpi' in df.columns:
+        score_cols.append('ux_kpi')
+    
     # For each score column, create a heatmap
     for score_col in score_cols:
         # Prepare data for heatmap
@@ -53,10 +88,17 @@ def create_heatmap(df, output_dir):
         
         # Create figure
         plt.figure(figsize=(12, 8))
-        sns.heatmap(pivot, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
+        
+        # Choose appropriate color map (viridis by default, RdYlGn_r for ux_kpi)
+        cmap = 'RdYlGn_r' if score_col == 'ux_kpi' else 'viridis'
+        
+        sns.heatmap(pivot, annot=True, cmap=cmap, fmt='.2f', linewidths=.5)
         
         # Clean score column name for display
-        score_name = score_col.replace('score_', '').replace('_', ' to ')
+        if score_col == 'ux_kpi':
+            score_name = "UX KPI"
+        else:
+            score_name = score_col.replace('score_', '').replace('_', ' to ')
         
         plt.title(f'Average Scores for "{score_name}" by Pattern Type and AI Model')
         plt.tight_layout()
@@ -65,6 +107,24 @@ def create_heatmap(df, output_dir):
         output_path = os.path.join(output_dir, f'heatmap_{score_col}.png')
         plt.savefig(output_path)
         plt.close()
+        
+    # If ux_kpi is available, create gauge visualizations
+    if 'ux_kpi' in df.columns:
+        try:
+            import subprocess
+            results_csv = os.path.join(output_dir, "combined_results.csv" if os.path.exists(os.path.join(output_dir, "combined_results.csv")) else "results.csv")
+            df.to_csv(results_csv, index=False)
+            
+            gauge_output_dir = os.path.join(output_dir, 'gauges')
+            os.makedirs(gauge_output_dir, exist_ok=True)
+            
+            print("Generating UX KPI gauge visualizations...")
+            subprocess.run(['python', 'ux_kpi_gauge.py', 
+                           '--results', results_csv, 
+                           '--output_dir', gauge_output_dir])
+            print(f"Gauge visualizations saved to {gauge_output_dir}")
+        except Exception as e:
+            print(f"Warning: Failed to generate gauge visualizations: {e}")
 
 def create_radar_charts(df, output_dir):
     """Create radar charts comparing AI models."""

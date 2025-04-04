@@ -2,7 +2,7 @@
   "ai_services": {
     "anthropic": {
       "models": [
-        "claude-3-opus-20240229",
+        "claude-3-opus-20240229"
       ],
       "endpoint": "https://api.anthropic.com/v1/messages",
       "headers": {
@@ -12,7 +12,7 @@
     },
     "openai": {
       "models": [
-        "gpt-4-turbo",
+        "gpt-4-turbo"
       ],
       "endpoint": "https://api.openai.com/v1/chat/completions",
       "headers": {
