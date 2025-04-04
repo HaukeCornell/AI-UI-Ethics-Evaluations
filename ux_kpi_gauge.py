@@ -66,6 +66,7 @@ def calculate_ux_kpi(df):
 def find_worst_aspect_per_pattern(df):
     """
     Find the worst-performing UX aspect for each pattern type.
+    Calculate UX KPI on the means per pattern to get more stable results.
     Returns a DataFrame with pattern types and their worst aspects.
     """
     # Group by pattern type
@@ -85,8 +86,8 @@ def find_worst_aspect_per_pattern(df):
         worst_item = item_means.idxmax()
         worst_value = item_means[worst_item]
         
-        # Get mean UX KPI
-        ux_kpi = group['ux_kpi'].mean() if 'ux_kpi' in group.columns else None
+        # Calculate UX KPI from the means (not mean of UX KPI)
+        ux_kpi = item_means.mean()
         
         results.append({
             'pattern': pattern,
