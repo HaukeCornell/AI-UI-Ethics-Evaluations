@@ -1,6 +1,6 @@
 # UI Assessment Analysis Summary
 
-Analysis generated on 2025-04-04 09:52:10
+Analysis generated on 2025-04-04 10:32:56
 
 ## Overview
 
@@ -26,6 +26,14 @@ Models with the most consistent assessments across runs:
 |---------|-------|------------------|
 | Anthropic | claude-3-opus-20240229 | nan |
 | Nan | nan | nan |
+| Ollama | gemma3 | nan |
+| Openai | gpt-4-turbo | nan |
+
+### Models Most Similar to Human Assessment
+
+| Service | Model | Human Concordance |
+|---------|-------|-------------------|
+| Anthropic | claude-3-opus-20240229 | nan |
 | Ollama | gemma3 | nan |
 | Openai | gpt-4-turbo | nan |
 
@@ -73,6 +81,9 @@ The following visualizations have been generated:
 2. Pattern type heatmaps by model
 3. Model reliability comparison
 4. Inter-annotator agreement comparison
+5. Human concordance comparison
+6. Reliability vs. human concordance
+7. AI-Human agreement heatmap
 8. Score distributions by model
 9. UX KPI visualizations
    - UX KPI boxplot by model

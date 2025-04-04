@@ -40,7 +40,7 @@ score_positions <- c(
   "clear_confusing" = 3,
   "enjoyable_annoying" = 4,
   "organized_cluttered" = 5,
-  "addictive_non_addictive" = 6,
+  "addictive_non-addictive" = 6,
   "supportive_obstructive" = 7,
   "pressuring_suggesting" = 8,
   "boring_exciting" = 9,

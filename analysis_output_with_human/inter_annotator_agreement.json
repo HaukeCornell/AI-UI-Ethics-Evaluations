@@ -1,0 +1,396 @@
+{
+  "within_ai": {
+    "Ollama_gemma3": {
+      "krippendorff_alpha": {
+        "score_inefficient_efficient": "N/A - krippendorff module not available",
+        "score_interesting_not_interesting": "N/A - krippendorff module not available",
+        "score_clear_confusing": "N/A - krippendorff module not available",
+        "score_enjoyable_annoying": "N/A - krippendorff module not available",
+        "score_organized_cluttered": "N/A - krippendorff module not available",
+        "score_addictive_non_addictive": "N/A - krippendorff module not available",
+        "score_supportive_obstructive": "N/A - krippendorff module not available",
+        "score_pressuring_suggesting": "N/A - krippendorff module not available",
+        "score_boring_exciting": "N/A - krippendorff module not available",
+        "score_revealed_covert": "N/A - krippendorff module not available",
+        "score_complicated_easy": "N/A - krippendorff module not available",
+        "score_unpredictable_predictable": "N/A - krippendorff module not available",
+        "score_friendly_unfriendly": "N/A - krippendorff module not available",
+        "score_deceptive_benevolent": "N/A - krippendorff module not available",
+        "score_addictive_non-addictive": "N/A - krippendorff module not available",
+        "ux_kpi": "N/A - krippendorff module not available"
+      },
+      "fleiss_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "pairwise_cohen_kappa": {}
+    },
+    "Anthropic_claude-3-opus-20240229": {
+      "krippendorff_alpha": {
+        "score_inefficient_efficient": "N/A - krippendorff module not available",
+        "score_interesting_not_interesting": "N/A - krippendorff module not available",
+        "score_clear_confusing": "N/A - krippendorff module not available",
+        "score_enjoyable_annoying": "N/A - krippendorff module not available",
+        "score_organized_cluttered": "N/A - krippendorff module not available",
+        "score_addictive_non_addictive": "N/A - krippendorff module not available",
+        "score_supportive_obstructive": "N/A - krippendorff module not available",
+        "score_pressuring_suggesting": "N/A - krippendorff module not available",
+        "score_boring_exciting": "N/A - krippendorff module not available",
+        "score_revealed_covert": "N/A - krippendorff module not available",
+        "score_complicated_easy": "N/A - krippendorff module not available",
+        "score_unpredictable_predictable": "N/A - krippendorff module not available",
+        "score_friendly_unfriendly": "N/A - krippendorff module not available",
+        "score_deceptive_benevolent": "N/A - krippendorff module not available",
+        "score_addictive_non-addictive": "N/A - krippendorff module not available",
+        "ux_kpi": "N/A - krippendorff module not available"
+      },
+      "fleiss_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "pairwise_cohen_kappa": {}
+    },
+    "Nan_nan": {
+      "krippendorff_alpha": {
+        "score_inefficient_efficient": "N/A - krippendorff module not available",
+        "score_interesting_not_interesting": "N/A - krippendorff module not available",
+        "score_clear_confusing": "N/A - krippendorff module not available",
+        "score_enjoyable_annoying": "N/A - krippendorff module not available",
+        "score_organized_cluttered": "N/A - krippendorff module not available",
+        "score_addictive_non_addictive": "N/A - krippendorff module not available",
+        "score_supportive_obstructive": "N/A - krippendorff module not available",
+        "score_pressuring_suggesting": "N/A - krippendorff module not available",
+        "score_boring_exciting": "N/A - krippendorff module not available",
+        "score_revealed_covert": "N/A - krippendorff module not available",
+        "score_complicated_easy": "N/A - krippendorff module not available",
+        "score_unpredictable_predictable": "N/A - krippendorff module not available",
+        "score_friendly_unfriendly": "N/A - krippendorff module not available",
+        "score_deceptive_benevolent": "N/A - krippendorff module not available",
+        "score_addictive_non-addictive": "N/A - krippendorff module not available",
+        "ux_kpi": "N/A - krippendorff module not available"
+      },
+      "fleiss_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "pairwise_cohen_kappa": {}
+    },
+    "Openai_gpt-4-turbo": {
+      "krippendorff_alpha": {
+        "score_inefficient_efficient": "N/A - krippendorff module not available",
+        "score_interesting_not_interesting": "N/A - krippendorff module not available",
+        "score_clear_confusing": "N/A - krippendorff module not available",
+        "score_enjoyable_annoying": "N/A - krippendorff module not available",
+        "score_organized_cluttered": "N/A - krippendorff module not available",
+        "score_addictive_non_addictive": "N/A - krippendorff module not available",
+        "score_supportive_obstructive": "N/A - krippendorff module not available",
+        "score_pressuring_suggesting": "N/A - krippendorff module not available",
+        "score_boring_exciting": "N/A - krippendorff module not available",
+        "score_revealed_covert": "N/A - krippendorff module not available",
+        "score_complicated_easy": "N/A - krippendorff module not available",
+        "score_unpredictable_predictable": "N/A - krippendorff module not available",
+        "score_friendly_unfriendly": "N/A - krippendorff module not available",
+        "score_deceptive_benevolent": "N/A - krippendorff module not available",
+        "score_addictive_non-addictive": "N/A - krippendorff module not available",
+        "ux_kpi": "N/A - krippendorff module not available"
+      },
+      "fleiss_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "pairwise_cohen_kappa": {}
+    }
+  },
+  "within_human": {
+    "krippendorff_alpha": {
+      "score_inefficient_efficient": "N/A - krippendorff module not available",
+      "score_interesting_not_interesting": "N/A - krippendorff module not available",
+      "score_clear_confusing": "N/A - krippendorff module not available",
+      "score_enjoyable_annoying": "N/A - krippendorff module not available",
+      "score_organized_cluttered": "N/A - krippendorff module not available",
+      "score_addictive_non_addictive": "N/A - krippendorff module not available",
+      "score_supportive_obstructive": "N/A - krippendorff module not available",
+      "score_pressuring_suggesting": "N/A - krippendorff module not available",
+      "score_boring_exciting": "N/A - krippendorff module not available",
+      "score_revealed_covert": "N/A - krippendorff module not available",
+      "score_complicated_easy": "N/A - krippendorff module not available",
+      "score_unpredictable_predictable": "N/A - krippendorff module not available",
+      "score_friendly_unfriendly": "N/A - krippendorff module not available",
+      "score_deceptive_benevolent": "N/A - krippendorff module not available",
+      "score_addictive_non-addictive": "N/A - krippendorff module not available",
+      "ux_kpi": "N/A - krippendorff module not available"
+    },
+    "fleiss_kappa": {
+      "score_inefficient_efficient": 0.0,
+      "score_interesting_not_interesting": 0.0,
+      "score_clear_confusing": 0.0,
+      "score_enjoyable_annoying": 0.0,
+      "score_organized_cluttered": 0.0,
+      "score_addictive_non_addictive": 0.0,
+      "score_supportive_obstructive": 0.0,
+      "score_pressuring_suggesting": 0.0,
+      "score_boring_exciting": 0.0,
+      "score_revealed_covert": 0.0,
+      "score_complicated_easy": 0.0,
+      "score_unpredictable_predictable": 0.0,
+      "score_friendly_unfriendly": 0.0,
+      "score_deceptive_benevolent": 0.0,
+      "score_addictive_non-addictive": 0.0,
+      "ux_kpi": 0.0
+    },
+    "pairwise_cohen_kappa": {
+      "score_inefficient_efficient": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_interesting_not_interesting": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_clear_confusing": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_enjoyable_annoying": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_organized_cluttered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_addictive_non_addictive": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_supportive_obstructive": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_pressuring_suggesting": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_boring_exciting": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_revealed_covert": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_complicated_easy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_unpredictable_predictable": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_friendly_unfriendly": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_deceptive_benevolent": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "score_addictive_non-addictive": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "ux_kpi": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  "between_ai_and_human": {
+    "Ollama_gemma3": {
+      "cohen_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "correlation": {
+        "score_inefficient_efficient": -0.40651053645726365,
+        "score_interesting_not_interesting": 0.11480826457616483,
+        "score_clear_confusing": -0.5862854774101713,
+        "score_enjoyable_annoying": -0.36668050181799716,
+        "score_organized_cluttered": 0.16035448396769728,
+        "score_addictive_non_addictive": -0.35304124349919114,
+        "score_supportive_obstructive": 0.5862207867796263,
+        "score_pressuring_suggesting": 0.5851001591078858,
+        "score_boring_exciting": -0.05601297319896774,
+        "score_revealed_covert": 0.44243123998537603,
+        "score_complicated_easy": 0.31227345561155306,
+        "score_unpredictable_predictable": 0.49307760542277407,
+        "score_friendly_unfriendly": -0.42413642134428314,
+        "score_deceptive_benevolent": -0.26556540249586175,
+        "score_addictive_non-addictive": NaN,
+        "ux_kpi": -0.20780930536698025
+      }
+    },
+    "Anthropic_claude-3-opus-20240229": {
+      "cohen_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "correlation": {
+        "score_inefficient_efficient": 0.22128221759042452,
+        "score_interesting_not_interesting": -0.016913354806585096,
+        "score_clear_confusing": -0.10017805356169159,
+        "score_enjoyable_annoying": 0.21042918166879898,
+        "score_organized_cluttered": -0.5891600198153472,
+        "score_addictive_non_addictive": 0.32359432176584024,
+        "score_supportive_obstructive": -0.6455933355532483,
+        "score_pressuring_suggesting": -0.35501253393615706,
+        "score_boring_exciting": -0.03669844995999006,
+        "score_revealed_covert": -0.5026865558986175,
+        "score_complicated_easy": 0.2933341836059141,
+        "score_unpredictable_predictable": 0.04763824568316379,
+        "score_friendly_unfriendly": 0.3911340324447462,
+        "score_deceptive_benevolent": -0.19769821430999077,
+        "score_addictive_non-addictive": NaN,
+        "ux_kpi": -0.08955660526561098
+      }
+    },
+    "Openai_gpt-4-turbo": {
+      "cohen_kappa": {
+        "score_inefficient_efficient": 0.0,
+        "score_interesting_not_interesting": 0.0,
+        "score_clear_confusing": 0.0,
+        "score_enjoyable_annoying": 0.0,
+        "score_organized_cluttered": 0.0,
+        "score_addictive_non_addictive": 0.0,
+        "score_supportive_obstructive": 0.0,
+        "score_pressuring_suggesting": 0.0,
+        "score_boring_exciting": 0.0,
+        "score_revealed_covert": 0.0,
+        "score_complicated_easy": 0.0,
+        "score_unpredictable_predictable": 0.0,
+        "score_friendly_unfriendly": 0.0,
+        "score_deceptive_benevolent": 0.0,
+        "score_addictive_non-addictive": 0.0,
+        "ux_kpi": 0.0
+      },
+      "correlation": {
+        "score_inefficient_efficient": 0.029474981449055145,
+        "score_interesting_not_interesting": -0.26574629517608567,
+        "score_clear_confusing": -0.4027188107859457,
+        "score_enjoyable_annoying": 0.5566495593002404,
+        "score_organized_cluttered": 0.27638252084470094,
+        "score_addictive_non_addictive": -0.4058808013035562,
+        "score_supportive_obstructive": -0.6495465922743193,
+        "score_pressuring_suggesting": -0.035540878191557594,
+        "score_boring_exciting": -0.05543695721328169,
+        "score_revealed_covert": -0.08209708896141285,
+        "score_complicated_easy": -0.19714757929950819,
+        "score_unpredictable_predictable": 0.26452695940626336,
+        "score_friendly_unfriendly": 0.08868865823421632,
+        "score_deceptive_benevolent": 0.1465276334410765,
+        "score_addictive_non-addictive": NaN,
+        "ux_kpi": 0.7092336211217409
+      }
+    }
+  }
+}

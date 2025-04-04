@@ -63,7 +63,11 @@ python run_multiple_assessments.py --interfaces interfaces.json --output_dir res
 ```
 python analyze_all_results.py --results_dir results --human_results human_results.csv --output_dir analysis_output
 ```
+<!-- E.g.
 
+```
+python analyze_all_results.py --results_dir model_analysis_test --human_results Formatting\ Human\ Survey\ Data/raw_participant_evaluations.csv --output_dir analysis_output
+``` -->
 ## Understanding the Results
 
 After running the assessment, you'll find several outputs:

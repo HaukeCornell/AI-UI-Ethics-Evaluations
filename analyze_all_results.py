@@ -143,12 +143,18 @@ def main():
                             heatmap_data.loc[model, metric] = kappa_data[model][metric]
                 
                 # Create heatmap
-                plt.figure(figsize=(15, 8))
-                sns.heatmap(heatmap_data, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
-                plt.title('AI-Human Agreement (Cohen\'s Kappa) by Model and Metric')
-                plt.tight_layout()
-                plt.savefig(os.path.join(args.output_dir, 'ai_human_agreement_heatmap.png'))
-                plt.close()
+                try:
+                    # Convert data to numeric before creating heatmap
+                    heatmap_data = heatmap_data.apply(pd.to_numeric, errors='coerce')
+                    
+                    plt.figure(figsize=(15, 8))
+                    sns.heatmap(heatmap_data, annot=True, cmap='viridis', fmt='.2f', linewidths=.5)
+                    plt.title('AI-Human Agreement (Cohen\'s Kappa) by Model and Metric')
+                    plt.tight_layout()
+                    plt.savefig(os.path.join(args.output_dir, 'ai_human_agreement_heatmap.png'))
+                    plt.close()
+                except Exception as e:
+                    print(f"Error creating AI-Human agreement heatmap: {e}")
         
         # Perform statistical analysis
         print("Performing statistical analysis...")
@@ -729,6 +735,10 @@ def clean_data(df):
         'unpredictable': 'score_unpredictable_predictable', # Low = unpredictable
         'obstructive': 'score_supportive_obstructive'  # High = obstructive
     }
+    
+    # Handle hyphenated column names for non_addictive/non-addictive
+    if 'score_addictive_non-addictive' in df.columns and 'score_addictive_non_addictive' not in df.columns:
+        df['score_addictive_non_addictive'] = df['score_addictive_non-addictive']
     
     # Create inverted values where necessary to ensure all negative aspects are high values
     for ux_item, column in ux_kpi_columns_mapping.items():

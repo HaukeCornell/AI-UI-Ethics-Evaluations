@@ -27,6 +27,10 @@ def calculate_metrics(df):
         'obstructive': 'score_supportive_obstructive'  # High = obstructive
     }
     
+    # Handle hyphenated column names for non_addictive/non-addictive
+    if 'score_addictive_non-addictive' in df.columns and 'score_addictive_non_addictive' not in df.columns:
+        df['score_addictive_non_addictive'] = df['score_addictive_non-addictive']
+    
     # Create inverted values where necessary to ensure all negative aspects are high values
     for ux_item, column in ux_kpi_columns_mapping.items():
         if column in df.columns:

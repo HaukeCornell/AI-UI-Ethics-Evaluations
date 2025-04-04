@@ -24,6 +24,9 @@ def calculate_ux_kpi(df):
     Maps the column names from the results CSV to the corresponding UX KPI items.
     Inverts scores where necessary so that negative values always indicate poor UX.
     """
+    # Create a copy of the dataframe to avoid modifying the original
+    result_df = df.copy()
+    
     # Define the mapping from UX KPI items to column names
     ux_kpi_columns_mapping = {
         'boring': 'score_boring_exciting',           # Low = boring
@@ -36,8 +39,9 @@ def calculate_ux_kpi(df):
         'obstructive': 'score_supportive_obstructive'  # High = obstructive
     }
     
-    # Create a copy of the dataframe to avoid modifying the original
-    result_df = df.copy()
+    # Handle hyphenated column names for non_addictive/non-addictive
+    if 'score_addictive_non-addictive' in result_df.columns and 'score_addictive_non_addictive' not in result_df.columns:
+        result_df['score_addictive_non_addictive'] = result_df['score_addictive_non-addictive']
     
     # Create columns with inverted values where necessary
     # For columns where high value = negative UX aspect
