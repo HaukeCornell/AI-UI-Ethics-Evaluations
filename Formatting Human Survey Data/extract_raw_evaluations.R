@@ -161,8 +161,17 @@ result_columns <- c(
 results <- data.frame(matrix(ncol = length(result_columns), nrow = 0))
 colnames(results) <- result_columns
 
-# Generate timestamp for today
-timestamp_base <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+# Generate timestamp for today with proper format (MM/DD/YYYY HH:MM:SS AM/PM)
+now <- Sys.time()
+hour <- as.numeric(format(now, "%H"))
+am_pm <- ifelse(hour < 12, "AM", "PM")
+hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+month_str <- month.abb[as.numeric(format(now, "%m"))]
+day_str <- format(now, "%d")
+year_str <- format(now, "%Y")
+minute_str <- format(now, "%M")
+second_str <- format(now, "%S")
+timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
 
 # Flag to track if any valid data was found
 found_valid_data <- FALSE
@@ -207,29 +216,84 @@ for (user_idx in 1:nrow(User)) {
             
             # Create a datetime object
             r_datetime <- r_date + seconds / seconds_in_day
-            timestamp_base <- format(r_datetime, "%Y-%m-%dT%H:%M:%S")
+            
+            # Format as MM/DD/YYYY HH:MM:SS AM/PM
+            hour <- as.numeric(format(r_datetime, "%H"))
+            am_pm <- ifelse(hour < 12, "AM", "PM")
+            hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+            month_str <- month.abb[as.numeric(format(r_datetime, "%m"))]
+            day_str <- format(r_datetime, "%d")
+            year_str <- format(r_datetime, "%Y")
+            minute_str <- format(r_datetime, "%M")
+            second_str <- format(r_datetime, "%S")
+            timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
             cat("Converted timestamp for user", case_id, ":", user_timestamp, "->", timestamp_base, "\n")
           } else {
-            # If conversion fails, use the current timestamp
+            # If conversion fails, use the current timestamp with proper format
             message(paste("Could not convert timestamp for user", case_id, ": using current time"))
-            timestamp_base <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+            now <- Sys.time()
+            hour <- as.numeric(format(now, "%H"))
+            am_pm <- ifelse(hour < 12, "AM", "PM")
+            hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+            month_str <- month.abb[as.numeric(format(now, "%m"))]
+            day_str <- format(now, "%d")
+            year_str <- format(now, "%Y")
+            minute_str <- format(now, "%M")
+            second_str <- format(now, "%S")
+            timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
           }
         } else {
-          # If it's already a date object
-          timestamp_base <- format(user_timestamp, "%Y-%m-%dT%H:%M:%S")
+          # If it's already a date object, format it properly
+          r_datetime <- user_timestamp
+          hour <- as.numeric(format(r_datetime, "%H"))
+          am_pm <- ifelse(hour < 12, "AM", "PM")
+          hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+          month_str <- month.abb[as.numeric(format(r_datetime, "%m"))]
+          day_str <- format(r_datetime, "%d")
+          year_str <- format(r_datetime, "%Y")
+          minute_str <- format(r_datetime, "%M")
+          second_str <- format(r_datetime, "%S")
+          timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
         }
       }, error = function(e) {
-        # If parsing fails, use the current timestamp
+        # If parsing fails, use the current timestamp with proper format
         message(paste("Error parsing timestamp for user", case_id, ":", e$message, "- using current time"))
-        timestamp_base <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+        now <- Sys.time()
+        hour <- as.numeric(format(now, "%H"))
+        am_pm <- ifelse(hour < 12, "AM", "PM")
+        hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+        month_str <- month.abb[as.numeric(format(now, "%m"))]
+        day_str <- format(now, "%d")
+        year_str <- format(now, "%Y")
+        minute_str <- format(now, "%M")
+        second_str <- format(now, "%S")
+        timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
       })
     } else {
-      # If timestamp is NA, use the current timestamp
-      timestamp_base <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+      # If timestamp is NA, use the current timestamp with the proper format
+      now <- Sys.time()
+      hour <- as.numeric(format(now, "%H"))
+      am_pm <- ifelse(hour < 12, "AM", "PM")
+      hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+      month_str <- month.abb[as.numeric(format(now, "%m"))]
+      day_str <- format(now, "%d")
+      year_str <- format(now, "%Y")
+      minute_str <- format(now, "%M")
+      second_str <- format(now, "%S")
+      timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
     }
   } else {
-    # If STARTED column doesn't exist, use the current timestamp
-    timestamp_base <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+    # If STARTED column doesn't exist, use the current timestamp with proper format
+    now <- Sys.time()
+    hour <- as.numeric(format(now, "%H"))
+    am_pm <- ifelse(hour < 12, "AM", "PM")
+    hour_12 <- ifelse(hour == 0, 12, ifelse(hour > 12, hour - 12, hour))
+    month_str <- month.abb[as.numeric(format(now, "%m"))]
+    day_str <- format(now, "%d")
+    year_str <- format(now, "%Y")
+    minute_str <- format(now, "%M")
+    second_str <- format(now, "%S")
+    timestamp_base <- sprintf("%s %s, %s %d:%s:%s %s", month_str, day_str, year_str, hour_12, minute_str, second_str, am_pm)
   }
   
   # For each pattern
@@ -238,8 +302,22 @@ for (user_idx in 1:nrow(User)) {
     pattern_name <- dp_names[as.character(dp_code)]
     interface_id <- paste0("interface_", sprintf("%03d", dp_num))
     
-    # Create timestamp with slight offset for each pattern
-    timestamp <- gsub("\\d{2}$", sprintf("%02d", (as.integer(substr(timestamp_base, 18, 19)) + dp_num) %% 60), timestamp_base)
+    # Create timestamp in the same format as sample-human-results.txt: YYYY-MM-DDThh:mm:ss
+    # Get the current date and add slight offset for each pattern
+    cur_date <- Sys.Date()
+    cur_time <- Sys.time()
+    
+    # Add offset to seconds (add dp_num seconds)
+    base_seconds <- as.numeric(format(cur_time, "%S"))
+    offset_seconds <- (base_seconds + dp_num) %% 60
+    
+    # Format in the style from sample-human-results.txt
+    timestamp <- format(cur_time, paste0(
+        format(cur_time, "%Y-%m-%d"), 
+        "T",
+        format(cur_time, "%H:%M:"), 
+        sprintf("%02d", offset_seconds)
+    ))
     
     # Initialize row
     row_data <- data.frame(matrix(ncol = length(result_columns), nrow = 1))
@@ -253,7 +331,13 @@ for (user_idx in 1:nrow(User)) {
     
     # Get evaluations for this pattern
     valid_evaluation <- TRUE
-    valid_count <- 0  # Count how many valid dimensions we have
+    valid_count <- 0        # Count how many valid dimensions we have
+    missing_count <- 0      # Count how many dimensions are missing
+    max_missing_allowed <- 2  # Allow up to 2 missing values per pattern
+    
+    # Create a vector to store dimension values
+    dimension_values <- vector("numeric", length(dimension_names))
+    names(dimension_values) <- dimension_names
     
     # For each score dimension
     for (i in 1:length(dimension_names)) {
@@ -275,49 +359,91 @@ for (user_idx in 1:nrow(User)) {
       # Get the raw value
       value <- User[[col_name]][user_idx]
       
-      # Skip if value is NA or -1 (don't know) or contains text like "Nagging"
+      # Check if value is NA, -1 (don't know), or non-numeric
       if (is.na(value) || value == -1 || value == " -1" || 
           value == "" || !grepl("^\\s*[-]?[0-9]+\\s*$", value)) {
-        if (!is.na(value) && !value == "" && !grepl("^\\s*[-]?[0-9]+\\s*$", value)) {
+        
+        if (!is.na(value) && value != "" && !grepl("^\\s*[-]?[0-9]+\\s*$", value)) {
           cat("Non-numeric value:", value, "in column", col_name, "for user", case_id, "\n")
         }
-        valid_evaluation <- FALSE
-        break
-      }
-      
-      # Convert to numeric and trim whitespace
-      value <- as.numeric(trimws(value))
-      
-      # Additional validation for the value range (should be 1-7)
-      if (is.na(value) || value < 1 || value > 7) {
-        if (value == -1) {
-          cat("Skipping 'Don't know' value (-1) in column", col_name, "for user", case_id, "\n")
-        } else {
-          cat("Invalid value range:", value, "in column", col_name, "for user", case_id, "\n")
+        
+        # Count missing values but don't break immediately
+        missing_count <- missing_count + 1
+        
+        if (missing_count > max_missing_allowed) {
+          cat("Too many missing values (", missing_count, ") for pattern", pattern_name, "user", case_id, "\n")
+          valid_evaluation <- FALSE
+          break
         }
-        valid_evaluation <- FALSE
-        break
+        
+        # Use actual "don't know" value (-1) for missing data
+        # Handle NA values specially since direct comparison will fail
+        if (is.na(value)) {
+          dimension_values[i] <- -1
+          cat("Using 'Don't know' value (-1) for NA value in column", col_name, "for user", case_id, "\n")
+        } else if (value == -1 || value == " -1") {
+          dimension_values[i] <- -1
+          cat("Using actual 'Don't know' value (-1) in column", col_name, "for user", case_id, "\n")
+        } else {
+          # For other missing or invalid data, use -1 as well
+          dimension_values[i] <- -1
+          cat("Using 'Don't know' value (-1) for missing/invalid data in column", col_name, "for user", case_id, "\n")
+        }
+        valid_count <- valid_count + 1
+        
+      } else {
+        # Convert to numeric and trim whitespace
+        value <- as.numeric(trimws(value))
+        
+        # Validate the value range (should be 1-7)
+        if (is.na(value) || value < 1 || value > 7) {
+          if (value == -1) {
+            # Count as missing
+            missing_count <- missing_count + 1
+            
+            if (missing_count > max_missing_allowed) {
+              cat("Too many missing values (", missing_count, ") for pattern", pattern_name, "user", case_id, "\n")
+              valid_evaluation <- FALSE
+              break
+            }
+            
+            # Use actual "don't know" value (-1)
+            dimension_values[i] <- -1
+            cat("Using 'Don't know' value (-1) in column", col_name, "for user", case_id, "\n")
+            valid_count <- valid_count + 1
+            
+          } else {
+            cat("Invalid value range:", value, "in column", col_name, "for user", case_id, "\n")
+            valid_evaluation <- FALSE
+            break
+          }
+        } else {
+          # Valid value, store it
+          dimension_values[i] <- value
+          valid_count <- valid_count + 1
+        }
       }
-      
-      # Determine if we need to flip the score
-      dim_base <- strsplit(dim_name, "_")[[1]][1]
-      # if (dim_base %in% dimensions_to_flip) {
-      #   # Flipping 1-7 scale becomes 7-1
-      #   value <- 8 - value
-      # }
-      
-      # Set the value
-      score_col <- paste0("score_", dim_name)
-      row_data[[score_col]] <- value
-      valid_count <- valid_count + 1
     }
     
-    # Add row to results if all dimensions had valid data
-    if (valid_evaluation && valid_count == length(dimension_names)) {
+    # If evaluation is valid, update the row_data with all dimension values
+    if (valid_evaluation) {
+      for (i in 1:length(dimension_names)) {
+        dim_name <- dimension_names[i]
+        score_col <- paste0("score_", dim_name)
+        row_data[[score_col]] <- dimension_values[i]
+      }
+      
+      # Add row to results
       results <- rbind(results, row_data)
       user_has_valid_data <- TRUE
       found_valid_data <- TRUE
-      cat("Added valid evaluation for pattern", pattern_name, "from user", case_id, "\n")
+      
+      if (missing_count > 0) {
+        cat("Added evaluation for pattern", pattern_name, "from user", case_id, 
+            "(with", missing_count, "neutral values for missing data)\n")
+      } else {
+        cat("Added valid evaluation for pattern", pattern_name, "from user", case_id, "\n")
+      }
     }
   }
   
