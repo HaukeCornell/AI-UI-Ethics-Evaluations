@@ -26,8 +26,7 @@
     },
     "ollama": {
       "models": [
-      "gemma3",
-      "llama3.2-vision:90b"
+      "gemma3"
       ],
       "endpoint": "http://localhost:11434/api/generate",
       "headers": {

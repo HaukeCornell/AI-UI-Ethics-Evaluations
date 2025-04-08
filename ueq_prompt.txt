@@ -1,0 +1,50 @@
+
+        ## UI Element Evaluation
+        
+        Instruction: In this section, user interface elements are presented to you. Subsequently, pairs of contrasting adjectives are listed. The numbers 1-7 between the adjectives represent gradations between the opposites. Please express your agreement with the adjectives by selecting one number per line that best aligns with your impression. If you find the feature unclear or believe that the adjectives do not describe the feature accurately, select -1 for "don't know / not applicable".
+
+        UI Description: A popup asking for notification permissions
+        
+        I perceive this interface feature as...
+
+        - inefficient (1) to efficient (7)
+- interesting (1) to not interesting (7)
+- clear (1) to confusing (7)
+- enjoyable (1) to annoying (7)
+- organized (1) to cluttered (7)
+- addictive (1) to non-addictive (7)
+- supportive (1) to obstructive (7)
+- pressuring (1) to suggesting (7)
+- boring (1) to exciting (7)
+- revealed (1) to covert (7)
+- complicated (1) to easy (7)
+- unpredictable (1) to predictable (7)
+- friendly (1) to unfriendly (7)
+- deceptive (1) to benevolent (7)
+
+        
+        Rate 1-7 where 1 is the left term and 7 is the right term, or -1 for not applicable.
+        
+        Please format your response as a JSON object with the following structure:
+        {
+            "assessment": {
+                "inefficient_efficient": 5,
+                "interesting_not_interesting": 5,
+                "clear_confusing": 5,
+                "enjoyable_annoying": 5,
+                "organized_cluttered": 5,
+                "addictive_non-addictive": 5,
+                "supportive_obstructive": 5,
+                "pressuring_suggesting": 5,
+                "boring_exciting": 5,
+                "revealed_covert": 5,
+                "complicated_easy": 5,
+                "unpredictable_predictable": 5,
+                "friendly_unfriendly": 5,
+                "deceptive_benevolent": 5
+            },
+            "explanation": "Short explanation of your assessment..."
+        }
+        
+        Please ensure your response contains only this JSON object and no other text.
+        

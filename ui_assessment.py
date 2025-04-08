@@ -105,6 +105,30 @@ class UIAssessmentSystem:
         """
         return prompt
 
+    def write_ueq_prompt_to_file(self, ui_description, output_file, image_path=None):
+        """
+        Write the formatted UEQ prompt to a file.
+        
+        Args:
+            ui_description (str): Description of the UI to be evaluated
+            output_file (str): Path to the output file where the prompt will be written
+            image_path (str, optional): Path to an image file if available
+        """
+        try:
+            # Get the formatted prompt
+            prompt = self.format_ueq_prompt(ui_description, image_path)
+            
+            # Write the prompt to the file
+            with open(output_file, 'w') as f:
+                f.write(prompt)
+                
+            logger.info(f"UEQ prompt written to {output_file}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error writing UEQ prompt to file: {str(e)}")
+            return False
+
     def call_anthropic_claude(self, prompt, image_path=None, model_name=None):
         """Call Anthropic's Claude API with prompt and optional image."""
         api_key = os.getenv("ANTHROPIC_API_KEY")
