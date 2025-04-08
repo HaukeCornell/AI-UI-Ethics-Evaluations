@@ -144,7 +144,9 @@ class UIAssessmentSystem:
         except Exception as e:
             logger.error(f"API request failed: {str(e)}")
             return None
-            
+                
+    # Modifications for ui_assessment.py to fix rate limit issues
+
     def call_openai_gpt4v(self, prompt, image_path=None, model_name=None):
         """Call OpenAI's GPT-4 Vision API with prompt and optional image."""
         api_key = os.getenv("OPENAI_API_KEY")
@@ -155,46 +157,58 @@ class UIAssessmentSystem:
         # Get service config
         service_config = self.config.get("ai_services", {}).get("openai", {})
         
-        # Use custom headers from config if available
-        headers = service_config.get("headers", {})
-        headers["Authorization"] = f"Bearer {api_key}"
+        # Use OpenAI client instead of direct requests
+        client = OpenAI(api_key=api_key)
         
-        messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+        # Format messages for OpenAI
+        content = [{"type": "text", "text": prompt}]
         
         # Add image if provided
         if image_path:
             base64_image = self.encode_image(image_path)
             media_type = self.get_media_type(image_path)
                 
-            messages[0]["content"].append({
+            content.append({
                 "type": "image_url",
                 "image_url": {
                     "url": f"data:{media_type};base64,{base64_image}"
                 }
             })
-            
-        payload = {
-            "model": model_name or service_config.get("models", [])[0],
-            "messages": messages,
-            "max_tokens": 1000,
-            "temperature": self.temperature
-        }
         
-        # Use endpoint from config if available
-        endpoint = service_config.get("endpoint", "https://api.openai.com/v1/chat/completions")
+        # Calculate expected response length - estimate based on UEQ scale count
+        expected_tokens = 250  # Base estimate for JSON structure
+        scale_count = len(self.config.get("assessment", {}).get("ueeq_scales", []))
+        expected_tokens += scale_count * 10  # Estimate per scale
         
-        try:
-            response = requests.post(
-                endpoint,
-                headers=headers,
-                json=payload
-            )
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"]
-        except requests.exceptions.RequestException as e:
-            logger.error(f"API request failed: {str(e)}")
-            return None
-    
+        max_retries = 3
+        retry_delay = 5
+        
+        for attempt in range(max_retries):
+            try:
+                # Use client.chat.completions.create instead of requests
+                response = client.chat.completions.create(
+                    model=model_name or service_config.get("models", [])[0],
+                    messages=[{"role": "user", "content": content}],
+                    max_tokens=expected_tokens,  # Use calculated value instead of fixed 1000
+                    temperature=self.temperature
+                )
+                return response.choices[0].message.content
+            except Exception as e:
+                error_msg = str(e)
+                logger.error(f"API request failed (attempt {attempt+1}/{max_retries}): {error_msg}")
+                
+                # Check for rate limit errors
+                if "rate limit" in error_msg.lower():
+                    wait_time = retry_delay * (2 ** attempt)  # Exponential backoff
+                    logger.info(f"Rate limit exceeded. Waiting {wait_time} seconds before retry...")
+                    time.sleep(wait_time)
+                else:
+                    # Non-rate limit error, don't retry
+                    return None
+        
+        # If we got here, all retries failed
+        logger.error("All retry attempts failed")
+        return None
     
     def call_qwen(self, prompt, image_path=None, model_name=None):
         """Call Alibaba Cloud's Qwen API with prompt and optional image."""

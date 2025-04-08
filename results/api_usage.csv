@@ -27,3 +27,6 @@ timestamp,ai_service,model,temperature,run_number,num_interfaces,tokens_in,token
 2025-04-04T12:08:54.944600,ollama,gemma3,0.7,1,15,10500,8250
 2025-04-04T12:09:12.938233,ollama,gemma3,0.7,2,15,10500,8250
 2025-04-04T12:09:30.974816,ollama,gemma3,0.7,3,15,10500,8250
+2025-04-08T11:04:40.672418,openai,gpt-4-turbo,0.7,1,15,10500,8250
+2025-04-08T11:08:44.777647,openai,gpt-4-turbo,0.7,2,15,10500,8250
+2025-04-08T11:12:46.861241,openai,gpt-4-turbo,0.7,3,15,10500,8250
