@@ -1,0 +1,92 @@
+[  
+  {
+    "id": "interface_001",
+    "pattern_type": "Nagging",
+    "description": "Please look at the picture, focusing on the popup and provide your rating below.",
+    "image_path": "temp/ui-elements/ui001.png"
+  },
+  {
+    "id": "interface_002",
+    "pattern_type": "Overcomplicated Process",
+    "description": "Imagine you want to change your privacy settings and the settings are displayed as shown in the image. Please have a look at the picture and provide your rating below",
+    "image_path": "temp/ui-elements/ui002.png"
+  },
+  {
+    "id": "interface_003",
+    "pattern_type": "Hindering Account Deletion",
+    "description": "Imagine you come across this information during the deletion of your social media account. Please have a look at the picture and provide your rating below",
+    "image_path": "temp/ui-elements/ui003.png"
+  },
+  {
+    "id": "interface_004",
+    "pattern_type": "Sneaking Bad Default",
+    "description": "Imagine seeing the pre-defined settings of your privacy preferences as illustrated in the image. Please have a look at the picture and provide your rating below.",
+    "image_path": "temp/ui-elements/ui004.png"
+  },
+  {
+    "id": "interface_005",
+    "pattern_type": "Expectation Result Mismatch",
+    "description": "Imagine being curious about why a particular ad is shown to you, prompting you to click the orange button. A pop-up appears which among other things, offers the option to withdraw consent for targeted advertisement. After clicking on the mentioned hyperlink, youre redirected to a website explaining consent and how to manage it, without the ability to withdraw consent. Please have a look at the picture and provide your rating below.",
+    "image_path": "temp/ui-elements/ui005.png"
+  },
+  {
+    "id": "interface_006",
+    "pattern_type": "False Hierarchy",
+    "description": "Please have a look at the picture, focusing on the two different options, and provide your rating below.",
+    "image_path": "temp/ui-elements/ui006.png"
+  },
+  {
+    "id": "interface_007",
+    "pattern_type": "Trick Wording",
+    "description": "Please have a look at the picture and provide your rating below.",
+    "image_path": "temp/ui-elements/ui007.png"
+  },
+  {
+    "id": "interface_008",
+    "pattern_type": "Toying With Emotion",
+    "description": "Please have a look at the picture and provide your rating below.",
+    "image_path": "temp/ui-elements/ui008.png"
+  },
+  {
+    "id": "interface_009",
+    "pattern_type": "Forced Access",
+    "description": "Imagine you want to save a photo from social media and click on the relevant button. A pop-up appears, requesting access to your photos. Since your intention is solely to save a photo and not to upload one from your photo gallery to social media, you choose the 'Select Photos...' option. Without selecting any photo, you proceed to click 'Done'. This results in an error, causing the platform to fail to save the photo. This process is visualized in the image below. Please have a look at it and provide your rating below.",
+    "image_path": "temp/ui-elements/ui009.png"
+  },
+  {
+    "id": "interface_010",
+    "pattern_type": "Gamification",
+    "description": "Please have a look at the picture and provide your rating below.",
+    "image_path": "temp/ui-elements/ui010.png"
+  },
+  {
+    "id": "interface_011",
+    "pattern_type": "Social Pressure",
+    "description": "Please have a look at the picture and provide your rating below",
+    "image_path": "temp/ui-elements/ui011.png"
+  },
+  {
+    "id": "interface_012",
+    "pattern_type": "Social Connector",
+    "description": "Please have a look at the picture and provide your rating below",
+    "image_path": "temp/ui-elements/ui012.png"
+  },
+  {
+    "id": "interface_013",
+    "pattern_type": "Content Customization",
+    "description": "Social Media customizes the content shown to you. Please have a look at the picture and provide your rating below",
+    "image_path": "temp/ui-elements/ui013.png"
+  },
+  {
+    "id": "interface_014",
+    "pattern_type": "Endlessness",
+    "description": "Please look at the following picture, focusing on the endlessly appearing content and provide your rating below",
+    "image_path": "temp/ui-elements/ui014.png"
+  },
+  {
+    "id": "interface_015",
+    "pattern_type": "Pull To Refresh",
+    "description": "Social Media platforms incorporate the Pull To Refresh mechanism. When you swipe from the top to the middle, the content gets refreshed. This is demonstrated in the following picture. Please watch it and provide your rating below.",
+    "image_path": "temp/ui-elements/ui015.png"
+  }
+]

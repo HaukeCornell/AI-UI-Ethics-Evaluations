@@ -44,9 +44,10 @@ class UIAssessmentSystem:
             raise
             
     def encode_image(self, image_path):
-        """Encode image to base64 for API requests."""
+        """Encode image to base64 for API requests without leaking path information."""
         try:
             with open(image_path, "rb") as image_file:
+                # Read the image without including the original path in any metadata
                 return base64.b64encode(image_file.read()).decode('utf-8')
         except FileNotFoundError:
             logger.error(f"Image file not found: {image_path}")
@@ -82,13 +83,13 @@ class UIAssessmentSystem:
         example_assessment = example_assessment.rstrip(',') + "\n            }"
         
         prompt = f"""
-        ## Dark Patterns in Social Media
+        ## UI Element Evaluation
         
-        Instruction: In this section, social media elements are presented to you. Subsequently, pairs of contrasting adjectives are listed. The numbers 1-7 between the adjectives represent gradations between the opposites. Please express your agreement with the adjectives by selecting one number per line that best aligns with your impression. If you find the feature unclear or believe that the adjectives do not describe the feature accurately, select -1 for "don't know / not applicable".
+        Instruction: In this section, user interface elements are presented to you. Subsequently, pairs of contrasting adjectives are listed. The numbers 1-7 between the adjectives represent gradations between the opposites. Please express your agreement with the adjectives by selecting one number per line that best aligns with your impression. If you find the feature unclear or believe that the adjectives do not describe the feature accurately, select -1 for "don't know / not applicable".
 
         UI Description: {ui_description}
         
-        I perceive this social media feature as...
+        I perceive this interface feature as...
 
         {scales_text}
         
@@ -303,6 +304,7 @@ class UIAssessmentSystem:
         description = interface_data.get("description", "")
         image_path = interface_data.get("image_path")
         pattern_type = interface_data.get("pattern_type", "")
+        interface_id = interface_data.get("id", "")
         
         prompt = self.format_ueq_prompt(description)
         ai_service_fn = self.select_ai_service(ai_service)
@@ -313,11 +315,12 @@ class UIAssessmentSystem:
             
         # Call the AI service
         try:
-            logger.info(f"Calling {ai_service} ({model_name}) for interface: {pattern_type}")
+            # Only log using a generic ID instead of pattern type
+            logger.info(f"Calling {ai_service} ({model_name}) for interface: {interface_id}")
             response = ai_service_fn(prompt, image_path, model_name)
             
             if not response:
-                logger.error(f"No response from {ai_service} for interface: {pattern_type}")
+                logger.error(f"No response from {ai_service} for interface: {interface_id}")
                 return None
                 
             # Extract JSON from response
@@ -329,17 +332,17 @@ class UIAssessmentSystem:
                     json_str = response[json_start:json_end]
                     result = json.loads(json_str)
                 else:
-                    logger.error(f"No JSON found in response for interface: {pattern_type}")
+                    logger.error(f"No JSON found in response for interface: {interface_id}")
                     return None
                     
-                # Add metadata
+                # Add metadata - store pattern type for analysis but don't expose to the model
                 result["metadata"] = {
                     "timestamp": datetime.now().isoformat(),
                     "ai_service": ai_service,
                     "model": model_name,
                     "temperature": self.temperature,
                     "pattern_type": pattern_type,
-                    "interface_id": interface_data.get("id", "")
+                    "interface_id": interface_id
                 }
                 
                 return result
