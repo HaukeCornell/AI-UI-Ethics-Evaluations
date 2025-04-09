@@ -1,0 +1,16 @@
+Pattern Type,Human UX KPI,Human Worst Aspect,anthropic claude-3-opus-20240229 UX KPI,anthropic claude-3-opus-20240229 Worst Aspect,qwen qwen-vl-max UX KPI,qwen qwen-vl-max Worst Aspect,openai gpt-4-turbo UX KPI,openai gpt-4-turbo Worst Aspect,ollama gemma3 UX KPI,ollama gemma3 Worst Aspect
+Forced Access,0.6693548387096774,boring,1.1875,not_interesting,0.5,inefficient,0.5416666666666666,boring,-0.08333333333333333,not_interesting
+Expectation Result Mismatch,0.58203125,cluttered,1.1666666666666667,boring,0.4166666666666667,deceptive,-0.5833333333333334,annoying,0.0,not_interesting
+Nagging,0.5729166666666666,boring,-1.2083333333333333,boring,0.25,confusing,-0.5833333333333334,complicated,0.0,not_interesting
+Overcomplicated Process,0.5357142857142857,boring,-0.875,boring,0.020833333333333332,not_interesting,0.0,confusing,0.0,not_interesting
+Trick Wording,0.44642857142857145,boring,-1.2083333333333333,pressuring,0.041666666666666664,confusing,-0.5208333333333334,covert,-0.375,boring
+False Hierarchy,0.39919354838709675,boring,-0.9791666666666666,boring,0.16666666666666666,confusing,-0.3125,addictive,0.0,not_interesting
+Toying With Emotion,0.135,not_interesting,-1.75,pressuring,-0.08333333333333333,confusing,-1.0416666666666667,boring,-0.20833333333333334,boring
+Gamification,-0.05803571428571429,pressuring,-1.1666666666666667,boring,0.25,confusing,-0.3125,obstructive,0.0,not_interesting
+Content Customization,-0.1896551724137931,boring,-0.8958333333333334,pressuring,0.3333333333333333,confusing,-0.5208333333333334,complicated,0.0,not_interesting
+Social Connector,-0.3416666666666667,boring,-1.5208333333333333,addictive,0.125,confusing,-0.2916666666666667,complicated,-0.0625,not_interesting
+Hindering Account Deletion,-0.3706896551724138,boring,0.22916666666666666,boring,0.14583333333333334,not_interesting,-0.14583333333333334,covert,-0.22916666666666666,boring
+Endlessness,-0.45535714285714285,boring,-0.2916666666666667,not_interesting,0.125,covert,-0.6458333333333334,cluttered,0.0,not_interesting
+Sneaking Bad Default,-0.4609375,boring,-1.4375,boring,0.125,confusing,-0.4375,obstructive,0.0,not_interesting
+Social Pressure,-0.47058823529411764,boring,-1.4375,boring,0.25,not_interesting,-0.041666666666666664,confusing,0.0,not_interesting
+Pull To Refresh,-0.7361111111111112,addictive,-0.5208333333333334,addictive,-0.020833333333333332,boring,-0.6041666666666666,boring,0.0,not_interesting

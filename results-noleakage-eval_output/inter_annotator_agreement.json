@@ -1,0 +1,160 @@
+{
+  "within_human": {
+    "score_inefficient_efficient": {
+      "mean_kappa": -0.11111111111111116,
+      "min_kappa": -0.11111111111111116,
+      "max_kappa": -0.11111111111111116,
+      "num_pairs": 1
+    },
+    "score_interesting_not_interesting": {
+      "mean_kappa": 0.4444444444444444,
+      "min_kappa": 0.4444444444444444,
+      "max_kappa": 0.4444444444444444,
+      "num_pairs": 1
+    },
+    "score_clear_confusing": {
+      "mean_kappa": -0.36363636363636354,
+      "min_kappa": -0.36363636363636354,
+      "max_kappa": -0.36363636363636354,
+      "num_pairs": 1
+    },
+    "score_enjoyable_annoying": {
+      "mean_kappa": 0.2857142857142857,
+      "min_kappa": 0.2857142857142857,
+      "max_kappa": 0.2857142857142857,
+      "num_pairs": 1
+    },
+    "score_organized_cluttered": {
+      "mean_kappa": 0.2857142857142857,
+      "min_kappa": 0.2857142857142857,
+      "max_kappa": 0.2857142857142857,
+      "num_pairs": 1
+    },
+    "score_addictive_non_addictive": {
+      "mean_kappa": 1.0,
+      "min_kappa": 1.0,
+      "max_kappa": 1.0,
+      "num_pairs": 1
+    },
+    "score_supportive_obstructive": {
+      "mean_kappa": 0.0625,
+      "min_kappa": 0.0625,
+      "max_kappa": 0.0625,
+      "num_pairs": 1
+    },
+    "score_pressuring_suggesting": {
+      "mean_kappa": 0.16666666666666663,
+      "min_kappa": 0.16666666666666663,
+      "max_kappa": 0.16666666666666663,
+      "num_pairs": 1
+    },
+    "score_boring_exciting": {
+      "mean_kappa": -0.33333333333333304,
+      "min_kappa": -0.33333333333333304,
+      "max_kappa": -0.33333333333333304,
+      "num_pairs": 1
+    },
+    "score_revealed_covert": {
+      "mean_kappa": 0.5454545454545454,
+      "min_kappa": 0.5454545454545454,
+      "max_kappa": 0.5454545454545454,
+      "num_pairs": 1
+    },
+    "score_complicated_easy": {
+      "mean_kappa": 0.0625,
+      "min_kappa": 0.0625,
+      "max_kappa": 0.0625,
+      "num_pairs": 1
+    },
+    "score_unpredictable_predictable": {
+      "mean_kappa": -0.11111111111111116,
+      "min_kappa": -0.11111111111111116,
+      "max_kappa": -0.11111111111111116,
+      "num_pairs": 1
+    },
+    "score_friendly_unfriendly": {
+      "mean_kappa": 0.0625,
+      "min_kappa": 0.0625,
+      "max_kappa": 0.0625,
+      "num_pairs": 1
+    },
+    "score_deceptive_benevolent": {
+      "mean_kappa": 0.06249999999999989,
+      "min_kappa": 0.06249999999999989,
+      "max_kappa": 0.06249999999999989,
+      "num_pairs": 1
+    }
+  },
+  "within_model": {
+    "anthropic_claude-3-opus-20240229": {
+      "error": "Need at least 2 participants with sufficient data"
+    },
+    "qwen_qwen-vl-max": {
+      "error": "Need at least 2 participants with sufficient data"
+    },
+    "openai_gpt-4-turbo": {
+      "error": "Need at least 2 participants with sufficient data"
+    },
+    "ollama_gemma3": {
+      "error": "Need at least 2 participants with sufficient data"
+    }
+  },
+  "human_model": {
+    "anthropic_claude-3-opus-20240229": {
+      "score_interesting_not_interesting": -0.08552631578947367,
+      "score_clear_confusing": 0.08629441624365486,
+      "score_enjoyable_annoying": 0.08695652173913038,
+      "score_organized_cluttered": 0.05714285714285727,
+      "score_addictive_non_addictive": 0.32835820895522394,
+      "score_supportive_obstructive": -0.11111111111111094,
+      "score_pressuring_suggesting": 0.10256410256410253,
+      "score_boring_exciting": -0.15384615384615374,
+      "score_revealed_covert": 0.08536585365853655,
+      "score_complicated_easy": 0.12903225806451613,
+      "score_friendly_unfriendly": 0.07692307692307687,
+      "score_deceptive_benevolent": 0.32432432432432423
+    },
+    "qwen_qwen-vl-max": {
+      "score_interesting_not_interesting": 0.0119760479041916,
+      "score_clear_confusing": -0.10795454545454541,
+      "score_enjoyable_annoying": -0.09090909090909083,
+      "score_organized_cluttered": -0.13636363636363624,
+      "score_addictive_non_addictive": 0.06896551724137945,
+      "score_supportive_obstructive": -0.13636363636363624,
+      "score_pressuring_suggesting": -0.5853658536585367,
+      "score_boring_exciting": 0.12903225806451601,
+      "score_revealed_covert": 0.0,
+      "score_complicated_easy": 0.3421052631578948,
+      "score_friendly_unfriendly": -0.05633802816901401,
+      "score_deceptive_benevolent": -0.04166666666666674
+    },
+    "openai_gpt-4-turbo": {
+      "score_interesting_not_interesting": 0.042553191489361764,
+      "score_clear_confusing": 0.05063291139240522,
+      "score_enjoyable_annoying": 0.045454545454545414,
+      "score_organized_cluttered": -0.10091743119266061,
+      "score_addictive_non_addictive": -0.07913669064748219,
+      "score_supportive_obstructive": -0.12500000000000022,
+      "score_pressuring_suggesting": -0.07843137254901977,
+      "score_boring_exciting": 0.18604651162790697,
+      "score_revealed_covert": 0.2622950819672131,
+      "score_complicated_easy": 0.008264462809917328,
+      "score_friendly_unfriendly": -0.11940298507462677,
+      "score_deceptive_benevolent": 0.09090909090909094
+    },
+    "ollama_gemma3": {
+      "score_interesting_not_interesting": 0.027027027027026973,
+      "score_clear_confusing": 0.03743315508021372,
+      "score_enjoyable_annoying": -0.13793103448275867,
+      "score_organized_cluttered": 0.03743315508021372,
+      "score_addictive_non_addictive": 0.005102040816326481,
+      "score_supportive_obstructive": -0.18181818181818188,
+      "score_pressuring_suggesting": 0.02985074626865658,
+      "score_boring_exciting": 0.01015228426395931,
+      "score_revealed_covert": 0.01015228426395931,
+      "score_complicated_easy": 0.12903225806451613,
+      "score_friendly_unfriendly": -0.13013698630136994,
+      "score_deceptive_benevolent": 0.02985074626865658
+    }
+  }
+}

@@ -1,0 +1,16 @@
+metadata_pattern_type,ux_kpi,worst_aspect,worst_value
+Content Customization,0.3333333333333333,confusing,2.0
+Endlessness,0.125,covert,3.0
+Expectation Result Mismatch,0.4166666666666667,deceptive,3.0
+False Hierarchy,0.16666666666666666,confusing,3.0
+Forced Access,0.5,inefficient,2.0
+Gamification,0.25,confusing,3.0
+Hindering Account Deletion,0.14583333333333334,not_interesting,2.5
+Nagging,0.25,confusing,3.0
+Overcomplicated Process,0.020833333333333332,not_interesting,1.1666666666666667
+Pull To Refresh,-0.020833333333333332,boring,4.0
+Sneaking Bad Default,0.125,confusing,3.0
+Social Connector,0.125,confusing,3.0
+Social Pressure,0.25,not_interesting,3.0
+Toying With Emotion,-0.08333333333333333,confusing,3.0
+Trick Wording,0.041666666666666664,confusing,3.0
