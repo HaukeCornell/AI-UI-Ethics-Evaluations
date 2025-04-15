@@ -191,44 +191,72 @@
     // Run check on load
     checkSelection();
     
+    // Helper function to sanitize string for API requests
+    function sanitizeForAPI(text) {
+      // Replace any non-ASCII characters with a space
+      return text.replace(/[^\x00-\x7F]/g, ' ');
+    }
+    
     // Handle API requests from the plugin
     async function callAnthropicAPI(config, prompt, base64Image, apiKey) {
       try {
-        const content = [
-          { type: "text", text: prompt },
-          { 
-            type: "image", 
-            source: {
-              type: "base64",
-              media_type: "image/png",
-              data: base64Image
+        // Create a minimal object with just the required properties
+        const requestBody = {
+          model: config.anthropic.model,
+          max_tokens: 1000,
+          temperature: 0,
+          messages: [
+            { 
+              role: "user", 
+              content: [
+                { type: "text", text: sanitizeForAPI(prompt) },
+                { 
+                  type: "image", 
+                  source: {
+                    type: "base64",
+                    media_type: "image/png",
+                    data: base64Image
+                  }
+                }
+              ]
             }
-          }
-        ];
+          ]
+        };
+        
+        // Create a minimal headers object
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('x-api-key', apiKey);
+        headers.append('anthropic-version', '2023-06-01');
         
         const response = await fetch(config.anthropic.endpoint, {
           method: 'POST',
-          headers: {
-            ...config.anthropic.headers,
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01'
-          },
-          body: JSON.stringify({
-            model: config.anthropic.model,
-            max_tokens: 1000,
-            temperature: 0,
-            messages: [
-              { role: "user", content }
-            ]
-          })
+          headers: headers,
+          body: JSON.stringify(requestBody)
         });
         
         if (!response.ok) {
-          throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+          // Try to get the error message from the response
+          let errorDetail = '';
+          try {
+            const errorData = await response.json();
+            errorDetail = JSON.stringify(errorData);
+          } catch (e) {
+            // If we can't parse the response as JSON, just use the status text
+            errorDetail = response.statusText;
+          }
+          throw new Error(`Anthropic API request failed: ${response.status} - ${errorDetail}`);
         }
         
-        const responseData = await response.json();
-        return responseData.content[0].text;
+        try {
+          const responseData = await response.json();
+          if (!responseData.content || !responseData.content[0] || !responseData.content[0].text) {
+            throw new Error(`Invalid response format from Anthropic API: ${JSON.stringify(responseData)}`);
+          }
+          return responseData.content[0].text;
+        } catch (jsonError) {
+          throw new Error(`Failed to parse Anthropic API response: ${jsonError.message}`);
+        }
       } catch (error) {
         throw error;
       }
@@ -236,39 +264,60 @@
     
     async function callOpenAIAPI(config, prompt, base64Image, apiKey) {
       try {
+        // Create a minimal request body
+        const requestBody = {
+          model: config.openai.model,
+          messages: [
+            {
+              role: "user",
+              content: [
+                { type: "text", text: sanitizeForAPI(prompt) },
+                {
+                  type: "image_url",
+                  image_url: { 
+                    url: `data:image/png;base64,${base64Image}`
+                  }
+                }
+              ]
+            }
+          ],
+          max_tokens: 1000,
+          temperature: 0
+        };
+        
+        // Create a minimal headers object
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${apiKey}`);
+        
         const response = await fetch(config.openai.endpoint, {
           method: 'POST',
-          headers: {
-            ...config.openai.headers,
-            'Authorization': `Bearer ${apiKey}`
-          },
-          body: JSON.stringify({
-            model: config.openai.model,
-            messages: [
-              {
-                role: "user",
-                content: [
-                  { type: "text", text: prompt },
-                  {
-                    type: "image_url",
-                    image_url: { 
-                      url: `data:image/png;base64,${base64Image}`
-                    }
-                  }
-                ]
-              }
-            ],
-            max_tokens: 1000,
-            temperature: 0
-          })
+          headers: headers,
+          body: JSON.stringify(requestBody)
         });
         
         if (!response.ok) {
-          throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+          // Try to get the error message from the response
+          let errorDetail = '';
+          try {
+            const errorData = await response.json();
+            errorDetail = JSON.stringify(errorData);
+          } catch (e) {
+            // If we can't parse the response as JSON, just use the status text
+            errorDetail = response.statusText;
+          }
+          throw new Error(`OpenAI API request failed: ${response.status} - ${errorDetail}`);
         }
         
-        const responseData = await response.json();
-        return responseData.choices[0].message.content;
+        try {
+          const responseData = await response.json();
+          if (!responseData.choices || !responseData.choices[0] || !responseData.choices[0].message || !responseData.choices[0].message.content) {
+            throw new Error(`Invalid response format from OpenAI API: ${JSON.stringify(responseData)}`);
+          }
+          return responseData.choices[0].message.content;
+        } catch (jsonError) {
+          throw new Error(`Failed to parse OpenAI API response: ${jsonError.message}`);
+        }
       } catch (error) {
         throw error;
       }
@@ -298,7 +347,15 @@
     
     // Listen for messages from the plugin
     window.onmessage = async (event) => {
+      console.log("UI received message:", event.data);
+      
+      if (!event.data.pluginMessage) {
+        console.log("Not a plugin message, ignoring");
+        return;
+      }
+      
       const message = event.data.pluginMessage;
+      console.log("Processing plugin message type:", message.type);
       
       if (message.type === 'evaluation-complete') {
         statusDiv.innerHTML = '<span class="success">✓ Evaluation complete! Gauge created.</span>';
@@ -314,12 +371,56 @@
           statusDiv.innerHTML = '<span class="success">✓ Ready to evaluate</span>';
           evaluateBtn.disabled = false;
         }
+      } else if (message.type === 'status-update') {
+        console.log("Status update:", message.message);
+        statusDiv.innerHTML = `<span class="spinner"></span> ${message.message}</span>`;
+        evaluateBtn.disabled = true;
       } else if (message.type === 'api-request') {
         try {
+          console.log("Making API request to:", message.service);
+          console.log("Base64 image length:", message.base64Image ? message.base64Image.length : 0);
+          console.log("Prompt length:", message.prompt ? message.prompt.length : 0);
+          
+          // Validate required data
+          if (!message.prompt) {
+            throw new Error("Missing prompt for API request");
+          }
+          if (!message.base64Image) {
+            throw new Error("Missing image data for API request");
+          }
+          if (!message.apiKey) {
+            throw new Error("Missing API key for API request");
+          }
+          
+          // Check if base64 image is valid
+          if (message.base64Image) {
+            try {
+              // Check if the image looks like valid base64
+              const imageDataRegex = /^[A-Za-z0-9+/=]+$/;
+              // Check only a part of the string for the pattern to avoid long regex operations
+              const sampleLength = Math.min(1000, message.base64Image.length);
+              const sample = message.base64Image.substring(0, sampleLength);
+              
+              if (!imageDataRegex.test(sample)) {
+                console.warn("Base64 image data may be invalid - contains non-base64 characters");
+              }
+              
+              // Check image length
+              if (message.base64Image.length < 1000) {
+                console.warn("Base64 image is very small, might be incomplete");
+              }
+            } catch (e) {
+              console.error("Error checking base64 image:", e);
+            }
+          }
+          
           statusDiv.innerHTML = '<span class="spinner"></span> Contacting AI service...';
           
           let responseText;
           if (message.service === 'anthropic') {
+            console.log("Calling Anthropic API with", 
+              message.config && message.config.anthropic ? message.config.anthropic.model || "unknown model" : "unknown model");
+            
             responseText = await callAnthropicAPI(
               message.config, 
               message.prompt, 
@@ -327,6 +428,9 @@
               message.apiKey
             );
           } else if (message.service === 'openai') {
+            console.log("Calling OpenAI API with", 
+              message.config && message.config.openai ? message.config.openai.model || "unknown model" : "unknown model");
+            
             responseText = await callOpenAIAPI(
               message.config, 
               message.prompt, 
@@ -337,6 +441,11 @@
             throw new Error(`Service ${message.service} is not implemented yet`);
           }
           
+          if (!responseText) {
+            throw new Error("Empty response from API");
+          }
+          
+          console.log("API response received, length:", responseText.length);
           // Send the response back to the plugin
           parent.postMessage({ 
             pluginMessage: { 
@@ -357,6 +466,8 @@
           statusDiv.innerHTML = `<span class="error">API Error: ${error.message}</span>`;
           evaluateBtn.disabled = false;
         }
+      } else {
+        console.warn("Unknown message type:", message.type);
       }
     };
   </script>

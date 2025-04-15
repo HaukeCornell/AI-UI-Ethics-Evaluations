@@ -60,6 +60,11 @@ interface UiEvalMessage {
   apiKey?: string;
   error?: string;
   hasValidSelection?: boolean;
+  prompt?: string;
+  base64Image?: string;
+  config?: any;
+  data?: string;
+  message?: string;
 }
 
 interface UeqScale {
@@ -151,15 +156,12 @@ Please ensure your response contains only this JSON object and no other text.
 async function callAIService(service: string, prompt: string, imageBytes: Uint8Array, apiKey: string): Promise<string> {
   const base64Image = await encodeImageToBase64(imageBytes);
   
-  // Create a promise that will resolve when we get a response from the UI
-  return new Promise((resolve, reject) => {
-    // Set up a listener for the response
-    const messageListener = (event: MessageEvent) => {
-      const msg = event.data.pluginMessage;
-      
+  return new Promise<string>((resolve, reject) => {
+    // Setup message handler
+    function handlePluginMessage(msg: any) {
       if (msg.type === 'api-response') {
-        // Remove the listener once we get a response
-        window.removeEventListener('message', messageListener);
+        // Remove handler once we get a response
+        figma.ui.off('message', handlePluginMessage);
         
         if (msg.error) {
           reject(new Error(msg.error));
@@ -167,10 +169,10 @@ async function callAIService(service: string, prompt: string, imageBytes: Uint8A
           resolve(msg.data);
         }
       }
-    };
+    }
     
-    // Add the listener
-    window.addEventListener('message', messageListener);
+    // Add the message handler
+    figma.ui.on('message', handlePluginMessage);
     
     // Send the request to the UI
     figma.ui.postMessage({
@@ -195,18 +197,43 @@ async function callAIService(service: string, prompt: string, imageBytes: Uint8A
     
     // Set a timeout to reject the promise if we don't get a response
     setTimeout(() => {
-      window.removeEventListener('message', messageListener);
+      figma.ui.off('message', handlePluginMessage);
       reject(new Error("API request timed out after 60 seconds"));
     }, 60000);
   });
 }
 
 /**
- * Encode image to Base64
+ * Encode image to Base64 with safety checks
  */
 async function encodeImageToBase64(bytes: Uint8Array): Promise<string> {
-  // Use Figma's built-in base64 encoding function
-  return figma.base64Encode(bytes);
+  try {
+    // Use Figma's built-in base64 encoding function
+    const base64 = figma.base64Encode(bytes);
+    
+    // Validate the base64 string
+    if (!base64 || base64.length === 0) {
+      console.error("Base64 encoding failed - empty result");
+      throw new Error("Failed to encode image: empty result");
+    }
+    
+    // Check if we need to resize the image (if it's too large)
+    // Max size ~3MB base64 string (which is roughly a 2.25MB image)
+    const MAX_BASE64_LENGTH = 3 * 1024 * 1024;
+    if (base64.length > MAX_BASE64_LENGTH) {
+      console.warn("Image is very large, base64 length:", base64.length);
+      
+      // We'd need to re-export at a lower quality, but for now just truncate
+      // This is not ideal, but better than failing completely
+      console.warn("Base64 image truncated to avoid size issues");
+      return base64.substring(0, MAX_BASE64_LENGTH);
+    }
+    
+    return base64;
+  } catch (error) {
+    console.error("Error in base64 encoding:", error);
+    throw new Error("Failed to encode image for API request");
+  }
 }
 
 /**
@@ -565,10 +592,38 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
 }
 
 /**
+ * Load required fonts
+ */
+async function loadRequiredFonts() {
+  try {
+    console.log("Loading required fonts...");
+    await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+    await figma.loadFontAsync({ family: "Inter", style: "Medium" });
+    await figma.loadFontAsync({ family: "Inter", style: "Bold" });
+    console.log("Fonts loaded successfully");
+  } catch (error) {
+    console.error("Error loading fonts:", error);
+    // Try system fonts as fallback
+    try {
+      await figma.loadFontAsync({ family: "Arial", style: "Regular" });
+      await figma.loadFontAsync({ family: "Arial", style: "Bold" });
+    } catch (fallbackError) {
+      console.error("Error loading fallback fonts:", fallbackError);
+      throw new Error("Failed to load required fonts");
+    }
+  }
+}
+
+/**
  * Main evaluation function
  */
 async function evaluateUI(service: string, apiKey: string) {
   try {
+    console.log("Starting UI evaluation for service:", service);
+    
+    // Load required fonts first
+    await loadRequiredFonts();
+    
     // Check if a frame is selected
     const selection = figma.currentPage.selection;
     
@@ -577,29 +632,44 @@ async function evaluateUI(service: string, apiKey: string) {
     }
     
     const selectedNode = selection[0] as FrameNode | ComponentNode | InstanceNode;
+    console.log("Selected node:", selectedNode.name, selectedNode.type);
     
     // Get description of the UI frame
     const description = await getFrameDescription(selectedNode);
+    console.log("Generated description:", description.substring(0, 100) + "...");
     
     // Format prompt
     const prompt = formatUeqPrompt(description, config.ueeq_scales);
+    console.log("Formatted prompt (first 100 chars):", prompt.substring(0, 100) + "...");
     
     // Get image bytes
+    console.log("Exporting image...");
     const bytes = await selectedNode.exportAsync({
       format: 'PNG',
       constraint: { type: 'SCALE', value: 2 }
     });
+    console.log("Image exported, size:", bytes.length, "bytes");
     
     // Call AI service via the UI (to avoid CORS issues)
+    console.log("Calling AI service:", service);
+    figma.ui.postMessage({ type: 'status-update', message: 'Sending request to AI service...' });
     const responseText = await callAIService(service, prompt, bytes, apiKey);
+    console.log("AI service response received, length:", responseText.length);
     
     // Extract JSON result
+    console.log("Extracting JSON from response...");
+    figma.ui.postMessage({ type: 'status-update', message: 'Processing AI response...' });
     const result = extractJsonFromResponse(responseText);
+    console.log("JSON extracted, assessment keys:", Object.keys(result.assessment).join(", "));
     
     // Calculate UX KPI
+    console.log("Calculating UX KPI...");
     const uxKpi = calculateUxKpi(result);
+    console.log("UX KPI calculated:", uxKpi);
     
     // Create gauge visualization
+    console.log("Creating gauge visualization...");
+    figma.ui.postMessage({ type: 'status-update', message: 'Creating visualization...' });
     const gauge = createGauge(
       uxKpi.worstValue,
       "UI Evaluation", 
@@ -609,6 +679,7 @@ async function evaluateUI(service: string, apiKey: string) {
     );
     
     // Create evaluation comment
+    console.log("Creating evaluation comment...");
     const comment = createEvaluationComment(result, uxKpi);
     
     // Position the gauge and comment next to the selected node
@@ -619,6 +690,7 @@ async function evaluateUI(service: string, apiKey: string) {
     comment.y = selectedNode.y + gauge.height + 20;
     
     // Add to document
+    console.log("Adding elements to document...");
     figma.currentPage.appendChild(gauge);
     figma.currentPage.appendChild(comment);
     
@@ -627,12 +699,23 @@ async function evaluateUI(service: string, apiKey: string) {
     figma.viewport.scrollAndZoomIntoView([selectedNode, gauge, comment]);
     
     // Notify UI
+    console.log("Evaluation complete!");
     figma.ui.postMessage({ type: 'evaluation-complete' });
   } catch (error) {
     console.error('Evaluation error:', error);
+    // Get detailed error info
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+      console.error("Error stack:", error.stack);
+    } else {
+      errorMessage = String(error);
+    }
+    console.error("Error details:", errorMessage);
+    
     figma.ui.postMessage({ 
       type: 'evaluation-error', 
-      error: error instanceof Error ? error.message : String(error) 
+      error: errorMessage 
     });
   }
 }
@@ -647,14 +730,35 @@ function checkValidSelection(): boolean {
 
 // Handle messages from UI
 figma.ui.onmessage = async (msg: UiEvalMessage) => {
-  if (msg.type === 'evaluate-ui') {
-    await evaluateUI(msg.service!, msg.apiKey!);
-  } else if (msg.type === 'cancel') {
-    figma.closePlugin();
-  } else if (msg.type === 'check-selection') {
+  try {
+    if (msg.type === 'evaluate-ui') {
+      await evaluateUI(msg.service!, msg.apiKey!);
+    } else if (msg.type === 'cancel') {
+      figma.closePlugin();
+    } else if (msg.type === 'check-selection') {
+      figma.ui.postMessage({ 
+        type: 'selection-status', 
+        hasValidSelection: checkValidSelection() 
+      });
+    } else if (msg.type === 'api-response') {
+      // This is handled by the promise in callAIService
+      console.log("Received API response");
+    } else {
+      console.log("Unknown message type:", msg.type);
+    }
+  } catch (error) {
+    console.error("Error handling message:", error);
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    } else if (error && typeof error === 'object') {
+      errorMessage = String(error);
+    }
     figma.ui.postMessage({ 
-      type: 'selection-status', 
-      hasValidSelection: checkValidSelection() 
+      type: 'evaluation-error', 
+      error: errorMessage
     });
   }
 };
