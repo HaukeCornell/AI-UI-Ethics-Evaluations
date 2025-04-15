@@ -138,12 +138,25 @@ I perceive this interface feature as...
 
 ${scalesText}
 
-Rate 1-7 where 1 is the left term and 7 is the right term, or -1 for not applicable.
+The numerical scale represents the degree to which the adjective pair applies to the interface:
+1 = strongly left term
+2 = moderately left term
+3 = slightly left term
+4 = neutral
+5 = slightly right term
+6 = moderately right term
+7 = strongly right term
+null = not applicable/don't know
+
+In your assessment, keep in mind that I will convert your ratings to a -3 to +3 scale where:
+- Negative values indicate potential problems or dark patterns
+- Positive values indicate good UX design
+- Zero represents a neutral evaluation
 
 Please format your response as a JSON object with the following structure:
 {
     "assessment": ${exampleAssessment},
-    "explanation": "Short explanation of your assessment..."
+    "explanation": "Short explanation of your assessment, highlighting both positive and negative aspects"
 }
 
 Please ensure your response contains only this JSON object and no other text.
@@ -252,121 +265,161 @@ function extractJsonFromResponse(response: string): AssessmentResult {
 }
 
 /**
- * Calculate UX KPI from assessment result
+ * Calculate UX KPI from assessment result with normalized scales
  */
 function calculateUxKpi(result: AssessmentResult): {
   uxKpi: number;
   worstAspect: string;
   worstValue: number;
+  bestAspect: string;
+  bestValue: number;
   ethicalRisk: 'Low' | 'Medium' | 'High';
+  manipulationScore: number;
 } {
   const assessment = result.assessment;
   
   // Map scores to the right format for UX KPI calculation
   const scores: Record<string, number> = {};
   
-  // Define mapping for UX KPI calculation
+  // Define mapping for UX KPI calculation (making all scales consistent)
+  // high values = good, low values = bad
   const uxMapping: Record<string, {item: string, invert: boolean}> = {
-    'boring_exciting': {item: 'ux_boring', invert: true},
-    'interesting_not_interesting': {item: 'ux_not_interesting', invert: false},  
-    'complicated_easy': {item: 'ux_complicated', invert: true},
-    'clear_confusing': {item: 'ux_confusing', invert: false},
-    'inefficient_efficient': {item: 'ux_inefficient', invert: true},
-    'organized_cluttered': {item: 'ux_cluttered', invert: false},
-    'unpredictable_predictable': {item: 'ux_unpredictable', invert: true},
-    'supportive_obstructive': {item: 'ux_obstructive', invert: false}
+    // UX items - normalized to positive high (7 = good, 1 = bad)
+    'boring_exciting': {item: 'ux_exciting', invert: false}, // Already positive high
+    'interesting_not_interesting': {item: 'ux_interesting', invert: true}, // Invert: not_interesting -> interesting
+    'complicated_easy': {item: 'ux_easy', invert: false}, // Already positive high
+    'clear_confusing': {item: 'ux_clear', invert: true}, // Invert: confusing -> clear
+    'inefficient_efficient': {item: 'ux_efficient', invert: false}, // Already positive high
+    'organized_cluttered': {item: 'ux_organized', invert: true}, // Invert: cluttered -> organized
+    'unpredictable_predictable': {item: 'ux_predictable', invert: false}, // Already positive high
+    'supportive_obstructive': {item: 'ux_supportive', invert: true}, // Invert: obstructive -> supportive
+    'enjoyable_annoying': {item: 'ux_enjoyable', invert: true}, // Invert: annoying -> enjoyable
+    'friendly_unfriendly': {item: 'ux_friendly', invert: true}, // Invert: unfriendly -> friendly
+    
+    // Manipulation items - normalized to positive high (7 = ethical, 1 = manipulative)
+    'addictive_non-addictive': {item: 'manip_non_addictive', invert: false}, // Already positive high
+    'pressuring_suggesting': {item: 'manip_suggesting', invert: false}, // Already positive high
+    'revealed_covert': {item: 'manip_revealed', invert: true}, // Invert: covert -> revealed
+    'deceptive_benevolent': {item: 'manip_benevolent', invert: false} // Already positive high
   };
   
-  // Calculate inverted scores where necessary
-  // Manually iterate over uxMapping keys since Object.entries is not available in ES6
-  const keys = ['boring_exciting', 'interesting_not_interesting', 'complicated_easy', 
-                'clear_confusing', 'inefficient_efficient', 'organized_cluttered', 
-                'unpredictable_predictable', 'supportive_obstructive'];
-  
-  for (const key of keys) {
-    const mapping = uxMapping[key];
-    if (key in assessment) {
+  // Calculate normalized scores
+  // Iterate over all available keys in the assessment
+  for (const key in assessment) {
+    if (key in uxMapping) {
+      const mapping = uxMapping[key];
       const value = assessment[key];
-      scores[mapping.item] = mapping.invert ? 8 - value : value;
+      
+      // Skip missing or null values
+      if (value === null || value === -1) {
+        continue;
+      }
+      
+      // Normalize to -3 to +3 scale
+      const normalizedValue = mapping.invert ? 8 - value : value;
+      const scaledValue = normalizedValue - 4; // Transform 1-7 to -3 to +3
+      
+      scores[mapping.item] = scaledValue;
     }
   }
   
-  // Calculate the worst aspect (highest score is worst)
+  // Calculate aspects (best/worst)
   let worstAspect = '';
-  let worstValue = 0;
+  let worstValue = 3; // Start with highest possible value since we're looking for the lowest
+  let bestAspect = '';
+  let bestValue = -3; // Start with lowest possible value since we're looking for the highest
   
-  // Manually iterate over scores since Object.entries is not available in ES6
-  const scoreKeys = ['ux_boring', 'ux_not_interesting', 'ux_complicated', 'ux_confusing',
-                     'ux_inefficient', 'ux_cluttered', 'ux_unpredictable', 'ux_obstructive'];
+  // UX item keys for worst/best calculation
+  const uxScoreKeys = [
+    'ux_exciting', 'ux_interesting', 'ux_easy', 'ux_clear',
+    'ux_efficient', 'ux_organized', 'ux_predictable', 'ux_supportive',
+    'ux_enjoyable', 'ux_friendly'
+  ];
   
-  for (const key of scoreKeys) {
+  // Find worst aspect (lowest score)
+  for (const key of uxScoreKeys) {
     if (key in scores) {
       const value = scores[key];
-      if (value > worstValue) {
+      if (value < worstValue) {
         worstValue = value;
         worstAspect = key.replace('ux_', '');
+      }
+      
+      if (value > bestValue) {
+        bestValue = value;
+        bestAspect = key.replace('ux_', '');
       }
     }
   }
   
-  // Calculate UX KPI (mean of all scores)
-  // Manual implementation since Object.values is not available in ES6
-  const validScores: number[] = [];
-  for (const key of scoreKeys) {
-    if (key in scores && scores[key] > 0) {
-      validScores.push(scores[key]);
+  // Calculate UX KPI (mean of all UX scores)
+  let uxSum = 0;
+  let uxCount = 0;
+  for (const key of uxScoreKeys) {
+    if (key in scores) {
+      uxSum += scores[key];
+      uxCount++;
     }
   }
   
-  // Calculate mean manually
-  let sum = 0;
-  for (let i = 0; i < validScores.length; i++) {
-    sum += validScores[i];
-  }
-  const uxKpi = validScores.length > 0 ? sum / validScores.length : 0;
+  const uxKpi = uxCount > 0 ? uxSum / uxCount : 0;
   
-  // Calculate ethical risk based on values
+  // Calculate manipulation score from manipulation-specific items
+  const manipScoreKeys = [
+    'manip_non_addictive', 'manip_suggesting', 'manip_revealed', 'manip_benevolent'
+  ];
+  
+  let manipSum = 0;
+  let manipCount = 0;
+  for (const key of manipScoreKeys) {
+    if (key in scores) {
+      manipSum += scores[key];
+      manipCount++;
+    }
+  }
+  
+  const manipulationScore = manipCount > 0 ? manipSum / manipCount : 0;
+  
+  // Calculate ethical risk based on manipulation score
+  // Lower values indicate more manipulation
   let ethicalRisk: 'Low' | 'Medium' | 'High' = 'Low';
   
-  // Check deceptive/benevolent score if available
-  if ('deceptive_benevolent' in assessment) {
-    const ethicsScore = assessment['deceptive_benevolent'];
-    if (ethicsScore <= 3) {
-      ethicalRisk = 'High';
-    } else if (ethicsScore <= 5) {
-      ethicalRisk = 'Medium';
-    }
+  if (manipulationScore < -1) {
+    ethicalRisk = 'High';
+  } else if (manipulationScore < 1) {
+    ethicalRisk = 'Medium';
   } else {
-    // Fallback based on UX KPI
-    if (uxKpi >= 5) {
-      ethicalRisk = 'High';
-    } else if (uxKpi >= 3) {
-      ethicalRisk = 'Medium';
-    }
+    ethicalRisk = 'Low';
   }
   
   return {
     uxKpi,
     worstAspect,
     worstValue,
-    ethicalRisk
+    bestAspect,
+    bestValue,
+    ethicalRisk,
+    manipulationScore
   };
 }
 
 /**
- * Create a gauge visualization inspired by the Python gauge implementation
+ * Create an improved gauge visualization with -3 to +3 scale
  */
 function createGauge(
-  score: number, 
-  pattern: string, 
-  worstAspect: string, 
-  ethicalRisk: string,
-  uxKpiValue: number
+  score: number,         // Worst aspect score (-3 to +3)
+  pattern: string,       // Pattern/title
+  worstAspect: string,   // Worst aspect name
+  ethicalRisk: string,   // Ethical risk level
+  uxKpiValue: number,    // Overall UX KPI score
+  bestAspect: string,    // Best aspect name
+  bestValue: number,     // Best aspect score
+  manipScore: number     // Manipulation score
 ): FrameNode {
   // Create a frame for the gauge
   const gauge = figma.createFrame();
   gauge.name = "UI Evaluation Gauge";
-  gauge.resize(350, 250);
+  gauge.resize(350, 280);
   gauge.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   
   // Create background for the gauge
@@ -379,21 +432,21 @@ function createGauge(
   gaugeBackground.cornerRadius = 25;
   gauge.appendChild(gaugeBackground);
   
-  // Create colored sections for the gauge (like in the Python implementation)
-  // Green section (1-3)
-  const greenSection = figma.createRectangle();
-  greenSection.name = "Green Section";
-  greenSection.resize(93, 50);
-  greenSection.x = 35;
-  greenSection.y = 100;
-  greenSection.fills = [{ type: 'SOLID', color: { r: 0.8, g: 0.97, b: 0.8 } }];
-  greenSection.topLeftRadius = 25;
-  greenSection.bottomLeftRadius = 25;
-  greenSection.topRightRadius = 0;
-  greenSection.bottomRightRadius = 0;
-  gauge.appendChild(greenSection);
+  // Create colored sections for the gauge with -3 to +3 scale
+  // Red section (-3 to -1)
+  const redSection = figma.createRectangle();
+  redSection.name = "Red Section";
+  redSection.resize(93, 50);
+  redSection.x = 35;
+  redSection.y = 100;
+  redSection.fills = [{ type: 'SOLID', color: { r: 0.99, g: 0.8, b: 0.8 } }];
+  redSection.topLeftRadius = 25;
+  redSection.bottomLeftRadius = 25;
+  redSection.topRightRadius = 0;
+  redSection.bottomRightRadius = 0;
+  gauge.appendChild(redSection);
   
-  // Yellow section (3-5)
+  // Yellow section (-1 to +1)
   const yellowSection = figma.createRectangle();
   yellowSection.name = "Yellow Section";
   yellowSection.resize(93, 50);
@@ -402,37 +455,38 @@ function createGauge(
   yellowSection.fills = [{ type: 'SOLID', color: { r: 1, g: 0.97, b: 0.8 } }];
   gauge.appendChild(yellowSection);
   
-  // Red section (5-7)
-  const redSection = figma.createRectangle();
-  redSection.name = "Red Section";
-  redSection.resize(94, 50);
-  redSection.x = 221;
-  redSection.y = 100;
-  redSection.fills = [{ type: 'SOLID', color: { r: 0.99, g: 0.8, b: 0.8 } }];
-  redSection.topLeftRadius = 0;
-  redSection.bottomLeftRadius = 0;
-  redSection.topRightRadius = 25;
-  redSection.bottomRightRadius = 25;
-  gauge.appendChild(redSection);
+  // Green section (+1 to +3)
+  const greenSection = figma.createRectangle();
+  greenSection.name = "Green Section";
+  greenSection.resize(94, 50);
+  greenSection.x = 221;
+  greenSection.y = 100;
+  greenSection.fills = [{ type: 'SOLID', color: { r: 0.8, g: 0.97, b: 0.8 } }];
+  greenSection.topLeftRadius = 0;
+  greenSection.bottomLeftRadius = 0;
+  greenSection.topRightRadius = 25;
+  greenSection.bottomRightRadius = 25;
+  gauge.appendChild(greenSection);
   
   // Create the gauge indicator (colored bar)
   const gaugeIndicator = figma.createRectangle();
   gaugeIndicator.name = "Gauge Indicator";
   
-  // Calculate width based on score (1-7 scale to 0-280px)
-  const width = Math.max(10, Math.min(280, ((score - 1) / 6) * 280));
+  // Calculate width based on score (-3 to +3 scale to 0-280px)
+  const normalizedScore = score + 3; // Convert -3...+3 to 0...6
+  const width = Math.max(10, Math.min(280, (normalizedScore / 6) * 280));
   gaugeIndicator.resize(width, 50);
   gaugeIndicator.x = 35;
   gaugeIndicator.y = 100;
   
   // Set color based on score
   let color;
-  if (score >= 5) {
-    color = { r: 0.9, g: 0.3, b: 0.3 };  // Red for high scores (bad)
-  } else if (score >= 3) {
+  if (score < -1) {
+    color = { r: 0.9, g: 0.3, b: 0.3 };  // Red for low scores (bad)
+  } else if (score < 1) {
     color = { r: 1, g: 0.7, b: 0.2 };    // Orange for medium scores
   } else {
-    color = { r: 0.2, g: 0.8, b: 0.3 };  // Green for low scores (good)
+    color = { r: 0.2, g: 0.8, b: 0.3 };  // Green for high scores (good)
   }
   
   gaugeIndicator.fills = [{ type: 'SOLID', color, opacity: 0.75 }];
@@ -444,10 +498,11 @@ function createGauge(
   gauge.appendChild(gaugeIndicator);
   
   // Add UX KPI marker (threshold) at uxKpi position
-  if (uxKpiValue >= 1 && uxKpiValue <= 7) {
+  if (uxKpiValue >= -3 && uxKpiValue <= 3) {
     const threshold = figma.createRectangle();
     threshold.name = "UX KPI Threshold";
-    const thresholdX = 35 + ((uxKpiValue - 1) / 6) * 280;
+    const normalizedUxKpi = uxKpiValue + 3; // Convert -3...+3 to 0...6
+    const thresholdX = 35 + (normalizedUxKpi / 6) * 280;
     threshold.resize(4, 58);
     threshold.x = thresholdX - 2;
     threshold.y = 96;
@@ -456,7 +511,7 @@ function createGauge(
     gauge.appendChild(threshold);
   }
   
-  // Add score text
+  // Add score text (worst score)
   const scoreText = figma.createText();
   scoreText.characters = score.toFixed(1);
   scoreText.fontSize = 36;
@@ -466,7 +521,7 @@ function createGauge(
   scoreText.fills = [{ type: 'SOLID', color }];
   gauge.appendChild(scoreText);
   
-  // Add pattern name text
+  // Add pattern name text (title)
   const patternText = figma.createText();
   patternText.characters = pattern;
   patternText.fontSize = 18;
@@ -476,21 +531,39 @@ function createGauge(
   gauge.appendChild(patternText);
   
   // Add worst aspect text
-  const aspectText = figma.createText();
-  aspectText.characters = `Worst aspect: ${worstAspect}`;
-  aspectText.fontSize = 14;
-  aspectText.x = 35;
-  aspectText.y = 160;
-  aspectText.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
-  gauge.appendChild(aspectText);
+  const negativeText = figma.createText();
+  negativeText.characters = `Worst aspect: ${worstAspect} (${score.toFixed(1)})`;
+  negativeText.fontSize = 14;
+  negativeText.x = 35;
+  negativeText.y = 160;
+  negativeText.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }]; // Always red for worst
+  gauge.appendChild(negativeText);
+  
+  // Add best aspect text
+  const positiveText = figma.createText();
+  positiveText.characters = `Best aspect: ${bestAspect} (${bestValue.toFixed(1)})`;
+  positiveText.fontSize = 14;
+  positiveText.x = 35;
+  positiveText.y = 180;
+  positiveText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }]; // Always green for best
+  gauge.appendChild(positiveText);
   
   // Add UX KPI text
   const kpiText = figma.createText();
-  kpiText.characters = `UX KPI: ${uxKpiValue.toFixed(2)}`;
+  kpiText.characters = `UX KPI: ${uxKpiValue.toFixed(1)} | Manipulation: ${manipScore.toFixed(1)}`;
   kpiText.fontSize = 14;
   kpiText.x = 35;
-  kpiText.y = 180;
-  kpiText.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
+  kpiText.y = 200;
+  // Color based on UX KPI value
+  let kpiColor;
+  if (uxKpiValue < -1) {
+    kpiColor = { r: 0.9, g: 0.3, b: 0.3 };  // Red
+  } else if (uxKpiValue < 1) {
+    kpiColor = { r: 0.8, g: 0.6, b: 0.2 };  // Orange
+  } else {
+    kpiColor = { r: 0.3, g: 0.7, b: 0.3 };  // Green
+  }
+  kpiText.fills = [{ type: 'SOLID', color: kpiColor }];
   gauge.appendChild(kpiText);
   
   // Add ethical risk text
@@ -498,7 +571,7 @@ function createGauge(
   riskText.characters = `Ethical risk: ${ethicalRisk}`;
   riskText.fontSize = 14;
   riskText.x = 35;
-  riskText.y = 200;
+  riskText.y = 220;
   
   // Set color based on risk level
   if (ethicalRisk === 'High') {
@@ -511,12 +584,22 @@ function createGauge(
   
   gauge.appendChild(riskText);
   
-  // Add gauge ticks
-  for (let i = 1; i <= 7; i++) {
+  // Add scale title
+  const scaleTitle = figma.createText();
+  scaleTitle.characters = "Scale: -3 (negative) to +3 (positive)";
+  scaleTitle.fontSize = 12;
+  scaleTitle.x = 35;
+  scaleTitle.y = 240;
+  scaleTitle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
+  gauge.appendChild(scaleTitle);
+  
+  // Add gauge ticks (now from -3 to +3)
+  for (let i = -3; i <= 3; i++) {
+    const normalizedTickPosition = i + 3; // Convert -3...+3 to 0...6
     const tick = figma.createRectangle();
     tick.name = `Tick-${i}`;
     tick.resize(2, 15);
-    tick.x = 35 + ((i - 1) / 6) * 280;
+    tick.x = 35 + (normalizedTickPosition / 6) * 280;
     tick.y = 155;
     tick.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     gauge.appendChild(tick);
@@ -525,7 +608,7 @@ function createGauge(
     const tickLabel = figma.createText();
     tickLabel.characters = i.toString();
     tickLabel.fontSize = 12;
-    tickLabel.x = 31 + ((i - 1) / 6) * 280;
+    tickLabel.x = 31 + (normalizedTickPosition / 6) * 280;
     tickLabel.y = 174;
     tickLabel.textAlignHorizontal = "CENTER";
     tickLabel.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
@@ -542,12 +625,15 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   uxKpi: number;
   worstAspect: string;
   worstValue: number;
+  bestAspect: string;
+  bestValue: number;
   ethicalRisk: 'Low' | 'Medium' | 'High';
+  manipulationScore: number;
 }): FrameNode {
   // Create a frame for the explanation
   const frame = figma.createFrame();
   frame.name = "UI Evaluation Explanation";
-  frame.resize(350, 280);
+  frame.resize(350, 320);
   frame.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   
   // Add title
@@ -566,15 +652,32 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   explanation.x = 20;
   explanation.y = 50;
   explanation.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
-  explanation.resize(310, 120);
+  explanation.resize(310, 130);
   frame.appendChild(explanation);
   
   // Add UX KPI summary
   const kpiSummary = figma.createText();
-  kpiSummary.characters = `UX KPI: ${uxKpi.uxKpi.toFixed(2)}\nWorst Aspect: ${uxKpi.worstAspect} (${uxKpi.worstValue.toFixed(1)})\nEthical Risk: ${uxKpi.ethicalRisk}\n\nScale: 1-7 where higher values indicate potential issues`;
+  
+  // Format worst aspect with negative color
+  const worstLine = `Worst Aspect: ${uxKpi.worstAspect} (${uxKpi.worstValue.toFixed(1)})`;
+  
+  // Format best aspect with positive color
+  const bestLine = `Best Aspect: ${uxKpi.bestAspect} (${uxKpi.bestValue.toFixed(1)})`;
+  
+  // Format score summary
+  const scoreLine = `UX KPI: ${uxKpi.uxKpi.toFixed(1)}  |  Manipulation: ${uxKpi.manipulationScore.toFixed(1)}`;
+  
+  // Format risk level
+  const riskLine = `Ethical Risk: ${uxKpi.ethicalRisk}`;
+  
+  // Format scale information
+  const scaleLine = `Scale: -3 (negative) to +3 (positive)`;
+  
+  // Combine all lines
+  kpiSummary.characters = `${worstLine}\n${bestLine}\n${scoreLine}\n${riskLine}\n\n${scaleLine}`;
   kpiSummary.fontSize = 12;
   kpiSummary.x = 20;
-  kpiSummary.y = 180;
+  kpiSummary.y = 190;
   kpiSummary.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
   frame.appendChild(kpiSummary);
   
@@ -583,9 +686,9 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   disclaimer.characters = "This evaluation was generated by AI and should be considered a starting point for further UX analysis.";
   disclaimer.fontSize = 10;
   disclaimer.x = 20;
-  disclaimer.y = 240;
+  disclaimer.y = 280;
   disclaimer.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
-  disclaimer.resize(310, 40);
+  disclaimer.resize(310, 30);
   frame.appendChild(disclaimer);
   
   return frame;
@@ -675,7 +778,10 @@ async function evaluateUI(service: string, apiKey: string) {
       "UI Evaluation", 
       uxKpi.worstAspect, 
       uxKpi.ethicalRisk,
-      uxKpi.uxKpi
+      uxKpi.uxKpi,
+      uxKpi.bestAspect,
+      uxKpi.bestValue,
+      uxKpi.manipulationScore
     );
     
     // Create evaluation comment
