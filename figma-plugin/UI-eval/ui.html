@@ -1,17 +1,364 @@
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" type="number" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
-<script>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+      margin: 0;
+      color: #333;
+      line-height: 1.5;
+    }
+    h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #222;
+    }
+    p {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #555;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    select, input, button {
+      height: 36px;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 13px;
+    }
+    select, input {
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: #18A0FB;
+      box-shadow: 0 0 0 2px rgba(24, 160, 251, 0.2);
+    }
+    button {
+      background-color: #18A0FB;
+      color: white;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #0D8EE3;
+    }
+    button:disabled {
+      background-color: #CCCCCC;
+      cursor: not-allowed;
+    }
+    button.secondary {
+      background-color: #F5F5F5;
+      color: #333;
+      border: 1px solid #DDDDDD;
+    }
+    button.secondary:hover {
+      background-color: #EAEAEA;
+    }
+    #status {
+      font-size: 13px;
+      margin-top: 5px;
+      padding: 8px 0;
+      color: #666;
+      min-height: 20px;
+    }
+    .error {
+      color: #EB5757;
+    }
+    .success {
+      color: #27AE60;
+    }
+    .warning {
+      color: #F2994A;
+    }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(24, 160, 251, 0.3);
+      border-radius: 50%;
+      border-top-color: #18A0FB;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .info-box {
+      background-color: #F6F9FE;
+      border-left: 3px solid #18A0FB;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    .button-group button {
+      flex: 1;
+    }
+    .service-info {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h2>AI UI Ethics Evaluation</h2>
+  <p>Evaluate UX metrics and ethical considerations in your design</p>
+  
+  <div class="container">
+    <div class="form-group">
+      <label for="ai-service">AI Service:</label>
+      <select id="ai-service">
+        <option value="anthropic">Anthropic Claude</option>
+        <option value="openai">OpenAI GPT-4 Vision</option>
+        <option value="qwen" disabled>Alibaba Qwen (Coming soon)</option>
+        <option value="ollama" disabled>Ollama Local Models (Coming soon)</option>
+      </select>
+      <div id="service-info" class="service-info">Claude 3 Opus provides detailed UX analysis with ethical insights</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="api-key">API Key:</label>
+      <input type="password" id="api-key" placeholder="Enter API key" autocomplete="off">
+    </div>
+    
+    <div class="info-box">
+      ✓ First select a Frame, Component or Instance to evaluate<br>
+      ✓ The plugin will analyze the design using AI vision models<br>
+      ✓ Results include UX KPI metrics on a 1-7 scale and ethical risk assessment
+    </div>
+    
+    <div id="status"></div>
+    
+    <div class="button-group">
+      <button id="evaluate-btn">Evaluate Selected Frame</button>
+      <button id="cancel-btn" class="secondary">Cancel</button>
+    </div>
+  </div>
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-shapes', count } }, '*')
-}
-
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
-
-</script>
+  <script>
+    const evaluateBtn = document.getElementById('evaluate-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const serviceSelect = document.getElementById('ai-service');
+    const apiKeyInput = document.getElementById('api-key');
+    const statusDiv = document.getElementById('status');
+    const serviceInfoDiv = document.getElementById('service-info');
+    
+    // Update service info based on selection
+    serviceSelect.onchange = () => {
+      const service = serviceSelect.value;
+      if (service === 'anthropic') {
+        serviceInfoDiv.textContent = 'Claude 3 Opus provides detailed UX analysis with ethical insights';
+      } else if (service === 'openai') {
+        serviceInfoDiv.textContent = 'GPT-4 Vision evaluates UI with attention to visual design elements';
+      } else if (service === 'qwen') {
+        serviceInfoDiv.textContent = 'Qwen-VL-Max multimodal model from Alibaba Cloud (Coming soon)';
+      } else if (service === 'ollama') {
+        serviceInfoDiv.textContent = 'Run evaluation locally using Ollama with multimodal models (Coming soon)';
+      }
+    };
+    
+    // Check if Frame is selected
+    const checkSelection = () => {
+      parent.postMessage({ 
+        pluginMessage: { type: 'check-selection' } 
+      }, '*');
+    };
+    
+    // Run check on load
+    checkSelection();
+    
+    // Handle API requests from the plugin
+    async function callAnthropicAPI(config, prompt, base64Image, apiKey) {
+      try {
+        const content = [
+          { type: "text", text: prompt },
+          { 
+            type: "image", 
+            source: {
+              type: "base64",
+              media_type: "image/png",
+              data: base64Image
+            }
+          }
+        ];
+        
+        const response = await fetch(config.anthropic.endpoint, {
+          method: 'POST',
+          headers: {
+            ...config.anthropic.headers,
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
+          },
+          body: JSON.stringify({
+            model: config.anthropic.model,
+            max_tokens: 1000,
+            temperature: 0,
+            messages: [
+              { role: "user", content }
+            ]
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+        
+        const responseData = await response.json();
+        return responseData.content[0].text;
+      } catch (error) {
+        throw error;
+      }
+    }
+    
+    async function callOpenAIAPI(config, prompt, base64Image, apiKey) {
+      try {
+        const response = await fetch(config.openai.endpoint, {
+          method: 'POST',
+          headers: {
+            ...config.openai.headers,
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: config.openai.model,
+            messages: [
+              {
+                role: "user",
+                content: [
+                  { type: "text", text: prompt },
+                  {
+                    type: "image_url",
+                    image_url: { 
+                      url: `data:image/png;base64,${base64Image}`
+                    }
+                  }
+                ]
+              }
+            ],
+            max_tokens: 1000,
+            temperature: 0
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+        
+        const responseData = await response.json();
+        return responseData.choices[0].message.content;
+      } catch (error) {
+        throw error;
+      }
+    }
+    
+    evaluateBtn.onclick = () => {
+      if (!apiKeyInput.value) {
+        statusDiv.innerHTML = '<span class="error">Please enter an API key</span>';
+        return;
+      }
+      
+      evaluateBtn.disabled = true;
+      statusDiv.innerHTML = '<span class="spinner"></span> Analyzing UI design...';
+      
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'evaluate-ui', 
+          service: serviceSelect.value,
+          apiKey: apiKeyInput.value
+        } 
+      }, '*');
+    };
+    
+    cancelBtn.onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    };
+    
+    // Listen for messages from the plugin
+    window.onmessage = async (event) => {
+      const message = event.data.pluginMessage;
+      
+      if (message.type === 'evaluation-complete') {
+        statusDiv.innerHTML = '<span class="success">✓ Evaluation complete! Gauge created.</span>';
+        evaluateBtn.disabled = false;
+      } else if (message.type === 'evaluation-error') {
+        statusDiv.innerHTML = `<span class="error">Error: ${message.error}</span>`;
+        evaluateBtn.disabled = false;
+      } else if (message.type === 'selection-status') {
+        if (!message.hasValidSelection) {
+          statusDiv.innerHTML = '<span class="warning">Please select a frame, component or instance</span>';
+          evaluateBtn.disabled = true;
+        } else {
+          statusDiv.innerHTML = '<span class="success">✓ Ready to evaluate</span>';
+          evaluateBtn.disabled = false;
+        }
+      } else if (message.type === 'api-request') {
+        try {
+          statusDiv.innerHTML = '<span class="spinner"></span> Contacting AI service...';
+          
+          let responseText;
+          if (message.service === 'anthropic') {
+            responseText = await callAnthropicAPI(
+              message.config, 
+              message.prompt, 
+              message.base64Image, 
+              message.apiKey
+            );
+          } else if (message.service === 'openai') {
+            responseText = await callOpenAIAPI(
+              message.config, 
+              message.prompt, 
+              message.base64Image, 
+              message.apiKey
+            );
+          } else {
+            throw new Error(`Service ${message.service} is not implemented yet`);
+          }
+          
+          // Send the response back to the plugin
+          parent.postMessage({ 
+            pluginMessage: { 
+              type: 'api-response', 
+              data: responseText 
+            } 
+          }, '*');
+          
+          statusDiv.innerHTML = '<span class="spinner"></span> Processing AI response...';
+        } catch (error) {
+          console.error('API request failed:', error);
+          parent.postMessage({ 
+            pluginMessage: { 
+              type: 'api-response', 
+              error: error.message 
+            } 
+          }, '*');
+          statusDiv.innerHTML = `<span class="error">API Error: ${error.message}</span>`;
+          evaluateBtn.disabled = false;
+        }
+      }
+    };
+  </script>
+</body>
+</html>

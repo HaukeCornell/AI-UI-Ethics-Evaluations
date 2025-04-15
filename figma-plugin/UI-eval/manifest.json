@@ -12,7 +12,13 @@
   "ui": "ui.html",
   "networkAccess": {
     "allowedDomains": [
-      "none"
-    ]
+      "https://api.anthropic.com",
+      "https://api.openai.com",
+      "https://dashscope-intl.aliyuncs.com"
+    ],
+    "devAllowedDomains": [
+      "http://localhost:11434"
+    ],
+    "reasoning": "The plugin requires access to AI service APIs for UI evaluation"
   }
 }
