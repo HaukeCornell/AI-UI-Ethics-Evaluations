@@ -404,7 +404,7 @@ function calculateUxKpi(result: AssessmentResult): {
 }
 
 /**
- * Create an improved gauge visualization with -3 to +3 scale
+ * Create a simplified gauge visualization with -3 to +3 scale
  */
 function createGauge(
   score: number,         // Worst aspect score (-3 to +3)
@@ -419,15 +419,35 @@ function createGauge(
   // Create a frame for the gauge
   const gauge = figma.createFrame();
   gauge.name = "UI Evaluation Gauge";
-  gauge.resize(350, 280);
+  gauge.resize(350, 180);
   gauge.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
+  
+  // Add title with UX KPI value
+  const titleText = figma.createText();
+  
+  // Pick UX KPI color based on value
+  let kpiColor;
+  if (uxKpiValue < -1) {
+    kpiColor = { r: 0.9, g: 0.3, b: 0.3 };  // Red
+  } else if (uxKpiValue < 1) {
+    kpiColor = { r: 0.8, g: 0.6, b: 0.2 };  // Orange
+  } else {
+    kpiColor = { r: 0.3, g: 0.7, b: 0.3 };  // Green
+  }
+  
+  titleText.characters = `${pattern} (UX KPI: ${uxKpiValue.toFixed(1)})`;
+  titleText.fontSize = 16;
+  titleText.x = 35;
+  titleText.y = 15;
+  titleText.fills = [{ type: 'SOLID', color: kpiColor }];
+  gauge.appendChild(titleText);
   
   // Create background for the gauge
   const gaugeBackground = figma.createRectangle();
   gaugeBackground.name = "Gauge Background";
   gaugeBackground.resize(280, 50);
   gaugeBackground.x = 35;
-  gaugeBackground.y = 100;
+  gaugeBackground.y = 50;
   gaugeBackground.fills = [{ type: 'SOLID', color: { r: 0.95, g: 0.95, b: 0.95 } }];
   gaugeBackground.cornerRadius = 25;
   gauge.appendChild(gaugeBackground);
@@ -438,7 +458,7 @@ function createGauge(
   redSection.name = "Red Section";
   redSection.resize(93, 50);
   redSection.x = 35;
-  redSection.y = 100;
+  redSection.y = 50;
   redSection.fills = [{ type: 'SOLID', color: { r: 0.99, g: 0.8, b: 0.8 } }];
   redSection.topLeftRadius = 25;
   redSection.bottomLeftRadius = 25;
@@ -451,7 +471,7 @@ function createGauge(
   yellowSection.name = "Yellow Section";
   yellowSection.resize(93, 50);
   yellowSection.x = 128;
-  yellowSection.y = 100;
+  yellowSection.y = 50;
   yellowSection.fills = [{ type: 'SOLID', color: { r: 1, g: 0.97, b: 0.8 } }];
   gauge.appendChild(yellowSection);
   
@@ -460,7 +480,7 @@ function createGauge(
   greenSection.name = "Green Section";
   greenSection.resize(94, 50);
   greenSection.x = 221;
-  greenSection.y = 100;
+  greenSection.y = 50;
   greenSection.fills = [{ type: 'SOLID', color: { r: 0.8, g: 0.97, b: 0.8 } }];
   greenSection.topLeftRadius = 0;
   greenSection.bottomLeftRadius = 0;
@@ -477,7 +497,7 @@ function createGauge(
   const width = Math.max(10, Math.min(280, (normalizedScore / 6) * 280));
   gaugeIndicator.resize(width, 50);
   gaugeIndicator.x = 35;
-  gaugeIndicator.y = 100;
+  gaugeIndicator.y = 50;
   
   // Set color based on score
   let color;
@@ -503,117 +523,119 @@ function createGauge(
     threshold.name = "UX KPI Threshold";
     const normalizedUxKpi = uxKpiValue + 3; // Convert -3...+3 to 0...6
     const thresholdX = 35 + (normalizedUxKpi / 6) * 280;
-    threshold.resize(4, 58);
+    threshold.resize(4, 60);
     threshold.x = thresholdX - 2;
-    threshold.y = 96;
+    threshold.y = 45;
     threshold.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.2, b: 0.2 } }];
     threshold.cornerRadius = 2;
     gauge.appendChild(threshold);
   }
   
-  // Add score text (worst score)
-  const scoreText = figma.createText();
-  scoreText.characters = score.toFixed(1);
-  scoreText.fontSize = 36;
-  scoreText.x = 175;
-  scoreText.y = 40;
-  scoreText.textAlignHorizontal = "CENTER";
-  scoreText.fills = [{ type: 'SOLID', color }];
-  gauge.appendChild(scoreText);
+  // Add markers with dashes for worst and best aspects directly on the gauge
+  // 1. Add worst aspect marker
+  const worstX = 35 + ((score + 3) / 6) * 280; // Positioning based on score
   
-  // Add pattern name text (title)
-  const patternText = figma.createText();
-  patternText.characters = pattern;
-  patternText.fontSize = 18;
-  patternText.x = 35;
-  patternText.y = 15;
-  patternText.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
-  gauge.appendChild(patternText);
+  // Add worst marker line
+  const worstMarker = figma.createRectangle();
+  worstMarker.name = "Worst Marker";
+  worstMarker.resize(1, 15);
+  worstMarker.x = worstX;
+  worstMarker.y = 102; // Bottom aligned
+  worstMarker.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
+  gauge.appendChild(worstMarker);
   
-  // Add worst aspect text
-  const negativeText = figma.createText();
-  negativeText.characters = `Worst aspect: ${worstAspect} (${score.toFixed(1)})`;
-  negativeText.fontSize = 14;
-  negativeText.x = 35;
-  negativeText.y = 160;
-  negativeText.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }]; // Always red for worst
-  gauge.appendChild(negativeText);
-  
-  // Add best aspect text
-  const positiveText = figma.createText();
-  positiveText.characters = `Best aspect: ${bestAspect} (${bestValue.toFixed(1)})`;
-  positiveText.fontSize = 14;
-  positiveText.x = 35;
-  positiveText.y = 180;
-  positiveText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }]; // Always green for best
-  gauge.appendChild(positiveText);
-  
-  // Add UX KPI text
-  const kpiText = figma.createText();
-  kpiText.characters = `UX KPI: ${uxKpiValue.toFixed(1)} | Manipulation: ${manipScore.toFixed(1)}`;
-  kpiText.fontSize = 14;
-  kpiText.x = 35;
-  kpiText.y = 200;
-  // Color based on UX KPI value
-  let kpiColor;
-  if (uxKpiValue < -1) {
-    kpiColor = { r: 0.9, g: 0.3, b: 0.3 };  // Red
-  } else if (uxKpiValue < 1) {
-    kpiColor = { r: 0.8, g: 0.6, b: 0.2 };  // Orange
+  // Add worst aspect label
+  const worstLabel = figma.createText();
+  worstLabel.characters = `${worstAspect} (${score.toFixed(1)})`;
+  worstLabel.fontSize = 10;
+  // Position horizontally based on where it is on the scale
+  if (score < 0) {
+    // Left-aligned if in the left half
+    worstLabel.x = worstX;
+    worstLabel.textAlignHorizontal = "LEFT";
   } else {
-    kpiColor = { r: 0.3, g: 0.7, b: 0.3 };  // Green
+    // Right-aligned if in the right half
+    worstLabel.x = worstX;
+    worstLabel.textAlignHorizontal = "RIGHT";
   }
-  kpiText.fills = [{ type: 'SOLID', color: kpiColor }];
-  gauge.appendChild(kpiText);
+  worstLabel.y = 120;
+  worstLabel.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
+  gauge.appendChild(worstLabel);
   
-  // Add ethical risk text
-  const riskText = figma.createText();
-  riskText.characters = `Ethical risk: ${ethicalRisk}`;
-  riskText.fontSize = 14;
-  riskText.x = 35;
-  riskText.y = 220;
+  // 2. Add best aspect marker
+  const bestX = 35 + ((bestValue + 3) / 6) * 280; // Positioning based on best score
   
-  // Set color based on risk level
-  if (ethicalRisk === 'High') {
-    riskText.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
-  } else if (ethicalRisk === 'Medium') {
-    riskText.fills = [{ type: 'SOLID', color: { r: 0.95, g: 0.6, b: 0.1 } }];
+  // Add best marker line
+  const bestMarker = figma.createRectangle();
+  bestMarker.name = "Best Marker";
+  bestMarker.resize(1, 15);
+  bestMarker.x = bestX;
+  bestMarker.y = 35; // Top aligned
+  bestMarker.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+  gauge.appendChild(bestMarker);
+  
+  // Add best aspect label
+  const bestLabel = figma.createText();
+  bestLabel.characters = `${bestAspect} (${bestValue.toFixed(1)})`;
+  bestLabel.fontSize = 10;
+  // Position horizontally based on where it is on the scale
+  if (bestValue < 0) {
+    // Left-aligned if in the left half
+    bestLabel.x = bestX;
+    bestLabel.textAlignHorizontal = "LEFT";
   } else {
-    riskText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+    // Right-aligned if in the right half
+    bestLabel.x = bestX;
+    bestLabel.textAlignHorizontal = "RIGHT";
   }
+  bestLabel.y = 25;
+  bestLabel.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+  gauge.appendChild(bestLabel);
   
-  gauge.appendChild(riskText);
-  
-  // Add scale title
-  const scaleTitle = figma.createText();
-  scaleTitle.characters = "Scale: -3 (negative) to +3 (positive)";
-  scaleTitle.fontSize = 12;
-  scaleTitle.x = 35;
-  scaleTitle.y = 240;
-  scaleTitle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
-  gauge.appendChild(scaleTitle);
-  
-  // Add gauge ticks (now from -3 to +3)
-  for (let i = -3; i <= 3; i++) {
-    const normalizedTickPosition = i + 3; // Convert -3...+3 to 0...6
+  // Add minimal scale labels (-3, 0, +3)
+  const scalePoints = [-3, 0, 3];
+  for (const i of scalePoints) {
+    const normalizedPosition = i + 3; // Convert -3...+3 to 0...6
+    const xPos = 35 + (normalizedPosition / 6) * 280;
+    
+    // Add tick
     const tick = figma.createRectangle();
     tick.name = `Tick-${i}`;
-    tick.resize(2, 15);
-    tick.x = 35 + (normalizedTickPosition / 6) * 280;
-    tick.y = 155;
+    tick.resize(2, 6);
+    tick.x = xPos - 1;
+    tick.y = 102;
     tick.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     gauge.appendChild(tick);
     
-    // Add tick label
-    const tickLabel = figma.createText();
-    tickLabel.characters = i.toString();
-    tickLabel.fontSize = 12;
-    tickLabel.x = 31 + (normalizedTickPosition / 6) * 280;
-    tickLabel.y = 174;
-    tickLabel.textAlignHorizontal = "CENTER";
-    tickLabel.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
-    gauge.appendChild(tickLabel);
+    // Add label
+    const label = figma.createText();
+    label.characters = i === 0 ? "0" : i.toString();
+    label.fontSize = 10;
+    label.x = xPos;
+    label.y = 110;
+    label.textAlignHorizontal = "CENTER";
+    label.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
+    gauge.appendChild(label);
   }
+  
+  // Add ethical risk indicator
+  const ethicalRiskLabel = figma.createText();
+  const riskText = `Ethical risk: ${ethicalRisk} | Manipulation: ${manipScore.toFixed(1)}`;
+  ethicalRiskLabel.characters = riskText;
+  ethicalRiskLabel.fontSize = 12;
+  ethicalRiskLabel.x = 35;
+  ethicalRiskLabel.y = 150;
+  
+  // Set color based on risk level
+  if (ethicalRisk === 'High') {
+    ethicalRiskLabel.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
+  } else if (ethicalRisk === 'Medium') {
+    ethicalRiskLabel.fills = [{ type: 'SOLID', color: { r: 0.95, g: 0.6, b: 0.1 } }];
+  } else {
+    ethicalRiskLabel.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+  }
+  
+  gauge.appendChild(ethicalRiskLabel);
   
   return gauge;
 }
@@ -633,62 +655,101 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   // Create a frame for the explanation
   const frame = figma.createFrame();
   frame.name = "UI Evaluation Explanation";
-  frame.resize(350, 320);
+  frame.resize(350, 340);
   frame.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   
   // Add title
   const title = figma.createText();
-  title.characters = "AI Evaluation Results";
+  title.characters = "AI Evaluation Details";
   title.fontSize = 16;
   title.x = 20;
   title.y = 20;
   title.fills = [{ type: 'SOLID', color: { r: 0.1, g: 0.1, b: 0.1 } }];
   frame.appendChild(title);
   
-  // Add explanation text
+  // Add explanation text with auto-height
   const explanation = figma.createText();
   explanation.characters = result.explanation;
   explanation.fontSize = 12;
   explanation.x = 20;
   explanation.y = 50;
   explanation.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
-  explanation.resize(310, 130);
+  explanation.resize(310, 120); // Fixed height to avoid overlap
   frame.appendChild(explanation);
   
-  // Add UX KPI summary
-  const kpiSummary = figma.createText();
+  // Create separate colored texts for summary elements
   
-  // Format worst aspect with negative color
-  const worstLine = `Worst Aspect: ${uxKpi.worstAspect} (${uxKpi.worstValue.toFixed(1)})`;
+  // Worst aspect (red)
+  const worstText = figma.createText();
+  worstText.characters = `Worst Aspect: ${uxKpi.worstAspect} (${uxKpi.worstValue.toFixed(1)})`;
+  worstText.fontSize = 12;
+  worstText.x = 20;
+  worstText.y = 180;
+  worstText.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
+  frame.appendChild(worstText);
   
-  // Format best aspect with positive color
-  const bestLine = `Best Aspect: ${uxKpi.bestAspect} (${uxKpi.bestValue.toFixed(1)})`;
+  // Best aspect (green)
+  const bestText = figma.createText();
+  bestText.characters = `Best Aspect: ${uxKpi.bestAspect} (${uxKpi.bestValue.toFixed(1)})`;
+  bestText.fontSize = 12;
+  bestText.x = 20;
+  bestText.y = 200;
+  bestText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+  frame.appendChild(bestText);
   
-  // Format score summary
-  const scoreLine = `UX KPI: ${uxKpi.uxKpi.toFixed(1)}  |  Manipulation: ${uxKpi.manipulationScore.toFixed(1)}`;
+  // UX KPI and manipulation score
+  const scoreText = figma.createText();
+  scoreText.characters = `UX KPI: ${uxKpi.uxKpi.toFixed(1)}  |  Manipulation: ${uxKpi.manipulationScore.toFixed(1)}`;
+  scoreText.fontSize = 12;
+  scoreText.x = 20;
+  scoreText.y = 220;
   
-  // Format risk level
-  const riskLine = `Ethical Risk: ${uxKpi.ethicalRisk}`;
+  // Color based on UX KPI value
+  let kpiColor;
+  if (uxKpi.uxKpi < -1) {
+    kpiColor = { r: 0.9, g: 0.3, b: 0.3 };  // Red
+  } else if (uxKpi.uxKpi < 1) {
+    kpiColor = { r: 0.8, g: 0.6, b: 0.2 };  // Orange
+  } else {
+    kpiColor = { r: 0.3, g: 0.7, b: 0.3 };  // Green
+  }
+  scoreText.fills = [{ type: 'SOLID', color: kpiColor }];
+  frame.appendChild(scoreText);
   
-  // Format scale information
-  const scaleLine = `Scale: -3 (negative) to +3 (positive)`;
+  // Ethical risk
+  const riskText = figma.createText();
+  riskText.characters = `Ethical Risk: ${uxKpi.ethicalRisk}`;
+  riskText.fontSize = 12;
+  riskText.x = 20;
+  riskText.y = 240;
   
-  // Combine all lines
-  kpiSummary.characters = `${worstLine}\n${bestLine}\n${scoreLine}\n${riskLine}\n\n${scaleLine}`;
-  kpiSummary.fontSize = 12;
-  kpiSummary.x = 20;
-  kpiSummary.y = 190;
-  kpiSummary.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
-  frame.appendChild(kpiSummary);
+  // Set color based on risk level
+  if (uxKpi.ethicalRisk === 'High') {
+    riskText.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
+  } else if (uxKpi.ethicalRisk === 'Medium') {
+    riskText.fills = [{ type: 'SOLID', color: { r: 0.95, g: 0.6, b: 0.1 } }];
+  } else {
+    riskText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+  }
+  frame.appendChild(riskText);
+  
+  // Scale information
+  const scaleText = figma.createText();
+  scaleText.characters = `Scale: -3 (negative) to +3 (positive)`;
+  scaleText.fontSize = 12;
+  scaleText.x = 20;
+  scaleText.y = 260;
+  scaleText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
+  frame.appendChild(scaleText);
   
   // Add disclaimer
   const disclaimer = figma.createText();
   disclaimer.characters = "This evaluation was generated by AI and should be considered a starting point for further UX analysis.";
   disclaimer.fontSize = 10;
   disclaimer.x = 20;
-  disclaimer.y = 280;
+  disclaimer.y = 290;
   disclaimer.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
-  disclaimer.resize(310, 30);
+  disclaimer.resize(310, 40);
   frame.appendChild(disclaimer);
   
   return frame;
