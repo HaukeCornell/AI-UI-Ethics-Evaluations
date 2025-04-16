@@ -111,7 +111,7 @@ ${childrenDescription}`;
 }
 
 /**
- * Format the prompt for UEQ assessment
+ * Format the prompt for UEQ assessment with direct -3 to +3 scale
  */
 function formatUeqPrompt(description: string, scales: UeqScale[]): string {
   // Build scales text for prompt
@@ -119,9 +119,30 @@ function formatUeqPrompt(description: string, scales: UeqScale[]): string {
   let exampleAssessment = "{";
   
   for (const scale of scales) {
+    // Format scales with negative to positive semantics
+    // For scales where the negative term is on the right, we need to swap direction
     const { name, left, right } = scale;
-    scalesText += `- ${left} (1) to ${right} (7)\n`;
-    exampleAssessment += `\n                "${name}": 5,`;
+    
+    // Identify scales where negative is on the right (need to be inverted)
+    const needsInversion = [
+      "interesting_not_interesting", 
+      "clear_confusing", 
+      "enjoyable_annoying", 
+      "organized_cluttered", 
+      "supportive_obstructive", 
+      "friendly_unfriendly"
+    ].includes(name);
+    
+    if (needsInversion) {
+      // For these scales, the negative term is on the right, so present in reverse
+      scalesText += `- ${right} (-3) to ${left} (+3)\n`;
+    } else {
+      // For these scales, the negative term is on the left
+      scalesText += `- ${left} (-3) to ${right} (+3)\n`;
+    }
+    
+    // Example uses a neutral value (0)
+    exampleAssessment += `\n                "${name}": 0,`;
   }
   
   // Remove trailing comma and add closing brace
@@ -130,7 +151,7 @@ function formatUeqPrompt(description: string, scales: UeqScale[]): string {
   return `
 ## UI Element Evaluation
 
-Instruction: In this section, a user interface element is presented to you. Subsequently, pairs of contrasting adjectives are listed. The numbers 1-7 between the adjectives represent gradations between the opposites. Please express your agreement with the adjectives by selecting one number per line that best aligns with your impression. If you find the feature unclear or believe that the adjectives do not describe the feature accurately, select -1 for "don't know / not applicable".
+Instruction: In this section, a user interface element is presented to you. Subsequently, pairs of contrasting adjectives are listed. The scale ranges from -3 to +3, representing gradations between the opposites. Please evaluate the interface by selecting one number per line that best aligns with your impression.
 
 UI Description: ${description}
 
@@ -138,19 +159,19 @@ I perceive this interface feature as...
 
 ${scalesText}
 
-The numerical scale represents the degree to which the adjective pair applies to the interface:
-1 = strongly left term
-2 = moderately left term
-3 = slightly left term
-4 = neutral
-5 = slightly right term
-6 = moderately right term
-7 = strongly right term
+The numerical scale represents:
+-3 = strongly negative term
+-2 = moderately negative term
+-1 = slightly negative term
+0 = neutral
++1 = slightly positive term
++2 = moderately positive term
++3 = strongly positive term
 null = not applicable/don't know
 
-In your assessment, keep in mind that I will convert your ratings to a -3 to +3 scale where:
-- Negative values indicate potential problems or dark patterns
-- Positive values indicate good UX design
+Important:
+- Negative values (-3 to -1) indicate potential problems or dark patterns
+- Positive values (+1 to +3) indicate good UX design
 - Zero represents a neutral evaluation
 
 Please format your response as a JSON object with the following structure:
@@ -204,6 +225,11 @@ async function callAIService(service: string, prompt: string, imageBytes: Uint8A
           endpoint: config.ai_services.openai.endpoint,
           model: config.ai_services.openai.models[0],
           headers: config.ai_services.openai.headers
+        },
+        ollama: {
+          endpoint: config.ai_services.ollama.endpoint,
+          model: config.ai_services.ollama.models[0],
+          headers: config.ai_services.ollama.headers
         }
       }
     });
@@ -265,7 +291,7 @@ function extractJsonFromResponse(response: string): AssessmentResult {
 }
 
 /**
- * Calculate UX KPI from assessment result with normalized scales
+ * Calculate UX KPI from assessment result with direct -3 to +3 scale input
  */
 function calculateUxKpi(result: AssessmentResult): {
   uxKpi: number;
@@ -281,29 +307,29 @@ function calculateUxKpi(result: AssessmentResult): {
   // Map scores to the right format for UX KPI calculation
   const scores: Record<string, number> = {};
   
-  // Define mapping for UX KPI calculation (making all scales consistent)
-  // high values = good, low values = bad
-  const uxMapping: Record<string, {item: string, invert: boolean}> = {
-    // UX items - normalized to positive high (7 = good, 1 = bad)
-    'boring_exciting': {item: 'ux_exciting', invert: false}, // Already positive high
-    'interesting_not_interesting': {item: 'ux_interesting', invert: true}, // Invert: not_interesting -> interesting
-    'complicated_easy': {item: 'ux_easy', invert: false}, // Already positive high
-    'clear_confusing': {item: 'ux_clear', invert: true}, // Invert: confusing -> clear
-    'inefficient_efficient': {item: 'ux_efficient', invert: false}, // Already positive high
-    'organized_cluttered': {item: 'ux_organized', invert: true}, // Invert: cluttered -> organized
-    'unpredictable_predictable': {item: 'ux_predictable', invert: false}, // Already positive high
-    'supportive_obstructive': {item: 'ux_supportive', invert: true}, // Invert: obstructive -> supportive
-    'enjoyable_annoying': {item: 'ux_enjoyable', invert: true}, // Invert: annoying -> enjoyable
-    'friendly_unfriendly': {item: 'ux_friendly', invert: true}, // Invert: unfriendly -> friendly
+  // Define mapping for UX KPI calculation 
+  // All scales are now directly in -3 to +3 format where positive is good and negative is bad
+  const uxMapping: Record<string, {item: string}> = {
+    // UX items
+    'boring_exciting': {item: 'ux_exciting'}, 
+    'interesting_not_interesting': {item: 'ux_interesting'}, 
+    'complicated_easy': {item: 'ux_easy'}, 
+    'clear_confusing': {item: 'ux_clear'}, 
+    'inefficient_efficient': {item: 'ux_efficient'}, 
+    'organized_cluttered': {item: 'ux_organized'}, 
+    'unpredictable_predictable': {item: 'ux_predictable'}, 
+    'supportive_obstructive': {item: 'ux_supportive'}, 
+    'enjoyable_annoying': {item: 'ux_enjoyable'}, 
+    'friendly_unfriendly': {item: 'ux_friendly'}, 
     
-    // Manipulation items - normalized to positive high (7 = ethical, 1 = manipulative)
-    'addictive_non-addictive': {item: 'manip_non_addictive', invert: false}, // Already positive high
-    'pressuring_suggesting': {item: 'manip_suggesting', invert: false}, // Already positive high
-    'revealed_covert': {item: 'manip_revealed', invert: true}, // Invert: covert -> revealed
-    'deceptive_benevolent': {item: 'manip_benevolent', invert: false} // Already positive high
+    // Manipulation items - directly in -3 to +3 scale where positive is ethical
+    'addictive_non-addictive': {item: 'manip_non_addictive'}, 
+    'pressuring_suggesting': {item: 'manip_suggesting'}, 
+    'revealed_covert': {item: 'manip_revealed'}, 
+    'deceptive_benevolent': {item: 'manip_benevolent'} 
   };
   
-  // Calculate normalized scores
+  // Set scores directly from assessment
   // Iterate over all available keys in the assessment
   for (const key in assessment) {
     if (key in uxMapping) {
@@ -311,15 +337,12 @@ function calculateUxKpi(result: AssessmentResult): {
       const value = assessment[key];
       
       // Skip missing or null values
-      if (value === null || value === -1) {
+      if (value === null) {
         continue;
       }
       
-      // Normalize to -3 to +3 scale
-      const normalizedValue = mapping.invert ? 8 - value : value;
-      const scaledValue = normalizedValue - 4; // Transform 1-7 to -3 to +3
-      
-      scores[mapping.item] = scaledValue;
+      // Values are already in -3 to +3 scale
+      scores[mapping.item] = value;
     }
   }
   
@@ -453,18 +476,27 @@ function createGauge(
   gauge.appendChild(gaugeBackground);
   
   // Create colored sections for the gauge with -3 to +3 scale
-  // Red section (-3 to -1)
-  const redSection = figma.createRectangle();
-  redSection.name = "Red Section";
-  redSection.resize(93, 50);
-  redSection.x = 35;
-  redSection.y = 50;
-  redSection.fills = [{ type: 'SOLID', color: { r: 0.99, g: 0.8, b: 0.8 } }];
-  redSection.topLeftRadius = 25;
-  redSection.bottomLeftRadius = 25;
-  redSection.topRightRadius = 0;
-  redSection.bottomRightRadius = 0;
-  gauge.appendChild(redSection);
+  // Red section dark (-3 to -2)
+  const redDarkSection = figma.createRectangle();
+  redDarkSection.name = "Red Dark Section";
+  redDarkSection.resize(47, 50);
+  redDarkSection.x = 35;
+  redDarkSection.y = 50;
+  redDarkSection.fills = [{ type: 'SOLID', color: { r: 0.95, g: 0.3, b: 0.3 } }];
+  redDarkSection.topLeftRadius = 25;
+  redDarkSection.bottomLeftRadius = 25;
+  redDarkSection.topRightRadius = 0;
+  redDarkSection.bottomRightRadius = 0;
+  gauge.appendChild(redDarkSection);
+  
+  // Red section light (-2 to -1)
+  const redLightSection = figma.createRectangle();
+  redLightSection.name = "Red Light Section";
+  redLightSection.resize(46, 50);
+  redLightSection.x = 82;
+  redLightSection.y = 50;
+  redLightSection.fills = [{ type: 'SOLID', color: { r: 0.99, g: 0.6, b: 0.6 } }];
+  gauge.appendChild(redLightSection);
   
   // Yellow section (-1 to +1)
   const yellowSection = figma.createRectangle();
@@ -475,18 +507,27 @@ function createGauge(
   yellowSection.fills = [{ type: 'SOLID', color: { r: 1, g: 0.97, b: 0.8 } }];
   gauge.appendChild(yellowSection);
   
-  // Green section (+1 to +3)
-  const greenSection = figma.createRectangle();
-  greenSection.name = "Green Section";
-  greenSection.resize(94, 50);
-  greenSection.x = 221;
-  greenSection.y = 50;
-  greenSection.fills = [{ type: 'SOLID', color: { r: 0.8, g: 0.97, b: 0.8 } }];
-  greenSection.topLeftRadius = 0;
-  greenSection.bottomLeftRadius = 0;
-  greenSection.topRightRadius = 25;
-  greenSection.bottomRightRadius = 25;
-  gauge.appendChild(greenSection);
+  // Green section light (+1 to +2)
+  const greenLightSection = figma.createRectangle();
+  greenLightSection.name = "Green Light Section";
+  greenLightSection.resize(46, 50);
+  greenLightSection.x = 221;
+  greenLightSection.y = 50;
+  greenLightSection.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.9, b: 0.6 } }];
+  gauge.appendChild(greenLightSection);
+  
+  // Green section dark (+2 to +3)
+  const greenDarkSection = figma.createRectangle();
+  greenDarkSection.name = "Green Dark Section";
+  greenDarkSection.resize(47, 50);
+  greenDarkSection.x = 267;
+  greenDarkSection.y = 50;
+  greenDarkSection.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
+  greenDarkSection.topLeftRadius = 0;
+  greenDarkSection.bottomLeftRadius = 0;
+  greenDarkSection.topRightRadius = 25;
+  greenDarkSection.bottomRightRadius = 25;
+  gauge.appendChild(greenDarkSection);
   
   // Create the gauge indicator (colored bar)
   const gaugeIndicator = figma.createRectangle();
@@ -544,9 +585,41 @@ function createGauge(
   worstMarker.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.3, b: 0.3 } }];
   gauge.appendChild(worstMarker);
   
+  // Find labels for best and worst aspects
+  const getAttributeLabel = (aspect: string, value: number): string => {
+    // Find the proper term to display based on the aspect name and value
+    // Map from normalized aspect names to left/right terms
+    const aspectMapping: Record<string, {positive: string, negative: string}> = {
+      'exciting': {positive: 'exciting', negative: 'boring'},
+      'interesting': {positive: 'interesting', negative: 'not interesting'},
+      'easy': {positive: 'easy', negative: 'complicated'},
+      'clear': {positive: 'clear', negative: 'confusing'},
+      'efficient': {positive: 'efficient', negative: 'inefficient'},
+      'organized': {positive: 'organized', negative: 'cluttered'},
+      'predictable': {positive: 'predictable', negative: 'unpredictable'},
+      'supportive': {positive: 'supportive', negative: 'obstructive'},
+      'enjoyable': {positive: 'enjoyable', negative: 'annoying'},
+      'friendly': {positive: 'friendly', negative: 'unfriendly'}
+    };
+    
+    // Default to just using the aspect name if not found in mapping
+    if (!(aspect in aspectMapping)) {
+      return `${aspect} (${value.toFixed(1)})`;
+    }
+    
+    // Use positive term for positive values, negative term for negative values
+    const mapping = aspectMapping[aspect];
+    if (value >= 0) {
+      return `${mapping.positive} (${value.toFixed(1)})`;
+    } else {
+      return `${mapping.negative} (${value.toFixed(1)})`;
+    }
+  };
+  
   // Add worst aspect label
   const worstLabel = figma.createText();
-  worstLabel.characters = `${worstAspect} (${score.toFixed(1)})`;
+  const worstAspectLabel = getAttributeLabel(worstAspect, score);
+  worstLabel.characters = worstAspectLabel;
   worstLabel.fontSize = 10;
   // Position horizontally based on where it is on the scale
   if (score < 0) {
@@ -576,7 +649,8 @@ function createGauge(
   
   // Add best aspect label
   const bestLabel = figma.createText();
-  bestLabel.characters = `${bestAspect} (${bestValue.toFixed(1)})`;
+  const bestAspectLabel = getAttributeLabel(bestAspect, bestValue);
+  bestLabel.characters = bestAspectLabel;
   bestLabel.fontSize = 10;
   // Position horizontally based on where it is on the scale
   if (bestValue < 0) {

@@ -135,7 +135,7 @@
         <option value="anthropic">Anthropic Claude</option>
         <option value="openai">OpenAI GPT-4 Vision</option>
         <option value="qwen" disabled>Alibaba Qwen (Coming soon)</option>
-        <option value="ollama" disabled>Ollama Local Models (Coming soon)</option>
+        <option value="ollama">Ollama Local Models</option>
       </select>
       <div id="service-info" class="service-info">Claude 3 Opus provides detailed UX analysis with ethical insights</div>
     </div>
@@ -323,8 +323,58 @@
       }
     }
     
+    async function callOllamaAPI(config, prompt, base64Image, apiKey) {
+      try {
+        // Create request body for Ollama API
+        const requestBody = {
+          model: config.ollama.model || "gemma3",
+          prompt: sanitizeForAPI(prompt),
+          images: [base64Image],
+          stream: false,
+          options: {
+            temperature: 0
+          }
+        };
+        
+        // Create headers
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        
+        // API key not required for local Ollama
+        const response = await fetch(config.ollama.endpoint, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(requestBody)
+        });
+        
+        if (!response.ok) {
+          let errorDetail = '';
+          try {
+            const errorData = await response.json();
+            errorDetail = JSON.stringify(errorData);
+          } catch (e) {
+            errorDetail = response.statusText;
+          }
+          throw new Error(`Ollama API request failed: ${response.status} - ${errorDetail}`);
+        }
+        
+        try {
+          const responseData = await response.json();
+          if (!responseData.response) {
+            throw new Error(`Invalid response format from Ollama API: ${JSON.stringify(responseData)}`);
+          }
+          return responseData.response;
+        } catch (jsonError) {
+          throw new Error(`Failed to parse Ollama API response: ${jsonError.message}`);
+        }
+      } catch (error) {
+        throw error;
+      }
+    }
+    
     evaluateBtn.onclick = () => {
-      if (!apiKeyInput.value) {
+      // Only require API key for non-Ollama services
+      if (serviceSelect.value !== 'ollama' && !apiKeyInput.value) {
         statusDiv.innerHTML = '<span class="error">Please enter an API key</span>';
         return;
       }
@@ -388,7 +438,8 @@
           if (!message.base64Image) {
             throw new Error("Missing image data for API request");
           }
-          if (!message.apiKey) {
+          // Only require API key for non-Ollama services
+          if (message.service !== 'ollama' && !message.apiKey) {
             throw new Error("Missing API key for API request");
           }
           
@@ -432,6 +483,16 @@
               message.config && message.config.openai ? message.config.openai.model || "unknown model" : "unknown model");
             
             responseText = await callOpenAIAPI(
+              message.config, 
+              message.prompt, 
+              message.base64Image, 
+              message.apiKey
+            );
+          } else if (message.service === 'ollama') {
+            console.log("Calling Ollama API with", 
+              message.config && message.config.ollama ? message.config.ollama.model || "unknown model" : "unknown model");
+            
+            responseText = await callOllamaAPI(
               message.config, 
               message.prompt, 
               message.base64Image, 
