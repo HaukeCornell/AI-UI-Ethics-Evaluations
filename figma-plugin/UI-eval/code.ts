@@ -4,24 +4,33 @@
  */
 
 // Show UI
-figma.showUI(__html__, { width: 320, height: 380 });
+figma.showUI(__html__, { width: 360, height: 380 });
+
+// Store the latest evaluation results
+let latestEvaluationResult: {
+  result: AssessmentResult;
+  uxKpi: any;
+  nodeName: string;
+  service: string;
+  timestamp: string;
+} | null = null;
 
 // Configuration based on config.json
 const config = {
   ueeq_scales: [
     { name: "inefficient_efficient", left: "inefficient", right: "efficient" },
-    { name: "interesting_not_interesting", left: "interesting", right: "not interesting" },
-    { name: "clear_confusing", left: "clear", right: "confusing" },
-    { name: "enjoyable_annoying", left: "enjoyable", right: "annoying" },
-    { name: "organized_cluttered", left: "organized", right: "cluttered" },
-    { name: "addictive_non-addictive", left: "addictive", right: "non-addictive" },
-    { name: "supportive_obstructive", left: "supportive", right: "obstructive" },
+    { name: "not_interesting_interesting", left: "not interesting", right: "interesting" }, // Flipped
+    { name: "confusing_clear", left: "confusing", right: "clear" }, // Flipped
+    { name: "annoying_enjoyable", left: "annoying", right: "enjoyable" }, // Flipped
+    { name: "cluttered_organized", left: "cluttered", right: "organized" }, // Flipped
+    { name: "non-addictive_addictive", left: "non-addictive", right: "addictive" }, // Flipped
+    { name: "obstructive_supportive", left: "obstructive", right: "supportive" }, // Flipped
     { name: "pressuring_suggesting", left: "pressuring", right: "suggesting" },
     { name: "boring_exciting", left: "boring", right: "exciting" },
-    { name: "revealed_covert", left: "revealed", right: "covert" },
+    { name: "covert_revealed", left: "covert", right: "revealed" },
     { name: "complicated_easy", left: "complicated", right: "easy" },
     { name: "unpredictable_predictable", left: "unpredictable", right: "predictable" },
-    { name: "friendly_unfriendly", left: "friendly", right: "unfriendly" },
+    { name: "unfriendly_friendly", left: "unfriendly", right: "friendly" }, // Flipped
     { name: "deceptive_benevolent", left: "deceptive", right: "benevolent" }
   ],
   ai_services: {
@@ -65,6 +74,7 @@ interface UiEvalMessage {
   config?: any;
   data?: string;
   message?: string;
+  evaluationData?: any;
 }
 
 interface UeqScale {
@@ -123,15 +133,9 @@ function formatUeqPrompt(description: string, scales: UeqScale[]): string {
     // For scales where the negative term is on the right, we need to swap direction
     const { name, left, right } = scale;
     
-    // Identify scales where negative is on the right (need to be inverted)
-    const needsInversion = [
-      "interesting_not_interesting", 
-      "clear_confusing", 
-      "enjoyable_annoying", 
-      "organized_cluttered", 
-      "supportive_obstructive", 
-      "friendly_unfriendly"
-    ].includes(name);
+    // We no longer need scale inversion since we've standardized the format
+    // All scales now have negative on left, positive on right
+    const needsInversion = false; // No scales need inversion anymore
     
     if (needsInversion) {
       // For these scales, the negative term is on the right, so present in reverse
@@ -312,20 +316,20 @@ function calculateUxKpi(result: AssessmentResult): {
   const uxMapping: Record<string, {item: string}> = {
     // UX items
     'boring_exciting': {item: 'ux_exciting'}, 
-    'interesting_not_interesting': {item: 'ux_interesting'}, 
+    'not_interesting_interesting': {item: 'ux_interesting'}, 
     'complicated_easy': {item: 'ux_easy'}, 
-    'clear_confusing': {item: 'ux_clear'}, 
+    'confusing_clear': {item: 'ux_clear'}, 
     'inefficient_efficient': {item: 'ux_efficient'}, 
-    'organized_cluttered': {item: 'ux_organized'}, 
+    'cluttered_organized': {item: 'ux_organized'}, 
     'unpredictable_predictable': {item: 'ux_predictable'}, 
-    'supportive_obstructive': {item: 'ux_supportive'}, 
-    'enjoyable_annoying': {item: 'ux_enjoyable'}, 
-    'friendly_unfriendly': {item: 'ux_friendly'}, 
+    'obstructive_supportive': {item: 'ux_supportive'}, 
+    'annoying_enjoyable': {item: 'ux_enjoyable'}, 
+    'unfriendly_friendly': {item: 'ux_friendly'}, 
     
     // Manipulation items - directly in -3 to +3 scale where positive is ethical
-    'addictive_non-addictive': {item: 'manip_non_addictive'}, 
+    'non-addictive_addictive': {item: 'manip_addictive'}, 
     'pressuring_suggesting': {item: 'manip_suggesting'}, 
-    'revealed_covert': {item: 'manip_revealed'}, 
+    'covert_revealed': {item: 'manip_revealed'},
     'deceptive_benevolent': {item: 'manip_benevolent'} 
   };
   
@@ -389,7 +393,7 @@ function calculateUxKpi(result: AssessmentResult): {
   
   // Calculate manipulation score from manipulation-specific items
   const manipScoreKeys = [
-    'manip_non_addictive', 'manip_suggesting', 'manip_revealed', 'manip_benevolent'
+    'manip_addictive', 'manip_suggesting', 'manip_revealed', 'manip_benevolent'
   ];
   
   let manipSum = 0;
@@ -404,7 +408,7 @@ function calculateUxKpi(result: AssessmentResult): {
   const manipulationScore = manipCount > 0 ? manipSum / manipCount : 0;
   
   // Calculate ethical risk based on manipulation score
-  // Lower values indicate more manipulation
+  // Higher values indicate better ethical alignment (less manipulation)
   let ethicalRisk: 'Low' | 'Medium' | 'High' = 'Low';
   
   if (manipulationScore < -1) {
@@ -599,7 +603,11 @@ function createGauge(
       'predictable': {positive: 'predictable', negative: 'unpredictable'},
       'supportive': {positive: 'supportive', negative: 'obstructive'},
       'enjoyable': {positive: 'enjoyable', negative: 'annoying'},
-      'friendly': {positive: 'friendly', negative: 'unfriendly'}
+      'friendly': {positive: 'friendly', negative: 'unfriendly'},
+      'revealed': {positive: 'revealed', negative: 'covert'},
+      'addictive': {positive: 'addictive', negative: 'non-addictive'},
+      'suggesting': {positive: 'suggesting', negative: 'pressuring'},
+      'benevolent': {positive: 'benevolent', negative: 'deceptive'}
     };
     
     // Default to just using the aspect name if not found in mapping
@@ -725,11 +733,11 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   bestValue: number;
   ethicalRisk: 'Low' | 'Medium' | 'High';
   manipulationScore: number;
-}): FrameNode {
+}, service?: string): FrameNode {
   // Create a frame for the explanation
   const frame = figma.createFrame();
   frame.name = "UI Evaluation Explanation";
-  frame.resize(350, 380);
+  frame.resize(350, 420); // Increased height to accommodate new information
   frame.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   
   // Add title
@@ -806,13 +814,33 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
     riskText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
   }
   frame.appendChild(riskText);
+
+  // Model and timestamp information
+  const modelText = figma.createText();
+  let modelName = "Unknown AI model";
+  if (service === "anthropic") {
+    modelName = "Anthropic Claude";
+  } else if (service === "openai") {
+    modelName = "OpenAI GPT-4";
+  } else if (service === "ollama") {
+    modelName = "Ollama Local Model";
+  } else if (service === "qwen") {
+    modelName = "Alibaba Qwen-VL";
+  }
+  const currentDate = new Date().toLocaleString();
+  modelText.characters = `Evaluated with: ${modelName} | ${currentDate}`;
+  modelText.fontSize = 11;
+  modelText.x = 20;
+  modelText.y = 310;
+  modelText.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
+  frame.appendChild(modelText);
   
   // Scale information
   const scaleText = figma.createText();
   scaleText.characters = `Scale: -3 (negative) to +3 (positive)`;
-  scaleText.fontSize = 12;
+  scaleText.fontSize = 11;
   scaleText.x = 20;
-  scaleText.y = 310;
+  scaleText.y = 330;
   scaleText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   frame.appendChild(scaleText);
   
@@ -821,12 +849,84 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   disclaimer.characters = "This evaluation was generated by AI and should be considered a starting point for further UX analysis.";
   disclaimer.fontSize = 10;
   disclaimer.x = 20;
-  disclaimer.y = 340;
+  disclaimer.y = 350;
   disclaimer.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
   disclaimer.resize(310, 40);
   frame.appendChild(disclaimer);
   
   return frame;
+}
+
+/**
+ * Save the evaluation results to a JSON file
+ */
+async function saveEvaluationResults() {
+  try {
+    if (!latestEvaluationResult) {
+      throw new Error("No evaluation results available to save");
+    }
+
+    // Format the result object for saving
+    const saveData = {
+      nodeName: latestEvaluationResult.nodeName,
+      timestamp: latestEvaluationResult.timestamp,
+      service: latestEvaluationResult.service,
+      modelName: getModelName(latestEvaluationResult.service),
+      assessment: latestEvaluationResult.result.assessment,
+      explanation: latestEvaluationResult.result.explanation,
+      uxKpi: {
+        overall: latestEvaluationResult.uxKpi.uxKpi,
+        worstAspect: {
+          name: latestEvaluationResult.uxKpi.worstAspect,
+          value: latestEvaluationResult.uxKpi.worstValue
+        },
+        bestAspect: {
+          name: latestEvaluationResult.uxKpi.bestAspect,
+          value: latestEvaluationResult.uxKpi.bestValue
+        },
+        ethicalRisk: latestEvaluationResult.uxKpi.ethicalRisk,
+        manipulationScore: latestEvaluationResult.uxKpi.manipulationScore
+      }
+    };
+
+    // Signal UI to download the JSON file
+    figma.ui.postMessage({
+      type: 'save-data',
+      evaluationData: saveData,
+      filename: `ui-evaluation-${saveData.nodeName.replace(/\s+/g, '-').toLowerCase()}-${new Date().toISOString().substring(0, 19).replace(/:/g, '-')}.json`
+    });
+
+    figma.ui.postMessage({ type: 'save-success' });
+  } catch (error) {
+    console.error('Save error:', error);
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else {
+      errorMessage = String(error);
+    }
+    
+    figma.ui.postMessage({ 
+      type: 'save-error', 
+      error: errorMessage 
+    });
+  }
+}
+
+/**
+ * Get model name from service
+ */
+function getModelName(service: string): string {
+  if (service === "anthropic") {
+    return "Anthropic Claude 3 Opus";
+  } else if (service === "openai") {
+    return "OpenAI GPT-4 Vision";
+  } else if (service === "ollama") {
+    return "Ollama Local Model";
+  } else if (service === "qwen") {
+    return "Alibaba Qwen-VL";
+  }
+  return "Unknown AI model";
 }
 
 /**
@@ -905,6 +1005,15 @@ async function evaluateUI(service: string, apiKey: string) {
     const uxKpi = calculateUxKpi(result);
     console.log("UX KPI calculated:", uxKpi);
     
+    // Store evaluation results for potential saving
+    latestEvaluationResult = {
+      result,
+      uxKpi,
+      nodeName: selectedNode.name,
+      service,
+      timestamp: new Date().toLocaleString()
+    };
+    
     // Create gauge visualization
     console.log("Creating gauge visualization...");
     figma.ui.postMessage({ type: 'status-update', message: 'Creating visualization...' });
@@ -921,7 +1030,7 @@ async function evaluateUI(service: string, apiKey: string) {
     
     // Create evaluation comment
     console.log("Creating evaluation comment...");
-    const comment = createEvaluationComment(result, uxKpi);
+    const comment = createEvaluationComment(result, uxKpi, service);
     
     // Position the gauge and comment next to the selected node
     gauge.x = selectedNode.x + selectedNode.width + 20;
@@ -974,6 +1083,8 @@ figma.ui.onmessage = async (msg: UiEvalMessage) => {
   try {
     if (msg.type === 'evaluate-ui') {
       await evaluateUI(msg.service!, msg.apiKey!);
+    } else if (msg.type === 'save-results') {
+      await saveEvaluationResults();
     } else if (msg.type === 'cancel') {
       figma.closePlugin();
     } else if (msg.type === 'check-selection') {

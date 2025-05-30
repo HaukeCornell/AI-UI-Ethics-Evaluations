@@ -73,8 +73,17 @@ This plugin is built with TypeScript. To set up the development environment:
 
 1. Install Node.js and npm: https://nodejs.org/en/download/
 2. Install TypeScript: `npm install -g typescript`
-3. Install dependencies: `npm install`
-4. Build the plugin: `npm run build` or `npm run watch` for continuous compilation
+3. Install Figma typings: `npm install --save-dev @figma/plugin-typings`
+4. Install dependencies: `npm install`
+5. Build the plugin: `npm run build` or `npm run watch` for continuous compilation
+
+Instead of Step 5. Figma recommends writing TypeScript code using Visual Studio code:
+
+1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
+2. Open this directory in Visual Studio Code.
+3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
+    then select "npm: watch". You will have to do this again every time
+    you reopen Visual Studio Code.
 
 ## API Keys
 

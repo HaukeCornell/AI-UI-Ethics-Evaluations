@@ -112,10 +112,14 @@
     }
     .button-group {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
     .button-group button {
       flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .service-info {
       font-size: 11px;
@@ -155,12 +159,14 @@
     
     <div class="button-group">
       <button id="evaluate-btn">Evaluate Selected Frame</button>
+      <button id="save-btn" class="secondary" disabled>Save Results</button>
       <button id="cancel-btn" class="secondary">Cancel</button>
     </div>
   </div>
 
   <script>
     const evaluateBtn = document.getElementById('evaluate-btn');
+    const saveBtn = document.getElementById('save-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const serviceSelect = document.getElementById('ai-service');
     const apiKeyInput = document.getElementById('api-key');
@@ -380,6 +386,7 @@
       }
       
       evaluateBtn.disabled = true;
+      saveBtn.disabled = true;
       statusDiv.innerHTML = '<span class="spinner"></span> Analyzing UI design...';
       
       parent.postMessage({ 
@@ -389,6 +396,11 @@
           apiKey: apiKeyInput.value
         } 
       }, '*');
+    };
+    
+    saveBtn.onclick = () => {
+      statusDiv.innerHTML = '<span class="spinner"></span> Saving evaluation results...';
+      parent.postMessage({ pluginMessage: { type: 'save-results' } }, '*');
     };
     
     cancelBtn.onclick = () => {
@@ -410,9 +422,29 @@
       if (message.type === 'evaluation-complete') {
         statusDiv.innerHTML = '<span class="success">✓ Evaluation complete! Gauge created.</span>';
         evaluateBtn.disabled = false;
+        saveBtn.disabled = false;
       } else if (message.type === 'evaluation-error') {
         statusDiv.innerHTML = `<span class="error">Error: ${message.error}</span>`;
         evaluateBtn.disabled = false;
+        saveBtn.disabled = true;
+      } else if (message.type === 'save-success') {
+        statusDiv.innerHTML = '<span class="success">✓ Evaluation results saved!</span>';
+      } else if (message.type === 'save-error') {
+        statusDiv.innerHTML = `<span class="error">Save error: ${message.error}</span>`;
+      } else if (message.type === 'save-data') {
+        // Download data as JSON file
+        const jsonData = JSON.stringify(message.evaluationData, null, 2);
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = message.filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 0);
       } else if (message.type === 'selection-status') {
         if (!message.hasValidSelection) {
           statusDiv.innerHTML = '<span class="warning">Please select a frame, component or instance</span>';
