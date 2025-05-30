@@ -356,25 +356,32 @@ function calculateUxKpi(result: AssessmentResult): {
   let bestAspect = '';
   let bestValue = -3; // Start with lowest possible value since we're looking for the highest
   
-  // UX item keys for worst/best calculation
+  // UX item keys for UX KPI calculation
   const uxScoreKeys = [
     'ux_exciting', 'ux_interesting', 'ux_easy', 'ux_clear',
     'ux_efficient', 'ux_organized', 'ux_predictable', 'ux_supportive',
     'ux_enjoyable', 'ux_friendly'
   ];
   
-  // Find worst aspect (lowest score)
-  for (const key of uxScoreKeys) {
+  // All score keys for worst/best calculation including both UX and manipulation items
+  const allScoreKeys = [
+    ...uxScoreKeys,
+    // Manipulation items
+    'manip_addictive', 'manip_suggesting', 'manip_revealed', 'manip_benevolent'
+  ];
+  
+  // Find worst aspect (lowest score) and best aspect (highest score) across all items
+  for (const key of allScoreKeys) {
     if (key in scores) {
       const value = scores[key];
       if (value < worstValue) {
         worstValue = value;
-        worstAspect = key.replace('ux_', '');
+        worstAspect = key.startsWith('ux_') ? key.replace('ux_', '') : key.replace('manip_', '');
       }
       
       if (value > bestValue) {
         bestValue = value;
-        bestAspect = key.replace('ux_', '');
+        bestAspect = key.startsWith('ux_') ? key.replace('ux_', '') : key.replace('manip_', '');
       }
     }
   }
@@ -428,6 +435,31 @@ function calculateUxKpi(result: AssessmentResult): {
     ethicalRisk,
     manipulationScore
   };
+}
+
+/**
+ * Format aspect name to be more readable
+ */
+function formatAspectName(name: string): string {
+  // Check for common aspect names and provide clearer labels
+  const nameMap: Record<string, string> = {
+    'exciting': 'Excitement',
+    'interesting': 'Interest Level',
+    'easy': 'Ease of Use',
+    'clear': 'Clarity',
+    'efficient': 'Efficiency',
+    'organized': 'Organization',
+    'predictable': 'Predictability',
+    'supportive': 'Supportiveness',
+    'enjoyable': 'Enjoyability',
+    'friendly': 'Friendliness',
+    'revealed': 'Transparency',
+    'addictive': 'Addictiveness',
+    'suggesting': 'Suggestiveness',
+    'benevolent': 'Ethical Intent'
+  };
+  
+  return nameMap[name] || name.charAt(0).toUpperCase() + name.slice(1);
 }
 
 /**
@@ -627,7 +659,8 @@ function createGauge(
   // Add worst aspect label
   const worstLabel = figma.createText();
   const worstAspectLabel = getAttributeLabel(worstAspect, score);
-  worstLabel.characters = worstAspectLabel;
+  // Format the aspect name to be more readable
+  worstLabel.characters = formatAspectName(worstAspect) + ` (${score.toFixed(1)})`;
   worstLabel.fontSize = 10;
   // Position horizontally based on where it is on the scale
   if (score < 0) {
@@ -658,7 +691,8 @@ function createGauge(
   // Add best aspect label
   const bestLabel = figma.createText();
   const bestAspectLabel = getAttributeLabel(bestAspect, bestValue);
-  bestLabel.characters = bestAspectLabel;
+  // Format the aspect name to be more readable
+  bestLabel.characters = formatAspectName(bestAspect) + ` (${bestValue.toFixed(1)})`;
   bestLabel.fontSize = 10;
   // Position horizontally based on where it is on the scale
   if (bestValue < 0) {
@@ -763,7 +797,7 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   
   // Worst aspect (red)
   const worstText = figma.createText();
-  worstText.characters = `Worst Aspect: ${uxKpi.worstAspect} (${uxKpi.worstValue.toFixed(1)})`;
+  worstText.characters = `Worst Aspect: ${formatAspectName(uxKpi.worstAspect)} (${uxKpi.worstValue.toFixed(1)})`;
   worstText.fontSize = 12;
   worstText.x = 20;
   worstText.y = 230;
@@ -772,7 +806,7 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   
   // Best aspect (green)
   const bestText = figma.createText();
-  bestText.characters = `Best Aspect: ${uxKpi.bestAspect} (${uxKpi.bestValue.toFixed(1)})`;
+  bestText.characters = `Best Aspect: ${formatAspectName(uxKpi.bestAspect)} (${uxKpi.bestValue.toFixed(1)})`;
   bestText.fontSize = 12;
   bestText.x = 20;
   bestText.y = 250;
