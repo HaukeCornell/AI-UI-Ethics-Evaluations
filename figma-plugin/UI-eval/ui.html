@@ -126,6 +126,78 @@
       margin-top: 4px;
       color: #777;
     }
+    
+    /* Toggle switch styles */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 100px;
+      height: 30px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #e9e9e9;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    .toggle-labels {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      box-sizing: border-box;
+    }
+    .toggle-off {
+      color: #333;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .toggle-on {
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    input:checked + .toggle-slider {
+      background-color: #18A0FB;
+    }
+    input:checked + .toggle-slider:before {
+      transform: translateX(70px);
+    }
+    .toggle-info {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
@@ -147,6 +219,24 @@
     <div class="form-group">
       <label for="api-key">API Key:</label>
       <input type="password" id="api-key" placeholder="Enter API key" autocomplete="off">
+    </div>
+    
+    <div class="form-group">
+      <label for="evaluation-type">Evaluation type:</label>
+      <div class="toggle-container">
+        <label class="toggle">
+          <input type="checkbox" id="evaluation-type">
+          <span class="toggle-slider"></span>
+          <div class="toggle-labels">
+            <span class="toggle-off">UEQ</span>
+            <span class="toggle-on">UEEQ</span>
+          </div>
+        </label>
+      </div>
+      <div class="toggle-info">
+        <span><b>UEQ</b>: Standard UX evaluation metrics only</span><br>
+        <span><b>UEEQ</b>: Extended with ethical/manipulation considerations</span>
+      </div>
     </div>
     
     <div class="info-box">
@@ -378,6 +468,8 @@
       }
     }
     
+    const evaluationTypeToggle = document.getElementById('evaluation-type');
+    
     evaluateBtn.onclick = () => {
       // Only require API key for non-Ollama services
       if (serviceSelect.value !== 'ollama' && !apiKeyInput.value) {
@@ -387,13 +479,17 @@
       
       evaluateBtn.disabled = true;
       saveBtn.disabled = true;
-      statusDiv.innerHTML = '<span class="spinner"></span> Analyzing UI design...';
+      
+      // Get evaluation type (UEQ or UEEQ)
+      const isUeeq = evaluationTypeToggle.checked;
+      statusDiv.innerHTML = `<span class="spinner"></span> Analyzing UI design using ${isUeeq ? 'UEEQ' : 'UEQ'}...`;
       
       parent.postMessage({ 
         pluginMessage: { 
           type: 'evaluate-ui', 
           service: serviceSelect.value,
-          apiKey: apiKeyInput.value
+          apiKey: apiKeyInput.value,
+          evaluationType: isUeeq ? 'ueeq' : 'ueq' 
         } 
       }, '*');
     };

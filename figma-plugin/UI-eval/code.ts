@@ -75,6 +75,7 @@ interface UiEvalMessage {
   data?: string;
   message?: string;
   evaluationData?: any;
+  evaluationType?: 'ueq' | 'ueeq';
 }
 
 interface UeqScale {
@@ -122,13 +123,24 @@ ${childrenDescription}`;
 
 /**
  * Format the prompt for UEQ assessment with direct -3 to +3 scale
+ * @param description The UI description
+ * @param scales All available scales
+ * @param evaluationType Whether to use UEQ (standard UX items only) or UEEQ (include ethical/manipulation items)
  */
-function formatUeqPrompt(description: string, scales: UeqScale[]): string {
+function formatUeqPrompt(description: string, scales: UeqScale[], evaluationType: 'ueq' | 'ueeq' = 'ueeq'): string {
+  // Define which items are manipulation/ethical items
+  const manipulationItems = ['non-addictive_addictive', 'pressuring_suggesting', 'covert_revealed', 'deceptive_benevolent'];
+  
+  // Filter scales based on evaluationType
+  const filteredScales = evaluationType === 'ueq' 
+    ? scales.filter(scale => !manipulationItems.includes(scale.name))
+    : scales;
+    
   // Build scales text for prompt
   let scalesText = "";
   let exampleAssessment = "{";
   
-  for (const scale of scales) {
+  for (const scale of filteredScales) {
     // Format scales with negative to positive semantics
     // For scales where the negative term is on the right, we need to swap direction
     const { name, left, right } = scale;
@@ -296,8 +308,10 @@ function extractJsonFromResponse(response: string): AssessmentResult {
 
 /**
  * Calculate UX KPI from assessment result with direct -3 to +3 scale input
+ * @param result The assessment result
+ * @param evaluationType Whether to use UEQ (standard UX items only) or UEEQ (include ethical/manipulation items)
  */
-function calculateUxKpi(result: AssessmentResult): {
+function calculateUxKpi(result: AssessmentResult, evaluationType: 'ueq' | 'ueeq' = 'ueeq'): {
   uxKpi: number;
   worstAspect: string;
   worstValue: number;
@@ -305,6 +319,7 @@ function calculateUxKpi(result: AssessmentResult): {
   bestValue: number;
   ethicalRisk: 'Low' | 'Medium' | 'High';
   manipulationScore: number;
+  evaluationType: 'ueq' | 'ueeq';
 } {
   const assessment = result.assessment;
   
@@ -363,12 +378,15 @@ function calculateUxKpi(result: AssessmentResult): {
     'ux_enjoyable', 'ux_friendly'
   ];
   
-  // All score keys for worst/best calculation including both UX and manipulation items
-  const allScoreKeys = [
-    ...uxScoreKeys,
-    // Manipulation items
+  // Manipulation item keys
+  const manipScoreKeys = [
     'manip_addictive', 'manip_suggesting', 'manip_revealed', 'manip_benevolent'
   ];
+  
+  // All score keys for worst/best calculation - filter based on evaluation type
+  const allScoreKeys = evaluationType === 'ueq' 
+    ? [...uxScoreKeys] 
+    : [...uxScoreKeys, ...manipScoreKeys];
   
   // Find worst aspect (lowest score) and best aspect (highest score) across all items
   for (const key of allScoreKeys) {
@@ -399,9 +417,7 @@ function calculateUxKpi(result: AssessmentResult): {
   const uxKpi = uxCount > 0 ? uxSum / uxCount : 0;
   
   // Calculate manipulation score from manipulation-specific items
-  const manipScoreKeys = [
-    'manip_addictive', 'manip_suggesting', 'manip_revealed', 'manip_benevolent'
-  ];
+  // Use existing manipScoreKeys array defined above
   
   let manipSum = 0;
   let manipCount = 0;
@@ -433,7 +449,8 @@ function calculateUxKpi(result: AssessmentResult): {
     bestAspect,
     bestValue,
     ethicalRisk,
-    manipulationScore
+    manipulationScore,
+    evaluationType
   };
 }
 
@@ -736,7 +753,13 @@ function createGauge(
   
   // Add ethical risk indicator
   const ethicalRiskLabel = figma.createText();
-  const riskText = `Ethical risk: ${ethicalRisk} | Manipulation: ${manipScore.toFixed(1)}`;
+  
+  // Check if this was a UEEQ evaluation
+  const evalType = latestEvaluationResult?.uxKpi?.evaluationType || 'ueeq';
+  const riskText = evalType === 'ueeq' 
+    ? `Ethical risk: ${ethicalRisk} | Manipulation: ${manipScore.toFixed(1)}`
+    : `Standard UX evaluation (no manipulation metrics)`;
+  
   ethicalRiskLabel.characters = riskText;
   ethicalRiskLabel.fontSize = 12;
   ethicalRiskLabel.x = 35;
@@ -813,9 +836,13 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   bestText.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.8, b: 0.3 } }];
   frame.appendChild(bestText);
   
-  // UX KPI and manipulation score
+  // UX KPI and manipulation score (if applicable)
   const scoreText = figma.createText();
-  scoreText.characters = `UX KPI: ${uxKpi.uxKpi.toFixed(1)}  |  Manipulation: ${uxKpi.manipulationScore.toFixed(1)}`;
+  const evalType = latestEvaluationResult?.uxKpi?.evaluationType || 'ueeq';
+  
+  scoreText.characters = evalType === 'ueeq'
+    ? `UX KPI: ${uxKpi.uxKpi.toFixed(1)}  |  Manipulation: ${uxKpi.manipulationScore.toFixed(1)}`
+    : `UX KPI: ${uxKpi.uxKpi.toFixed(1)}`;
   scoreText.fontSize = 12;
   scoreText.x = 20;
   scoreText.y = 270;
@@ -861,8 +888,11 @@ function createEvaluationComment(result: AssessmentResult, uxKpi: {
   } else if (service === "qwen") {
     modelName = "Alibaba Qwen-VL";
   }
+  
+  // Get evaluation type from latest evaluation result
+  const evalType = latestEvaluationResult?.uxKpi?.evaluationType || 'ueeq';
   const currentDate = new Date().toLocaleString();
-  modelText.characters = `Evaluated with: ${modelName} | ${currentDate}`;
+  modelText.characters = `Evaluated with: ${modelName} | ${evalType.toUpperCase()} | ${currentDate}`;
   modelText.fontSize = 11;
   modelText.x = 20;
   modelText.y = 310;
@@ -989,7 +1019,7 @@ async function loadRequiredFonts() {
 /**
  * Main evaluation function
  */
-async function evaluateUI(service: string, apiKey: string) {
+async function evaluateUI(service: string, apiKey: string, evaluationType: 'ueq' | 'ueeq' = 'ueeq') {
   try {
     console.log("Starting UI evaluation for service:", service);
     
@@ -1010,9 +1040,10 @@ async function evaluateUI(service: string, apiKey: string) {
     const description = await getFrameDescription(selectedNode);
     console.log("Generated description:", description.substring(0, 100) + "...");
     
-    // Format prompt
-    const prompt = formatUeqPrompt(description, config.ueeq_scales);
-    console.log("Formatted prompt (first 100 chars):", prompt.substring(0, 100) + "...");
+    // Format prompt based on evaluation type
+    console.log(`Using evaluation type: ${evaluationType}`);
+    const prompt = formatUeqPrompt(description, config.ueeq_scales, evaluationType);
+    console.log(`Formatted ${evaluationType.toUpperCase()} prompt (first 100 chars):`, prompt.substring(0, 100) + "...");
     
     // Get image bytes
     console.log("Exporting image...");
@@ -1035,8 +1066,8 @@ async function evaluateUI(service: string, apiKey: string) {
     console.log("JSON extracted, assessment keys:", Object.keys(result.assessment).join(", "));
     
     // Calculate UX KPI
-    console.log("Calculating UX KPI...");
-    const uxKpi = calculateUxKpi(result);
+    console.log("Calculating UX KPI with evaluation type:", evaluationType);
+    const uxKpi = calculateUxKpi(result, evaluationType);
     console.log("UX KPI calculated:", uxKpi);
     
     // Store evaluation results for potential saving
@@ -1116,7 +1147,7 @@ function checkValidSelection(): boolean {
 figma.ui.onmessage = async (msg: UiEvalMessage) => {
   try {
     if (msg.type === 'evaluate-ui') {
-      await evaluateUI(msg.service!, msg.apiKey!);
+      await evaluateUI(msg.service!, msg.apiKey!, msg.evaluationType || 'ueeq');
     } else if (msg.type === 'save-results') {
       await saveEvaluationResults();
     } else if (msg.type === 'cancel') {
