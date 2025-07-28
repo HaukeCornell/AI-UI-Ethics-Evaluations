@@ -2,11 +2,11 @@
 
 ## Email/Message Template
 
-**Subject: Research Study: How do UX metrics influence design decisions? ($8-10 compensation)**
+**Subject: Research Study: How do UX metrics inform design decisions? ($8-10 compensation)**
 
 Dear [Designer/Design Professional],
 
-Are you a professional UI/UX designer or design decision-maker? We invite you to participate in a research study examining how different types of user experience evaluation data influence design decisions.
+Are you a professional UI/UX designer or design decision-maker? We invite you to participate in a research study examining how different types of user experience evaluation data inform design decisions.
 
 ### What's involved?
 - **Time**: 30-35 minutes online
@@ -20,7 +20,7 @@ Are you a professional UI/UX designer or design decision-maker? We invite you to
 - 18+ years old
 
 ### Why participate?
-Your insights will contribute to research on ethical design practices and help develop better tools for design evaluation. This study is being conducted by researchers at Cornell University's Information Science department under the supervision of Prof. Helen Nissenbaum.
+Your insights will contribute to research on informed design practices and help develop better tools for design evaluation. This study is being conducted by researchers at Cornell University's Information Science department under the supervision of Prof. Helen Nissenbaum.
 
 ### Ready to participate?
 Click here to learn more and begin the study: [SURVEY LINK]
@@ -35,11 +35,11 @@ Thank you for considering participation in this research!
 
 🎨 **Calling all UX/UI designers!** 🎨
 
-Participate in a Cornell University research study exploring how UX metrics influence design decisions. 
+Participate in a Cornell University research study exploring how UX metrics inform design decisions.
 
 ✅ 30-35 minutes online  
 ✅ $8-10 compensation  
-✅ Contribute to ethical design research  
+✅ Contribute to informed design research  
 
 Requirements: 1+ years professional design experience
 
@@ -61,7 +61,7 @@ Cornell University researchers are studying how different UX evaluation metrics 
 - Make implementation recommendations
 - $8-10 compensation
 
-This research aims to advance understanding of ethical design practices and develop better evaluation tools for the design community.
+This research aims to advance understanding of informed design practices and develop better evaluation tools for the design community.
 
 Interested in participating? Send me a message or email hgs52@cornell.edu for the study link.
 
@@ -85,7 +85,7 @@ Hi everyone! I'm a PhD student at Cornell studying how different ways of present
 
 **Compensation:** $8-10 for participation
 
-**Why it matters:** Results will help develop better tools for ethical design evaluation and support more informed design decisions.
+**Why it matters:** Results will help develop better tools for design evaluation and support more informed design decisions.
 
 If you're interested or have questions, feel free to comment below or send me a DM. Thanks for considering!
 
@@ -113,4 +113,4 @@ In this study, you'll review interface designs alongside user evaluation data an
 **Time:** 30-35 minutes  
 **Compensation:** $8-10
 
-This research is conducted by Cornell University Information Science department and aims to advance understanding of ethical design practices.
+This research is conducted by Cornell University Information Science department and aims to advance understanding of informed design practices.

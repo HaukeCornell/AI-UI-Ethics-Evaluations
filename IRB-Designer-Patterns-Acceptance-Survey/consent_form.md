@@ -1,10 +1,10 @@
 # Informed Consent Form
 
-## The Impact of User Experience Metrics on Designers' Ethical Decision-Making: A Survey Study
+## Understanding How User Experience Data Influences Design Evaluation: A Survey Study
 
 ### What is this study about?
 
-We are interested in understanding how different types of user experience evaluation data influence professional designers' decision-making processes. You will be shown interface designs along with user evaluation data and asked to make recommendations about whether these designs should be implemented.
+We are interested in understanding how different types of user experience evaluation data influence professional designers' assessment and recommendation processes. You will be shown interface designs along with user evaluation data and asked to make recommendations about whether these designs should be implemented.
 
 ### What will you be asked to do?
 
@@ -18,11 +18,11 @@ If you agree to participate, you will:
 
 ### Risks and discomforts
 
-There are minimal risks associated with this study. You may experience mild discomfort when reviewing certain interface designs, as some examples may demonstrate potentially manipulative design practices. You are free to skip any questions that make you uncomfortable.
+There are minimal risks associated with this study. You may experience mild discomfort when reviewing certain interface designs, as some examples may demonstrate controversial or unfamiliar design approaches. You are free to skip any questions that make you uncomfortable.
 
 ### Benefits
 
-There are no direct benefits to you from participating in this research. However, your participation may help advance understanding of ethical design practices and contribute to the development of better design evaluation tools. You will receive $8-10 as compensation for your time.
+There are no direct benefits to you from participating in this research. However, your participation may help advance understanding of design evaluation practices and contribute to the development of better design assessment tools. You will receive $8-10 as compensation for your time.
 
 ### Confidentiality
 

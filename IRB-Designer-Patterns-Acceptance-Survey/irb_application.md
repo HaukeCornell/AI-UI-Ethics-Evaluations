@@ -4,10 +4,10 @@
 
 **Protocol Number**: [To be assigned]
 
-**IRB Protocol Title**: The Impact of User Experience Metrics on Designers' Ethical Decision-Making: A Survey Study
+**IRB Protocol Title**: The Impact of Evaluation Source and UX Metrics on Designers' Decision-Making: AI vs Human Interface Assessment
 
 **Lay Summary**: 
-This study investigates how different user experience evaluation metrics influence professional designers' willingness to implement potentially manipulative interface designs. Participants will view interface mockups alongside user evaluation data presented in different formats (standard UX metrics vs. ethics-enhanced metrics) and indicate whether they would recommend implementing these designs. The goal is to understand whether enhanced UX metrics that capture ethical concerns can influence designers' decision-making toward more ethical design choices.
+This study investigates how different sources of user experience evaluation data (AI-generated vs human-generated) and different metric types (standard UX vs ethics-enhanced metrics) influence professional designers' willingness to implement potentially manipulative interface designs. Participants will view interface mockups alongside evaluation data from both AI and human sources, presented with either standard UX metrics or ethics-enhanced metrics, and indicate whether they would recommend implementing these designs. The goal is to understand how AI evaluation tools compare to human evaluation in design decision-making and whether enhanced ethical metrics influence decisions regardless of evaluation source.
 
 **Is this a student project?**: Yes
 
@@ -68,11 +68,16 @@ This study investigates how different user experience evaluation metrics influen
 
 ### Purpose and goals of the research
 
-The purpose of this research is to examine how different user experience (UX) evaluation metrics influence professional designers' ethical decision-making when evaluating interface designs. The study aims to determine whether presenting UX evaluation data with enhanced ethical considerations (manipulation, deception, addiction potential) affects designers' willingness to implement potentially problematic interface designs compared to standard UX metrics alone.
+The purpose of this research is to examine how evaluation source (AI vs human) and metric type (standard vs ethics-enhanced) influence professional designers' decision-making when evaluating interface designs. This study uses a 2x2 experimental design:
+
+- **Between-subjects factor**: Metric type (Standard UX metrics vs Enhanced Ethics metrics)
+- **Within-subjects factor**: Evaluation source (AI-generated vs Human-generated evaluation data)
+
+The study aims to determine: (1) whether AI evaluation data influences design decisions differently than human evaluation data, (2) whether enhanced ethical metrics affect decisions regardless of evaluation source, and (3) how designers perceive the credibility and usefulness of AI vs human interface evaluation.
 
 ### How will this study contribute to existing knowledge?
 
-This study will contribute to existing knowledge by providing empirical evidence on whether enhanced UX metrics can serve as a practical intervention for promoting ethical design decisions in professional contexts. It builds on prior research demonstrating that standard UX metrics fail to capture manipulative design elements, and tests whether alternative metric presentations can influence real-world design decision-making. The findings will inform the development of ethical design evaluation tools and practices.
+This study will contribute to existing knowledge by providing empirical evidence on: (1) the comparative influence of AI vs human evaluation data on design decisions, (2) whether enhanced ethical metrics serve as effective interventions across different evaluation sources, and (3) professional designers' trust and reliance on AI evaluation tools. As AI tools become more prevalent in design workflows, understanding their impact on ethical decision-making is crucial for developing responsible design practices.
 
 ### Will the research involve secondary use of data, documents, records or biospecimens collected from individuals?
 
@@ -80,34 +85,38 @@ No
 
 ### Describe what participants will be asked to do and/or what information or specimens will be collected from them.
 
-Participants in this study will be asked to evaluate interface designs and make recommendations about their implementation. The study will be conducted online through a survey platform. Participants will:
+Participants in this study will be asked to evaluate interface designs using data from both AI and human sources. The study will be conducted online through a survey platform. Participants will:
 
-1. Complete a brief demographic questionnaire about their design experience and role
-2. View a series of interface mockups (approximately 10-15 interfaces)
-3. For each interface, view user evaluation data presented either as:
-   - Condition A: Standard UX metrics (efficiency, satisfaction, usability)
+1. Complete a brief demographic questionnaire about their design experience, role, and prior AI tool usage
+2. View a series of interface mockups (approximately 10-12 interfaces)
+3. For each interface, view TWO sets of evaluation data:
+   - Human evaluation data (from 120 human participants)
+   - AI evaluation data (from computer vision and NLP analysis)
+4. Evaluation data presented as either:
+   - Condition A: Standard UX metrics (efficiency, satisfaction, usability) 
    - Condition B: Enhanced metrics including ethical considerations (manipulation, deception, addiction potential)
-4. Answer the primary question: "If you had the power to decide, would you release this interface design?" (Yes/No)
-5. Provide brief explanations for their decisions in open-text fields
-6. Complete follow-up questions about their decision-making process
-
-The interfaces shown will include examples from prior research on dark patterns, along with both ethical and potentially manipulative design examples. User evaluation data will be drawn from previously collected studies and may include AI-generated examples clearly labeled as such.
+5. Answer decision questions for both evaluation sources: "Would you release this interface design based on [human/AI] evaluation data?"
+6. Provide brief explanations for decisions based on each evaluation source
+7. Answer comparative questions about which evaluation source was more influential
+8. Complete follow-up questions about AI vs human evaluation preferences and decision-making process
 
 ### Provide a sequential list of all study components, including any follow-up sessions. List the estimated time needed for each component, as well as the total time commitment for participants.
 
 1. **Informed consent and eligibility screening** (2 minutes)
 2. **Demographic and professional background questionnaire** (3 minutes)
-3. **Interface evaluation task** (20-25 minutes)
-   - Review 10-15 interface designs with accompanying user data
-   - Make implementation decisions and provide reasoning
-4. **Post-study questionnaire about decision-making process** (5 minutes)
+3. **Interface evaluation task** (25-30 minutes)
+   - Review 10-12 interface designs with both AI and human evaluation data
+   - Make implementation decisions for each evaluation source
+   - Provide reasoning for decisions
+   - Answer comparative questions
+4. **Post-study questionnaire about AI vs human evaluation and decision-making process** (7 minutes)
 5. **Debrief and study completion** (2 minutes)
 
-**Total estimated time**: 30-35 minutes
+**Total estimated time**: 35-40 minutes
 
 ### Will the research team input participant data into an AI tool or rely on software that makes use of AI features?
 
-Potentially yes - some of the interface examples or user evaluation data shown to participants may be generated using AI tools, but this will be clearly disclosed to participants. No participant data will be input into AI tools during the study.
+Some of the evaluation data shown to participants will be AI-generated (clearly labeled as such), but no participant data will be input into AI tools during the study. The AI evaluation data will be pre-generated and static.
 
 ### Will this study involve participants directly interacting with an AI tool or service?
 
@@ -129,7 +138,7 @@ The study will be conducted entirely online through Cornell Qualtrics platform.
 
 ### Describe the sampling plan and the sample size.
 
-We plan to recruit 100-150 professional designers and design decision-makers. Participants will be stratified by role (individual contributors vs. decision-makers) and experience level. We will use convenience sampling through professional networks, design communities, and potentially Prolific for additional recruitment.
+We plan to recruit 120-160 professional designers and design decision-makers to achieve adequate power for the 2x2 design (60-80 participants per between-subjects condition). Participants will be stratified by role and experience level. We will use convenience sampling through professional networks, design communities, and potentially Prolific for additional recruitment.
 
 ### Which of the statements describes the recruitment strategy?
 
@@ -146,7 +155,7 @@ Recruitment will occur through:
 
 ### Indicate the total number of participants to be recruited.
 
-150
+160
 
 ### List the inclusion and exclusion criteria.
 
@@ -198,27 +207,11 @@ Potentially yes - we may recruit internationally through online platforms.
 
 ## Clinical Trials
 
-**Are participants prospectively assigned to an intervention in this study?**: Yes (participants are randomly assigned to view either standard or enhanced metrics)
+**Are participants prospectively assigned to an intervention in this study?**: Yes (participants are randomly assigned to view either standard or enhanced metrics; all participants see both AI and human evaluation data)
 
 **Is the study designed to evaluate the effect of the intervention(s) on participants?**: Yes 
 
 **Is the effect being evaluated a health-related biomedical or behavioral outcome?**: No
-
----
-
-## Informed Consent
-
-### Explain the process for obtaining informed consent.
-
-Informed consent will be obtained through the online survey platform. Participants will review a detailed consent form explaining the study purpose, procedures, risks, benefits, and their rights. They must actively indicate consent by clicking "I consent to participate" before proceeding to the study.
-
-### Will all participants provide informed consent for themselves?
-
-Yes
-
-### Will consent occur in a language other than English?
-
-No
 
 ---
 
@@ -228,8 +221,9 @@ No
 
 Minimal risks:
 - Possible mild discomfort when evaluating potentially manipulative interface designs
-- Time commitment (30 minutes)
-- Potential professional reflection on ethical design practices
+- Extended time commitment (35-40 minutes)
+- Potential professional reflection on ethical design practices and AI tool usage
+- Possible cognitive fatigue from evaluating multiple data sources per interface
 
 ### Describe any potential benefits to participants and/or society in general.
 
@@ -239,9 +233,10 @@ Minimal risks:
 - Modest financial compensation
 
 **Societal benefits:**
-- Advanced understanding of how to promote ethical design decision-making
-- Development of better tools for evaluating design ethics
-- Potential improvements in digital interface design practices
+- Advanced understanding of how AI evaluation tools affect design decision-making
+- Evidence on whether enhanced ethical metrics work across different evaluation sources
+- Insights into designer trust and adoption of AI evaluation tools
+- Potential improvements in both AI-assisted and human-centered design evaluation practices
 
 ---
 

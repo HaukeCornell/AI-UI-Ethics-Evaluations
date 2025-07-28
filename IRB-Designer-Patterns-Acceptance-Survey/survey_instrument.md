@@ -29,7 +29,7 @@
 
 ### Current Role
 - "What is your current primary role?"
-- Options: UX Designer / UI Designer / Product Designer / Design Manager / Product Manager / Design Director / Other (specify)
+- Options: UX Designer / UX Researcher / UI Designer / Product Designer / Design Manager / Product Manager / Design Director / Other (specify)
 
 ### Industry Experience
 - "Which industries have you worked in? (Select all that apply)"
@@ -43,40 +43,47 @@
 - "In your current role, do you have the authority to make final decisions about interface designs?"
 - Options: Yes, final decision authority / Yes, significant influence / Some input / Little input / No decision authority
 
-### Design Ethics Awareness
-- "How familiar are you with the concept of 'dark patterns' in interface design?"
-- Options: Very familiar / Somewhat familiar / Slightly familiar / Not familiar
+### AI Evaluation Experience
+<!-- - "Have you previously used AI tools to evaluate or analyze user interfaces?"
+- Options: Yes, frequently / Yes, occasionally / Yes, but rarely / No, never -->
 
 ---
 
-## Section 3: Interface Evaluation Task (20-25 minutes)
+## Section 3: Interface Evaluation Task (25-30 minutes)
 
 ### Instructions
-*"You will now see a series of interface designs along with user evaluation data. For each interface, please review the design and the user feedback data, then answer the questions below. Imagine you are in a position to make or influence the decision about whether to implement this design."*
+*"You will now see a series of interface designs along with user evaluation data. Each interface has been evaluated for user experience. Please review each design and its evaluation data, then answer the questions below. Imagine you are in a position to make or influence the decision about whether to implement this design."*
 
-### For Each Interface (10-15 interfaces total):
+### For Each Interface (10-12 interfaces total):
 
 #### Interface Presentation
 - Display interface mockup
-- Show evaluation data in assigned condition:
-  - **Condition A (Standard UX Metrics)**: Gauges showing efficiency, satisfaction, ease of use, clarity
-  - **Condition B (Enhanced Ethics Metrics)**: Same metrics PLUS manipulation, deception, addiction potential, pressuring behavior
+- Show ONE evaluation dataset per interface:
+  - **Half of interfaces**: "Based on evaluation by 120 human participants"
+  - **Half of interfaces**: "Based on AI analysis using a vision language model trained on UX data"
+  - Source assignment randomized per participant
 
-#### Primary Decision Question
-- **"If you had the power to decide, would you release this interface design?"**
+#### Evaluation Data Format (varies by condition)
+- **Condition A (Standard UX Metrics)**: 
+  - Shows: efficiency, satisfaction, ease of use, clarity
+- **Condition B (Enhanced Ethics Metrics)**: 
+  - Shows: efficiency, satisfaction, ease of use, clarity PLUS manipulation, deception, addiction potential, pressuring behavior
+
+#### Primary Decision Questions
+
+- **"How likely would you be to release this interface design based on this evaluation data?"**
+- Scale: 1 (Definitely would not release) to 7 (Definitely would release)
+
+- **"Would you release this interface design?"**
 - Options: Yes / No
 
-#### Reasoning (Required)
+#### Reasoning
 - **"Please explain your decision:"**
-- Open text field (500 character limit)
-
-#### Confidence Rating
-- **"How confident are you in this decision?"**
-- Scale: 1 (Not at all confident) to 7 (Extremely confident)
-
-#### Additional Factors (Optional)
-- **"What other factors would you want to consider before making this decision?"**
 - Open text field (300 character limit)
+
+#### Decision Confidence
+- **"How confident are you in the decision you just made?"**
+- Scale: 1 (Not at all confident) to 7 (Extremely confident)
 
 ### Interface Types Include:
 1. **Dark Pattern Examples** (from literature):
@@ -97,30 +104,48 @@
 
 ---
 
-## Section 4: Decision-Making Process Questions (5 minutes)
+## Section 4: Decision-Making Process Questions (7 minutes)
+
+### Evaluation Source Preferences
+- **"Overall, which type of evaluation data did you find more useful for decision-making?"**
+- Options: Human evaluation data / AI evaluation data / Both were equally useful / Neither was particularly useful
+
+- **"Which type of evaluation data did you trust more?"**
+- Options: Human evaluation data / AI evaluation data / Both equally / Neither
 
 ### Metric Importance
 - **"Which factors were most important in your decision-making? (Rank top 3)"**
-- Options: User satisfaction / Ease of use / Business impact / Ethical considerations / Legal compliance / User safety / Innovation / Other (specify)
+- Options: User satisfaction / Ease of use / Business impact / Ethical considerations / Legal compliance / User safety / Innovation / Evaluation source (human vs AI) / Other (specify)
 
-### Evaluation Data Usage
-- **"How much did the user evaluation data influence your decisions?"**
-- Scale: 1 (Not at all) to 7 (Extremely influential)
+### AI vs Human Evaluation Perceptions
+- **"How accurate do you believe AI evaluation of interfaces is compared to human evaluation?"**
+- Scale: 1 (Much less accurate) to 7 (Much more accurate), with 4 being "About the same"
+
+- **"How reliable do you believe AI evaluation of interfaces is compared to human evaluation?"**
+- Scale: 1 (Much less reliable) to 7 (Much more reliable), with 4 being "About the same"
 
 ### Professional Practice
 - **"In your professional work, how often do you encounter designs that you consider ethically questionable?"**
 - Options: Never / Rarely / Sometimes / Often / Very often
 
+- **"How familiar are you with the concept of 'dark patterns' in interface design?"**
+- Options: Very familiar / Somewhat familiar / Slightly familiar / Not familiar
+
 ### Organizational Support
+- **"How supportive is your organization of using AI tools for design evaluation?"**
+- Scale: 1 (Not at all supportive) to 7 (Extremely supportive) + "Not applicable"
+
 - **"How supportive is your organization of rejecting designs based on ethical concerns?"**
 - Scale: 1 (Not at all supportive) to 7 (Extremely supportive) + "Not applicable"
 
-### Metric Preferences
+### Future Tool Preferences
 - **"What additional information would be most helpful when evaluating interface designs?"**
-- Multiple select: Long-term user behavior data / Accessibility metrics / Privacy impact assessments / Psychological impact measures / Regulatory compliance scores / Other (specify)
+- Multiple select: Long-term user behavior data / Accessibility metrics / Privacy impact assessments / Psychological impact measures / Regulatory compliance scores / Combined AI-human evaluation / Other (specify)
 
+- **"Have you previously used AI tools to evaluate or analyze user interfaces?"**
+- Options: Yes, frequently / Yes, occasionally / Yes, but rarely / No, never
 ### Open Feedback
-- **"Any additional thoughts about the interface evaluation process or this study?"**
+- **"Any additional thoughts about comparing AI vs human evaluation data, or this study in general?"**
 - Open text field (optional, 500 character limit)
 
 ---
@@ -128,13 +153,17 @@
 ## Section 5: Debrief and Completion (2 minutes)
 
 ### Study Purpose Revelation
-*"Thank you for your participation! This study examined whether presenting user experience data with enhanced ethical metrics (manipulation, deception, addiction potential) influences designers' willingness to implement potentially problematic interfaces compared to standard UX metrics alone."*
+*"Thank you for your participation! This study examined two factors: (1) whether presenting user experience data with enhanced ethical metrics influences designers' willingness to implement potentially problematic interfaces, and (2) how AI-generated vs human-generated evaluation data affects design decision-making."*
 
 ### Final Questions
 
 #### Awareness Check
 - **"Did you notice differences in how the user evaluation data was presented across different interfaces?"**
 - Options: Yes / No / Unsure
+
+- **"Did you notice patterns in differences between AI and human evaluation data?"**
+- Options: Yes / No / Unsure
+
 
 #### Study Feedback
 - **"Do you have any feedback about this study or questions about the research?"**
@@ -150,22 +179,14 @@
 ## Technical Implementation Notes
 
 ### Randomization
-- Participants randomly assigned to Condition A or B
+- Participants randomly assigned to **Condition A (Standard)** or **Condition B (Enhanced Ethics)** - Between-subjects
+- Each participant sees all dark pattern interfaces
+- **Data source assignment**: Half interfaces show Human data, half show AI data - Within-subjects
+- Interface-to-data-source pairing randomized per participant
 - Interface presentation order randomized
-- Condition assignment tracked for analysis
 
 ### Data Collection
+- Track which interfaces received Human vs AI data per participant
+- Record condition assignment (Standard vs Enhanced Ethics)
 - All responses timestamped
-- Track time spent on each interface
-- Record condition assignment and interface order
-- Store qualitative responses for thematic analysis
-
-### Quality Checks
-- Attention check questions embedded
-- Minimum time thresholds for each section
-- Required response validation
-
-### Platform
-- Qualtrics survey platform
-- Mobile-responsive design
-- Secure data transmission and storage
+- Interface presentation order tracked
