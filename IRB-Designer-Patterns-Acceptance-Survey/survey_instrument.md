@@ -58,16 +58,22 @@
 
 #### Interface Presentation
 - Display interface mockup
+  - Example Mockup Interface:
+![Mockup](./IRB-Stimuli%20Example/false-hierarchy.png "Mockup")
 - Show ONE evaluation dataset per interface:
-  - **Half of interfaces**: "Based on evaluation by 120 human participants"
-  - **Half of interfaces**: "Based on AI analysis using a vision language model trained on UX data"
+  - **Half of interfaces**: "Based on evaluation by 20 human participants"
+  - **Half of interfaces**: "Based on multiple AI analyses conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants."
   - Source assignment randomized per participant
 
 #### Evaluation Data Format (varies by condition)
 - **Condition A (Standard UX Metrics)**: 
   - Shows: efficiency, satisfaction, ease of use, clarity
+    - Example Gauge:
+![Gauge](./IRB-Stimuli%20Example/UX-Gauge.png "Gauge")
 - **Condition B (Enhanced Ethics Metrics)**: 
   - Shows: efficiency, satisfaction, ease of use, clarity PLUS manipulation, deception, addiction potential, pressuring behavior
+  - Example Gauge:
+![Gauge](./IRB-Stimuli%20Example/UEEQ-Gauge.png "Gauge")
 
 #### Primary Decision Questions
 

@@ -132,7 +132,7 @@ No
 
 ### Describe any other websites, software, or electronic resources that will be used for data collection.
 
-The study will be conducted using Qualtrics survey platform (https://cornell.yul1.qualtrics.com). Interface mockups will be hosted on a secure platform (likely Framer.com or similar) and embedded in the survey. Participants will be recruited through professional networks and possibly Prolific for supplemental recruitment.
+The study will be conducted using Qualtrics survey platform (https://cornell.yul1.qualtrics.com). Interface mockups will be static pictures embedded into the survey. Participants will be recruited through professional networks and possibly Prolific for supplemental recruitment.
 
 ---
 
@@ -268,7 +268,7 @@ Research data will be collected as survey responses in Qualtrics and exported as
 
 ### Describe how research data will be shared among research team members.
 
-Data will be stored on secure Cornell Box drives accessible only to the research team. All data will be de-identified before analysis.
+Data will be stored on secure Cornell Box drives accessible only to the research team. All data will be checked to ensure it does not carry identifying information before analysis.
 
 ### Where will the data be stored?
 
