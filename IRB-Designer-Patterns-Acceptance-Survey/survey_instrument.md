@@ -52,11 +52,18 @@
 ## Section 3: Interface Evaluation Task (25-30 minutes)
 
 ### Instructions
-*"You will now see a series of interface designs along with user evaluation data. Each interface has been evaluated for user experience. Please review each design and its evaluation data, then answer the questions below. Imagine you are in a position to make or influence the decision about whether to implement this design."*
+*"You will now see a series of interface designs along with user evaluation data. Each interface has been evaluated for user experience and is ready for final implementation approval.*
+
+*Context: For each design, the business team and marketing department have already given their approval based on projected user engagement and revenue impact. Your supervisor has also signed off on the designs from a strategic perspective. As the design decision-maker, you now have the final say on whether to implement each interface.*
+
+*Please review each design and its evaluation data, then decide whether to give final approval for implementation."*
+
 
 ### For Each Interface (10-12 interfaces total):
 
 #### Interface Presentation
+- **Business Context**: "✓ Business team approved | ✓ Marketing approved | ✓ Supervisor approved | **Awaiting your final design approval**"
+
 - Display interface mockup
   - Example Mockup Interface:
 ![Mockup](./IRB-Stimuli%20Example/false-hierarchy.png "Mockup")
@@ -100,7 +107,8 @@
 
 #### Primary Decision Questions
 
-- **"How likely would you be to release this interface design based on this evaluation data?"**
+- **"Given the business approval and evaluation data, how likely would you be to release this interface design?"**
+
 - Scale: 1 (Definitely would not release) to 7 (Definitely would release)
 
 - **"Would you release this interface design?"**
