@@ -4,16 +4,16 @@
 
 **Protocol Number**: [To be assigned]
 
-**IRB Protocol Title**: The Impact of Evaluation Source and UX Metrics on Designers' Decision-Making: AI vs Human Interface Assessment
+**IRB Protocol Title**: UX Metrics Impact on Designers' Decision-Making
 
 **Lay Summary**: 
-This study investigates how different sources of user experience evaluation data (AI-generated vs human-generated) and different metric types (standard UX vs ethics-enhanced metrics) influence professional designers' willingness to implement potentially manipulative interface designs. Participants will view interface mockups alongside evaluation data from both AI and human sources, presented with either standard UX metrics or ethics-enhanced metrics, and indicate whether they would recommend implementing these designs. The goal is to understand how AI evaluation tools compare to human evaluation in design decision-making and whether enhanced ethical metrics influence decisions regardless of evaluation source.
+This study investigates how different sources of user experience evaluation data (AI-generated vs human-collected) and different metric types (standard UX vs ethics-enhanced metrics) influence professional designers' willingness to implement potentially manipulative interface designs. Participants will view interface mockups alongside evaluation data from both AI and human sources, presented with either standard UX metrics or ethics-enhanced metrics, and indicate whether they would recommend implementing these designs. The goal is to understand how AI evaluation tools compare to human evaluation in design decision-making and whether enhanced ethical metrics influence decisions regardless of evaluation source.
 
 **Is this a student project?**: Yes
 
 **Type of project**: PhD student research
 
-**Please describe**: PhD student research spun out from a class project, supervised by Prof. Helen Nissenbaum, building on prior published work on dark patterns and UX metrics.
+**Please describe**: PhD student research spun out from prior published work on dark patterns and UX metrics.
 
 ---
 
@@ -81,7 +81,15 @@ This study will contribute to existing knowledge by providing empirical evidence
 
 ### Will the research involve secondary use of data, documents, records or biospecimens collected from individuals?
 
-No
+Yes - Human evaluation data from a previous study will be used.
+
+**Description of secondary data use:**
+The human interface evaluation dataset consists of aggregated UX scores (efficiency, satisfaction, ease of use, clarity, and ethical metrics) collected from human participants in a previous study. Only aggregate averages per interface will be presented to participants - no individual-level data from the previous study will be used or disclosed.
+
+The AI evaluation dataset was generated using OpenAI and Claude vision language model APIs to analyze interface examples, without any human participant involvement. These AI-generated scores will be presented alongside the human evaluation averages.
+
+**Data source and permissions:**
+[Add details about the previous study - IRB approval number if applicable, permission to use data, etc.]
 
 ### Describe what participants will be asked to do and/or what information or specimens will be collected from them.
 
@@ -89,9 +97,9 @@ Participants in this study will be asked to evaluate interface designs using dat
 
 1. Complete a brief demographic questionnaire about their design experience, role, and prior AI tool usage
 2. View a series of interface mockups (approximately 10-12 interfaces)
-3. For each interface, view TWO sets of evaluation data:
-   - Human evaluation data (from 120 human participants)
-   - AI evaluation data (from computer vision and NLP analysis)
+3. For each interface, view evaluation data from TWO sources:
+   - Human evaluation data (aggregated scores from a previous study with 120 human participants)
+   - AI evaluation data (generated using OpenAI and Claude vision language models)
 4. Evaluation data presented as either:
    - Condition A: Standard UX metrics (efficiency, satisfaction, usability) 
    - Condition B: Enhanced metrics including ethical considerations (manipulation, deception, addiction potential)
