@@ -70,10 +70,33 @@
   - Shows: efficiency, satisfaction, ease of use, clarity
     - Example Gauge:
 ![Gauge](./IRB-Stimuli%20Example/UX-Gauge.png "Gauge")
+#### Evaluation Data Format (varies by condition)
+
+**Example Evaluation Data Table:**
+
+| Metric Category | Specific Measure | Score | Variance |
+|----------------|------------------|-------|----------|
+| **Efficiency** | Inefficient vs. Efficient | +1.2 | 0.8 |
+| **Perspicuity** | Complicated vs. Easy | +0.5 | 1.1 |
+| **Perspicuity** | Confusing vs. Clear | +0.3 | 0.9 |
+| **Dependability** | Unpredictable vs. Predictable | -0.2 | 1.3 |
+| **Stimulation** | Boring vs. Exciting | +1.8 | 0.7 |
+
+*Scale: -3 (strongly negative) to +3 (strongly positive)*
 - **Condition B (Enhanced Ethics Metrics)**: 
   - Shows: efficiency, satisfaction, ease of use, clarity PLUS manipulation, deception, addiction potential, pressuring behavior
   - Example Gauge:
 ![Gauge](./IRB-Stimuli%20Example/UEEQ-Gauge.png "Gauge")
+- **Condition B (Enhanced Ethics Metrics)**: 
+  - Shows: Efficiency, Perspicuity, Dependability, Stimulation, Attractiveness PLUS Manipulation items:
+
+| Ethics Category | Specific Measure | Score | Variance |
+|----------------|------------------|-------|----------|
+| **Manipulation** | Pressuring vs. Suggesting | -1.8 | 0.6 |
+| **Addiction** | Addictive vs. Non-addictive | -2.1 | 0.9 |
+| **Deception** | Covert vs. Revealed | -1.5 | 1.2 |
+| **Benevolence** | Deceptive vs. Benevolent | -1.9 | 0.8 |
+
 
 #### Primary Decision Questions
 
