@@ -33,8 +33,7 @@ Your responses will be kept completely confidential. We will not collect any per
 Your participation in this research is entirely voluntary. You have the right to:
 - Decline to participate without any consequences
 - Skip any questions you prefer not to answer
-- Withdraw from the study at any time without penalty
-- Receive compensation even if you withdraw early
+- Withdraw from the study at any time 
 
 ### Use of AI-generated content
 
@@ -55,6 +54,8 @@ By clicking "I consent to participate" below, you acknowledge that:
 - You have read and understood this consent form
 - You voluntarily agree to participate in this research
 - You understand you may withdraw at any time
+- You meet the eligibility criteria
+- You understand that providing incomplete and low-quality responses will result in the forfeiture of your compensation
 
 ☐ **I consent to participate**  
 ☐ **I do not consent to participate**
