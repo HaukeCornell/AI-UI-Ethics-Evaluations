@@ -22,7 +22,11 @@ There are minimal risks associated with this study. You may experience mild disc
 
 ### Benefits
 
-There are no direct benefits to you from participating in this research. However, your participation may help advance understanding of design evaluation practices and contribute to the development of better design assessment tools. You will receive $8-10 as compensation for your time.
+There are no direct benefits to you from participating in this research. However, your participation may help advance understanding of design evaluation practices and contribute to the development of better design assessment tools.
+
+### Compensation
+
+You will receive compensation for your time and participation in this study. The compensation amount ($8-10) was agreed upon before you entered the survey and will be provided upon successful completion of the study. Payment will be made through the recruitment platform (if recruited via Prolific) or via digital gift card (if recruited through other channels) within one week of study completion.
 
 ### Confidentiality
 

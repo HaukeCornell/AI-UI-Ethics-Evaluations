@@ -25,7 +25,11 @@ Your insights will contribute to research on informed design practices and help 
 ### Ready to participate?
 Click here to learn more and begin the study: [SURVEY LINK]
 
-Questions? Contact Hauke Sandhaus at hgs52@cornell.edu
+### Questions?
+Contact Hauke Sandhaus:
+- **Email**: hgs52@cornell.edu
+- **LinkedIn**: [[LinkedIn Profile](https://www.linkedin.com/in/hauke-gregor-wilhelm-sandhaus-62186048/)]
+- Feel free to reach out with any questions about the study, participation requirements, or research goals before deciding to participate.
 
 Thank you for considering participation in this research!
 
@@ -43,7 +47,9 @@ Participate in a Cornell University research study exploring how UX metrics info
 
 Requirements: 1+ years professional design experience
 
-Interested? DM for study link or email hgs52@cornell.edu
+Interested? DM for study link or have questions? 
+📧 Email: hgs52@cornell.edu
+📱 LinkedIn: [[LinkedIn Profile](https://www.linkedin.com/in/hauke-gregor-wilhelm-sandhaus-62186048/)]
 
 #UXResearch #DesignEthics #UXDesign #ProductDesign
 
@@ -63,7 +69,10 @@ Cornell University researchers are studying how different UX evaluation metrics 
 
 This research aims to advance understanding of informed design practices and develop better evaluation tools for the design community.
 
-Interested in participating? Send me a message or email hgs52@cornell.edu for the study link.
+**Questions or want to participate?**
+- **Email**: hgs52@cornell.edu
+- **LinkedIn**: Send me a message on LinkedIn
+- Feel free to reach out with any questions about the study before participating
 
 #UXResearch #DesignEthics #UXDesign #HCI
 
@@ -87,7 +96,11 @@ Hi everyone! I'm a PhD student at Cornell studying how different ways of present
 
 **Why it matters:** Results will help develop better tools for design evaluation and support more informed design decisions.
 
-If you're interested or have questions, feel free to comment below or send me a DM. Thanks for considering!
+**Questions or interested in participating?**
+- **Email**: hgs52@cornell.edu  
+- **LinkedIn**: [[LinkedIn Profile](https://www.linkedin.com/in/hauke-gregor-wilhelm-sandhaus-62186048/)]
+
+If you're ready to participate, comment below or send me a DM for the study link. Thanks for considering!
 
 ---
 
@@ -114,3 +127,9 @@ In this study, you'll review interface designs alongside user evaluation data an
 **Compensation:** $8-10
 
 This research is conducted by Cornell University Information Science department and aims to advance understanding of informed design practices.
+
+**Questions before participating?**
+Contact researcher Hauke Sandhaus:
+- **Email**: hgs52@cornell.edu
+- **Institution**: Cornell University, Information Science Department
+- Feel free to reach out with questions about the study procedures, requirements, or research objectives

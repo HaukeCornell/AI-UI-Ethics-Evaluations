@@ -155,11 +155,13 @@ Potential participants will first learn of this research opportunity from a flye
 ### For prospective recruitment strategies, describe the recruitment procedures.
 
 Recruitment will occur through:
-1. Professional design communities and forums
-2. Social media posts in design-related groups
-3. Direct outreach to design professionals through LinkedIn and professional networks
-4. Potentially Prolific platform for supplemental recruitment
-5. Snowball sampling through initial participants
+1. **Professional design communities and forums** - Designer Hangout Slack, UX Mastery Community, Mixed Methods, IxDA local chapters
+2. **Social media posts in design-related groups** - LinkedIn UX groups, Reddit (r/userexperience, r/UXDesign), Twitter UX communities
+3. **Direct outreach to design professionals** through LinkedIn and professional networks via email
+4. **Academic and research networks** - CHI mailing lists, SIGCHI chapters, university alumni networks with design programs
+5. **Design-focused platforms** - Behance, Dribbble, Medium UX publications, Designer News
+6. **Prolific platform** for supplemental recruitment with compensation through platform
+7. **Snowball sampling** through initial participants
 
 ### Indicate the total number of participants to be recruited.
 
@@ -197,7 +199,7 @@ Yes
 
 ### Describe the incentive strategy.
 
-Participants will receive $8-10 for completion of the 30-minute study, equivalent to approximately $15-20 per hour. Payment will be made through the recruitment platform (Prolific) or via digital gift cards for other recruitment channels.
+Participants will receive $8-10 for completion of the 30-minute study, equivalent to approximately $15-20 per hour. Payment will be made through the recruitment platform (Prolific) or via digital gift cards for other recruitment channels. We will recruit through email outreach to professional networks, social media posts in design communities (LinkedIn, Reddit, Twitter), professional design platforms (Designer Hangout Slack, UX Mastery Community, IxDA chapters), and academic networks (CHI mailing lists, university alumni networks). Additional recruitment may occur through design-focused platforms like Behance, Dribbble, and Medium UX publications to reach a diverse sample of design professionals.
 
 ### Describe any alternative procedures available to those who choose not to participate.
 
