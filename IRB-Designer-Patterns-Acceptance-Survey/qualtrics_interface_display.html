@@ -1,11 +1,26 @@
-<div style="background-color: #f0f0f0; padding: 10px; margin-bottom: 15px;"><strong>Business Context:</strong> ✓ Business team approved | ✓ Marketing approved | ✓ Supervisor approved | <strong>Awaiting your final design approval</strong></div>
-<br>
+<div style="background-color: #f0f0f0; padding: 10px; margin-bottom: 15px;">
+<strong>Business Context:</strong> ✓ Business team approved | ✓ Marketing approved | ✓ Supervisor approved | <strong>Awaiting your final design approval</strong>
+</div>
 
-Currently evaluating&nbsp;${lm://Field/3}: &lt;br&gt;<br>
+<div style="margin-bottom: 15px;">
+Currently evaluating ${lm://Field/3}:<br>
+<img style="max-width: 400px; height: auto;" src="${lm://Field/1}">
+</div>
 
-<img style="max-width: 400px; height: auto;" src="${lm://Field/1}"><br>
-<div style="background-color: #e8f4f8; padding: 10px; margin-bottom: 15px;"><strong>Evaluation Data Source:</strong>
+<div style="background-color: #e8f4f8; padding: 10px; margin-bottom: 15px;">
+<strong>Evaluation Data Source:</strong>
 
-<div class="ai-source">Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants.</div>
+<div class="ai-source" style="display: none;">
+Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants.
+</div>
 
-<div class="human-source">Based on evaluation by 20 <strong>human participants</strong>.</div></div><br>
+<div class="human-source" style="display: none;">
+Based on evaluation by 20 <strong>human participants</strong>.
+</div>
+
+</div>
+
+<!-- Add your evaluation content here -->
+${lm://Field/4}
+
+<strong>Given the business approval and evaluation data, how likely would you be to release this interface design?</strong>
