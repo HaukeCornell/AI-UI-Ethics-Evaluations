@@ -190,7 +190,7 @@ Shows: Efficiency, Perspicuity, Dependability, Stimulation, Attractiveness PLUS 
 
 ### Open Feedback
 
-- **"Any additional thoughts about comparing AI vs human evaluation data, or this study in general?"**
+- **"Any additional thoughts about comparing AI vs human evaluation data, or user interface evaluation in general?"**
 - Open text field (optional, 500 character limit)
 
 ---
@@ -203,18 +203,21 @@ Shows: Efficiency, Perspicuity, Dependability, Stimulation, Attractiveness PLUS 
 
 ### Final Questions
 
-#### Awareness Check
+<!-- #### Awareness Check
 
 1. **"Did you notice differences in how the user evaluation data was presented across different interfaces?"**
    - Options: Yes / No / Unsure
 
 2. **"Did you notice patterns in differences between AI and human evaluation data?"**
-   - Options: Yes / No / Unsure
+   - Options: Yes / No / Unsure -->
 
 #### Study Feedback
 
 - **"Do you have any feedback about this study or questions about the research?"**
 - Open text field (optional)
+
+- **"How did you learn about this study?"**
+- Options: Prolific / LinkedIn / Slack Group / Direct referral / Mailing list / Snowball sampling (referral from other participant) / Other (Text Entry)
 
 ### Completion
 
