@@ -7,20 +7,17 @@ Currently evaluating ${lm://Field/3}:<br>
 <img style="max-width: 400px; height: auto;" src="${lm://Field/1}">
 </div>
 
-<div style="background-color: #e8f4f8; padding: 10px; margin-bottom: 15px;">
-<strong>Evaluation Data Source:</strong>
-
-<div class="ai-source" style="display: none;">
-Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants.
+<!-- Evaluation data source (AI/Human) toggled by JS -->
+<div style="background-color:#e8f4f8; padding:10px; margin-bottom:15px;">
+  <strong>Evaluation Data Source:</strong><br>
+  <div id="human-source" style="display:none;">
+    Based on evaluation by 20 <strong>human participants</strong>.
+  </div>
+  <div id="ai-source" style="display:none;">
+    Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants.
+  </div>
 </div>
 
-<div class="human-source" style="display: none;">
-Based on evaluation by 20 <strong>human participants</strong>.
-</div>
-
-</div>
-
-<!-- Add your evaluation content here -->
+<!-- Your interface-specific evaluation HTML -->
 ${lm://Field/4}
 
-<strong>Given the business approval and evaluation data, how likely would you be to release this interface design?</strong>
