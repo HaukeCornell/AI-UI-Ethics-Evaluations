@@ -3,11 +3,12 @@
 </div>
 
 <div style="margin-bottom: 15px;">
-Currently evaluating ${lm://Field/3}:<br>
-<img style="max-width: 400px; height: auto;" src="${lm://Field/1}">
+Currently evaluating ${lm://Field/2} which is ${lm://Field/3}:<br>
+<img src="${lm://Field/1}" style="max-width: 800px; max-height: 1000px; height: auto;"><br>
+UX Risk Gauge:<br>
+<img src="${lm://Field/4}" style="max-width: 400px; height: auto;">
 </div>
 
-<!-- Evaluation data source (AI/Human) toggled by JS -->
 <div style="background-color:#e8f4f8; padding:10px; margin-bottom:15px;">
   <strong>Evaluation Data Source:</strong><br>
   <div id="human-source" style="display:none;">
@@ -18,6 +19,6 @@ Currently evaluating ${lm://Field/3}:<br>
   </div>
 </div>
 
-<!-- Your interface-specific evaluation HTML -->
-${lm://Field/4}
-
+<div class="table-container">
+${lm://Field/5}
+</div>
