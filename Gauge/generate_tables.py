@@ -54,9 +54,9 @@ def create_html_table(row, condition='enhanced'):
                 score = row[col]
                 html += f"\n<tr style='background-color: #FBF3DB;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>{category}</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>{measure}</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center; color: #CB912F;'>{score:.2f}</td></tr>"
     
-    # Add overall UX quality score (UX metrics only)
+    # Add overall UX quality score (UEQ metrics only)
     ux_score = row['UX KPI'] if 'UX KPI' in row and pd.notna(row['UX KPI']) else 'N/A'
-    html += f"\n<tr style='background-color: #E7F3F8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UX metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
+    html += f"\n<tr style='background-color: #E7F3F8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UEQ metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
     
     # Add overall mean for enhanced condition
     if condition == 'enhanced':
@@ -118,7 +118,7 @@ def save_tables_to_files(enhanced_tables, standard_tables):
     
     # Standard condition file
     with open('standard_condition_tables.html', 'w') as f:
-        f.write("<!-- Standard Condition Tables (UX Metrics Only) -->\n\n")
+        f.write("<!-- Standard Condition Tables (UEQ Metrics Only) -->\n\n")
         for table in standard_tables:
             f.write(f"<!-- Pattern {table['index']}: {table['pattern']} -->\n")
             f.write(table['html'])
