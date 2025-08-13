@@ -23,7 +23,7 @@ def create_html_table(row, condition='enhanced'):
     
     # Start HTML with improved header
     if condition == 'enhanced':
-        header_note = "<p style='font-size: 11px; color: #666; margin-bottom: 10px;'><em>Note: Red-highlighted items assess perceived autonomy</em></p>"
+        header_note = "<p style='font-size: 11px; color: #666; margin-bottom: 10px;'><em>Note: yellow-highlighted items assess perceived autonomy, and are not part of the validated User Experience Questionnaire UX evaluation metrics</em></p>"
     else:
         header_note = ""
     
@@ -48,16 +48,16 @@ def create_html_table(row, condition='enhanced'):
         for col, (category, measure) in ethics_metrics.items():
             if col in row and pd.notna(row[col]):
                 score = row[col]
-                html += f"\n<tr style='background-color: #ffebee;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>{category}</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>{measure}</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center; color: #d32f2f;'>{score:.2f}</td></tr>"
+                html += f"\n<tr style='background-color: #FBF3DB;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>{category}</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>{measure}</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center; color: #CB912F;'>{score:.2f}</td></tr>"
     
     # Add overall UX quality score (UX metrics only)
     ux_score = row['UX KPI'] if 'UX KPI' in row and pd.notna(row['UX KPI']) else 'N/A'
-    html += f"\n<tr style='background-color: #e8f5e8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UX metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
+    html += f"\n<tr style='background-color: #E7F3F8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UX metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
     
     # Add overall mean for enhanced condition
     if condition == 'enhanced':
         overall_mean = row['MEAN'] if 'MEAN' in row and pd.notna(row['MEAN']) else 'N/A'
-        html += f"\n<tr style='background-color: #f3e5f5; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall Mean</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>All metrics combined</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{overall_mean}</td></tr>"
+        html += f"\n<tr style='background-color: #F6F3F9; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall Mean</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>All metrics combined</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{overall_mean}</td></tr>"
     
     # Close HTML
     html += """
