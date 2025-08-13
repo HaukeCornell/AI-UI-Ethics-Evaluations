@@ -6,12 +6,16 @@ def create_html_table(row, condition='enhanced'):
     
     # Map TSV columns to display names and categories
     ux_metrics = {
-        'inefficient': ('Efficiency', 'Inefficient vs. Efficient'),
+        'inefficient': ('Efficiency I', 'Inefficient vs. Efficient'),
+        'cluttered': ('Efficiency II', 'Cluttered vs. Organized'),
         'complicated': ('Perspicuity I', 'Complicated vs. Easy'), 
         'confusing': ('Perspicuity II', 'Confusing vs. Clear'),
-        'unpredictable': ('Dependability', 'Unpredictable vs. Predictable'),
-        'boring': ('Stimulation', 'Boring vs. Exciting'),
-        'unfriendly': ('Attractiveness', 'Unfriendly vs. Friendly')
+        'unpredictable': ('Dependability I', 'Unpredictable vs. Predictable'),
+        'obstructive': ('Dependability II', 'Obstructive vs. Supportive'),
+        'boring': ('Stimulation I', 'Boring vs. Exciting'),
+        'not interesting': ('Stimulation II', 'Not Interesting vs. Interesting'),
+        'annoying': ('Attractiveness I', 'Annoying vs. Enjoyable'),
+        'unfriendly': ('Attractiveness II', 'Unfriendly vs. Friendly')
     }
     
     ethics_metrics = {
