@@ -7,23 +7,23 @@ def create_html_table(row, condition='enhanced'):
     # Map TSV columns to display names and categories
     ux_metrics = {
         'inefficient': ('Efficiency', 'Inefficient vs. Efficient'),
-        'complicated': ('Perspicuity', 'Complicated vs. Easy'), 
-        'confusing': ('Perspicuity', 'Confusing vs. Clear'),
+        'complicated': ('Perspicuity I', 'Complicated vs. Easy'), 
+        'confusing': ('Perspicuity II', 'Confusing vs. Clear'),
         'unpredictable': ('Dependability', 'Unpredictable vs. Predictable'),
         'boring': ('Stimulation', 'Boring vs. Exciting'),
         'unfriendly': ('Attractiveness', 'Unfriendly vs. Friendly')
     }
     
     ethics_metrics = {
-        'pressuring': ('Manipulation', 'Pressuring vs. Suggesting'),
-        'addictive': ('Addiction', 'Addictive vs. Non-addictive'),
-        'covert': ('Deception', 'Covert vs. Revealed'),
-        'deceptive': ('Benevolence', 'Deceptive vs. Benevolent')
+        'pressuring': ('Coercion', 'Pressuring vs. Suggesting'),
+        'addictive': ('Addictiveness', 'Addictive vs. Non-addictive'),
+        'covert': ('Disguise', 'Covert vs. Revealed'),
+        'deceptive': ('Deception', 'Deceptive vs. Benevolent')
     }
     
     # Start HTML with improved header
     if condition == 'enhanced':
-        header_note = "<p style='font-size: 11px; color: #666; margin-bottom: 10px;'><em>Note: Red-highlighted items assess perceived autonomy and user control</em></p>"
+        header_note = "<p style='font-size: 11px; color: #666; margin-bottom: 10px;'><em>Note: Red-highlighted items assess perceived autonomy</em></p>"
     else:
         header_note = ""
     
