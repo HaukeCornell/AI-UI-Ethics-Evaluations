@@ -21,9 +21,15 @@ def create_html_table(row, condition='enhanced'):
         'deceptive': ('Benevolence', 'Deceptive vs. Benevolent')
     }
     
-    # Start HTML
+    # Start HTML with improved header
+    if condition == 'enhanced':
+        header_note = "<p style='font-size: 11px; color: #666; margin-bottom: 10px;'><em>Note: Red-highlighted items assess perceived autonomy and user control</em></p>"
+    else:
+        header_note = ""
+    
     html = f"""<div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;'>
 <h4>UX Evaluation Results</h4>
+{header_note}
 <table style='width: 100%; border-collapse: collapse;'>
 <tr style='background-color: #e0e0e0;'>
 <th style='padding: 8px; border: 1px solid #ccc;'>Metric Category</th>
@@ -44,9 +50,14 @@ def create_html_table(row, condition='enhanced'):
                 score = row[col]
                 html += f"\n<tr style='background-color: #ffebee;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>{category}</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>{measure}</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center; color: #d32f2f;'>{score:.2f}</td></tr>"
     
-    # Add overall UX quality score
+    # Add overall UX quality score (UX metrics only)
     ux_score = row['UX KPI'] if 'UX KPI' in row and pd.notna(row['UX KPI']) else 'N/A'
-    html += f"\n<tr style='background-color: #e8f5e8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
+    html += f"\n<tr style='background-color: #e8f5e8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UX metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
+    
+    # Add overall mean for enhanced condition
+    if condition == 'enhanced':
+        overall_mean = row['MEAN'] if 'MEAN' in row and pd.notna(row['MEAN']) else 'N/A'
+        html += f"\n<tr style='background-color: #f3e5f5; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall Mean</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>All metrics combined</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{overall_mean}</td></tr>"
     
     # Close HTML
     html += """
@@ -113,8 +124,8 @@ def save_tables_to_files(enhanced_tables, standard_tables):
     print(f"Generated {len(standard_tables)} standard tables")
     print("Files saved: enhanced_condition_tables.html, standard_condition_tables.html")
 
-def create_loop_merge_csv(enhanced_tables, standard_tables):
-    """Create CSV file for Qualtrics Loop & Merge"""
+def create_loop_merge_csv_unencoded(enhanced_tables, standard_tables):
+    """Create CSV file for Qualtrics Loop & Merge WITHOUT HTML encoding"""
     
     loop_data = []
     
@@ -122,19 +133,21 @@ def create_loop_merge_csv(enhanced_tables, standard_tables):
         loop_data.append({
             'InterfaceID': i,
             'PatternName': enh['pattern'],
-            'ImageFile': f'interface_{i}.png',  # Update with your actual image filenames
-            'EnhancedTable': enh['html'].replace('\n', ' ').replace("'", "&#39;"),
-            'StandardTable': std['html'].replace('\n', ' ').replace("'", "&#39;")
+            'ImageFile': f'interface_{i}.png',
+            'GaugeFile': f'gauge_{i}.png',
+            # Keep HTML unencoded - remove .replace() calls
+            'EnhancedTable': enh['html'],
+            'StandardTable': std['html']
         })
     
     # Save to CSV
     import csv
-    with open('qualtrics_loop_merge.csv', 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=['InterfaceID', 'PatternName', 'ImageFile', 'EnhancedTable', 'StandardTable'])
+    with open('qualtrics_loop_merge_unencoded.csv', 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=['InterfaceID', 'PatternName', 'ImageFile', 'GaugeFile', 'EnhancedTable', 'StandardTable'])
         writer.writeheader()
         writer.writerows(loop_data)
     
-    print("Created qualtrics_loop_merge.csv for Loop & Merge")
+    print("Created qualtrics_loop_merge_unencoded.csv for Loop & Merge")
 
 if __name__ == "__main__":
     # Run the script
@@ -142,4 +155,4 @@ if __name__ == "__main__":
     
     enhanced_tables, standard_tables = generate_all_tables(tsv_file)
     save_tables_to_files(enhanced_tables, standard_tables)
-    create_loop_merge_csv(enhanced_tables, standard_tables)
+    create_loop_merge_csv_unencoded(enhanced_tables, standard_tables)
