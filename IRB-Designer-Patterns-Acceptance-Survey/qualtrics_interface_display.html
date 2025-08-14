@@ -4,20 +4,26 @@
 
 <div style="margin-bottom: 15px;">
 Currently evaluating ${lm://Field/2} which is ${lm://Field/3}:<br>
-<img src="${lm://Field/1}" style="max-width: 800px; max-height: 1000px; height: auto;"><br>
-UX Risk Gauge:<br>
-<img src="${lm://Field/4}" style="max-width: 400px; height: auto;">
+<img style="max-width: 800px; max-height: 900px; height: auto;" src="${lm://Field/1}">
 </div>
 
-<div style="background-color:#e8f4f8; padding:10px; margin-bottom:15px;">
-  <strong>Evaluation Data Source:</strong><br>
-  <div id="human-source" style="display:none;">
-    Based on evaluation by 20 <strong>human participants</strong>.
+
+<div style="padding: 15px; margin-bottom: 15px; border: 2px solid #ffc107; border-radius: 8px;">
+<h4 style="margin: 0 0 10px 0; color: #856404;">UX Risk Assessment</h4>
+<img style="max-width: 450px; height: auto; display: block; margin: 0 auto;" src="${lm://Field/4}">
+</div>
+
+
+<div style="background-color: #d1ecf1; padding: 15px; margin-bottom: 15px; border: 2px solid #bee5eb; border-radius: 8px;">
+  <h4 style="margin: 0 0 10px 0; color: #0c5460;">Evaluation Data Source</h4>
+  <div style="display:none; font-size: 16px; color: #155724;" id="human-source">
+Based on evaluation by 20 <strong>human participants</strong>, using items of the User Experience Questionnaire
   </div>
-  <div id="ai-source" style="display:none;">
-    Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants.
+  <div style="display:none; font-size: 16px; color: #004085;" id="ai-source">
+Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants, using items of the User Experience Questionnaire (UEQ). 
   </div>
 </div>
+
 
 <div class="table-container">
 ${lm://Field/5}

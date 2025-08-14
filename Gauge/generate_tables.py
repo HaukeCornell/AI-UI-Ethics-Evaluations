@@ -6,7 +6,7 @@ def create_html_table(row, condition='enhanced'):
     
     # Map TSV columns to display names and categories
     ux_metrics = {
-        'inefficient': ('Efficiency I', 'Inefficient vs. Efficient'),
+        'inefficient': ('Efficienc I', 'Inefficient vs. Efficient'),
         'cluttered': ('Efficiency II', 'Cluttered vs. Organized'),
         'complicated': ('Perspicuity I', 'Complicated vs. Easy'), 
         'confusing': ('Perspicuity II', 'Confusing vs. Clear'),
@@ -32,7 +32,7 @@ def create_html_table(row, condition='enhanced'):
         header_note = ""
     
     html = f"""<div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;'>
-<h4>UX Evaluation Results</h4>
+<h4>UX Evaluation Details</h4>
 {header_note}
 <table style='width: 100%; border-collapse: collapse;'>
 <tr style='background-color: #e0e0e0;'>
@@ -56,7 +56,7 @@ def create_html_table(row, condition='enhanced'):
     
     # Add overall UX quality score (UEQ metrics only)
     ux_score = row['UX KPI'] if 'UX KPI' in row and pd.notna(row['UX KPI']) else 'N/A'
-    html += f"\n<tr style='background-color: #E7F3F8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UEQ metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
+    html += f"\n<tr style='background-color: #E7F3F8; font-weight: bold;'><td style='padding: 8px; border: 1px solid #ccc;'><strong>Overall UX Quality</strong></td><td style='padding: 8px; border: 1px solid #ccc;'>Composite Score (UX metrics only)</td><td style='padding: 8px; border: 1px solid #ccc; text-align: center;'>{ux_score}</td></tr>"
     
     # Add overall mean for enhanced condition
     if condition == 'enhanced':
@@ -71,8 +71,8 @@ def create_html_table(row, condition='enhanced'):
     
     return html
 
-def generate_all_tables(tsv_file):
-    """Generate all HTML tables from TSV file"""
+def generate_ordered_tables(tsv_file):
+    """Generate HTML tables in the order matching Qualtrics Loop & Merge"""
     
     # Read TSV file
     df = pd.read_csv(tsv_file, sep='\t')
@@ -80,19 +80,46 @@ def generate_all_tables(tsv_file):
     # Clean column names (remove extra spaces)
     df.columns = df.columns.str.strip()
     
+    # Define the exact order from your Qualtrics Loop & Merge
+    qualtrics_order = [
+        'Sneaking Bad Default',
+        'Content Customization',  
+        'Endlessness',
+        'Expectation Result Mismatch',
+        'False Hierarchy',
+        'Forced Access',
+        'Gamification',
+        'Hindering Account Deletion',
+        'Nagging',
+        'Overcomplicated Process',
+        'Pull To Refresh',
+        'Social Connector',
+        'Toying With Emotion',
+        'Trick Wording',
+        'Social Pressure'
+    ]
+    
     enhanced_tables = []
     standard_tables = []
     
-    # Generate tables for each pattern
-    for idx, row in df.iterrows():
-        pattern_name = row['Pattern']
+    # Generate tables in Qualtrics order
+    for i, pattern_name in enumerate(qualtrics_order, 1):
+        # Find the row for this pattern
+        pattern_row = df[df['Pattern'].str.strip() == pattern_name.strip()]
+        
+        if pattern_row.empty:
+            print(f"Warning: Pattern '{pattern_name}' not found in TSV file")
+            continue
+            
+        row = pattern_row.iloc[0]
         
         # Enhanced condition (with ethics metrics)
         enhanced_html = create_html_table(row, condition='enhanced')
         enhanced_tables.append({
             'pattern': pattern_name,
             'html': enhanced_html,
-            'index': idx + 1
+            'index': i,
+            'slug': pattern_name.lower().replace(' ', '-')
         })
         
         # Standard condition (UX metrics only)
@@ -100,63 +127,58 @@ def generate_all_tables(tsv_file):
         standard_tables.append({
             'pattern': pattern_name,
             'html': standard_html,
-            'index': idx + 1
+            'index': i,
+            'slug': pattern_name.lower().replace(' ', '-')
         })
     
     return enhanced_tables, standard_tables
 
-def save_tables_to_files(enhanced_tables, standard_tables):
-    """Save tables to separate HTML files"""
+def create_separate_csvs(enhanced_tables, standard_tables):
+    """Create separate CSV files for Enhanced and Standard conditions"""
     
-    # Enhanced condition file
-    with open('enhanced_condition_tables.html', 'w') as f:
-        f.write("<!-- Enhanced Condition Tables (Standard + Ethics Metrics) -->\n\n")
-        for table in enhanced_tables:
-            f.write(f"<!-- Pattern {table['index']}: {table['pattern']} -->\n")
-            f.write(table['html'])
-            f.write("\n\n")
+    import csv
     
-    # Standard condition file
-    with open('standard_condition_tables.html', 'w') as f:
-        f.write("<!-- Standard Condition Tables (UEQ Metrics Only) -->\n\n")
-        for table in standard_tables:
-            f.write(f"<!-- Pattern {table['index']}: {table['pattern']} -->\n")
-            f.write(table['html'])
-            f.write("\n\n")
-    
-    print(f"Generated {len(enhanced_tables)} enhanced tables")
-    print(f"Generated {len(standard_tables)} standard tables")
-    print("Files saved: enhanced_condition_tables.html, standard_condition_tables.html")
-
-def create_loop_merge_csv_unencoded(enhanced_tables, standard_tables):
-    """Create CSV file for Qualtrics Loop & Merge WITHOUT HTML encoding"""
-    
-    loop_data = []
-    
-    for i, (enh, std) in enumerate(zip(enhanced_tables, standard_tables), 1):
-        loop_data.append({
-            'InterfaceID': i,
-            'PatternName': enh['pattern'],
-            'ImageFile': f'interface_{i}.png',
-            'GaugeFile': f'gauge_{i}.png',
-            # Keep HTML unencoded - remove .replace() calls
-            'EnhancedTable': enh['html'],
-            'StandardTable': std['html']
+    # Enhanced condition CSV
+    enhanced_data = []
+    for i, table in enumerate(enhanced_tables, 1):
+        enhanced_data.append({
+            'Field 1': f'https://github.com/HaukeCornell/AI-UI-Ethics-Evaluations/blob/main/dark-patterns/{table["slug"]}.png?raw=true',
+            'Field 2': table['slug'],
+            'Field 3': f'Interface {i}',
+            'Field 4': f'https://github.com/HaukeCornell/AI-UI-Ethics-Evaluations/blob/main/Gauge/UEEQ-RISK/gauge_{i}.png?raw=true',
+            'Field 5': table['html']
         })
     
-    # Save to CSV
-    import csv
-    with open('qualtrics_loop_merge_unencoded.csv', 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=['InterfaceID', 'PatternName', 'ImageFile', 'GaugeFile', 'EnhancedTable', 'StandardTable'])
+    with open('qualtrics_enhanced_condition.csv', 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=['Field 1', 'Field 2', 'Field 3', 'Field 4', 'Field 5'])
         writer.writeheader()
-        writer.writerows(loop_data)
+        writer.writerows(enhanced_data)
     
-    print("Created qualtrics_loop_merge_unencoded.csv for Loop & Merge")
+    # Standard condition CSV  
+    standard_data = []
+    for i, table in enumerate(standard_tables, 1):
+        standard_data.append({
+            'Field 1': f'https://github.com/HaukeCornell/AI-UI-Ethics-Evaluations/blob/main/dark-patterns/{table["slug"]}.png?raw=true',
+            'Field 2': table['slug'],
+            'Field 3': f'Interface {i}',
+            'Field 4': f'https://github.com/HaukeCornell/AI-UI-Ethics-Evaluations/blob/main/Gauge/UEEQ-RISK/gauge_{i}.png?raw=true',
+            'Field 5': table['html']
+        })
+    
+    with open('qualtrics_standard_condition.csv', 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=['Field 1', 'Field 2', 'Field 3', 'Field 4', 'Field 5'])
+        writer.writeheader()
+        writer.writerows(standard_data)
+    
+    print("Created separate CSV files:")
+    print("- qualtrics_enhanced_condition.csv (with ethics metrics)")
+    print("- qualtrics_standard_condition.csv (UX metrics only)")
 
 if __name__ == "__main__":
     # Run the script
     tsv_file = "Pattern-Means.tsv"  # Update with your file path
     
-    enhanced_tables, standard_tables = generate_all_tables(tsv_file)
-    save_tables_to_files(enhanced_tables, standard_tables)
-    create_loop_merge_csv_unencoded(enhanced_tables, standard_tables)
+    enhanced_tables, standard_tables = generate_ordered_tables(tsv_file)
+    create_separate_csvs(enhanced_tables, standard_tables)
+    
+    print(f"Generated {len(enhanced_tables)} tables in Qualtrics order")
