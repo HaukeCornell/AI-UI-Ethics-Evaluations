@@ -2,10 +2,10 @@
 <strong>Business Context:</strong> ✓ Business team approved | ✓ Marketing approved | ✓ Supervisor approved | <strong>Awaiting your final design approval</strong>
 </div>
 
-<div style="margin-bottom: 15px;">
-Currently evaluating ${lm://Field/2} which is ${lm://Field/3}:<br>
-<img style="max-width: 800px; max-height: 900px; height: auto;" src="${lm://Field/1}">
-</div>
+<div style="margin-bottom: 15px;border: 2px solid; border-radius: 8px;">
+<h4 style="margin: 0 15px 0 15px;">Currently Approving ${lm://Field/3}</h4><h4><br>
+<img style="max-width: 100%; max-height: 900px; height: auto;" src="${lm://Field/1}">
+</h4></div>
 
 
 <div style="padding: 15px; margin-bottom: 15px; border: 2px solid #ffc107; border-radius: 8px;">
@@ -17,10 +17,10 @@ Currently evaluating ${lm://Field/2} which is ${lm://Field/3}:<br>
 <div style="background-color: #d1ecf1; padding: 15px; margin-bottom: 15px; border: 2px solid #bee5eb; border-radius: 8px;">
   <h4 style="margin: 0 0 10px 0; color: #0c5460;">Evaluation Data Source</h4>
   <div style="display:none; font-size: 16px; color: #155724;" id="human-source">
-Based on evaluation by 20 <strong>human participants</strong>, using items of the User Experience Questionnaire
+Based on evaluation by ${lm://Field/6} <strong>human participants</strong>, using items of the User Experience Questionnaire
   </div>
   <div style="display:none; font-size: 16px; color: #004085;" id="ai-source">
-Based on multiple <strong>AI analyses</strong> conducted using three different vision-language models trained on UX data, calibrated to approximate the predictive accuracy of evaluations by 20 human participants, using items of the User Experience Questionnaire (UEQ). 
+Based on multiple <strong>AI analyses</strong> conducted using a variety of vision-language models trained on UX data, reaching the predictive accuracy of evaluations comparitavely with ~ 23 human participants, using items of the User Experience Questionnaire (UEQ). 
   </div>
 </div>
 
