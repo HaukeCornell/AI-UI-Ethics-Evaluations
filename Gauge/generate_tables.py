@@ -6,7 +6,7 @@ def create_html_table(row, condition='enhanced'):
     
     # Map TSV columns to display names and categories
     ux_metrics = {
-        'inefficient': ('Efficienc I', 'Inefficient vs. Efficient'),
+        'inefficient': ('Efficiency I', 'Inefficient vs. Efficient'),
         'cluttered': ('Efficiency II', 'Cluttered vs. Organized'),
         'complicated': ('Perspicuity I', 'Complicated vs. Easy'), 
         'confusing': ('Perspicuity II', 'Confusing vs. Clear'),
