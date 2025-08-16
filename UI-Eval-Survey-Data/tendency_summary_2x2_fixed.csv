@@ -1,0 +1,5 @@
+"condition","has_ai_evaluation","n","mean_tendency","se_tendency","ai_label","group"
+"UEEQ",FALSE,12,3.16666666666667,NA,"Non-AI-Exposed","UEEQ_Non-AI-Exposed"
+"UEEQ",TRUE,9,3.28888888888889,NA,"AI-Exposed","UEEQ_AI-Exposed"
+"UEQ",FALSE,14,3.10714285714286,NA,"Non-AI-Exposed","UEQ_Non-AI-Exposed"
+"UEQ",TRUE,9,3.95555555555556,NA,"AI-Exposed","UEQ_AI-Exposed"
