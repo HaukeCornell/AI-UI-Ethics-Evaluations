@@ -1,5 +1,0 @@
-"condition","has_ai_evaluation","n","mean_rejection","se_rejection","ai_label","group"
-"UEEQ",FALSE,12,56.6666666666667,4.81999203654147,"Non-AI-Exposed","UEEQ_Non-AI-Exposed"
-"UEEQ",TRUE,9,42.2222222222222,5.71979452277056,"AI-Exposed","UEEQ_AI-Exposed"
-"UEQ",FALSE,14,53.5714285714286,4.64180038692156,"Non-AI-Exposed","UEQ_Non-AI-Exposed"
-"UEQ",TRUE,9,44.4444444444444,5.55555555555556,"AI-Exposed","UEQ_AI-Exposed"
