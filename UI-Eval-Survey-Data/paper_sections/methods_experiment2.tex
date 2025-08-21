@@ -1,0 +1,69 @@
+% Experiment 2: Designer Decision-Making Under Different UX Evaluation Conditions
+% Methods Section
+
+\section{Method}
+
+\subsection{Participants}
+A total of \texttt{\VAR{TOTAL\_PARTICIPANTS}} participants were recruited through Prolific Academic to participate in this between-subjects experiment. After applying data quality screening procedures (see Data Quality Assessment), \texttt{\VAR{FINAL\_N}} participants with complete responses were retained for analysis (UEQ condition: $n = \texttt{\VAR{UEQ\_N}}$; UEQ+Autonomy condition: $n = \texttt{\VAR{UEQAUTONOMY\_N}}$). All participants provided informed consent and were compensated \texttt{\VAR{COMPENSATION}} for their participation.
+
+\subsubsection{Inclusion Criteria}
+Participants were required to have experience in user experience design, interface design, or related fields. Prolific screening questions ensured participants had relevant professional background in design decision-making contexts.
+
+\subsubsection{Data Quality Assessment}
+We implemented a comprehensive data quality screening protocol to identify potentially problematic responses:
+
+\begin{itemize}
+    \item \textbf{AI Usage Detection}: Participants with unusually consistent response lengths (character count variance $< 100$) or extremely lengthy explanations (mean $> 300$ characters) were flagged for manual review
+    \item \textbf{Response Quality}: Participants showing straightlining behavior (tendency variance $< 0.5$), random responding (tendency variance $> 8$), or minimal engagement (mean explanation length $< 20$ characters) were flagged
+    \item \textbf{Manual Review}: \texttt{\VAR{FLAGGED\_N}} participants were flagged through automated screening and underwent manual text analysis for AI-generated content or poor engagement
+    \item \textbf{Exclusions}: \texttt{\VAR{EXCLUDED\_N}} participants were excluded after manual review for suspected AI usage or insufficient engagement
+\end{itemize}
+
+\subsection{Design}
+This experiment employed a between-subjects design with two conditions:
+\begin{enumerate}
+    \item \textbf{UEQ Condition}: Participants made release decisions based on traditional User Experience Questionnaire (UEQ) metrics focusing on pragmatic and hedonic quality dimensions
+    \item \textbf{UEQ+Autonomy Condition}: Participants received identical interface evaluations supplemented with autonomy-preserving metrics specifically designed to detect dark patterns and user manipulation
+\end{enumerate}
+
+\subsection{Materials}
+\subsubsection{Interface Stimuli}
+Participants evaluated \texttt{\VAR{INTERFACES\_PER\_PARTICIPANT}} interface designs previously rated by human evaluators in Experiment 1. These interfaces represented a range of user experience quality, including both conventional usability issues and autonomy-violating dark patterns (e.g., forced continuity, social pressure, deceptive design).
+
+\subsubsection{Evaluation Metrics}
+\begin{itemize}
+    \item \textbf{UEQ Metrics}: Traditional usability dimensions including attractiveness, perspicuity, efficiency, dependability, stimulation, and novelty
+    \item \textbf{Autonomy Metrics}: Additional dimensions measuring user agency preservation, including freedom from coercion, transparency (absence of deception), and user control
+\end{itemize}
+
+\subsection{Procedure}
+Participants were randomly assigned to one of two evaluation conditions. For each interface, participants:
+\begin{enumerate}
+    \item Viewed the interface design
+    \item Reviewed the corresponding UX evaluation scores (condition-dependent)
+    \item Made a binary release decision (Release/Do Not Release)
+    \item Rated their tendency to release on a 7-point Likert scale (1 = \textit{Definitely Do Not Release}, 7 = \textit{Definitely Release})
+    \item Provided written justification for their decision
+\end{enumerate}
+
+The study was presented as a realistic design decision scenario where participants acted as UX Design Leads making release recommendations based on user research data.
+
+\subsection{Dependent Variables}
+\begin{itemize}
+    \item \textbf{Release Tendency}: Mean tendency rating across evaluated interfaces (1-7 scale)
+    \item \textbf{Rejection Rate}: Percentage of interfaces participants chose not to release
+    \item \textbf{Decision Rationale}: Qualitative explanations for release decisions (exploratory analysis)
+\end{itemize}
+
+\subsection{Statistical Analysis}
+All analyses were conducted in R (version 4.x). Prior to hypothesis testing, we assessed normality using Shapiro-Wilk tests and variance homogeneity using Levene's tests. Based on assumption checks, we employed independent samples t-tests for between-group comparisons. Effect sizes were calculated using Cohen's d with pooled standard deviations. Statistical significance was set at $\alpha = 0.05$.
+
+% Variables to be substituted:
+% \VAR{TOTAL_PARTICIPANTS} = 104
+% \VAR{FINAL_N} = 83  
+% \VAR{UEQ_N} = 46
+% \VAR{UEQAUTONOMY_N} = 37
+% \VAR{COMPENSATION} = [amount from Prolific]
+% \VAR{FLAGGED_N} = 28
+% \VAR{EXCLUDED_N} = 13
+% \VAR{INTERFACES_PER_PARTICIPANT} = 10

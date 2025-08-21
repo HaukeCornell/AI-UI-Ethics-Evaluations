@@ -1,0 +1,3 @@
+"measure","ueq_mean","ueq_sd","ueq_autonomy_mean","ueq_autonomy_sd","difference","p_value","cohens_d","significant"
+"Tendency to Release",3.872,1.253,3.151,0.967,0.72,0.0026,0.635,TRUE
+"Rejection Rate",43.3,20.3,53.5,18.9,10.3,0.0104,0.52,TRUE

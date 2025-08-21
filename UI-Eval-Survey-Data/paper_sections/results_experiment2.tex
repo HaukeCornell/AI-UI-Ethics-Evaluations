@@ -1,0 +1,52 @@
+% Experiment 2 Results Section
+
+\section{Results}
+
+\subsection{Descriptive Statistics}
+After data quality screening, the final sample consisted of \texttt{\VAR{FINAL\_N}} participants (UEQ: $n = \texttt{\VAR{UEQ\_N}}$, UEQ+Autonomy: $n = \texttt{\VAR{UEQAUTONOMY\_N}}$). 
+
+\subsubsection{Release Tendency}
+Participants in the UEQ condition showed higher mean tendency to release interfaces ($M = \texttt{\VAR{UEQ\_TENDENCY\_M}}, SD = \texttt{\VAR{UEQ\_TENDENCY\_SD}}$) compared to participants in the UEQ+Autonomy condition ($M = \texttt{\VAR{UEQAUTONOMY\_TENDENCY\_M}}, SD = \texttt{\VAR{UEQAUTONOMY\_TENDENCY\_SD}}$). The mean difference was \texttt{\VAR{TENDENCY\_DIFF}} points on the 7-point scale.
+
+\subsubsection{Interface Rejection Rates}
+Participants in the UEQ+Autonomy condition rejected a higher percentage of interfaces ($M = \texttt{\VAR{UEQAUTONOMY\_REJECTION\_M}}\%, SD = \texttt{\VAR{UEQAUTONOMY\_REJECTION\_SD}}\%$) compared to the UEQ condition ($M = \texttt{\VAR{UEQ\_REJECTION\_M}}\%, SD = \texttt{\VAR{UEQ\_REJECTION\_SD}}\%$). The difference in rejection rates was \texttt{\VAR{REJECTION\_DIFF}}\%.
+
+\subsection{Inferential Statistics}
+
+\subsubsection{Assumption Testing}
+Shapiro-Wilk tests indicated that release tendency scores were normally distributed in both conditions (UEQ: $W = \texttt{\VAR{UEQ\_SHAPIRO\_W}}, p = \texttt{\VAR{UEQ\_SHAPIRO\_P}}$; UEQ+Autonomy: $W = \texttt{\VAR{UEQAUTONOMY\_SHAPIRO\_W}}, p = \texttt{\VAR{UEQAUTONOMY\_SHAPIRO\_P}}$). Similarly, rejection rates met normality assumptions (UEQ: $W = \texttt{\VAR{UEQ\_REJECTION\_SHAPIRO\_W}}, p = \texttt{\VAR{UEQ\_REJECTION\_SHAPIRO\_P}}$; UEQ+Autonomy: $W = \texttt{\VAR{UEQAUTONOMY\_REJECTION\_SHAPIRO\_W}}, p = \texttt{\VAR{UEQAUTONOMY\_REJECTION\_SHAPIRO\_P}}$). Levene's tests confirmed homogeneity of variance for both dependent variables (tendency: $F(\texttt{\VAR{LEVENE\_TENDENCY\_DF1}}, \texttt{\VAR{LEVENE\_TENDENCY\_DF2}}) = \texttt{\VAR{LEVENE\_TENDENCY\_F}}, p = \texttt{\VAR{LEVENE\_TENDENCY\_P}}$; rejection rates: $F(\texttt{\VAR{LEVENE\_REJECTION\_DF1}}, \texttt{\VAR{LEVENE\_REJECTION\_DF2}}) = \texttt{\VAR{LEVENE\_REJECTION\_F}}, p = \texttt{\VAR{LEVENE\_REJECTION\_P}}$).
+
+\subsubsection{Hypothesis Testing}
+
+\paragraph{H1: Release Tendency Differences}
+An independent samples t-test revealed a statistically significant difference in release tendency between conditions, $t(\texttt{\VAR{TENDENCY\_DF}}) = \texttt{\VAR{TENDENCY\_T}}, p = \texttt{\VAR{TENDENCY\_P}}, d = \texttt{\VAR{TENDENCY\_COHENS\_D}}$. Participants who received autonomy-preserving metrics showed significantly lower tendency to release potentially problematic interfaces.
+
+\paragraph{H2: Interface Rejection Rate Differences}  
+Similarly, participants in the UEQ+Autonomy condition rejected significantly more interfaces than those in the UEQ condition, $t(\texttt{\VAR{REJECTION\_DF}}) = \texttt{\VAR{REJECTION\_T}}, p = \texttt{\VAR{REJECTION\_P}}, d = \texttt{\VAR{REJECTION\_COHENS\_D}}$.
+
+\subsection{Effect Sizes and Practical Significance}
+Both findings demonstrated medium-to-large effect sizes according to Cohen's conventions. The tendency difference showed a Cohen's $d = \texttt{\VAR{TENDENCY\_COHENS\_D}}$, while the rejection rate difference yielded $d = \texttt{\VAR{REJECTION\_COHENS\_D}}$. These effect sizes suggest that the inclusion of autonomy-preserving metrics has a practically meaningful impact on design decision-making.
+
+\subsection{Summary}
+Results support both primary hypotheses. The inclusion of autonomy-preserving evaluation metrics significantly influenced designer decision-making, leading to more conservative release decisions and higher rejection rates for interfaces containing potential dark patterns. This suggests that evaluation framework choice can meaningfully shape ethical design outcomes.
+
+% Variables to be substituted based on analysis results:
+% \VAR{FINAL_N} = 83
+% \VAR{UEQ_N} = 46  
+% \VAR{UEQAUTONOMY_N} = 37
+% \VAR{UEQ_TENDENCY_M} = 3.872
+% \VAR{UEQ_TENDENCY_SD} = 1.253
+% \VAR{UEQAUTONOMY_TENDENCY_M} = 3.151
+% \VAR{UEQAUTONOMY_TENDENCY_SD} = 0.967
+% \VAR{TENDENCY_DIFF} = 0.720
+% \VAR{UEQ_REJECTION_M} = 43.3
+% \VAR{UEQ_REJECTION_SD} = 20.3
+% \VAR{UEQAUTONOMY_REJECTION_M} = 53.5
+% \VAR{UEQAUTONOMY_REJECTION_SD} = 18.9
+% \VAR{REJECTION_DIFF} = 10.3
+% \VAR{TENDENCY_T} = 2.8742
+% \VAR{TENDENCY_P} = 0.0026
+% \VAR{TENDENCY_COHENS_D} = 0.635
+% \VAR{REJECTION_T} = 2.356
+% \VAR{REJECTION_P} = 0.0104  
+% \VAR{REJECTION_COHENS_D} = 0.52

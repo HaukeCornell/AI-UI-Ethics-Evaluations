@@ -1,0 +1,3 @@
+- There is a tendency of "let the data speak" but the data is an artifact of what questions are asked. 
+- The UI collected in the tacxonomy are instances of real world interface patterns, that emerge due to many social contextual factors.
+  - It may be that the dark patterns that emerge and stabilize are there also due to questions asked in the default standardized user testing processes, they do not appear to have extremely negative evaluations on UX.
