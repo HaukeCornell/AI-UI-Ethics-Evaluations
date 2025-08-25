@@ -61,32 +61,36 @@ create_interface_plot <- function(ui_num) {
   n_ueq <- sum(ui_data$condition_f == "UEQ")
   n_ueeq <- sum(ui_data$condition_f == "UEQ+Autonomy")
   
-  # Create the plot
+  # Create the plot with violin plots
   p <- ggplot(ui_data, aes(x = condition_f, y = tendency, fill = condition_f)) +
-    geom_boxplot(alpha = 0.7, outlier.alpha = 0.6) +
-    geom_jitter(width = 0.2, alpha = 0.4, size = 1) +
+    geom_violin(alpha = 0.7, trim = FALSE) +
+    geom_jitter(width = 0.15, alpha = 0.5, size = 0.8) +
+    stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "white") +
     scale_fill_manual(values = c("UEQ" = "#3498db", "UEQ+Autonomy" = "#e74c3c")) +
     labs(
       title = title_text,
-      x = "Condition",
-      y = "Tendency Score",
-      subtitle = paste0("N: UEQ=", n_ueq, ", UEQ+A=", n_ueeq, 
-                       "\np=", sprintf("%.3f", p_fdr), ", d=", sprintf("%.2f", cohens_d))
+      x = "",  # Remove x-axis label to reduce repetition
+      y = if(ui_num %in% c(1, 6, 11)) "Release Tendency" else "",  # Only show y-label on left column
+      subtitle = paste0("N: ", n_ueq, "/", n_ueeq, " • p=", sprintf("%.3f", p_fdr), " • d=", sprintf("%.2f", cohens_d))
     ) +
     theme_minimal() +
     theme(
       legend.position = "none",
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5),
-      plot.subtitle = element_text(size = 8, hjust = 0.5),
-      axis.title = element_text(size = 9),
-      axis.text = element_text(size = 8)
+      plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+      plot.subtitle = element_text(size = 10, hjust = 0.5, color = "gray40"),
+      axis.title = element_text(size = 11, face = "bold"),
+      axis.text = element_text(size = 10),
+      axis.text.x = element_text(size = 10, face = "bold"),
+      panel.grid.minor = element_blank(),
+      plot.margin = margin(t = 10, r = 5, b = 5, l = 5)
     ) +
-    scale_y_continuous(limits = c(1, 7), breaks = 1:7)
+    scale_y_continuous(limits = c(1, 7), breaks = 1:7) +
+    scale_x_discrete(labels = c("UEQ" = "UEQ", "UEQ+Autonomy" = "UEQ+A"))  # Shorter labels
   
   # Add significance annotation (but not in red)
   if(is_significant) {
     p <- p + 
-      annotate("text", x = 1.5, y = 6.8, label = "***", color = "black", size = 4, fontface = "bold")
+      annotate("text", x = 1.5, y = 6.5, label = "***", color = "black", size = 5, fontface = "bold")
   }
   
   return(p)
@@ -119,14 +123,15 @@ if(length(tendency_plots) > 0) {
   
   tendency_final <- tendency_grid + 
     plot_annotation(
-      title = "Dark Pattern Tendency Scores: UEQ vs UEQ+Autonomy (FDR Corrected)",
-      subtitle = paste0("One-tailed tests (UEQ+Autonomy < UEQ). *** = p < 0.05 after FDR correction (", 
-                       n_sig_fdr, "/", n_total, " significant)\n",
-                       "Final clean dataset: N=", length(unique(interface_data$ResponseId)), 
-                       " participants (10 suspicious excluded, aug16+new data)"),
+      title = "Dark Pattern Release Tendency: UEQ vs UEQ+Autonomy (FDR Corrected)",
+      subtitle = paste0("One-tailed tests: UEQ+Autonomy participants rate dark patterns more critically (lower scores)\n",
+                       "*** p < 0.05 after FDR correction (", n_sig_fdr, "/", n_total, " significant) • ",
+                       "N = ", length(unique(interface_data$ResponseId)), " participants"),
+      caption = "White diamonds show mean values • Higher scores = more accepting of dark patterns",
       theme = theme(
-        plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(size = 12, hjust = 0.5)
+        plot.title = element_text(size = 20, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+        plot.subtitle = element_text(size = 14, hjust = 0.5, margin = margin(b = 15)),
+        plot.caption = element_text(size = 12, hjust = 0.5, color = "gray50", margin = margin(t = 10))
       )
     )
   
