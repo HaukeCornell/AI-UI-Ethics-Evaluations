@@ -1,4 +1,15 @@
-# Demographics Analysis - UX Ethics Survey
+# Demographics Analysis - UX Et# Extract demographic variables with their exact column names
+demographic_vars <- list(
+  professional_exp = "Professional Experie",
+  experience_level = "Experience Level", 
+  ethics_encounter = "UI Ethics Experience",
+  dark_pattern_familiarity = "Dark Pattern Exp. ",
+  org_ai_support = "Organizational Suppo_1",
+  current_role = "Current Role",
+  industry = "Industry Experience", 
+  company_size = "Company Size",
+  decision_authority = "Decision-Making Auth"
+)
 # Analysis of participant professional background and expertise
 
 library(dplyr)
@@ -55,6 +66,13 @@ for(var_name in names(demographic_vars)) {
         existing_vars[[var_name]] <- alt_name
       }
     }
+    # Try alternative for organizational support
+    if(var_name == "org_ai_support") {
+      alt_name <- "Organizational Suppo_1"
+      if(alt_name %in% names(clean_raw)) {
+        existing_vars[[var_name]] <- alt_name
+      }
+    }
   }
 }
 
@@ -89,13 +107,41 @@ summaries$professional_exp <- create_summary(demographics, "professional_exp", "
 summaries$experience_level <- create_summary(demographics, "experience_level", "Experience Level")
 summaries$ethics_encounter <- create_summary(demographics, "ethics_encounter", "UI Ethics Encounter Frequency")
 summaries$dark_pattern_familiarity <- create_summary(demographics, "dark_pattern_familiarity", "Dark Pattern Familiarity")
+
+# Skip organizational AI support - not needed for analysis
+
 summaries$current_role <- create_summary(demographics, "current_role", "Current Role")
 summaries$industry <- create_summary(demographics, "industry", "Industry Experience")
 summaries$company_size <- create_summary(demographics, "company_size", "Company Size")
 
-# Add decision authority if it exists
+# Add decision authority if it exists - with proper ordering
 if("decision_authority" %in% names(demographics)) {
-  summaries$decision_authority <- create_summary(demographics, "decision_authority", "Decision-Making Authority")
+  decision_data <- demographics %>%
+    filter(!is.na(decision_authority) & decision_authority != "") %>%
+    count(decision_authority, name = "Count") %>%
+    mutate(Percentage = round(Count / sum(Count) * 100, 1))
+  
+  # Create proper ordering for decision authority
+  decision_order <- c("Yes, final decision authority", "Yes, significant influence", 
+                     "Some input", "Little input", "No decision authority")
+  
+  # Reorder the data and include missing categories
+  decision_summary <- data.frame(
+    decision_authority = decision_order,
+    stringsAsFactors = FALSE
+  ) %>%
+    left_join(decision_data, by = "decision_authority") %>%
+    mutate(
+      Count = ifelse(is.na(Count), 0, Count),
+      Percentage = ifelse(is.na(Percentage), 0, Percentage)
+    ) %>%
+    filter(Count > 0 | decision_authority %in% c("Yes, final decision authority", "Yes, significant influence", 
+                                                 "Some input", "Little input"))  # Show relevant categories
+  
+  cat("\nDECISION-MAKING AUTHORITY:\n")
+  print(decision_summary)
+  
+  summaries$decision_authority <- decision_summary
 }
 
 # Create visualizations
@@ -136,14 +182,21 @@ plots$ethics <- ggplot(summaries$ethics_encounter, aes(x = reorder(ethics_encoun
   theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(face = "bold", size = 12))
 
-# Dark Pattern Familiarity
-plots$dark_patterns <- ggplot(summaries$dark_pattern_familiarity, aes(x = "", y = Count, fill = dark_pattern_familiarity)) +
+# Dark Pattern Familiarity - with proper ordering
+dp_order <- c("Very familiar", "Somewhat familiar", "Slightly familiar", "Not familiar")
+dp_data <- summaries$dark_pattern_familiarity %>%
+  mutate(dark_pattern_familiarity = factor(dark_pattern_familiarity, levels = dp_order)) %>%
+  arrange(dark_pattern_familiarity)
+
+plots$dark_patterns <- ggplot(dp_data, aes(x = "", y = Count, fill = dark_pattern_familiarity)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar("y", start = 0) +
-  scale_fill_manual(values = colors[1:nrow(summaries$dark_pattern_familiarity)]) +
+  scale_fill_manual(values = colors[1:nrow(dp_data)]) +
   labs(title = "Dark Pattern Familiarity", fill = "Familiarity Level") +
   theme_void() +
   theme(plot.title = element_text(face = "bold", size = 12, hjust = 0.5))
+
+# Skip organizational AI support visualization - not needed
 
 # Current Role
 plots$role <- ggplot(summaries$current_role, aes(x = reorder(current_role, Count), y = Count, fill = current_role)) +
@@ -154,11 +207,16 @@ plots$role <- ggplot(summaries$current_role, aes(x = reorder(current_role, Count
   theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(face = "bold", size = 12))
 
-# Decision Authority (if available)
+# Decision Authority (if available) - with proper ordering
 if("decision_authority" %in% names(summaries)) {
-  plots$authority <- ggplot(summaries$decision_authority, aes(x = reorder(decision_authority, Count), y = Count, fill = decision_authority)) +
+  auth_data <- summaries$decision_authority %>%
+    mutate(decision_authority = factor(decision_authority, 
+                                     levels = c("Yes, final decision authority", "Yes, significant influence", 
+                                               "Some input", "Little input", "No decision authority")))
+  
+  plots$authority <- ggplot(auth_data, aes(x = decision_authority, y = Count, fill = decision_authority)) +
     geom_bar(stat = "identity", alpha = 0.8) +
-    scale_fill_manual(values = colors[1:nrow(summaries$decision_authority)]) +
+    scale_fill_manual(values = colors[1:nrow(auth_data)]) +
     coord_flip() +
     labs(title = "Design Decision-Making Authority", x = "", y = "Count") +
     theme_minimal() +
@@ -167,36 +225,27 @@ if("decision_authority" %in% names(summaries)) {
   plots$authority <- NULL
 }
 
-# Create combined visualization
-if(!is.null(plots$authority)) {
-  combined_plot <- grid.arrange(
-    plots$prof_exp, plots$exp_level,
-    plots$ethics, plots$dark_patterns,
-    plots$role, plots$authority,
-    ncol = 2, nrow = 3,
-    top = paste("Participant Demographics (N =", length(clean_participant_ids), ")")
-  )
-} else {
-  combined_plot <- grid.arrange(
-    plots$prof_exp, plots$exp_level,
-    plots$ethics, plots$dark_patterns,
-    plots$role, ggplot() + theme_void(),  # Empty plot as placeholder
-    ncol = 2, nrow = 3,
-    top = paste("Participant Demographics (N =", length(clean_participant_ids), ")")
-  )
-}
+# Create combined visualization - clean 2x2 layout
+combined_plot <- grid.arrange(
+  plots$exp_level, plots$dark_patterns,
+  plots$ethics, plots$authority,
+  ncol = 2, nrow = 2,
+  top = paste("Participant Demographics (N =", length(clean_participant_ids), ")")
+)
 
 # Save combined plot
 ggsave("plots/demographics_complete_summary.png", combined_plot, 
        width = 16, height = 12, dpi = 300)
 
 # Save individual plots
-ggsave("plots/demographics_professional_experience.png", plots$prof_exp, width = 10, height = 6, dpi = 300)
 ggsave("plots/demographics_experience_level.png", plots$exp_level, width = 8, height = 6, dpi = 300)
 ggsave("plots/demographics_ethics_encounter.png", plots$ethics, width = 10, height = 6, dpi = 300)
 ggsave("plots/demographics_dark_patterns.png", plots$dark_patterns, width = 8, height = 6, dpi = 300)
+ggsave("plots/demographics_ai_support.png", plots$ai_support, width = 10, height = 6, dpi = 300)
 ggsave("plots/demographics_current_role.png", plots$role, width = 10, height = 6, dpi = 300)
-ggsave("plots/demographics_decision_authority.png", plots$authority, width = 10, height = 6, dpi = 300)
+if(!is.null(plots$authority)) {
+  ggsave("plots/demographics_decision_authority.png", plots$authority, width = 10, height = 6, dpi = 300)
+}
 
 # Generate LaTeX summary paragraphs
 cat("\n", paste(rep("=", 60), collapse=""), "\n")
@@ -207,10 +256,12 @@ cat(paste(rep("=", 60), collapse=""), "\n")
 n_total <- length(clean_participant_ids)
 n_professional <- summaries$professional_exp %>% filter(grepl("Yes", professional_exp)) %>% pull(Count) %>% sum()
 n_experienced <- summaries$experience_level %>% filter(!grepl("Less than 1 year|No experience", experience_level)) %>% pull(Count) %>% sum()
-n_decision_makers <- summaries$decision_authority %>% filter(grepl("Full|Some", decision_authority)) %>% pull(Count) %>% sum()
+n_decision_makers <- summaries$decision_authority %>% 
+  filter(grepl("Yes", decision_authority)) %>% 
+  pull(Count) %>% sum()
 
 # Most common role
-top_role <- summaries$current_role %>% slice(1) %>% pull(professional_exp)
+top_role <- summaries$current_role %>% slice(1) %>% pull(current_role)
 top_role_pct <- summaries$current_role %>% slice(1) %>% pull(Percentage)
 
 # Dark pattern awareness
