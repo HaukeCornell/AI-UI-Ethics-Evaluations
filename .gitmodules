@@ -1,0 +1,3 @@
+[submodule "overleaf-paper"]
+	path = overleaf-paper
+	url = https://github.com/HaukeCornell/2025-Quantifying-Ethical-UX-Full-Paper-.git
