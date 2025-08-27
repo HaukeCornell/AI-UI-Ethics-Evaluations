@@ -237,11 +237,10 @@ combined_plot <- grid.arrange(
 ggsave("plots/demographics_complete_summary.png", combined_plot, 
        width = 16, height = 12, dpi = 300)
 
-# Save individual plots
+# Save individual plots - core demographics only
 ggsave("plots/demographics_experience_level.png", plots$exp_level, width = 8, height = 6, dpi = 300)
 ggsave("plots/demographics_ethics_encounter.png", plots$ethics, width = 10, height = 6, dpi = 300)
 ggsave("plots/demographics_dark_patterns.png", plots$dark_patterns, width = 8, height = 6, dpi = 300)
-ggsave("plots/demographics_ai_support.png", plots$ai_support, width = 10, height = 6, dpi = 300)
 ggsave("plots/demographics_current_role.png", plots$role, width = 10, height = 6, dpi = 300)
 if(!is.null(plots$authority)) {
   ggsave("plots/demographics_decision_authority.png", plots$authority, width = 10, height = 6, dpi = 300)
@@ -296,7 +295,7 @@ summary_stats <- data.frame(
 write.csv(summary_stats, "results/demographic_summary_stats.csv", row.names = FALSE)
 
 cat("\n\nFiles created:\n")
-cat("• plots/demographics_complete_summary.png - Combined demographic visualization\n")
+cat("• plots/demographics_complete_summary.png - Clean 2x2 demographic visualization\n")
 cat("• plots/demographics_*.png - Individual demographic charts\n")
 cat("• results/participant_demographics.csv - Raw demographic data\n")
 cat("• results/demographic_summary_stats.csv - Summary statistics\n")
