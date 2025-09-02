@@ -120,10 +120,19 @@ create_interface_plot <- function(ui_num) {
     scale_y_continuous(limits = c(1, 7), breaks = 1:7) +
     scale_x_discrete()
   
-  # Add significance annotation for planned contrast
+  # Add significance annotation for planned contrast (UEQ vs UEQ+Autonomy)
   if(is_significant) {
+    # Add significance line between UEQ and UEQ+A
     p <- p + 
-      annotate("text", x = 2, y = 6.5, label = "***", color = "black", size = 5, fontface = "bold")
+      # Significance line
+      geom_segment(aes(x = 1, xend = 2, y = 6.3, yend = 6.3), 
+                   color = "black", size = 0.5, inherit.aes = FALSE) +
+      geom_segment(aes(x = 1, xend = 1, y = 6.25, yend = 6.3), 
+                   color = "black", size = 0.5, inherit.aes = FALSE) +
+      geom_segment(aes(x = 2, xend = 2, y = 6.25, yend = 6.3), 
+                   color = "black", size = 0.5, inherit.aes = FALSE) +
+      # Significance stars
+      annotate("text", x = 1.5, y = 6.4, label = "***", color = "black", size = 4, fontface = "bold")
   }
   
   return(p)
@@ -156,11 +165,11 @@ if(length(tendency_plots) > 0) {
   
   tendency_final <- tendency_grid + 
     plot_annotation(
-      title = "Dark Pattern Release Tendency: UEQ vs UEQ+Autonomy vs RAW (FDR Corrected)",
-      subtitle = paste0("Planned contrasts (UEQ vs UEQ+Autonomy): UEQ+Autonomy participants rate dark patterns more critically\n",
-                       "*** p < 0.05 after FDR correction (", n_sig_fdr, "/", n_total, " significant) • ",
-                       "N = ", length(unique(interface_data$ResponseId)), " participants"),
-      caption = "White diamonds show mean values • Higher scores = more accepting of dark patterns • Planned contrast tests UEQ+Autonomy < UEQ hypothesis",
+      title = "Dark Pattern Release Tendency: Focus on UEQ vs UEQ+Autonomy Contrast",
+      subtitle = paste0("Primary test: UEQ vs UEQ+Autonomy planned contrast (UEQ+Autonomy participants rate dark patterns more critically)\n",
+                       "*** p < 0.05 after FDR correction (", n_sig_fdr, "/", n_total, " significant contrasts) • ",
+                       "RAW condition shown for context • N = ", length(unique(interface_data$ResponseId)), " participants"),
+      caption = "White diamonds show mean values • Higher scores = more accepting of dark patterns • Significance bars show UEQ vs UEQ+Autonomy contrast only",
       theme = theme(
         plot.title = element_text(size = 20, face = "bold", hjust = 0.5, margin = margin(b = 10)),
         plot.subtitle = element_text(size = 14, hjust = 0.5, margin = margin(b = 15)),
