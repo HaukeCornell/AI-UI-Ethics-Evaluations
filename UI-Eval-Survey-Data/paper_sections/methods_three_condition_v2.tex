@@ -1,0 +1,32 @@
+% Methods Section for Three-Condition Analysis (Updated for Analysis v2)
+% CHI Conference Paper Style
+
+\subsection{Participants}
+
+A total of 141 UX/design professionals participated in this three-condition experiment. Participants were randomly assigned to one of three between-subjects conditions: UEQ evaluation data only (\textit{n} = 49), UEQ + Autonomy-focused evaluation data (\textit{n} = 47), or No evaluation data baseline (\textit{n} = 45). Participants were recruited through Prolific Academic and compensated \$4.50 for approximately 20 minutes of participation. 
+
+All participants reported professional experience in UI/UX design, product design, or design decision-making roles. The majority (75.2\%) held decision-making authority in their current roles (final authority or significant influence), and 93.6\% reported familiarity with dark pattern concepts. Experience levels were well-distributed: 44.7\% had 1-2 years of professional experience, 48.2\% had 3-5 years, and 7.1\% had more than 5 years.
+
+Ten participants were excluded from analysis due to suspicious response patterns identified through automated screening (extremely short text responses, high variance indicating random clicking, or evidence of AI-generated content), resulting in a final analytical sample of 141 participants.
+
+\subsection{Design and Procedure}
+
+Participants were randomly assigned to one of three between-subjects conditions manipulating the type of evaluation information presented alongside interface designs:
+
+\begin{enumerate}
+\item \textbf{UEQ condition}: Participants viewed standardized user evaluation summaries based on the User Experience Questionnaire \cite{laugwitz2008construction}, focusing on pragmatic and hedonic quality dimensions.
+\item \textbf{UEQ + Autonomy condition}: Participants viewed the same UEQ summaries plus additional evaluation data emphasizing user autonomy, control, and freedom from manipulation.
+\item \textbf{No evaluation data condition}: Participants evaluated interfaces without any user feedback information (baseline control).
+\end{enumerate}
+
+Each participant evaluated 10 interfaces randomly selected from a set of 15 interfaces containing various dark patterns \cite{gray2018dark}. The interfaces represented common dark pattern categories including forced access, social pressure, nagging, content customization, and trick wording (see Appendix A for complete interface descriptions and evaluation data examples).
+
+For each interface, participants completed two dependent measures: (1) release tendency rated on a 7-point Likert scale (1 = \textit{definitely would not release} to 7 = \textit{definitely would release}), and (2) a binary release decision (accept or reject the interface for public release).
+
+\subsection{Statistical Analysis}
+
+Data analysis was conducted at the participant level to address the nested structure of multiple interface evaluations per participant and to meet normality assumptions. For each participant, we calculated mean tendency scores and mean rejection rates across their evaluated interfaces. 
+
+Between-group differences were assessed using one-way ANOVA with planned contrasts, as we hypothesized a directional relationship based on evaluation framework influence: No Evaluation Data > UEQ > UEQ+Autonomy for release tendency, with the reverse pattern for rejection rates. Post-hoc comparisons used Tukey's HSD test with family-wise error correction. Effect sizes were calculated using Cohen's \textit{d} for pairwise comparisons.
+
+Individual interface analyses used false discovery rate (FDR) correction for multiple comparisons across the 15 interfaces. All analyses were conducted in R (version 4.4.2) with significance set at $\alpha = .05$.

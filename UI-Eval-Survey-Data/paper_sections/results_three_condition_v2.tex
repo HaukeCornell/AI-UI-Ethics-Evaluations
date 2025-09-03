@@ -1,0 +1,43 @@
+% Results Section for Three-Condition Analysis (Updated for Analysis v2)
+% CHI Conference Paper Style
+
+\section{Results}
+
+\subsection{Overall Effects of Evaluation Condition}
+
+Analysis revealed significant differences between evaluation conditions for both dependent variables, confirming our hypotheses about the influence of evaluation frameworks on design decision-making.
+
+\subsubsection{Release Tendency}
+
+A one-way ANOVA indicated significant differences in release tendency between groups, \textit{F}(2, 138) = 16.61, \textit{p} < .001, $\eta^2$ = .194. Planned contrasts confirmed our hypothesized pattern: participants in the No Evaluation Data condition showed significantly higher release tendency (\textit{M} = 4.66, \textit{SD} = 1.42) compared to both the UEQ condition (\textit{M} = 3.80, \textit{SD} = 1.25), \textit{t}(138) = 3.55, \textit{p} < .001, \textit{d} = 0.65, and the UEQ+Autonomy condition (\textit{M} = 3.14, \textit{SD} = 1.12), \textit{t}(138) = 6.42, \textit{p} < .001, \textit{d} = 1.20. Additionally, the UEQ condition showed significantly higher release tendency than the UEQ+Autonomy condition, \textit{t}(138) = 2.99, \textit{p} = .003, \textit{d} = 0.56.
+
+\subsubsection{Rejection Rates}
+
+For rejection rates, the pattern was reversed as hypothesized. One-way ANOVA revealed significant between-group differences, \textit{F}(2, 138) = 15.97, \textit{p} < .001, $\eta^2$ = .188. Post-hoc comparisons using Tukey's HSD confirmed significant differences between all conditions. UEQ+Autonomy participants rejected significantly more interfaces (\textit{M} = 56.2\%, \textit{SD} = 21.3\%) compared to UEQ participants (\textit{M} = 43.9\%, \textit{SD} = 19.9\%), \textit{p} = .021, \textit{d} = 0.60, and No Evaluation Data participants (\textit{M} = 30.0\%, \textit{SD} = 25.3\%), \textit{p} < .001, \textit{d} = 1.13. UEQ participants also rejected significantly more interfaces than No Evaluation Data participants, \textit{p} = .008, \textit{d} = 0.62.
+
+\subsection{Individual Interface Effects}
+
+To examine which specific dark patterns were most sensitive to evaluation condition effects, we conducted interface-by-interface analyses using planned contrasts between UEQ and UEQ+Autonomy conditions.
+
+Individual interface analysis revealed that 6 of 15 interfaces showed significant differences between UEQ and UEQ+Autonomy conditions after FDR correction (\textit{q} < .05). The largest effects were observed for:
+
+\begin{itemize}
+\item \textbf{Content Customization}: \textit{d} = 1.02, \textit{p}_{FDR} = .002
+\item \textbf{Endlessness}: \textit{d} = 0.73, \textit{p}_{FDR} = .009  
+\item \textbf{Trick Wording}: \textit{d} = 0.70, \textit{p}_{FDR} = .017
+\item \textbf{Hindering Account Deletion}: \textit{d} = 0.64, \textit{p}_{FDR} = .018
+\item \textbf{Pull to Refresh}: \textit{d} = 0.55, \textit{p}_{FDR} = .040
+\item \textbf{Social Pressure}: \textit{d} = 0.61, \textit{p}_{FDR} = .040
+\end{itemize}
+
+Omnibus ANOVA across all three conditions identified 9 interfaces with significant differences, suggesting that the presence of any evaluation framework (UEQ or UEQ+Autonomy) versus no evaluation data accounts for substantial variance in design decisions beyond the specific autonomy-focused effects.
+
+\subsection{Effect Magnitude and Practical Significance}
+
+The observed effects represent substantial and practically meaningful differences in design decision-making. The 26.2 percentage point difference in rejection rates between No Evaluation Data and UEQ+Autonomy conditions (30.0\% vs. 56.2\%) represents a near-doubling of critical assessment. Similarly, the 1.52-point difference in release tendency on the 7-point scale constitutes a large practical effect.
+
+Effect sizes for the primary comparisons were large according to Cohen's conventions \cite{cohen1988statistical}: No Evaluation vs. UEQ+Autonomy showed \textit{d} = 1.20 for tendency and \textit{d} = 1.13 for rejection rates, indicating that evaluation frameworks account for substantial variance in ethical design decision-making.
+
+\subsection{Summary}
+
+These findings provide strong support for our hypothesis that evaluation frameworks systematically influence design decision-making in predictable directions. The progression from no evaluation data → standard usability evaluation → autonomy-focused evaluation corresponds to increasingly critical assessment of interfaces containing dark patterns, suggesting that the lens through which designers evaluate user feedback fundamentally shapes their ethical design judgments.
