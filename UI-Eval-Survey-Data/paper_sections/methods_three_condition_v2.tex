@@ -9,7 +9,7 @@ The dark pattern taxonomy was developed through systematic literature review of 
 
 \subsection{Main Study Participants}
 
-A total of 141 UX/design professionals participated in this three-condition experiment. Participants were randomly assigned to one of three between-subjects conditions: RAW (no evaluation data, \textit{n} = 45), UEQ (standard evaluation data, \textit{n} = 49), or UEQ+Autonomy (enhanced ethical evaluation data, \textit{n} = 47). Participants were recruited through Prolific Academic and compensated \$4.50 for approximately 20 minutes of participation. 
+A total of 141 UX/design professionals participated in this three-condition experiment. Participants were randomly assigned to one of three between-subjects conditions: UI (interface baseline, \textit{n} = 45), UEQ (user experience evaluation, \textit{n} = 49), or UEQ-A (user experience + autonomy evaluation, \textit{n} = 47). Participants were recruited through Prolific Academic and compensated \$4.50 for approximately 20 minutes of participation. 
 
 All participants reported professional experience in UI/UX design, product design, or design decision-making roles. The majority (75.2\%) held decision-making authority in their current roles (final authority or significant influence), and 93.6\% reported familiarity with dark pattern concepts. Experience levels were well-distributed: 44.7\% had 1-2 years of professional experience, 48.2\% had 3-5 years, and 7.1\% had more than 5 years.
 
@@ -20,12 +20,12 @@ Ten participants were excluded from analysis due to suspicious response patterns
 Participants were presented with a realistic business scenario where interfaces had already received approval from business teams, marketing departments, and supervisors, with designers providing the final approval for implementation. Each participant was randomly assigned to one of three between-subjects conditions manipulating the type of evaluation information presented alongside interface designs:
 
 \begin{enumerate}
-\item \textbf{RAW condition (Baseline)}: Participants evaluated interfaces with business context only, receiving no user evaluation data.
-\item \textbf{UEQ condition}: Participants viewed standardized user evaluation summaries based on the User Experience Questionnaire \cite{laugwitz2008construction}, presented as results from "evaluation by 20 human participants," focusing on pragmatic and hedonic quality dimensions including efficiency, perspicuity, dependability, stimulation, and attractiveness.
-\item \textbf{UEQ + Autonomy condition}: Participants viewed the same UEQ summaries plus additional evaluation data emphasizing user autonomy, control, and freedom from manipulation, including metrics for pressuring behavior, addiction potential, deception, and benevolence.
+\item \textbf{UI condition (Interface Baseline)}: Participants evaluated interfaces with business context only, receiving no user evaluation data.
+\item \textbf{UEQ condition (User Experience Evaluation)}: Participants viewed standardized user evaluation summaries based on the User Experience Questionnaire \cite{laugwitz2008construction}, presented as results from "evaluation by 20 human participants," focusing on pragmatic and hedonic quality dimensions including efficiency, perspicuity, dependability, stimulation, and attractiveness.
+\item \textbf{UEQ-A condition (User Experience + Autonomy Evaluation)}: Participants viewed the same UEQ summaries plus additional autonomy-focused evaluation data, including metrics for pressuring behavior, addiction potential, deception, and benevolence. These autonomy dimensions were presented through enhanced risk indicator gauges and detailed tabular summaries.
 \end{enumerate}
 
-Each participant evaluated 10 interfaces randomly selected from a set of 15 interfaces containing various dark patterns. The interfaces represented common dark pattern categories including forced access, social pressure, nagging, content customization, and trick wording. Evaluation data was presented through visual gauges and tabular summaries, with autonomy risk indicators prominently displayed in the UEQ+Autonomy condition.
+Each participant evaluated 10 interfaces randomly selected from a set of 15 interfaces containing various dark patterns. The interfaces represented common dark pattern categories including forced access, social pressure, nagging, content customization, and trick wording. Evaluation data was presented through visual gauges and tabular summaries, with autonomy risk indicators prominently displayed in the UEQ-A condition.
 
 For each interface, participants completed three dependent measures: (1) release tendency rated on a 7-point Likert scale (1 = \textit{definitely would not release} to 7 = \textit{definitely would release}), (2) a binary release decision (yes or no to release the interface for public implementation), and (3) decision confidence on a 7-point scale. Participants also provided open-text reasoning for their decisions (300 character limit).
 
@@ -33,6 +33,6 @@ For each interface, participants completed three dependent measures: (1) release
 
 Data analysis was conducted at the participant level to address the nested structure of multiple interface evaluations per participant and to meet normality assumptions. For each participant, we calculated mean tendency scores and mean rejection rates across their evaluated interfaces. 
 
-Between-group differences were assessed using one-way ANOVA with planned contrasts, as we hypothesized a directional relationship based on evaluation framework influence: No Evaluation Data > UEQ > UEQ+Autonomy for release tendency, with the reverse pattern for rejection rates. Post-hoc comparisons used Tukey's HSD test with family-wise error correction. Effect sizes were calculated using Cohen's \textit{d} for pairwise comparisons.
+Between-group differences were assessed using one-way ANOVA with planned contrasts, as we hypothesized a directional relationship based on evaluation framework influence: UI > UEQ > UEQ-A for release tendency, with the reverse pattern for rejection rates. Post-hoc comparisons used Tukey's HSD test with family-wise error correction. Effect sizes were calculated using Cohen's \textit{d} for pairwise comparisons.
 
 Individual interface analyses used false discovery rate (FDR) correction for multiple comparisons across the 15 interfaces. All analyses were conducted in R (version 4.4.2) with significance set at $\alpha = .05$.

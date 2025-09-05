@@ -26,9 +26,9 @@ This study investigated how ethical information in user experience evaluation da
 **Task**: Evaluate 10 randomized dark pattern interfaces for release decisions
 
 ### Experimental Design:
-**Condition 1 - RAW** (n = 45): No evaluation data provided (baseline control)  
-**Condition 2 - UEQ** (n = 49): Standard UEQ evaluation, Gauge with average and table with per item evaluation data  
-**Condition 3 - UEQ+Autonomy** (n = 47): UEQ plus autonomy-focused evaluation data, represented as a risk indicator gauge and detailed table
+**Condition 1 - UI** (n = 45): Interface baseline - No evaluation data provided (baseline control)  
+**Condition 2 - UEQ** (n = 49): User experience evaluation - Standard UEQ evaluation, Gauge with average and table with per item evaluation data  
+**Condition 3 - UEQ-A** (n = 47): User experience + autonomy evaluation - UEQ plus autonomy-focused evaluation data, represented as a risk indicator gauge and detailed table
 
 ### Interface Presentation:
 - **Business Context**: "✓ Business approved | ✓ Marketing approved | ✓ Supervisor approved | **Awaiting your final design approval**"
@@ -51,22 +51,22 @@ This study investigated how ethical information in user experience evaluation da
 
 ## Key Statistical Results:
 ### Primary Outcome - Rejection Rates:
-- **RAW condition**: 30.0% rejection rate
+- **UI condition**: 30.0% rejection rate
 - **UEQ condition**: 43.9% rejection rate  
-- **UEQ+Autonomy condition**: 56.2% rejection rate
+- **UEQ-A condition**: 56.2% rejection rate
 - **Statistical Significance**: F(2,138) = 15.97, p < 0.001, η² = 0.19 (large effect)
 
 ### Secondary Outcome - Release Tendency:
-- **RAW condition**: M = 4.66 (moderate willingness to release)
+- **UI condition**: M = 4.66 (moderate willingness to release)
 - **UEQ condition**: M = 4.13 (reduced willingness)
-- **UEQ+Autonomy condition**: M = 3.57 (lowest willingness to release)  
+- **UEQ-A condition**: M = 3.57 (lowest willingness to release)  
 - **Statistical Significance**: F(2,138) = 16.61, p < 0.001, η² = 0.19 (large effect)
 
 ### Post-hoc Comparisons:
 All pairwise comparisons significant (Tukey HSD, all p < 0.001):
-- RAW vs UEQ: Large effect size (Cohen's d = 1.20)
-- UEQ vs UEQ+Autonomy: Large effect size (Cohen's d = 1.13)  
-- RAW vs UEQ+Autonomy: Very large effect size (Cohen's d = 1.68)
+- UI vs UEQ: Large effect size (Cohen's d = 1.20)
+- UEQ vs UEQ-A: Large effect size (Cohen's d = 1.13)  
+- UI vs UEQ-A: Very large effect size (Cohen's d = 1.68)
 
 ## Visual Figure Elements for Publication:
 
@@ -81,14 +81,19 @@ All pairwise comparisons significant (Tukey HSD, all p < 0.001):
 
 ### Panel D: Condition Comparison
 - **Evaluation Data Presentation**:
-  - RAW: Business context only
-  - UEQ: Standard UX metrics  (Hedonic and Pragmatic Quality)
-  - UEQ+Autonomy: UEQ + Autonomy risk indicators
+  - UI: Business context only
+  - UEQ: + Standard UX metrics (Hedonic and Pragmatic Quality)
+  - UEQ-A: + UEQ + Autonomy risk indicators
 
 ### Panel E: Results Visualization
-- **Stepwise Effect**: Clear progression RAW → UEQ → UEQ+Autonomy
+- **Stepwise Effect**: Clear progression UI → UEQ → UEQ-A
 - **Effect Sizes**: Large to very large effects across all comparisons
 - **Statistical Power**: Strong significance despite modest sample sizes
+
+### Color Scheme for All Visualizations:
+- **UI condition**: RGB(255, 136, 136) - Light salmon
+- **UEQ condition**: RGB(171, 226, 171) - Light green  
+- **UEQ-A condition**: RGB(174, 128, 255) - Light purple
 
 ## Methodological Strengths:
 1. **Ecological Validity**: Realistic business approval context
