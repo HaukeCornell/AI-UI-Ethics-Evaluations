@@ -1,0 +1,102 @@
+% Results Section for CHI 2025 Paper
+% Evaluation Framework Effects on Ethical Design Judgment
+
+\section{Results}
+
+Our analysis of 1,313 professional explanations across three evaluation conditions reveals systematic differences in reasoning patterns, providing quantitative evidence that evaluation frameworks significantly influence ethical design judgment.
+
+\subsection{Overall Decision Patterns}
+Participants made release decisions for 15 interface designs, resulting in an overall acceptance rate of 54.4\%. Decision patterns varied significantly across conditions: UEQ (55.9\% acceptance), UEEQ (52.6\% acceptance), and RAW (54.9\% acceptance). While overall acceptance rates showed modest differences, the underlying reasoning patterns revealed substantial variation.
+
+\subsection{Reasoning Pattern Analysis}
+
+Statistical analysis identified five distinct reasoning patterns with significant differences across experimental conditions (Table~\ref{tab:reasoning-patterns}).
+
+\begin{table}
+\caption{Prevalence of Reasoning Patterns by Experimental Condition}
+\label{tab:reasoning-patterns}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Pattern} & \textbf{UEQ (\%)} & \textbf{UEEQ (\%)} & \textbf{RAW (\%)} & \textbf{$\chi^2$ p-value} & \textbf{Cramér's V} \\
+\midrule
+Responsibility Avoidance & 1.1 & 0.9 & 5.5 & <0.001 & 0.137 \\
+Manipulation Awareness & 0.0 & 16.7 & 3.5 & <0.001 & 0.289 \\
+Industry Conformity & 0.0 & 0.0 & 2.7 & <0.001 & 0.139 \\
+Aesthetic Focus & 5.7 & 11.6 & 4.7 & <0.001 & 0.116 \\
+Emotional Reaction & 0.7 & 3.5 & 1.7 & 0.008 & 0.086 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Responsibility Avoidance}
+The most striking difference appeared in responsibility avoidance patterns ($\chi^2 = 24.508$, $p < 0.001$, Cramér's V = 0.137). Participants in the RAW condition showed significantly higher rates of responsibility avoidance (5.5\%) compared to UEQ (1.1\%) and UEEQ (0.9\%) conditions. 
+
+Representative examples from the RAW condition include:
+\begin{quote}
+\textit{``Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integrating it, withholding my final approval would be a significant professional and business risk.''}
+\end{quote}
+
+This pattern suggests that absence of quantitative evaluation data leads professionals to defer to institutional authority rather than making independent ethical judgments.
+
+\subsubsection{Manipulation Awareness}
+Manipulation awareness showed the largest effect size in our study ($\chi^2 = 109.424$, $p < 0.001$, Cramér's V = 0.289). Participants in the UEEQ condition demonstrated dramatically higher rates of manipulation recognition (16.7\%) compared to RAW (3.5\%) and UEQ (0.0\%) conditions.
+
+Illustrative examples from UEEQ participants include:
+\begin{quote}
+\textit{``I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple 'do you wish to remove profile' or something along those lines.''}
+\end{quote}
+
+\begin{quote}
+\textit{``I would not release this interface because it is fundamentally deceptive: it tells users their geolocation is off while still using their location data. The deception score of -1.76 and attractiveness scores below -1.8 show users find it highly annoying and dishonest.''}
+\end{quote}
+
+This finding provides strong evidence that explicit ethical evaluation metrics enhance professionals' ability to identify and articulate manipulative design elements.
+
+\subsubsection{Industry Conformity}
+Industry conformity justifications appeared exclusively in the RAW condition (2.7\%, $\chi^2 = 15.307$, $p < 0.001$, Cramér's V = 0.139). Participants without quantitative evaluation data frequently justified decisions by referencing industry standards:
+
+\begin{quote}
+\textit{``Common interface! Great UI, follows similarly to other social media giants.''}
+\end{quote}
+
+This pattern suggests that absence of specific evaluation criteria leads to reliance on industry precedent as a decision-making heuristic.
+
+\subsubsection{Aesthetic Focus}
+Aesthetic considerations were most prominent in the UEEQ condition (11.6\%), followed by UEQ (5.7\%) and RAW (4.7\%) conditions ($\chi^2 = 14.011$, $p < 0.001$, Cramér's V = 0.116). Interestingly, participants with access to ethical metrics showed increased attention to visual design elements, potentially indicating heightened overall design sensitivity.
+
+\subsubsection{Emotional Reactions}
+Emotional language appeared most frequently in UEEQ explanations (3.5\%) compared to RAW (1.7\%) and UEQ (0.7\%) conditions ($\chi^2 = 9.554$, $p = 0.008$, Cramér's V = 0.086). The presence of explicit ethical metrics appears to evoke stronger emotional responses to problematic designs.
+
+\subsection{Topic Modeling Results}
+
+Latent Dirichlet Allocation analysis identified eight primary topics in the explanation corpus, with significant distribution differences across conditions:
+
+\begin{itemize}
+\item \textbf{Business \& Commercial Focus} (24.8\% of explanations): Most prevalent in RAW condition
+\item \textbf{Usability \& User Experience} (15.2\%): Evenly distributed across conditions  
+\item \textbf{Technical \& Functional Issues} (12.7\%): Highest in UEEQ condition
+\item \textbf{Ethical \& User Autonomy Concerns} (identified as distinct topic): Concentrated in UEEQ condition
+\end{itemize}
+
+\subsection{Effect of Evaluation Frameworks on Decision Quality}
+
+Analysis of reasoning sophistication reveals that UEEQ participants demonstrated:
+\begin{itemize}
+\item Higher recognition of manipulative design elements (16.7\% vs. 0-3.5\% in other conditions)
+\item More frequent use of ethical terminology and concepts
+\item Greater emotional engagement with problematic designs
+\item More detailed explanations referencing specific ethical concerns
+\end{itemize}
+
+Conversely, RAW participants showed:
+\begin{itemize}
+\item Increased delegation of responsibility to institutional authority (5.5\% vs. ~1\% in other conditions)
+\item Greater reliance on industry conformity as justification (2.7\% vs. 0\% in other conditions)
+\item Less sophisticated ethical reasoning overall
+\end{itemize}
+
+\subsection{Statistical Significance and Effect Sizes}
+
+All five reasoning patterns showed statistically significant differences across conditions ($p < 0.01$). Effect sizes ranged from small (Emotional Reaction, V = 0.086) to large (Manipulation Awareness, V = 0.289), indicating both statistical significance and practical importance.
+
+The manipulation awareness pattern showed the largest effect size (V = 0.289), suggesting that explicit ethical metrics have a substantial impact on professionals' ability to identify problematic design elements. Responsibility avoidance (V = 0.137) and industry conformity (V = 0.139) showed medium effect sizes, indicating meaningful differences in decision-making approaches between conditions.

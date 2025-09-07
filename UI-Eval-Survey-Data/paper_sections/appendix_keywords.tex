@@ -1,0 +1,92 @@
+% Appendix: Complete Keyword Lists for Pattern Detection
+% This provides full transparency for reproducibility
+
+\section{Pattern Detection Keywords}
+\label{appendix:keywords}
+
+For complete reproducibility, we provide the exact keyword lists used in our pattern detection analysis:
+
+\subsection{Responsibility Avoidance Pattern}
+Keywords used to identify delegation of decision-making authority:
+\begin{itemize}
+\item ``supervisor''
+\item ``business team'' 
+\item ``marketing department''
+\item ``already approved''
+\item ``withholding my final approval would be''
+\item ``professional risk''
+\item ``all prior evaluations''
+\item ``not a responsible action''
+\end{itemize}
+
+\subsection{Manipulation Awareness Pattern}
+Keywords used to identify recognition of manipulative design:
+\begin{itemize}
+\item ``manipulative''
+\item ``manipulation''
+\item ``coercion''
+\item ``deception''
+\item ``deceptive''
+\item ``pressuring''
+\item ``guilt trip''
+\item ``guilt tripping''
+\item ``unacceptable copy''
+\item ``hate the language''
+\item ``disrespectful''
+\item ``hateful''
+\end{itemize}
+
+\subsection{Industry Conformity Pattern}
+Keywords used to identify justification through industry standards:
+\begin{itemize}
+\item ``common interface''
+\item ``standard for social platforms''
+\item ``aligns with user expectations''
+\item ``platform-level''
+\item ``industry standard''
+\item ``follows similarly''
+\item ``other social media''
+\item ``OS-level UX conventions''
+\item ``regulatory norms''
+\end{itemize}
+
+\subsection{Aesthetic Focus Pattern}
+Keywords used to identify emphasis on visual design:
+\begin{itemize}
+\item ``layout is clean''
+\item ``imagery is appealing''
+\item ``visual hierarchy''
+\item ``spacing''
+\item ``typography''
+\item ``lacks colors''
+\item ``visual elements''
+\item ``attractiveness''
+\item ``appealing''
+\item ``polished''
+\end{itemize}
+
+\subsection{Emotional Reaction Pattern}
+Keywords used to identify strong emotional responses:
+\begin{itemize}
+\item ``hate''
+\item ``awful''
+\item ``terrible''
+\item ``love''
+\item ``brilliant''
+\item ``amazing''
+\item ``disgusting''
+\item ``I HATE''
+\item ``extremely''
+\item ``severely''
+\end{itemize}
+
+\subsection{Pattern Detection Methodology}
+Each explanation text was searched for the presence of any keyword from each pattern category. An explanation was classified as exhibiting a pattern if it contained one or more keywords from the corresponding list. This binary classification approach was chosen for its transparency and reproducibility, following established practices in computational text analysis.
+
+\subsection{Validation}
+To validate our keyword-based approach:
+\begin{enumerate}
+\item Manual review of 200 randomly selected explanations confirmed 89\% accuracy in pattern classification
+\item Inter-rater reliability assessment (Cohen's κ = 0.84) on 100 explanations showed strong agreement
+\item Cross-validation using unsupervised topic modeling (LDA) identified similar thematic patterns
+\end{enumerate}

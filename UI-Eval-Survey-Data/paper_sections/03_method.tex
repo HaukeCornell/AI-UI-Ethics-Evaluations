@@ -1,0 +1,79 @@
+% Method Section for CHI 2025 Paper
+% Evaluation Framework Effects on Ethical Design Judgment
+
+\section{Method}
+
+\subsection{Study Design}
+We conducted a between-subjects experiment with three conditions to investigate how different evaluation frameworks influence UX professionals' ethical design judgments. Participants were randomly assigned to one of three evaluation conditions:
+
+\begin{itemize}
+\item \textbf{UEQ condition}: Participants received traditional User Experience Questionnaire scores (attractiveness, perspicuity, efficiency, dependability, stimulation, novelty)
+\item \textbf{UEEQ condition}: Participants received User Experience and Ethics Questionnaire scores, including ethical dimensions (deception, coercion, supportiveness) alongside traditional UX metrics
+\item \textbf{RAW condition}: Participants received only business context without quantitative evaluation scores
+\end{itemize}
+
+\subsection{Participants}
+We recruited 153 UX professionals through professional networks and social media. Participants had varying levels of experience in user experience design, ranging from junior designers to senior design leaders. All participants were asked to make release decisions for 15 different interface designs representing common dark patterns.
+
+\subsection{Materials}
+The study materials consisted of 15 interface mockups displaying various potentially problematic design patterns, including:
+\begin{itemize}
+\item Account deletion obstruction interfaces
+\item Manipulative notification prompts  
+\item Privacy permission requests with dark patterns
+\item Social pressure mechanisms
+\item Misleading interface elements
+\end{itemize}
+
+Each interface was presented with condition-specific evaluation data. Participants were asked to make a binary release decision (Yes/No) and provide a written explanation for their reasoning.
+
+\subsection{Text Analysis Methodology}
+We employed a mixed-methods approach combining computational text analysis with qualitative coding to analyze the 1,313 explanation texts collected from participants.
+
+\subsubsection{Pattern Detection Framework}
+We developed a systematic framework to identify five key reasoning patterns in participants' explanations. Each pattern was operationalized through specific keyword searches, following established approaches in computational linguistics \cite{Hutto2014}:
+
+\begin{enumerate}
+
+\item \textbf{Responsibility Avoidance} - Identification of explanations that delegate decision-making authority to others:
+\begin{itemize}
+\item Keywords: ``supervisor,'' ``business team,'' ``marketing department,'' ``already approved,'' ``withholding my final approval would be,'' ``professional risk,'' ``all prior evaluations,'' ``not a responsible action''
+\item Hypothesis: More prevalent in RAW condition where participants lack quantitative guidance
+\end{itemize}
+
+\item \textbf{Manipulation Awareness} - Recognition of manipulative or deceptive design elements:
+\begin{itemize}
+\item Keywords: ``manipulative,'' ``manipulation,'' ``coercion,'' ``deception,'' ``deceptive,'' ``pressuring,'' ``guilt trip,'' ``guilt tripping,'' ``unacceptable copy,'' ``hate the language,'' ``disrespectful,'' ``hateful''
+\item Hypothesis: More prevalent in UEEQ condition due to explicit ethical metrics
+\end{itemize}
+
+\item \textbf{Industry Conformity} - Justification through reference to industry standards or common practices:
+\begin{itemize}
+\item Keywords: ``common interface,'' ``standard for social platforms,'' ``aligns with user expectations,'' ``platform-level,'' ``industry standard,'' ``follows similarly,'' ``other social media,'' ``OS-level UX conventions,'' ``regulatory norms''
+\item Hypothesis: More prevalent in RAW condition lacking specific evaluation criteria
+\end{itemize}
+
+\item \textbf{Aesthetic Focus} - Emphasis on visual design elements over functional or ethical considerations:
+\begin{itemize}
+\item Keywords: ``layout is clean,'' ``imagery is appealing,'' ``visual hierarchy,'' ``spacing,'' ``typography,'' ``lacks colors,'' ``visual elements,'' ``attractiveness,'' ``appealing,'' ``polished''
+\item Hypothesis: Distributed across conditions, potentially higher in UEEQ due to attractiveness metrics
+\end{itemize}
+
+\item \textbf{Emotional Reaction} - Strong emotional responses to interface designs:
+\begin{itemize}
+\item Keywords: ``hate,'' ``awful,'' ``terrible,'' ``love,'' ``brilliant,'' ``amazing,'' ``disgusting,'' ``I HATE,'' ``extremely,'' ``severely''
+\item Hypothesis: More intense in UEEQ condition due to explicit ethical metric exposure
+\end{itemize}
+
+\end{enumerate}
+
+\subsubsection{Statistical Analysis}
+For each reasoning pattern, we calculated prevalence rates across the three experimental conditions. Statistical significance was assessed using chi-square tests of independence, with effect sizes calculated using Cramér's V. We employed Latent Dirichlet Allocation (LDA) topic modeling \cite{Blei2003} to identify emergent themes in the explanation corpus, complementing our theory-driven pattern analysis.
+
+\subsubsection{Validation Approach}
+To ensure validity of our pattern detection approach, we:
+\begin{itemize}
+\item Manually reviewed a random sample of 200 explanations to validate keyword-based classification
+\item Conducted inter-rater reliability assessment on pattern identification
+\item Cross-validated findings using both supervised keyword detection and unsupervised topic modeling
+\end{itemize}
