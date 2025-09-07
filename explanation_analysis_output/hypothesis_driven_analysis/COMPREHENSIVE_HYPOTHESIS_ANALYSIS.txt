@@ -1,0 +1,274 @@
+COMPREHENSIVE HYPOTHESIS-DRIVEN ANALYSIS
+==================================================
+
+RESEARCH DESIGN:
+----------------
+• Statistical tests examine CONDITION DIFFERENCES (UEQ vs UEEQ vs RAW)
+• Keywords derived from comprehensive data examination
+• Patterns are hypothesis-driven based on observed phenomena
+• Chi-square tests determine if conditions differ significantly
+• Effect sizes (Cramér's V) measure practical significance
+
+HYPOTHESIS TESTING RESULTS:
+---------------------------
+Pattern                        Supported  p-value    Effect       Max Condition  
+-----------------------------------------------------------------------------
+responsibility_avoidance       YES        0.000      Medium effect RAW (9.2%)     
+manipulation_awareness         YES        0.000      Large effect UEEQ (22.4%)   
+ethics_focused_reasoning       YES        0.000      Medium effect UEEQ (12.3%)   
+industry_conformity            YES        0.000      Medium effect RAW (3.0%)     
+aesthetic_focus                NO         0.002      Small effect UEEQ (15.1%)   
+emotional_reaction             YES        0.002      Small effect UEEQ (11.0%)   
+data_driven_reasoning          YES        0.000      Medium effect UEEQ (28.1%)   
+
+=============================================================================
+
+RESPONSIBILITY AVOIDANCE
+------------------------
+Hypothesis: More common in RAW condition - promotes responsibility diffusion
+Expected condition: RAW
+Keywords analyzed: 39
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 40.604
+  P-value: p = 0.000
+  Effect size: 0.176 (Medium effect)
+  Statistically significant: Yes
+  Hypothesis supported: Yes
+
+CONDITION BREAKDOWN:
+  UEQ: 6/456 (1.3%)
+    Keyword coverage: 5.1%
+    Top matched keywords: competitive market, supervisor
+  UEEQ: 10/456 (2.2%)
+    Keyword coverage: 12.8%
+    Top matched keywords: business team, team approved, limited runway, competitive market, supervisor
+  RAW: 37/401 (9.2%)
+    Keyword coverage: 74.4%
+    Top matched keywords: pivotal for success, final sign-off, my role at this stage, strategic perspective, momentum might be put at risk
+
+EXAMPLES FROM RAW (highest prevalence):
+1. [P1, Yes] Keywords: supervisor, business team, marketing department
+   Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already begun integrating it, withholding my final approval would be a ...
+
+2. [P3, Yes] Keywords: supervisor, business team, marketing department
+   Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integrating it, withholding my final approval would be ...
+
+3. [P4, Yes] Keywords: supervisor, business team, marketing department
+   Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integrating it, withholding my final approval would be ...
+
+================================================================================
+
+MANIPULATION AWARENESS
+----------------------
+Hypothesis: More common in UEEQ condition - ethical framework raises awareness
+Expected condition: UEEQ
+Keywords analyzed: 50
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 145.968
+  P-value: p = 0.000
+  Effect size: 0.333 (Large effect)
+  Statistically significant: Yes
+  Hypothesis supported: Yes
+
+CONDITION BREAKDOWN:
+  UEQ: 0/456 (0.0%)
+    Keyword coverage: 0.0%
+  UEEQ: 102/456 (22.4%)
+    Keyword coverage: 50.0%
+    Top matched keywords: manipulative, pressure, deceptive, deception, dishonest
+  RAW: 21/401 (5.2%)
+    Keyword coverage: 44.0%
+    Top matched keywords: manipulative, pressure, disrespectful, backfire, guilt tripping
+
+EXAMPLES FROM UEEQ (highest prevalence):
+1. [P5, No] Keywords: pressuring
+   Its pressuring and that is not a good sign...
+
+2. [P15, No] Keywords: pressuring
+   Its pressuring and that is not a good sign...
+
+3. [P2, Yes] Keywords: pressure
+   "Because there is not much of pressure "...
+
+================================================================================
+
+ETHICS FOCUSED REASONING
+------------------------
+Hypothesis: More common in UEEQ condition - ethical framework promotes moral reasoning
+Expected condition: UEEQ
+Keywords analyzed: 46
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 24.880
+  P-value: p = 0.000
+  Effect size: 0.138 (Medium effect)
+  Statistically significant: Yes
+  Hypothesis supported: Yes
+
+CONDITION BREAKDOWN:
+  UEQ: 16/456 (3.5%)
+    Keyword coverage: 8.7%
+    Top matched keywords: right, fair, trust, wrong
+  UEEQ: 56/456 (12.3%)
+    Keyword coverage: 56.5%
+    Top matched keywords: honest, values I stand for, transparency, autonomy, ethical risks
+  RAW: 29/401 (7.2%)
+    Keyword coverage: 19.6%
+    Top matched keywords: ethical UX, privacy, trust, transparency, transparent
+
+EXAMPLES FROM UEEQ (highest prevalence):
+1. [P4, No] Keywords: trust
+   Because the interface scores poorly on trust, clarity, and friendliness, and the message is likely to frustrate or alarm users....
+
+2. [P14, No] Keywords: trust
+   Because the interface scores poorly on trust, clarity, and friendliness, and the message is likely to frustrate or alarm users....
+
+3. [P7, No] Keywords: trust
+   Despite decent clarity and efficiency scores, the interface suffers from poor attractiveness, stimulation and trust metrics, which could harm user engagment and retention....
+
+================================================================================
+
+INDUSTRY CONFORMITY
+-------------------
+Hypothesis: More common in RAW condition - absence of ethical framework promotes conformity
+Expected condition: RAW
+Keywords analyzed: 26
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 27.544
+  P-value: p = 0.000
+  Effect size: 0.145 (Medium effect)
+  Statistically significant: Yes
+  Hypothesis supported: Yes
+
+CONDITION BREAKDOWN:
+  UEQ: 0/456 (0.0%)
+    Keyword coverage: 0.0%
+  UEEQ: 0/456 (0.0%)
+    Keyword coverage: 0.0%
+  RAW: 12/401 (3.0%)
+    Keyword coverage: 50.0%
+    Top matched keywords: social media giants, OS-level UX conventions, recognition and ease of use, platform-level, common interface
+
+EXAMPLES FROM RAW (highest prevalence):
+1. [P2, Yes] Keywords: common interface
+   Common interface!...
+
+2. [P12, Yes] Keywords: common interface
+   Common interface!...
+
+3. [P6, Yes] Keywords: similar process already in place, already in place by apple, recognition and ease of use
+   "This follows a very similar process already in place by apple, therefore the likelihood of recognition and ease of use is high "...
+
+================================================================================
+
+AESTHETIC FOCUS
+---------------
+Hypothesis: Distributed across conditions - aesthetic focus vs ethical focus
+Expected condition: DISTRIBUTED
+Keywords analyzed: 31
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 12.550
+  P-value: p = 0.002
+  Effect size: 0.098 (Small effect)
+  Statistically significant: Yes
+  Hypothesis supported: No
+
+CONDITION BREAKDOWN:
+  UEQ: 36/456 (7.9%)
+    Keyword coverage: 19.4%
+    Top matched keywords: appealing, visually appealing, boring, eye catching, attractiveness
+  UEEQ: 69/456 (15.1%)
+    Keyword coverage: 22.6%
+    Top matched keywords: appealing, boring, visually appealing, impressive, attractiveness
+  RAW: 41/401 (10.2%)
+    Keyword coverage: 61.3%
+    Top matched keywords: visual hierarchy, visual elements, nothing special here, aesthetically pleasing, simple enough
+
+EXAMPLES FROM UEEQ (highest prevalence):
+1. [P9, Yes] Keywords: looks good
+   looks good enough , no other improvements imo...
+
+2. [P8, No] Keywords: boring
+   I would not release this design because it's boring and difficult to read....
+
+3. [P7, No] Keywords: attractiveness
+   Despite decent clarity and efficiency scores, the interface suffers from poor attractiveness, stimulation and trust metrics, which could harm user engagment and retention....
+
+================================================================================
+
+EMOTIONAL REACTION
+------------------
+Hypothesis: More intense in UEEQ condition - metrics amplify emotional responses
+Expected condition: UEEQ
+Keywords analyzed: 35
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 12.419
+  P-value: p = 0.002
+  Effect size: 0.097 (Small effect)
+  Statistically significant: Yes
+  Hypothesis supported: Yes
+
+CONDITION BREAKDOWN:
+  UEQ: 25/456 (5.5%)
+    Keyword coverage: 17.1%
+    Top matched keywords: excellent, extremely, love, highly, strongly
+  UEEQ: 50/456 (11.0%)
+    Keyword coverage: 37.1%
+    Top matched keywords: highly unsuitable, extremely, impressive, love, perfect
+  RAW: 23/401 (5.7%)
+    Keyword coverage: 28.6%
+    Top matched keywords: absolutely, excellent, extremely, hate, wonderful
+
+EXAMPLES FROM UEEQ (highest prevalence):
+1. [P8, Yes] Keywords: great
+   These are great numbers and they provide  positive feedback...
+
+2. [P1, Yes] Keywords: highly
+   This interface scores highly on efficiency, clarity and overall UX quality, indicating a well performing design. Minor issues like addictiveness can be refined post-launch....
+
+3. [P11, Yes] Keywords: highly
+   This interface scores highly on efficiency, clarity and overall UX quality, indicating a well performing design. Minor issues like addictiveness can be refined post-launch....
+
+================================================================================
+
+DATA DRIVEN REASONING
+---------------------
+Hypothesis: More common in UEQ/UEEQ conditions - metric-based evaluation
+Expected condition: UEQ_UEEQ
+Keywords analyzed: 36
+
+STATISTICAL RESULTS:
+  Chi-square: χ² = 109.648
+  P-value: p = 0.000
+  Effect size: 0.289 (Medium effect)
+  Statistically significant: Yes
+  Hypothesis supported: Yes
+
+CONDITION BREAKDOWN:
+  UEQ: 127/456 (27.9%)
+    Keyword coverage: 38.9%
+    Top matched keywords: scores, data shows, composite score, metrics, results
+  UEEQ: 128/456 (28.1%)
+    Keyword coverage: 66.7%
+    Top matched keywords: scores, assessment shows, results, attractiveness score, scores reveal
+  RAW: 11/401 (2.7%)
+    Keyword coverage: 13.9%
+    Top matched keywords: metrics, numbers, feedback, evaluation data, data
+
+EXAMPLES FROM UEEQ (highest prevalence):
+1. [P1, Yes] Keywords: numbers, numbers indicate
+   "High numbers indicate change "...
+
+2. [P3, Yes] Keywords: feedback
+   The design was made for research and desicion making purposes so people will need to know or see the feedback...
+
+3. [P4, Yes] Keywords: results
+   I think i would still release because they are but of what we are looking for even if we are not happy by the results...
+
+================================================================================
+
