@@ -12,7 +12,8 @@ PATTERN PREVALENCE BY CONDITION:
 Pattern                   UEQ %    UEEQ %    RAW %    χ² p-val   Effect  
 --------------------------------------------------------------------
 responsibility_avoidance  1.1      0.9       5.5      0.000      0.137   
-manipulation_awareness    0.0      16.7      3.5      0.000      0.289   
+manipulation_awareness    0.0      17.1      4.2      0.000      0.286   
+ethics_focused_reasoning  3.5      11.6      7.0      0.000      0.130   
 industry_conformity       0.0      0.0       2.7      0.000      0.139   
 aesthetic_focus           5.7      11.6      4.7      0.000      0.116   
 emotional_reaction        0.7      3.5       1.7      0.008      0.086   
@@ -40,18 +41,36 @@ Most prevalent in RAW - Examples:
 MANIPULATION AWARENESS
 ----------------------
 Hypothesis: More common in UEEQ condition
-Chi-square: χ² = 109.424, p = 0.000
-Effect size (Cramér's V): 0.289
+Chi-square: χ² = 107.113, p = 0.000
+Effect size (Cramér's V): 0.286
 Statistically significant: Yes
 
 UEQ: 0/456 (0.0%)
-UEEQ: 76/456 (16.7%)
-RAW: 14/401 (3.5%)
+UEEQ: 78/456 (17.1%)
+RAW: 17/401 (4.2%)
 
 Most prevalent in UEEQ - Examples:
 1. [P5, No] Its pressuring and that is not a good sign...
 2. [P15, No] Its pressuring and that is not a good sign...
 3. [P7, No] "Because it is not deceptive "...
+
+====================================================================
+
+ETHICS FOCUSED REASONING
+------------------------
+Hypothesis: More common in UEEQ condition due to ethical framework
+Chi-square: χ² = 22.078, p = 0.000
+Effect size (Cramér's V): 0.130
+Statistically significant: Yes
+
+UEQ: 16/456 (3.5%)
+UEEQ: 53/456 (11.6%)
+RAW: 28/401 (7.0%)
+
+Most prevalent in UEEQ - Examples:
+1. [P4, No] Because the interface scores poorly on trust, clarity, and friendliness, and the message is likely to frustrate or alarm users....
+2. [P14, No] Because the interface scores poorly on trust, clarity, and friendliness, and the message is likely to frustrate or alarm users....
+3. [P7, No] Despite decent clarity and efficiency scores, the interface suffers from poor attractiveness, stimulation and trust metrics, which could harm user eng...
 
 ====================================================================
 

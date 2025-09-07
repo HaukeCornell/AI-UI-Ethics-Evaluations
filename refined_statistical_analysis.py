@@ -51,9 +51,18 @@ class RefinedPatternAnalyzer:
                 'keywords': [
                     'manipulative', 'manipulation', 'coercion', 'deception', 'deceptive',
                     'pressuring', 'guilt trip', 'guilt tripping', 'unacceptable copy',
-                    'hate the language', 'disrespectful', 'hateful'
+                    'hate the language', 'disrespectful', 'hateful', 'coercive'
                 ],
                 'hypothesis': 'More common in UEEQ condition'
+            },
+            'ethics_focused_reasoning': {
+                'keywords': [
+                    'ethical', 'ethics', 'unethical', 'moral', 'immoral', 'wrong', 'right',
+                    'autonomy', 'consent', 'privacy', 'trust', 'transparent', 'transparency',
+                    'honest', 'dishonest', 'fair', 'unfair', 'ethical concerns', 'ethical risks',
+                    'ethical violation', 'principles of ethical', 'ethical UX', 'ethical design'
+                ],
+                'hypothesis': 'More common in UEEQ condition due to ethical framework'
             },
             'industry_conformity': {
                 'keywords': [
