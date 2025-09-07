@@ -79,7 +79,7 @@ cat("UI vs UEQ-A:", ui_ueqa_p, "\n")
 cat("UEQ vs UEQ-A:", ueq_ueqa_p, "\n")
 
 # 3. Descriptive statistics per condition (all evaluations)
-cat("\n=== DESCRIPTIVE STATISTICS (ALL EVALUATIONS) ===\n")
+cat("\n=== DESCRIPTIVE STATISTICS (ALL EVALUATIONS: 0-7 SCALE) ===\n")
 
 desc_stats <- interface_data %>%
   group_by(condition_new) %>%
@@ -97,7 +97,7 @@ desc_stats <- interface_data %>%
 
 print(desc_stats)
 
-# Calculate means and medians for text annotations
+# Calculate means and medians for text annotations - REVERTED: Use ALL data (0-7 scale)
 stats_for_plot <- interface_data %>%
   group_by(condition_new) %>%
   summarise(
@@ -165,11 +165,11 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
   
   # VISIBLE MEAN/MEDIAN TEXT ANNOTATIONS (LARGER TEXT)
   geom_text(data = stats_for_plot, 
-            aes(x = as.numeric(condition_new), y = 1.4, 
+            aes(x = as.numeric(condition_new), y = 0.4, 
                 label = paste0("Mean: ", sprintf("%.2f", mean_val))), 
             color = "black", fontface = "bold", size = 5.5, hjust = 0.5, inherit.aes = FALSE) +
   geom_text(data = stats_for_plot, 
-            aes(x = as.numeric(condition_new), y = 1.2, 
+            aes(x = as.numeric(condition_new), y = 0.2, 
                 label = paste0("Median: ", sprintf("%.0f", median_val))), 
             color = "red", fontface = "bold", size = 5.5, hjust = 0.5, inherit.aes = FALSE) +
   
@@ -181,7 +181,7 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
                      sprintf("%.2f", chi_stat), ", p ", 
                      if(p_val < 0.001) "< 0.001" else paste0("= ", sprintf("%.3f", p_val))),
     x = "Evaluation Condition",
-    y = "Release Tendency (1-7 scale)",
+    y = "Release Tendency (0-7 scale)",
     caption = "♦ = Mean (black diamond) • ▬ = Median (red line) • Boxes show quartiles • Points = Individual evaluations\nMixed effects model accounts for participant and interface random effects • Post-hoc: Tukey HSD"
   ) +
   theme_minimal() +
@@ -196,7 +196,7 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank()
   ) +
-  scale_y_continuous(limits = c(1, 7.5), breaks = 1:7)
+  scale_y_continuous(limits = c(0, 7.5), breaks = 0:7)
 
 # 5. Effect sizes for pairwise comparisons (using original scale)
 cat("\n=== EFFECT SIZES (COHEN'S D) ===\n")
@@ -250,7 +250,7 @@ p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill 
   
   # Essential mean values as text
   geom_text(data = stats_for_plot, 
-            aes(x = as.numeric(condition_new), y = 1.5, 
+            aes(x = as.numeric(condition_new), y = 0.5, 
                 label = sprintf("%.2f", mean_val)), 
             color = "black", fontface = "bold", size = 6, hjust = 0.5, inherit.aes = FALSE) +
   
@@ -258,7 +258,7 @@ p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill 
   labs(
     title = "Release Tendency: Mixed Effects Analysis",
     x = "Condition",
-    y = "Tendency (1-7)"
+    y = "Tendency (0-7)"
   ) +
   theme_minimal() +
   theme(
@@ -270,7 +270,7 @@ p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill 
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank()
   ) +
-  scale_y_continuous(limits = c(1, 7), breaks = 1:7)
+  scale_y_continuous(limits = c(0, 7), breaks = 0:7)
 
 ggsave("plots/per_evaluation_tendency_thumbnail.png", p_thumbnail, 
        width = 8, height = 6, dpi = 300)
