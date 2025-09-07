@@ -1,0 +1,223 @@
+RIGOROUS PATTERN ANALYSIS FOR CHI 2025
+==================================================
+
+METHODOLOGY
+-----------
+1. DATA-DRIVEN APPROACH:
+   - Started with LDA topic modeling (8 topics, 1313 explanations)
+   - Extracted discriminating keywords using chi-square tests
+   - Combined topic semantics with statistical discrimination
+   - Validated patterns through independent statistical testing
+
+2. STATISTICAL VALIDATION:
+   - Chi-square tests for condition independence
+   - Cramér's V for effect size calculation
+   - Bonferroni correction for multiple testing
+   - Binary pattern classification (present/absent)
+
+3. TRIANGULATION:
+   - Topic modeling (semantic clustering)
+   - Word frequency analysis (statistical discrimination)
+   - Manual pattern validation (interpretability)
+
+RESULTS SUMMARY
+---------------
+Total patterns analyzed: 8
+Statistically significant (p < 0.05): 5
+Bonferroni significant: 5
+
+DETAILED PATTERN ANALYSIS
+-------------------------
+
+INTERFACE DESIGN ELEMENTS
+-------------------------
+Description: Interface design and visual elements
+Keywords (7): option, layout, clean, button, people, visual, clear
+Overall prevalence: 246/1313 (18.7%)
+
+Statistical Test Results:
+  Chi-square: χ² = 47.395
+  P-value: p = 0.000
+  Effect size (Cramér's V): 0.190
+  Significant (α = 0.05): Yes
+  Bonferroni significant: Yes
+
+By Condition:
+  UEQ: 79/456 (17.3%)
+  UEEQ: 50/456 (11.0%)
+  RAW: 117/401 (29.2%)
+
+By Release Decision:
+  Yes: 150/714 (21.0%)
+  No: 96/599 (16.0%)
+
+============================================================
+
+RISK TRUST CONCERNS
+-------------------
+Description: Risk assessment and trust issues
+Keywords (7): issues, risk, issue, clarity, feel, confusing, trust
+Overall prevalence: 263/1313 (20.0%)
+
+Statistical Test Results:
+  Chi-square: χ² = 29.042
+  P-value: p = 0.000
+  Effect size (Cramér's V): 0.149
+  Significant (α = 0.05): Yes
+  Bonferroni significant: Yes
+
+By Condition:
+  UEQ: 60/456 (13.2%)
+  UEEQ: 125/456 (27.4%)
+  RAW: 78/401 (19.5%)
+
+By Release Decision:
+  Yes: 97/714 (13.6%)
+  No: 166/599 (27.7%)
+
+============================================================
+
+USABILITY USER EXPERIENCE
+-------------------------
+Description: Usability and user experience quality
+Keywords (7): efficient, information, simple, because, easy, clear, use
+Overall prevalence: 657/1313 (50.0%)
+
+Statistical Test Results:
+  Chi-square: χ² = 24.982
+  P-value: p = 0.000
+  Effect size (Cramér's V): 0.138
+  Significant (α = 0.05): Yes
+  Bonferroni significant: Yes
+
+By Condition:
+  UEQ: 193/456 (42.3%)
+  UEEQ: 268/456 (58.8%)
+  RAW: 196/401 (48.9%)
+
+By Release Decision:
+  Yes: 332/714 (46.5%)
+  No: 325/599 (54.3%)
+
+============================================================
+
+BUSINESS APPROVAL PROCESS
+-------------------------
+Description: Business approval and market considerations
+Keywords (8): team, already, business, approved, approve, competitive, market, marketing
+Overall prevalence: 155/1313 (11.8%)
+
+Statistical Test Results:
+  Chi-square: χ² = 21.489
+  P-value: p = 0.000
+  Effect size (Cramér's V): 0.128
+  Significant (α = 0.05): Yes
+  Bonferroni significant: Yes
+
+By Condition:
+  UEQ: 45/456 (9.9%)
+  UEEQ: 38/456 (8.3%)
+  RAW: 72/401 (18.0%)
+
+By Release Decision:
+  Yes: 114/714 (16.0%)
+  No: 41/599 (6.8%)
+
+============================================================
+
+QUALITY EVALUATION METRICS
+--------------------------
+Description: Quality assessment and evaluation metrics
+Keywords (8): score, quality, overall, attractiveness, experience, scores, all, efficiency
+Overall prevalence: 403/1313 (30.7%)
+
+Statistical Test Results:
+  Chi-square: χ² = 13.536
+  P-value: p = 0.001
+  Effect size (Cramér's V): 0.102
+  Significant (α = 0.05): Yes
+  Bonferroni significant: Yes
+
+By Condition:
+  UEQ: 161/456 (35.3%)
+  UEEQ: 146/456 (32.0%)
+  RAW: 96/401 (23.9%)
+
+By Release Decision:
+  Yes: 191/714 (26.8%)
+  No: 212/599 (35.4%)
+
+============================================================
+
+VISUAL DESIGN AESTHETICS
+------------------------
+Description: Visual design and aesthetic considerations
+Keywords (7): not, social, color, medium, notification, friendly, appealing
+Overall prevalence: 433/1313 (33.0%)
+
+Statistical Test Results:
+  Chi-square: χ² = 5.522
+  P-value: p = 0.063
+  Effect size (Cramér's V): 0.065
+  Significant (α = 0.05): No
+  Bonferroni significant: No
+
+By Condition:
+  UEQ: 133/456 (29.2%)
+  UEEQ: 153/456 (33.6%)
+  RAW: 147/401 (36.7%)
+
+By Release Decision:
+  Yes: 181/714 (25.4%)
+  No: 252/599 (42.1%)
+
+============================================================
+
+BUSINESS COMMERCIAL FOCUS
+-------------------------
+Description: Business and commercial considerations
+Keywords (11): negative, positive, needs, low, need, score, overall, improvement, scores, release...
+Overall prevalence: 580/1313 (44.2%)
+
+Statistical Test Results:
+  Chi-square: χ² = 5.007
+  P-value: p = 0.082
+  Effect size (Cramér's V): 0.062
+  Significant (α = 0.05): No
+  Bonferroni significant: No
+
+By Condition:
+  UEQ: 214/456 (46.9%)
+  UEEQ: 207/456 (45.4%)
+  RAW: 159/401 (39.7%)
+
+By Release Decision:
+  Yes: 270/714 (37.8%)
+  No: 310/599 (51.8%)
+
+============================================================
+
+ENGAGEMENT SATISFACTION
+-----------------------
+Description: User engagement and satisfaction measures
+Keywords (6): approval, engagement, business, evaluation, data, release
+Overall prevalence: 312/1313 (23.8%)
+
+Statistical Test Results:
+  Chi-square: χ² = 1.924
+  P-value: p = 0.382
+  Effect size (Cramér's V): 0.038
+  Significant (α = 0.05): No
+  Bonferroni significant: No
+
+By Condition:
+  UEQ: 106/456 (23.2%)
+  UEEQ: 118/456 (25.9%)
+  RAW: 88/401 (21.9%)
+
+By Release Decision:
+  Yes: 168/714 (23.5%)
+  No: 144/599 (24.0%)
+
+============================================================
+

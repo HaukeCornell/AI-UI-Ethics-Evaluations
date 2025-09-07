@@ -1,0 +1,439 @@
+{
+  "business_commercial_focus": {
+    "pattern_id": 0,
+    "description": "Business and commercial considerations",
+    "keywords": [
+      "negative",
+      "positive",
+      "needs",
+      "low",
+      "need",
+      "score",
+      "overall",
+      "improvement",
+      "scores",
+      "release",
+      "all"
+    ],
+    "keyword_count": 11,
+    "total_matches": 580,
+    "total_explanations": 1313,
+    "overall_percentage": 44.17364813404417,
+    "by_condition": {
+      "UEQ": {
+        "matches": 214,
+        "total": 456,
+        "percentage": 46.92982456140351
+      },
+      "UEEQ": {
+        "matches": 207,
+        "total": 456,
+        "percentage": 45.39473684210527
+      },
+      "RAW": {
+        "matches": 159,
+        "total": 401,
+        "percentage": 39.65087281795511
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 270,
+        "total": 714,
+        "percentage": 37.81512605042017
+      },
+      "No": {
+        "matches": 310,
+        "total": 599,
+        "percentage": 51.75292153589316
+      }
+    },
+    "statistical_test": {
+      "chi2": 5.006616302544898,
+      "p_value": 0.08181389769992642,
+      "cramers_v": 0.06175040232882859,
+      "significant_05": false,
+      "significant_01": false,
+      "bonferroni_significant": false
+    }
+  },
+  "usability_user_experience": {
+    "pattern_id": 1,
+    "description": "Usability and user experience quality",
+    "keywords": [
+      "efficient",
+      "information",
+      "simple",
+      "because",
+      "easy",
+      "clear",
+      "use"
+    ],
+    "keyword_count": 7,
+    "total_matches": 657,
+    "total_explanations": 1313,
+    "overall_percentage": 50.03808073115004,
+    "by_condition": {
+      "UEQ": {
+        "matches": 193,
+        "total": 456,
+        "percentage": 42.32456140350877
+      },
+      "UEEQ": {
+        "matches": 268,
+        "total": 456,
+        "percentage": 58.77192982456141
+      },
+      "RAW": {
+        "matches": 196,
+        "total": 401,
+        "percentage": 48.87780548628429
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 332,
+        "total": 714,
+        "percentage": 46.49859943977591
+      },
+      "No": {
+        "matches": 325,
+        "total": 599,
+        "percentage": 54.257095158597664
+      }
+    },
+    "statistical_test": {
+      "chi2": 24.98194964318241,
+      "p_value": 3.760439114571132e-06,
+      "cramers_v": 0.13793700793955327,
+      "significant_05": true,
+      "significant_01": true,
+      "bonferroni_significant": true
+    }
+  },
+  "risk_trust_concerns": {
+    "pattern_id": 2,
+    "description": "Risk assessment and trust issues",
+    "keywords": [
+      "issues",
+      "risk",
+      "issue",
+      "clarity",
+      "feel",
+      "confusing",
+      "trust"
+    ],
+    "keyword_count": 7,
+    "total_matches": 263,
+    "total_explanations": 1313,
+    "overall_percentage": 20.03046458492003,
+    "by_condition": {
+      "UEQ": {
+        "matches": 60,
+        "total": 456,
+        "percentage": 13.157894736842104
+      },
+      "UEEQ": {
+        "matches": 125,
+        "total": 456,
+        "percentage": 27.412280701754387
+      },
+      "RAW": {
+        "matches": 78,
+        "total": 401,
+        "percentage": 19.45137157107232
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 97,
+        "total": 714,
+        "percentage": 13.585434173669467
+      },
+      "No": {
+        "matches": 166,
+        "total": 599,
+        "percentage": 27.712854757929883
+      }
+    },
+    "statistical_test": {
+      "chi2": 29.04206159782241,
+      "p_value": 4.938515855973917e-07,
+      "cramers_v": 0.14872410293893323,
+      "significant_05": true,
+      "significant_01": true,
+      "bonferroni_significant": true
+    }
+  },
+  "visual_design_aesthetics": {
+    "pattern_id": 3,
+    "description": "Visual design and aesthetic considerations",
+    "keywords": [
+      "not",
+      "social",
+      "color",
+      "medium",
+      "notification",
+      "friendly",
+      "appealing"
+    ],
+    "keyword_count": 7,
+    "total_matches": 433,
+    "total_explanations": 1313,
+    "overall_percentage": 32.977913175932976,
+    "by_condition": {
+      "UEQ": {
+        "matches": 133,
+        "total": 456,
+        "percentage": 29.166666666666668
+      },
+      "UEEQ": {
+        "matches": 153,
+        "total": 456,
+        "percentage": 33.55263157894737
+      },
+      "RAW": {
+        "matches": 147,
+        "total": 401,
+        "percentage": 36.65835411471321
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 181,
+        "total": 714,
+        "percentage": 25.350140056022408
+      },
+      "No": {
+        "matches": 252,
+        "total": 599,
+        "percentage": 42.07011686143572
+      }
+    },
+    "statistical_test": {
+      "chi2": 5.52249869675187,
+      "p_value": 0.06321274426622078,
+      "cramers_v": 0.06485380299526677,
+      "significant_05": false,
+      "significant_01": false,
+      "bonferroni_significant": false
+    }
+  },
+  "quality_evaluation_metrics": {
+    "pattern_id": 4,
+    "description": "Quality assessment and evaluation metrics",
+    "keywords": [
+      "score",
+      "quality",
+      "overall",
+      "attractiveness",
+      "experience",
+      "scores",
+      "all",
+      "efficiency"
+    ],
+    "keyword_count": 8,
+    "total_matches": 403,
+    "total_explanations": 1313,
+    "overall_percentage": 30.693069306930692,
+    "by_condition": {
+      "UEQ": {
+        "matches": 161,
+        "total": 456,
+        "percentage": 35.30701754385965
+      },
+      "UEEQ": {
+        "matches": 146,
+        "total": 456,
+        "percentage": 32.01754385964912
+      },
+      "RAW": {
+        "matches": 96,
+        "total": 401,
+        "percentage": 23.940149625935163
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 191,
+        "total": 714,
+        "percentage": 26.750700280112046
+      },
+      "No": {
+        "matches": 212,
+        "total": 599,
+        "percentage": 35.39232053422371
+      }
+    },
+    "statistical_test": {
+      "chi2": 13.535770901491532,
+      "p_value": 0.001150124075433267,
+      "cramers_v": 0.10153344794777804,
+      "significant_05": true,
+      "significant_01": true,
+      "bonferroni_significant": true
+    }
+  },
+  "interface_design_elements": {
+    "pattern_id": 5,
+    "description": "Interface design and visual elements",
+    "keywords": [
+      "option",
+      "layout",
+      "clean",
+      "button",
+      "people",
+      "visual",
+      "clear"
+    ],
+    "keyword_count": 7,
+    "total_matches": 246,
+    "total_explanations": 1313,
+    "overall_percentage": 18.735719725818736,
+    "by_condition": {
+      "UEQ": {
+        "matches": 79,
+        "total": 456,
+        "percentage": 17.324561403508774
+      },
+      "UEEQ": {
+        "matches": 50,
+        "total": 456,
+        "percentage": 10.964912280701753
+      },
+      "RAW": {
+        "matches": 117,
+        "total": 401,
+        "percentage": 29.177057356608476
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 150,
+        "total": 714,
+        "percentage": 21.008403361344538
+      },
+      "No": {
+        "matches": 96,
+        "total": 599,
+        "percentage": 16.026711185308848
+      }
+    },
+    "statistical_test": {
+      "chi2": 47.39529720680316,
+      "p_value": 5.107895191875581e-11,
+      "cramers_v": 0.18999197723632552,
+      "significant_05": true,
+      "significant_01": true,
+      "bonferroni_significant": true
+    }
+  },
+  "business_approval_process": {
+    "pattern_id": 6,
+    "description": "Business approval and market considerations",
+    "keywords": [
+      "team",
+      "already",
+      "business",
+      "approved",
+      "approve",
+      "competitive",
+      "market",
+      "marketing"
+    ],
+    "keyword_count": 8,
+    "total_matches": 155,
+    "total_explanations": 1313,
+    "overall_percentage": 11.805026656511805,
+    "by_condition": {
+      "UEQ": {
+        "matches": 45,
+        "total": 456,
+        "percentage": 9.868421052631579
+      },
+      "UEEQ": {
+        "matches": 38,
+        "total": 456,
+        "percentage": 8.333333333333332
+      },
+      "RAW": {
+        "matches": 72,
+        "total": 401,
+        "percentage": 17.955112219451372
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 114,
+        "total": 714,
+        "percentage": 15.966386554621847
+      },
+      "No": {
+        "matches": 41,
+        "total": 599,
+        "percentage": 6.844741235392321
+      }
+    },
+    "statistical_test": {
+      "chi2": 21.489300197673526,
+      "p_value": 2.156044657877459e-05,
+      "cramers_v": 0.12793187745281204,
+      "significant_05": true,
+      "significant_01": true,
+      "bonferroni_significant": true
+    }
+  },
+  "engagement_satisfaction": {
+    "pattern_id": 7,
+    "description": "User engagement and satisfaction measures",
+    "keywords": [
+      "approval",
+      "engagement",
+      "business",
+      "evaluation",
+      "data",
+      "release"
+    ],
+    "keyword_count": 6,
+    "total_matches": 312,
+    "total_explanations": 1313,
+    "overall_percentage": 23.762376237623762,
+    "by_condition": {
+      "UEQ": {
+        "matches": 106,
+        "total": 456,
+        "percentage": 23.24561403508772
+      },
+      "UEEQ": {
+        "matches": 118,
+        "total": 456,
+        "percentage": 25.877192982456144
+      },
+      "RAW": {
+        "matches": 88,
+        "total": 401,
+        "percentage": 21.94513715710723
+      }
+    },
+    "by_release": {
+      "Yes": {
+        "matches": 168,
+        "total": 714,
+        "percentage": 23.52941176470588
+      },
+      "No": {
+        "matches": 144,
+        "total": 599,
+        "percentage": 24.040066777963272
+      }
+    },
+    "statistical_test": {
+      "chi2": 1.923978336417634,
+      "p_value": 0.3821320046303262,
+      "cramers_v": 0.03827962950907896,
+      "significant_05": false,
+      "significant_01": false,
+      "bonferroni_significant": false
+    }
+  }
+}

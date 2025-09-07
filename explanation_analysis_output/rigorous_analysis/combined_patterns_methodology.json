@@ -1,0 +1,226 @@
+{
+  "0": {
+    "name": "business_commercial_focus",
+    "description": "Business and commercial considerations",
+    "lda_words": [
+      "score",
+      "need",
+      "release",
+      "positive",
+      "negative",
+      "low",
+      "improvement",
+      "overall"
+    ],
+    "topics": [
+      0
+    ],
+    "discriminating_keywords": {
+      "UEQ": [
+        "needs",
+        "low",
+        "overall",
+        "positive",
+        "scores",
+        "score"
+      ],
+      "UEEQ": [
+        "negative",
+        "release"
+      ],
+      "RAW": [
+        "all",
+        "need"
+      ]
+    }
+  },
+  "1": {
+    "name": "usability_user_experience",
+    "description": "Usability and user experience quality",
+    "lda_words": [
+      "easy",
+      "use",
+      "information",
+      "clear",
+      "simple",
+      "efficient"
+    ],
+    "topics": [
+      1
+    ],
+    "discriminating_keywords": {
+      "UEQ": [
+        "efficient",
+        "easy"
+      ],
+      "UEEQ": [
+        "because"
+      ],
+      "RAW": [
+        "clear"
+      ]
+    }
+  },
+  "2": {
+    "name": "risk_trust_concerns",
+    "description": "Risk assessment and trust issues",
+    "lda_words": [
+      "feel",
+      "risk",
+      "trust",
+      "issue",
+      "confusing",
+      "clarity"
+    ],
+    "topics": [
+      2
+    ],
+    "discriminating_keywords": {
+      "UEQ": [],
+      "UEEQ": [
+        "issues",
+        "trust",
+        "clarity"
+      ],
+      "RAW": []
+    }
+  },
+  "3": {
+    "name": "visual_design_aesthetics",
+    "description": "Visual design and aesthetic considerations",
+    "lda_words": [
+      "notification",
+      "social",
+      "medium",
+      "friendly",
+      "appealing",
+      "color"
+    ],
+    "topics": [
+      3
+    ],
+    "discriminating_keywords": {
+      "UEQ": [
+        "friendly",
+        "not"
+      ],
+      "UEEQ": [],
+      "RAW": [
+        "notification",
+        "social"
+      ]
+    }
+  },
+  "4": {
+    "name": "quality_evaluation_metrics",
+    "description": "Quality assessment and evaluation metrics",
+    "lda_words": [
+      "score",
+      "overall",
+      "attractiveness",
+      "experience",
+      "quality",
+      "efficiency"
+    ],
+    "topics": [
+      4
+    ],
+    "discriminating_keywords": {
+      "UEQ": [
+        "quality",
+        "overall",
+        "scores",
+        "score"
+      ],
+      "UEEQ": [
+        "efficiency",
+        "attractiveness",
+        "experience"
+      ],
+      "RAW": [
+        "all"
+      ]
+    }
+  },
+  "5": {
+    "name": "interface_design_elements",
+    "description": "Interface design and visual elements",
+    "lda_words": [
+      "clear",
+      "button",
+      "people",
+      "option",
+      "clean",
+      "visual",
+      "layout"
+    ],
+    "topics": [
+      5
+    ],
+    "discriminating_keywords": {
+      "UEQ": [],
+      "UEEQ": [],
+      "RAW": [
+        "clear"
+      ]
+    }
+  },
+  "6": {
+    "name": "business_approval_process",
+    "description": "Business approval and market considerations",
+    "lda_words": [
+      "already",
+      "team",
+      "business",
+      "approved",
+      "competitive",
+      "market"
+    ],
+    "topics": [
+      6
+    ],
+    "discriminating_keywords": {
+      "UEQ": [
+        "approve"
+      ],
+      "UEEQ": [],
+      "RAW": [
+        "competitive",
+        "team",
+        "marketing",
+        "already",
+        "approved",
+        "market",
+        "business"
+      ]
+    }
+  },
+  "7": {
+    "name": "engagement_satisfaction",
+    "description": "User engagement and satisfaction measures",
+    "lda_words": [
+      "business",
+      "approval",
+      "release",
+      "engagement",
+      "evaluation",
+      "data"
+    ],
+    "topics": [
+      7
+    ],
+    "discriminating_keywords": {
+      "UEQ": [],
+      "UEEQ": [
+        "data",
+        "evaluation",
+        "release"
+      ],
+      "RAW": [
+        "approval",
+        "engagement",
+        "business"
+      ]
+    }
+  }
+}
