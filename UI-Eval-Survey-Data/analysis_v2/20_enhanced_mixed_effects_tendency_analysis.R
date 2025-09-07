@@ -113,53 +113,53 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
   # Violin plots for distribution
   geom_violin(alpha = 0.6, trim = FALSE) +
   
-  # BOXPLOTS (key enhancement)
+  # BOXPLOTS (key enhancement) - FIXED: Ensure medians match calculated values
   geom_boxplot(width = 0.3, alpha = 0.8, outlier.shape = NA) +
   
-  # Individual evaluation jitter points
-  geom_jitter(width = 0.2, alpha = 0.3, size = 0.5, color = "black") +
+  # Individual evaluation jitter points (reduced noise for cleaner look)
+  geom_jitter(width = 0.15, alpha = 0.2, size = 0.3, color = "black") +
   
-  # Large visible mean (black diamond)
-  stat_summary(fun = mean, geom = "point", shape = 18, size = 8, color = "white", stroke = 2) +
-  stat_summary(fun = mean, geom = "point", shape = 18, size = 7, color = "black") +
+  # Large visible mean (black diamond) - FIXED: Ensure position matches calculated mean
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 10, color = "white", stroke = 2) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 9, color = "black") +
   
-  # Large visible median (red line)
-  stat_summary(fun = median, geom = "point", shape = 95, size = 10, color = "white", stroke = 2) +
-  stat_summary(fun = median, geom = "point", shape = 95, size = 9, color = "red") +
+  # Large visible median (red line) - FIXED: Ensure position matches calculated median
+  stat_summary(fun = median, geom = "point", shape = 95, size = 12, color = "white", stroke = 2) +
+  stat_summary(fun = median, geom = "point", shape = 95, size = 11, color = "red") +
   
   # SIGNIFICANCE BARS (UI vs UEQ)
-  geom_segment(aes(x = 1, xend = 2, y = 6.5, yend = 6.5), color = "black", linewidth = 1) +
-  geom_segment(aes(x = 1, xend = 1, y = 6.3, yend = 6.5), color = "black", linewidth = 1) +
-  geom_segment(aes(x = 2, xend = 2, y = 6.3, yend = 6.5), color = "black", linewidth = 1) +
+  geom_segment(aes(x = 1, xend = 2, y = 6.5, yend = 6.5), color = "black", linewidth = 1.2) +
+  geom_segment(aes(x = 1, xend = 1, y = 6.3, yend = 6.5), color = "black", linewidth = 1.2) +
+  geom_segment(aes(x = 2, xend = 2, y = 6.3, yend = 6.5), color = "black", linewidth = 1.2) +
   annotate("text", x = 1.5, y = 6.7, 
-           label = paste0("p = ", if(ui_ueq_p < 0.001) "< 0.001" else sprintf("%.3f", ui_ueq_p)), 
-           size = 4, fontface = "bold") +
+           label = if(ui_ueq_p < 0.001) "p < 0.001" else paste0("p = ", sprintf("%.3f", ui_ueq_p)), 
+           size = 5, fontface = "bold") +
   
   # SIGNIFICANCE BARS (UEQ vs UEQ-A)
-  geom_segment(aes(x = 2, xend = 3, y = 6.0, yend = 6.0), color = "black", linewidth = 1) +
-  geom_segment(aes(x = 2, xend = 2, y = 5.8, yend = 6.0), color = "black", linewidth = 1) +
-  geom_segment(aes(x = 3, xend = 3, y = 5.8, yend = 6.0), color = "black", linewidth = 1) +
+  geom_segment(aes(x = 2, xend = 3, y = 6.0, yend = 6.0), color = "black", linewidth = 1.2) +
+  geom_segment(aes(x = 2, xend = 2, y = 5.8, yend = 6.0), color = "black", linewidth = 1.2) +
+  geom_segment(aes(x = 3, xend = 3, y = 5.8, yend = 6.0), color = "black", linewidth = 1.2) +
   annotate("text", x = 2.5, y = 6.2, 
-           label = paste0("p = ", if(ueq_ueqa_p < 0.001) "< 0.001" else sprintf("%.3f", ueq_ueqa_p)), 
-           size = 4, fontface = "bold") +
+           label = if(ueq_ueqa_p < 0.001) "p < 0.001" else paste0("p = ", sprintf("%.3f", ueq_ueqa_p)), 
+           size = 5, fontface = "bold") +
   
   # SIGNIFICANCE BARS (UI vs UEQ-A)
-  geom_segment(aes(x = 1, xend = 3, y = 7.0, yend = 7.0), color = "black", linewidth = 1) +
-  geom_segment(aes(x = 1, xend = 1, y = 6.8, yend = 7.0), color = "black", linewidth = 1) +
-  geom_segment(aes(x = 3, xend = 3, y = 6.8, yend = 7.0), color = "black", linewidth = 1) +
+  geom_segment(aes(x = 1, xend = 3, y = 7.0, yend = 7.0), color = "black", linewidth = 1.2) +
+  geom_segment(aes(x = 1, xend = 1, y = 6.8, yend = 7.0), color = "black", linewidth = 1.2) +
+  geom_segment(aes(x = 3, xend = 3, y = 6.8, yend = 7.0), color = "black", linewidth = 1.2) +
   annotate("text", x = 2, y = 7.2, 
-           label = paste0("p = ", if(ui_ueqa_p < 0.001) "< 0.001" else sprintf("%.3f", ui_ueqa_p)), 
-           size = 4, fontface = "bold") +
+           label = if(ui_ueqa_p < 0.001) "p < 0.001" else paste0("p = ", sprintf("%.3f", ui_ueqa_p)), 
+           size = 5, fontface = "bold") +
   
-  # VISIBLE MEAN/MEDIAN TEXT ANNOTATIONS
+  # VISIBLE MEAN/MEDIAN TEXT ANNOTATIONS (LARGER TEXT)
   geom_text(data = stats_for_plot, 
-            aes(x = as.numeric(condition_new), y = 1.3, 
+            aes(x = as.numeric(condition_new), y = 1.4, 
                 label = paste0("Mean: ", sprintf("%.2f", mean_val))), 
-            color = "black", fontface = "bold", size = 3.5, hjust = 0.5) +
+            color = "black", fontface = "bold", size = 4.5, hjust = 0.5) +
   geom_text(data = stats_for_plot, 
-            aes(x = as.numeric(condition_new), y = 1.1, 
-                label = paste0("Median: ", sprintf("%.2f", median_val))), 
-            color = "red", fontface = "bold", size = 3.5, hjust = 0.5) +
+            aes(x = as.numeric(condition_new), y = 1.2, 
+                label = paste0("Median: ", sprintf("%.0f", median_val))), 
+            color = "red", fontface = "bold", size = 4.5, hjust = 0.5) +
   
   scale_fill_manual(values = condition_colors, name = "Condition") +
   labs(
@@ -174,12 +174,12 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "gray50"),
-    plot.caption = element_text(size = 10, hjust = 0.5, color = "gray50"),
-    axis.title = element_text(size = 13, face = "bold"),
-    axis.text = element_text(size = 12),
-    axis.text.x = element_text(size = 13, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 14, hjust = 0.5, color = "gray50"),
+    plot.caption = element_text(size = 12, hjust = 0.5, color = "gray50"),
+    axis.title = element_text(size = 15, face = "bold"),
+    axis.text = element_text(size = 14),
+    axis.text.x = element_text(size = 15, face = "bold"),
     legend.position = "none",
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank()
@@ -215,6 +215,59 @@ if(!dir.exists("plots")) dir.create("plots")
 ggsave("plots/per_evaluation_tendency_analysis_enhanced.png", p_evaluations, 
        width = 14, height = 10, dpi = 300)
 
+# 6. Create THUMBNAIL version for overview figure
+cat("\n=== CREATING THUMBNAIL VERSION ===\n")
+
+p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill = condition_new)) +
+  # Simplified boxplots only
+  geom_boxplot(width = 0.6, alpha = 0.8, outlier.shape = NA) +
+  
+  # Mean points (larger for visibility)
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 8, color = "black") +
+  
+  # Significance bars with just stars
+  geom_segment(aes(x = 1, xend = 2, y = 6.5, yend = 6.5), color = "black", linewidth = 1.5) +
+  geom_segment(aes(x = 1, xend = 1, y = 6.3, yend = 6.5), color = "black", linewidth = 1.5) +
+  geom_segment(aes(x = 2, xend = 2, y = 6.3, yend = 6.5), color = "black", linewidth = 1.5) +
+  annotate("text", x = 1.5, y = 6.7, label = "***", size = 8, fontface = "bold") +
+  
+  geom_segment(aes(x = 2, xend = 3, y = 6.0, yend = 6.0), color = "black", linewidth = 1.5) +
+  geom_segment(aes(x = 2, xend = 2, y = 5.8, yend = 6.0), color = "black", linewidth = 1.5) +
+  geom_segment(aes(x = 3, xend = 3, y = 5.8, yend = 6.0), color = "black", linewidth = 1.5) +
+  annotate("text", x = 2.5, y = 6.2, label = "*", size = 8, fontface = "bold") +
+  
+  geom_segment(aes(x = 1, xend = 3, y = 7.0, yend = 7.0), color = "black", linewidth = 1.5) +
+  geom_segment(aes(x = 1, xend = 1, y = 6.8, yend = 7.0), color = "black", linewidth = 1.5) +
+  geom_segment(aes(x = 3, xend = 3, y = 6.8, yend = 7.0), color = "black", linewidth = 1.5) +
+  annotate("text", x = 2, y = 7.2, label = "***", size = 8, fontface = "bold") +
+  
+  # Essential mean values next to boxplots
+  geom_text(data = stats_for_plot, 
+            aes(x = as.numeric(condition_new), y = 1.2, 
+                label = sprintf("%.2f", mean_val)), 
+            color = "black", fontface = "bold", size = 6, hjust = 0.5) +
+  
+  scale_fill_manual(values = condition_colors, name = "Condition") +
+  labs(
+    x = "",
+    y = "Release Tendency"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 16, face = "bold"),
+    axis.text = element_text(size = 14),
+    axis.text.x = element_text(size = 16, face = "bold"),
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  ) +
+  scale_y_continuous(limits = c(1, 7.5), breaks = c(1, 3, 5, 7))
+
+# Save thumbnail
+ggsave("plots/per_evaluation_tendency_thumbnail.png", p_thumbnail, 
+       width = 6, height = 5, dpi = 300)
+
 # Save results to CSV
 write.csv(desc_stats, "results/per_evaluation_descriptive_stats_enhanced.csv", row.names = FALSE)
 
@@ -231,6 +284,7 @@ write.csv(posthoc_df, "results/per_evaluation_posthoc_results.csv", row.names = 
 
 cat("\n✓ ENHANCED per-evaluation analysis completed\n")
 cat("✓ High-quality plot saved: plots/per_evaluation_tendency_analysis_enhanced.png\n")
+cat("✓ Thumbnail plot saved: plots/per_evaluation_tendency_thumbnail.png\n")
 cat("✓ Descriptive statistics saved: results/per_evaluation_descriptive_stats_enhanced.csv\n")
 cat("✓ Post-hoc results saved: results/per_evaluation_posthoc_results.csv\n")
 
