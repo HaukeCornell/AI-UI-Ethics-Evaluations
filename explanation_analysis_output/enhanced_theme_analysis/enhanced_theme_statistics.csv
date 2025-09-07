@@ -1,0 +1,8 @@
+theme,chi2_stat,p_value,p_bonferroni,is_significant,cramers_v,total_count,ueg_count,ueeq_count,raw_count,hypothesis
+manipulation_awareness,135.7419410337485,3.342042920826046e-30,0.0071428571428571435,True,0.3215323424568825,127,2,102,23,"Manipulation awareness present across conditions, highest in UEEQ"
+responsibility_avoidance,42.55973675180026,5.731530247884215e-10,0.0071428571428571435,True,0.1800392120101452,54,6,10,38,Most common in RAW condition - promotes responsibility diffusion
+ethics_focused_reasoning,23.824115529116277,6.709019354321418e-06,0.0071428571428571435,True,0.13470261603634312,100,16,55,29,Most common in UEEQ condition - ethical framework promotes moral reasoning
+aesthetic_focused_reasoning,26.43453983032988,1.8189158609420478e-06,0.0071428571428571435,True,0.1418905637703766,243,51,95,97,Present across conditions but may vary in emphasis
+business_focused_reasoning,9.073971996291066,0.010705624749129653,0.0071428571428571435,False,0.08313164115470528,190,53,62,75,Most common in RAW condition - business context emphasizes commercial reasoning
+emotional_intensity,12.554674843564063,0.0018783953163064766,0.0071428571428571435,True,0.09778457929488775,189,56,87,46,Higher emotional intensity in UEEQ condition due to ethical framework
+conformity_justification,15.911268505185873,0.0003506807640101481,0.0071428571428571435,True,0.1100829449280906,12,1,1,10,Present across conditions but may be emphasized differently

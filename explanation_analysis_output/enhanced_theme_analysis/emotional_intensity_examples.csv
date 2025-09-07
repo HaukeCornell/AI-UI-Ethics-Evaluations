@@ -1,0 +1,190 @@
+condition,explanation,keywords_found,pattern,release_decision
+UEQ,the prediction scores highly and it seems reasonable to expect good user experience,highly,2,Yes
+UEQ,it's cluttered and not very user friendly. It's not direct and takes thinking time,very,3,No
+UEQ,the prediction scores highly and it seems reasonable to expect good user experience,highly,12,Yes
+UEQ,it's cluttered and not very user friendly. It's not direct and takes thinking time,very,13,No
+UEQ,"""I love the quality of the design """,love,8,Yes
+UEQ,Everyone will come for it,very,5,Yes
+UEQ,Everyone will come for it,very,15,Yes
+UEQ,very low score,very,6,No
+UEQ,very low score,very,9,No
+UEQ,"""excellent """,excellent,2,Yes
+UEQ,"""excellent """,excellent,12,Yes
+UEQ,The UX design is very good,very,1,Yes
+UEQ,The UX assessment score is very low.,very,10,No
+UEQ,The UX design is very good,very,11,Yes
+UEQ,"The interface has positive scores across most metrics, indicating that users find it efficient. The composite score (0.85) is strongly positive, suggesting that the interface's overall user experience is excellent. So, I would release the interface design.",excellent,1,Yes
+UEQ,"The interface has positive scores across most metrics, indicating that users find it efficient. The composite score (0.85) is strongly positive, suggesting that the interface's overall user experience is excellent. So, I would release the interface design.",excellent,11,Yes
+UEQ,"The feedback is already positive because everyone approved, this interface is efficient and consistent enough and will accommodate users needs hence why I approve.",very,1,Yes
+UEQ,"The feedback is already positive because everyone approved, this interface is efficient and consistent enough and will accommodate users needs hence why I approve.",very,11,Yes
+UEQ,"""I would release it because the business approval and evaluation data are highly positive and this indicates the strong user acceptance. """,highly,3,Yes
+UEQ,Yes i would because the notification design is  very clear and familiar to users.,very,5,Yes
+UEQ,It definitely shows and gives you options on what you prefer so ..it's good for users.,definitely,6,Yes
+UEQ,Yes I would. It's familiar to the user and very easy.,very,9,Yes
+UEQ,"""I would release it because the business approval and evaluation data are highly positive and this indicates the strong user acceptance. """,highly,13,Yes
+UEQ,Yes i would because the notification design is  very clear and familiar to users.,very,15,Yes
+UEQ,"Everyone seems to like it so, yes",very,2,Yes
+UEQ,"Everyone seems to like it so, yes",very,12,Yes
+UEQ,"""The interface strength is highly score and that means the users find it very easy  to use and efficient ""","very, highly",1,Yes
+UEQ,"""It has so many  strongly negatively in several categories and this suggests that the users found  the interface to be highly inefficient  and obstructive """,highly,9,No
+UEQ,"""The interface strength is highly score and that means the users find it very easy  to use and efficient ""","very, highly",11,Yes
+UEQ,"""Metrics, also we can't really design the UX of a notification when its already standardised by the OS. Only really the content. """,really,5,Yes
+UEQ,"""Metrics, also we can't really design the UX of a notification when its already standardised by the OS. Only really the content. """,really,15,Yes
+UEQ,"""Very positive with my decision,the more likes on face book the more increase """,very,1,Yes
+UEQ,"""Very positive with my decision,the more likes on face book the more increase """,very,11,Yes
+UEQ,"""It is highly rated meaning it is convenient, easy to use and efficient for users.  """,highly,1,Yes
+UEQ,"""It is highly rated meaning it is convenient, easy to use and efficient for users.  """,highly,11,Yes
+UEQ,"""Very Accurate """,very,6,Yes
+UEQ,"""It is very Accurate """,very,7,Yes
+UEQ,The UX composite score is very low,very,3,No
+UEQ,The UX composite score is very low,very,13,No
+UEQ,I would not release this design as it is too bland and doesn't really provide much information in the notification showing on screen.,really,5,No
+UEQ,I would not release this design as it is too bland and doesn't really provide much information in the notification showing on screen.,really,15,No
+UEQ,"According to the statistics, this interface is well-structured, easy to use, and clear. It also has excellent efficiency ratings (0.41 and 0.72) and extremely high perspicuity values (1.72 and 1.16).  Additionally, users judged it to be quite predictable (0.61), indicating a solid basis for usability.  With visual improvements and engagement features, these problems can be resolved over time, even when the attractiveness and stimulation scores are on the lower end of the spectrum.","excellent, extremely",5,Yes
+UEQ,"According to the statistics, this interface is well-structured, easy to use, and clear. It also has excellent efficiency ratings (0.41 and 0.72) and extremely high perspicuity values (1.72 and 1.16).  Additionally, users judged it to be quite predictable (0.61), indicating a solid basis for usability.  With visual improvements and engagement features, these problems can be resolved over time, even when the attractiveness and stimulation scores are on the lower end of the spectrum.","excellent, extremely",15,Yes
+UEQ,"""It is very clear and appealing """,very,1,Yes
+UEQ,"""It is very clear understanding and more creative """,very,3,Yes
+UEQ,"""Very clear and explains more  details """,very,10,Yes
+UEQ,"""It is very clear and appealing """,very,11,Yes
+UEQ,"""It is very clear understanding and more creative """,very,13,Yes
+UEQ,It is because every goal is meet,very,7,Yes
+UEQ,"Because Interface 11 had an excellent overall UX score of 0.85 and scored highly in clarity and supportiveness, I approved it. Users reported that it was emotionally upbeat, well-structured, and simple to use. A small amount of unpredictability is fine and can be improved after launch.","excellent, highly",1,Yes
+UEQ,"Because Interface 11 had an excellent overall UX score of 0.85 and scored highly in clarity and supportiveness, I approved it. Users reported that it was emotionally upbeat, well-structured, and simple to use. A small amount of unpredictability is fine and can be improved after launch.","excellent, highly",11,Yes
+UEQ,"""It demonstrates excellent user experience quality across nearly all metrics. """,excellent,1,Yes
+UEQ,"""It demonstrates excellent user experience quality across nearly all metrics. """,excellent,11,Yes
+UEQ,"I would not release this design because the user feedback is consistently negative. Users found the interface confusing, unpredictable, and unfriendly, and they rated it very low in enjoyment and support. Releasing it in this state could harm user engagement, so it would be better to make improvements before launch.",very,4,No
+UEQ,"I would not release this design because it is confusing, obstructive, and unfriendly, and overall feedback is very negative.",very,9,No
+UEQ,"I would not release this design because the user feedback is consistently negative. Users found the interface confusing, unpredictable, and unfriendly, and they rated it very low in enjoyment and support. Releasing it in this state could harm user engagement, so it would be better to make improvements before launch.",very,14,No
+UEEQ,"""is not attractive and the ux is very risky """,very,7,No
+UEEQ,"""Dependable and Exciting """,exciting,9,Yes
+UEEQ,"This interface scores highly on efficiency, clarity and overall UX quality, indicating a well performing design. Minor issues like addictiveness can be refined post-launch.",highly,1,Yes
+UEEQ,"This interface scores highly on efficiency, clarity and overall UX quality, indicating a well performing design. Minor issues like addictiveness can be refined post-launch.",highly,11,Yes
+UEEQ,"""It's not something  which is really  interesting """,really,6,No
+UEEQ,even though there is progress in the growth however the graph is still on the negative red danger meaning releasing at this time we puting everything  at risk,very,10,No
+UEEQ,"This interface is more neutral in its evaluation given by the user's, it mentions it seems pressuring but not in a very strong way so it's worth trying it.",very,2,Yes
+UEEQ,"It's a very cluttered design for settings, it needs further improvement and more friendly design before release.",very,10,No
+UEEQ,"This interface is more neutral in its evaluation given by the user's, it mentions it seems pressuring but not in a very strong way so it's worth trying it.",very,12,Yes
+UEEQ,"The UX design is very good, the UX assessment score is good.",very,1,Yes
+UEEQ,"The UX risk assessment shows the failure of the design, all the matrix categories as compared to the score is very poor.",very,4,No
+UEEQ,"The UX design is very good, the UX assessment score is good.",very,11,Yes
+UEEQ,"The UX risk assessment shows the failure of the design, all the matrix categories as compared to the score is very poor.",very,14,No
+UEEQ,"This interface performs very well in the core usability metrics: high efficiency (0.97, 0.75), strong clarity and ease of use (1.66, 0.59), and supportive interaction (1.07). Emotional engagement scores are also positive overall, with friendliness (0.80) and enjoyability (0.34) being above average. The trust metrics are reassuring, with no major red flags for deception (0.07) and a strong transparency score (1.11).",very,1,Yes
+UEEQ,"While the design scores positively in core usability—efficiency (0.34), clarity (0.61), and ease of use (1.06)—there are significant negatives in areas that affect long-term user retention and trust. Notably, the coercion score is extremely poor (-1.83), suggesting users feel pressured, which can quickly erode goodwill and cause churn. Attractiveness (-0.73, -0.87) and stimulation (-0.23, -0.63) are also negative, indicating the interface risks being perceived as unappealing and unengaging.",extremely,7,No
+UEEQ,"This interface has severe negative ratings across key UX areas. Efficiency (-0.71, -0.71) and clarity (-0.23) are weak, while supportiveness is extremely low (-2.08), indicating a frustrating and obstructive experience. Engagement metrics are highly negative, with stimulation (-1.26, -1.79) and attractiveness (-1.97, -1.73) suggesting users find it both unappealing and uninteresting.","extremely, highly",9,No
+UEEQ,"This interface performs very well in the core usability metrics: high efficiency (0.97, 0.75), strong clarity and ease of use (1.66, 0.59), and supportive interaction (1.07). Emotional engagement scores are also positive overall, with friendliness (0.80) and enjoyability (0.34) being above average. The trust metrics are reassuring, with no major red flags for deception (0.07) and a strong transparency score (1.11).",very,11,Yes
+UEEQ,"The interface looks good however I am not really happy about the score, I believe the users are not really that excited about it",really,1,No
+UEEQ,"Based on the score given by users, I am highly impressed and believe the design interface seems easy to use",highly,2,Yes
+UEEQ,"The interface looks good however I am not really happy about the score, I believe the users are not really that excited about it",really,11,No
+UEEQ,"Based on the score given by users, I am highly impressed and believe the design interface seems easy to use",highly,12,Yes
+UEEQ,"It gives you the option to limit your image selection, but for most users this can be very annoying",very,6,Yes
+UEEQ,"The interface is difficult to read, lacks clarity and division, everything blends together",very,10,No
+UEEQ,The message is not very reader friendly.,very,3,No
+UEEQ,The wording in the message is not very clear and it can be confusing.,very,8,No
+UEEQ,The message is not very reader friendly.,very,13,No
+UEEQ,"""The design is perfect """,perfect,6,Yes
+UEEQ,Everything is good in the design,very,10,Yes
+UEEQ,the user evaluation data shows me alot of critical flaws that outweigh the positive overall score the design is perceived as unpredictable -028 and confusing 059 which are major usability issues and also it scored poorly on metrics for engagement with boring vs exciting merely at 017 and addictiveness at -100,exciting,1,No
+UEEQ,the user data is bad again the design is rated as extremely annoying -215 and unfriendly -215 tt is also highly coercive -193 and deceptive -197 this design is a bad pattern that would destroy the brand and lead to a failed product launch,"extremely, highly",3,No
+UEEQ,the user data is a awful the design is rated as extremely annoying -185 and deceptive -176 which are critical issues to me releasing this would immediately destroy user trust and lead to a failed product launch so no dont release it,"awful, extremely",4,No
+UEEQ,again like most the user data shows this design is extremely awful -183 unfriendly -0.87 and uninteresting -0.63 these are bad failures for a social media startup that needs to build trust and engagement,"awful, extremely",7,No
+UEEQ,the data is again just awful the design is rated as extremely pressuring -226 and unfriendly -173 it is also very obstructive -208 and annoying -197 this design is like a dark pattern that would drive users away and ruin the company,"awful, extremely, very",9,No
+UEEQ,the user evaluation data shows me alot of critical flaws that outweigh the positive overall score the design is perceived as unpredictable -028 and confusing 059 which are major usability issues and also it scored poorly on metrics for engagement with boring vs exciting merely at 017 and addictiveness at -100,exciting,11,No
+UEEQ,the user data is bad again the design is rated as extremely annoying -215 and unfriendly -215 tt is also highly coercive -193 and deceptive -197 this design is a bad pattern that would destroy the brand and lead to a failed product launch,"extremely, highly",13,No
+UEEQ,the user data is a awful the design is rated as extremely annoying -185 and deceptive -176 which are critical issues to me releasing this would immediately destroy user trust and lead to a failed product launch so no dont release it,"awful, extremely",14,No
+UEEQ,"""The design is very intrusive, there should never be a manipulation of the user emotionally by mentioning how they will lose friends by deleting the app. """,very,3,No
+UEEQ,"The user should be prompted with the least amount of things as possible, nobody wants their search or scrolling to be interrupted by a pop up, it's very intrusive this way. The user reviews also seem to reflect a dislike.",very,9,No
+UEEQ,"""The design is very intrusive, there should never be a manipulation of the user emotionally by mentioning how they will lose friends by deleting the app. """,very,13,No
+UEEQ,Very less positive matrics,very,9,No
+UEEQ,"Connections are very important in social media apps, so I think that a little pressure may be ok. This one seems to me not too pushy.",very,2,Yes
+UEEQ,"Many indicators are very negative, I think also that it is too traditional, classic",very,6,No
+UEEQ,"Connections are very important in social media apps, so I think that a little pressure may be ok. This one seems to me not too pushy.",very,12,Yes
+UEEQ,It's definitely annoying to see all these pictures duplicated.,definitely,6,No
+UEEQ,This design is not very visually appealing.,very,7,No
+UEEQ,"Users love the design, and it being addictive is good for daily active and return users.",love,1,Yes
+UEEQ,Very bad choice of words used. User's reactions are justified.,very,3,No
+UEEQ,"Users love the design, and it being addictive is good for daily active and return users.",love,11,Yes
+UEEQ,Very bad choice of words used. User's reactions are justified.,very,13,No
+UEEQ,Beautiful interface with minimalistic information but very important aspects displayed,very,1,Yes
+UEEQ,It is just a standard interface it does not stand out or provide any amazing additional information,amazing,3,No
+UEEQ,I feel that the layout of the interface has too much information going on it is gluttered and it will make it hard for people to want to go through each and every option,very,10,No
+UEEQ,Beautiful interface with minimalistic information but very important aspects displayed,very,11,Yes
+UEEQ,It is just a standard interface it does not stand out or provide any amazing additional information,amazing,13,No
+UEEQ,The context of the interface is not really necessary but can remain in the background for further usage,really,4,No
+UEEQ,The context of the interface is not really necessary but can remain in the background for further usage,really,14,No
+UEEQ,"""The interface is really welcoming and easy to navigate """,really,1,Yes
+UEEQ,"""The approach and the cool color is amazing """,amazing,4,Yes
+UEEQ,The visual appeal is very vibrant and fit.,very,6,Yes
+UEEQ,"""The interface is really welcoming and easy to navigate """,really,11,Yes
+UEEQ,"""The approach and the cool color is amazing """,amazing,14,Yes
+UEEQ,because  the designinterface fails every critical dimension of usability,very,4,No
+UEEQ,because  the designinterface fails every critical dimension of usability,very,14,No
+UEEQ,our score is very down,very,2,No
+UEEQ,our score is very down,very,12,No
+UEEQ,This is just terrible design. The wording is too demanding. It also doesn't fit correctly.,terrible,3,No
+UEEQ,This is just terrible design. The wording is too demanding. It also doesn't fit correctly.,terrible,13,No
+UEEQ,"Very negative scores in attractiveness, friendliness, coercion, and deception show users felt annoyed and pressured. The overall UX quality is negative, making this design harmful to release.",very,3,No
+UEEQ,"The design is rated as annoying and deceptive, with very poor scores in attractiveness, friendliness, dependability, and clarity. These issues make it untrustworthy and harmful to user experience.",very,4,No
+UEEQ,"Very negative scores in attractiveness, friendliness, coercion, and deception show users felt annoyed and pressured. The overall UX quality is negative, making this design harmful to release.",very,13,No
+UEEQ,"The design is rated as annoying and deceptive, with very poor scores in attractiveness, friendliness, dependability, and clarity. These issues make it untrustworthy and harmful to user experience.",very,14,No
+UEEQ,outstanding it is.,outstanding,10,Yes
+UEEQ,IMPRESSIVE,impressive,1,Yes
+UEEQ,IMPRESSIVE,impressive,11,Yes
+UEEQ,"I would not release this interface because it is highly addictive (-1.00) and covert (1.11), making users feel manipulated without understanding why they’re seeing certain content. While the visuals are attractive, the addictiveness score indicates it pushes users toward engagement in ways that undermine autonomy.",highly,1,No
+UEEQ,I would not release this interface because it is fundamentally deceptive: it tells users their geolocation is off while still using their location data. The deception score of -1.76 and attractiveness scores below -1.8 show users find it highly annoying and dishonest.,highly,4,No
+UEEQ,"I would not release this interface because the coercion score of -1.83 indicates it is highly pressuring and manipulative, exploiting user behavior through fear of loss.",highly,7,No
+UEEQ,"I would not release this interface because it is highly deceptive (-0.76) and lacks clear user control. The message states that the account will be deleted permanently after 30 days, but there is no option to confirm, cancel, or reverse the action. This creates a high risk of accidental permanent deletion, especially for users who may not fully understand the consequence.",highly,8,No
+UEEQ,"I would not release this interface because the coercion score of -2.26 indicates it is highly pressuring and manipulative, violating user autonomy and ethical design principles.",highly,9,No
+UEEQ,"I would not release this interface because it is highly addictive (-1.00) and covert (1.11), making users feel manipulated without understanding why they’re seeing certain content. While the visuals are attractive, the addictiveness score indicates it pushes users toward engagement in ways that undermine autonomy.",highly,11,No
+UEEQ,I would not release this interface because it is fundamentally deceptive: it tells users their geolocation is off while still using their location data. The deception score of -1.76 and attractiveness scores below -1.8 show users find it highly annoying and dishonest.,highly,14,No
+UEEQ,"It's user friendly, appealing, the colors are exciting .",exciting,5,Yes
+UEEQ,"It's user friendly, appealing, the colors are exciting .",exciting,15,Yes
+UEEQ,"Severe negative UX ratings (annoying -2.15, unfriendly -2.15, coercion -1.93, deception -1.97) show the design is manipulative and hostile, making it highly unsuitable for release despite business approval.","highly unsuitable, highly",3,No
+UEEQ,"The interface produced highly negative scores across clarity, dependability, and attractiveness, with strong user frustration (annoying -1.69, coercion -1.59, deception -1.53) and an overall UX KPI of -0.85, making release unsuitable",highly,6,No
+UEEQ,"The design was rated highly pressuring (-2.26) and strongly negative across stimulation and attractiveness metrics, with an overall UX KPI of -0.94, making it manipulative and harmful to user trust despite business approval.",highly,9,No
+UEEQ,"Severe negative UX ratings (annoying -2.15, unfriendly -2.15, coercion -1.93, deception -1.97) show the design is manipulative and hostile, making it highly unsuitable for release despite business approval.","highly unsuitable, highly",13,No
+RAW,"""I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple """"do you wish to remove profile"""" or something along those lines""","hate, I HATE",3,No
+RAW,"""I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple """"do you wish to remove profile"""" or something along those lines""","hate, I HATE",13,No
+RAW,"""Unacceptable copy which is just guilt tripping the user. """,unacceptable,3,No
+RAW,"""This follows a very similar process already in place by apple, therefore the likelihood of recognition and ease of use is high """,very,6,Yes
+RAW,"""Unacceptable copy which is just guilt tripping the user. """,unacceptable,13,No
+RAW,Amazing,amazing,8,Yes
+RAW,"""Its a comprehensive page to connect with other users, increasing the users reach, thats always a good idea.  I like the coloring, the orange pops so the user knows where to press.  Very descriptive and I like the notifications at the bottom suggesting things to follow based on their and others interests.  It'll make it so the user is more likely to follow that profile. """,very,2,Yes
+RAW,"""While the colors are nice and everything is organized well, I do not think that its a settings page that is easy enough to navigate.  The print is small and not aesthetically pleasing.  I think making the typeface bigger and more spacing between everything on the top part will help this problem.   Also the line work for the general settings could be better.  """,very,10,No
+RAW,"""Its a comprehensive page to connect with other users, increasing the users reach, thats always a good idea.  I like the coloring, the orange pops so the user knows where to press.  Very descriptive and I like the notifications at the bottom suggesting things to follow based on their and others interests.  It'll make it so the user is more likely to follow that profile. """,very,12,Yes
+RAW,""" As the business, marketing and supervisor teams are already ratified and the developers have started the integration, it is advisable to release the design so that the other departments align. The restraint at this stage may cost it resources and growth in a very competitive market. The release approval facilitates user interaction, monetization and the necessity of the company to capture future financing.""",very,6,Yes
+RAW,"With strong endorsements from business, marketing, and strategic leadership, and the development team already progressing with integration, releasing Interface 7 aligns perfectly with our need to stay competitive and keep users engaged. The evaluation data indicates positive user experience and potential revenue impact, making this a timely and strategic move. Unless unexpected usability issues arise, proceeding with the release supports our growth and funding goals.",perfect,7,Yes
+RAW,"this is an extremely perplexing message to show. how could geolocation be turned off, but the company 'still uses your location'? this is obviously possible through ip tracking and whatnot, but this messaging is bad",extremely,4,No
+RAW,"this has an obvious & glaring spelling error which could be quickly rectified. I'd be extremely surprised that this were approved by all other parties named, but that absolutely would need to be fixed. there are other elements that could be optimized, but they're less crucial","extremely, absolutely",7,No
+RAW,"there are obvious grammatical errors that come off as very unprofessional. such messaging should always be in correct English (assuming an English UI), and fixing this would not be time-consuming",very,8,No
+RAW,"this is an extremely perplexing message to show. how could geolocation be turned off, but the company 'still uses your location'? this is obviously possible through ip tracking and whatnot, but this messaging is bad",extremely,14,No
+RAW,"it is very manipulative, and it is like people are being forced to use their account even when they need some time away from socials.",very,3,No
+RAW,"""not everyone is comfortable with sharing everything on social media. """,very,6,Yes
+RAW,"it is very manipulative, and it is like people are being forced to use their account even when they need some time away from socials.",very,13,No
+RAW,Very intuitive UI for the average user. Great job!,very,6,Yes
+RAW,The interface looks excellent and is very user-friendly.,"excellent, very",7,Yes
+RAW,It is very bare bones and simplistic. Improvements could be made.,very,8,No
+RAW,"Interface 15 has been approved by all key teams and is already being built by developers, so it fits our goals and is in progress. It might not be perfect, but it’s good enough to release now, and any issues can be fixed later",perfect,5,Yes
+RAW,"Interface 15 has been approved by all key teams and is already being built by developers, so it fits our goals and is in progress. It might not be perfect, but it’s good enough to release now, and any issues can be fixed later",perfect,15,Yes
+RAW,"Clean discovery/notification page of the interface. Buttons are large and bold, navigation is easy and obvious",very,2,Yes
+RAW,"Clean discovery/notification page of the interface. Buttons are large and bold, navigation is easy and obvious",very,12,Yes
+RAW,"""All the buttons say 'Connect"""" although they have very different functions.""",very,2,No
+RAW,"""All the buttons say 'Connect"""" although they have very different functions.""",very,12,No
+RAW,it is not very balanced and not creative enough,very,3,No
+RAW,it is very okay but maybe needed the CLOSE button to be a little distinct in color,very,4,Yes
+RAW,"i really like its consistency, it uses a unified style in font and colour",really,9,Yes
+RAW,it is not very balanced and not creative enough,very,13,No
+RAW,it is very okay but maybe needed the CLOSE button to be a little distinct in color,very,14,Yes
+RAW,"""the message is clear but the tone and structure are heavy and not very user friendly... especially since deactivation and permanent deletion are sensitive actions.. i would make the interface eel more empathetic.Also there’s no hierarchy highlighting the 30 day recovery period as the main reassurance. It would work better if the design emphasised that users have time to change their mind with a softer tone and possibly a link to support resources. The layout could also break up the information into digestible parts instead of one block of text. """,very,8,No
+RAW,This is very user centred allowing users to see who else is using the app allowing easier access to the app and also shows other users that have the same interests which allows for more usage of the app.,very,2,Yes
+RAW,This is very user centred allowing users to see who else is using the app allowing easier access to the app and also shows other users that have the same interests which allows for more usage of the app.,very,12,Yes
+RAW,"I would release this as a beta phase, keeping in mind that the design is not that perfect. Firstly the corners of the post are a bit sharp and it would look more professional if the posts has rounded corners. Secondly, I would also intergrate AI in this posts to make the user understand what this post about. Enable and adjust the like and comment buttons to be somewhere easily accessible so that we can improve user experience.",perfect,9,Yes
+RAW,The fact that the picture gets refreshed is wonderful.,wonderful,1,Yes
+RAW,The fact that the picture gets refreshed is wonderful.,wonderful,11,Yes
+RAW,love it,love,7,Yes
+RAW,This is a great way to make the app feel exciting to the user,exciting,1,Yes
+RAW,This is a great way to make the app feel exciting to the user,exciting,11,Yes
+RAW,"""Its clean, image-focused layout and intuitive navigation support user engagement and easy exploration, which are key for discovery apps. The prominent orange """"+"""" button encourages interaction, such as uploading or adding content. As a first release or MVP, it effectively balances visual appeal with usability""",very,1,Yes
+RAW,"""Definitely would not release** without a significant redesign that focuses on a clear, compelling unique advantage and a more thoughtful user experience. The team should go back to the drawing board to define what specific problem """"Interface 12"""" solves that other platfom""",definitely,2,No
+RAW,"Definitely would not release the design prioritizes coercive engagement over positive user well-being and lacks professional polish, making it unsuitable for release.",definitely,7,No
+RAW,"""Its clean, image-focused layout and intuitive navigation support user engagement and easy exploration, which are key for discovery apps. The prominent orange """"+"""" button encourages interaction, such as uploading or adding content. As a first release or MVP, it effectively balances visual appeal with usability""",very,11,Yes
+RAW,"""Definitely would not release** without a significant redesign that focuses on a clear, compelling unique advantage and a more thoughtful user experience. The team should go back to the drawing board to define what specific problem """"Interface 12"""" solves that other platfom""",definitely,12,No
