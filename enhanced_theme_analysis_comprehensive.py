@@ -15,6 +15,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import re
 from pathlib import Path
 from scipy import stats
 import warnings
@@ -53,16 +54,18 @@ class EnhancedThemeAnalyzer:
                     'seems pushing', 'feels off', 'warning tone', 'user-hostile',
                     'emotionally coercive language', 'emotionally manipulative',
                     'heavy-handed', 'poor taste', 'backfire', 'forced',
+                    'too pushy', 'pushy',
                     
                     # Emotional manipulation recognition
                     'guilt trip', 'guilt tripping', 'exploiting user behavior',
                     'fear of loss', 'unacceptable copy', 'violating user autonomy',
                     'undermining autonomy', 'forced to use', 'pressuring users',
+                    'exploiting', 'exploit',
                     
                     # Strong negative responses to manipulation
                     'hate the language', 'disrespectful', 'hateful', 'awful', 'terrible',
                     'disgusting', 'I HATE', 'unacceptable', 'negative backlash',
-                    'highly unsuitable', 'severely negative'
+                    'highly unsuitable', 'severely negative', 'coercive engagement'
                 ],
                 'hypothesis': 'Manipulation awareness present across conditions, highest in UEEQ',
                 'expected_condition': 'UEEQ > UEQ > RAW'
@@ -101,14 +104,15 @@ class EnhancedThemeAnalyzer:
                     
                     # User welfare and autonomy
                     'autonomy', 'consent', 'privacy', 'trust', 'transparent', 'transparency',
-                    'honest', 'fair', 'unfair', 'user well-being', 'user safety',
+                    'honest', 'fair', 'unfair', 'well-being', 'user safety',
                     'respectful user experience', 'safe and respectful', 'user welfare',
                     
                     # Professional ethical stance
                     'user well-being and safety outweigh business', 'values I stand for',
                     'priority is to ensure', 'violating fundamental principles',
                     'protect users', 'user protection', 'harmful to user trust',
-                    'undermines trust', 'destroy user trust', 'user trust and safety'
+                    'undermines trust', 'destroy user trust', 'user trust and safety',
+                    'positive user well-being', 'unsuitable'
                 ],
                 'hypothesis': 'Most common in UEEQ condition - ethical framework promotes moral reasoning',
                 'expected_condition': 'UEEQ'
@@ -118,20 +122,22 @@ class EnhancedThemeAnalyzer:
                     # Visual aesthetics - positive
                     'beautiful', 'attractive', 'appealing', 'visually appealing', 'sleek',
                     'elegant', 'polished', 'aesthetic appeal', 'clean', 'modern',
-                    'nice clean', 'design is clean', 'visually', 'layout',
+                    'nice clean', 'design is clean', 'visually', 'color', 'colors',
                     
                     # Visual aesthetics - negative  
-                    'plain', 'flat', 'lazy', 'ugly', 'outdated', 'boring',
-                    'rough and lacks quality', 'scrambled mess', 'needs cleaning up',
-                    'lacks quality', 'could use polishing', 'a bit boring',
+                    'ugly', 'outdated', 'boring', 'rough and lacks quality', 
+                    'scrambled mess', 'needs cleaning up', 'lacks quality', 
+                    'could use polishing', 'a bit boring', 'cluttered',
                     
-                    # Design simplicity
+                    # Design simplicity and clarity
                     'simple', 'basic', 'simple enough', 'simple and basic',
                     'simple notification', 'simple language', 'familiar',
+                    'intuitive', 'clear', 'clarity', 'functional',
                     
                     # Visual hierarchy and organization
                     'visual hierarchy', 'spacing', 'alignment', 'sectional division',
-                    'laid out better', 'icon consistency', 'distracting visual elements'
+                    'laid out better', 'icon consistency', 'distracting visual elements',
+                    'organized', 'layout'
                 ],
                 'hypothesis': 'Present across conditions but may vary in emphasis',
                 'expected_condition': 'Similar across conditions'
@@ -142,20 +148,22 @@ class EnhancedThemeAnalyzer:
                     'business', 'commercial', 'company', 'strategic', 'strategy',
                     'business goals', 'business team', 'business risk', 'strategic perspective',
                     'strategic decision', 'strategic goals', 'strategic leadership',
+                    'business approval', 'business marketing',
                     
                     # Market and competition
                     'market', 'competitive', 'competition', 'competitive market',
                     'competitive environment', 'limited runway', 'momentum',
+                    'adoption', 'user acquisition', 'retention',
                     
-                    # Financial metrics
-                    'revenue', 'revenue potential', 'profit', 'engagement', 'retention',
-                    'metrics', 'funding', 'financing', 'monetization', 'growth',
-                    'user engagement', 'financial gains',
+                    # Financial and growth focus
+                    'revenue', 'revenue potential', 'profit', 'profits', 'financing', 
+                    'monetization', 'growth', 'user engagement', 'financial gains',
+                    'success', 'potential', 'future improvements',
                     
                     # Corporate structure
                     'corporate', 'industry', 'stakeholders', 'departments',
                     'marketing department', 'development team', 'organizational',
-                    'organization-wide alignment'
+                    'organization-wide alignment', 'approval', 'approved'
                 ],
                 'hypothesis': 'Most common in RAW condition - business context emphasizes commercial reasoning',
                 'expected_condition': 'RAW'
@@ -183,18 +191,20 @@ class EnhancedThemeAnalyzer:
                     # Industry standards
                     'industry standard', 'common practice', 'standard approach',
                     'widely accepted', 'conventional design', 'standard UX pattern',
-                    'typical for this type', 'normal for social media',
+                    'typical for this type', 'normal for social media', 'standard',
                     
                     # Platform conformity
                     'other social media', 'social media giants', 'follows similarly',
                     'similar to existing', 'already in place', 'platform-level',
-                    'OS-level UX conventions', 'regulatory norms',
+                    'OS-level UX conventions', 'regulatory norms', 'good apps',
+                    'similar to other', 'similar popups', 'like other',
                     
-                    # User expectations
+                    # User expectations and familiarity
                     'users expect', 'user expectations', 'users are familiar',
                     'aligns with expectations', 'recognition and ease of use',
-                    'likelihood of recognition', 'familiar pattern',
-                    'expected behavior', 'conventional'
+                    'likelihood of recognition', 'familiar pattern', 'familiar',
+                    'expected behavior', 'conventional', 'typical', 'usual',
+                    'commonly used', 'widely used', 'established pattern'
                 ],
                 'hypothesis': 'Present across conditions but may be emphasized differently',
                 'expected_condition': 'RAW > UEQ > UEEQ'
@@ -204,18 +214,20 @@ class EnhancedThemeAnalyzer:
                     # Specific UI components
                     'button', 'buttons', 'menu', 'dropdown', 'navigation', 'nav',
                     'icon', 'icons', 'tab', 'tabs', 'sidebar', 'header', 'footer',
+                    'notification', 'popup', 'dialog', 'element', 'elements',
                     
                     # Layout and structure
                     'layout', 'grid', 'spacing', 'alignment', 'hierarchy', 'structure',
-                    'organization', 'flow', 'sequence', 'arrangement',
+                    'organization', 'flow', 'sequence', 'arrangement', 'option', 'options',
                     
                     # Interactive elements
                     'click', 'tap', 'swipe', 'scroll', 'hover', 'touch',
-                    'interactive', 'interface element', 'component',
+                    'interactive', 'interface element', 'component', 'components',
                     
-                    # Visual organization
-                    'clear', 'organized', 'structured', 'logical', 'intuitive',
-                    'consistent', 'coherent', 'systematic'
+                    # Design quality and usability
+                    'usability', 'usable', 'user-friendly', 'easy to use', 'ease of use',
+                    'efficient', 'efficiency', 'intuitive', 'confusing', 'unclear',
+                    'organized', 'structured', 'logical', 'consistent', 'coherent', 'systematic'
                 ],
                 'hypothesis': 'Technical design focus present across conditions',
                 'expected_condition': 'Similar across conditions'
@@ -240,11 +252,20 @@ class EnhancedThemeAnalyzer:
                 for _, row in condition_df.iterrows():
                     explanation = str(row['explanation']).lower()
                     
-                    # Check if any keywords are present
+                    # Check if any keywords are present using word boundaries
                     found_keywords = []
                     for keyword in keywords:
-                        if keyword.lower() in explanation:
-                            found_keywords.append(keyword)
+                        # Use word boundaries for single words, exact match for phrases
+                        if ' ' in keyword:
+                            # Multi-word phrase - exact match
+                            if keyword.lower() in explanation:
+                                found_keywords.append(keyword)
+                        else:
+                            # Single word - use word boundaries
+                            import re
+                            pattern = r'\b' + re.escape(keyword.lower()) + r'\b'
+                            if re.search(pattern, explanation):
+                                found_keywords.append(keyword)
                     
                     if found_keywords:
                         condition_counts[condition] += 1

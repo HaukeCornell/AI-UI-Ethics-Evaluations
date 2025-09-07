@@ -1,9 +1,9 @@
 ,UEQ,UEEQ,RAW
-manipulation_awareness,2,102,23
+manipulation_awareness,2,94,25
 responsibility_avoidance,6,10,38
-ethics_focused_reasoning,16,55,29
-aesthetic_focused_reasoning,51,95,97
-business_focused_reasoning,53,62,75
-emotional_intensity,56,87,46
-conformity_justification,1,1,10
-interface_design_elements,86,68,132
+ethics_focused_reasoning,13,50,28
+aesthetic_focused_reasoning,91,96,136
+business_focused_reasoning,50,44,78
+emotional_intensity,49,81,39
+conformity_justification,5,10,16
+interface_design_elements,102,113,138

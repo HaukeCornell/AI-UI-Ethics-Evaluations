@@ -1,9 +1,9 @@
 theme,chi2_stat,p_value,p_bonferroni,is_significant,cramers_v,total_count,ueg_count,ueeq_count,raw_count,hypothesis
-manipulation_awareness,135.7419410337485,3.342042920826046e-30,0.00625,True,0.3215323424568825,127,2,102,23,"Manipulation awareness present across conditions, highest in UEEQ"
+manipulation_awareness,117.06246634660849,3.8037188942460675e-26,0.00625,True,0.298590834042359,121,2,94,25,"Manipulation awareness present across conditions, highest in UEEQ"
 responsibility_avoidance,42.55973675180026,5.731530247884215e-10,0.00625,True,0.1800392120101452,54,6,10,38,Most common in RAW condition - promotes responsibility diffusion
-ethics_focused_reasoning,23.824115529116277,6.709019354321418e-06,0.00625,True,0.13470261603634312,100,16,55,29,Most common in UEEQ condition - ethical framework promotes moral reasoning
-aesthetic_focused_reasoning,26.43453983032988,1.8189158609420478e-06,0.00625,True,0.1418905637703766,243,51,95,97,Present across conditions but may vary in emphasis
-business_focused_reasoning,9.073971996291066,0.010705624749129653,0.00625,False,0.08313164115470528,190,53,62,75,Most common in RAW condition - business context emphasizes commercial reasoning
-emotional_intensity,12.554674843564063,0.0018783953163064766,0.00625,True,0.09778457929488775,189,56,87,46,Higher emotional intensity in UEEQ condition due to ethical framework
-conformity_justification,15.911268505185873,0.0003506807640101481,0.00625,True,0.1100829449280906,12,1,1,10,Present across conditions but may be emphasized differently
-interface_design_elements,44.102544360335514,2.650050641386478e-10,0.00625,True,0.18327340968174105,286,86,68,132,Technical design focus present across conditions
+ethics_focused_reasoning,23.27396445330177,8.833297001813724e-06,0.00625,True,0.13313824267592897,91,13,50,28,Most common in UEEQ condition - ethical framework promotes moral reasoning
+aesthetic_focused_reasoning,27.15484515631764,1.2688208185232044e-06,0.00625,True,0.14381073380096815,323,91,96,136,Present across conditions but may vary in emphasis
+business_focused_reasoning,20.80629729719179,3.0336812508941203e-05,0.00625,True,0.12588240652308205,172,50,44,78,Most common in RAW condition - business context emphasizes commercial reasoning
+emotional_intensity,15.105781516412014,0.0005245914660473678,0.00625,True,0.107260356585059,169,49,81,39,Higher emotional intensity in UEEQ condition due to ethical framework
+conformity_justification,7.834907900219662,0.019891675524736568,0.00625,False,0.0772475269938882,31,5,10,16,Present across conditions but may be emphasized differently
+interface_design_elements,17.32321112475583,0.00017310615094154758,0.00625,True,0.11486344461987683,353,102,113,138,Technical design focus present across conditions
