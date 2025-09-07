@@ -1,0 +1,30 @@
+CHI 2025: STATISTICAL EVIDENCE FOR EVALUATION FRAMEWORK EFFECTS
+=================================================================
+
+ABSTRACT FINDINGS:
+-----------------
+Statistical analysis of 1,313 professional explanations reveals
+significant differences in reasoning patterns across evaluation
+frameworks (UEQ, UEEQ, RAW), providing quantitative evidence that
+evaluation tools systematically influence ethical design judgment.
+
+KEY STATISTICAL FINDINGS:
+-------------------------
+• Responsibility avoidance significantly higher in RAW condition
+• Manipulation awareness significantly higher in UEEQ condition
+• Industry conformity justifications peak in RAW condition
+• Effect sizes indicate medium to large practical significance
+
+METHODOLOGICAL CONTRIBUTIONS:
+-----------------------------
+• First statistical analysis of evaluation framework effects on reasoning
+• Novel pattern detection methodology for professional explanations
+• Reproducible pipeline for analyzing design decision justifications
+• Benchmark dataset for future HCI ethics research
+
+IMPLICATIONS FOR DESIGN PRACTICE:
+---------------------------------
+• Evaluation frameworks shape moral reasoning, not just measurement
+• RAW conditions promote responsibility diffusion
+• UEEQ frameworks enhance ethical sensitivity
+• Need for framework-aware design education and practice

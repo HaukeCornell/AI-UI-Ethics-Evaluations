@@ -1,0 +1,44 @@
+VADER SENTIMENT ANALYSIS REPORT
+===================================
+
+OVERALL SENTIMENT DISTRIBUTION
+------------------------------
+Positive: 713 (54.3%)
+Negative: 344 (26.2%)
+Neutral: 256 (19.5%)
+
+SENTIMENT BY CONDITION
+---------------------
+
+UEQ:
+  Positive: 236 (51.8%)
+  Negative: 112 (24.6%)
+  Neutral: 108 (23.7%)
+  Average compound score: 0.191
+
+UEEQ:
+  Positive: 225 (49.3%)
+  Negative: 168 (36.8%)
+  Neutral: 63 (13.8%)
+  Average compound score: 0.102
+
+RAW:
+  Positive: 252 (62.8%)
+  Neutral: 85 (21.2%)
+  Negative: 64 (16.0%)
+  Average compound score: 0.302
+
+SENTIMENT BY RELEASE DECISION
+-----------------------------
+
+Release = Yes:
+  Positive: 539 (75.5%)
+  Neutral: 137 (19.2%)
+  Negative: 38 (5.3%)
+  Average compound score: 0.441
+
+Release = No:
+  Negative: 306 (51.1%)
+  Positive: 174 (29.0%)
+  Neutral: 119 (19.9%)
+  Average compound score: -0.100

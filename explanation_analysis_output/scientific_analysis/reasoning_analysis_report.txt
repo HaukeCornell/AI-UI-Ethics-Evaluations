@@ -1,0 +1,242 @@
+ACCEPTANCE/REJECTION REASONING ANALYSIS
+==================================================
+
+OVERALL STATISTICS
+------------------
+Total explanations: 1313
+Overall acceptance rate: 54.4%
+
+REASONING CATEGORY ANALYSIS
+---------------------------
+
+USABILITY FOCUS
+---------------
+Description: Usability and ease of use
+Keywords: usability, usable, easy, difficult, hard...
+Total mentions: 291 (22.2% of explanations)
+Acceptance rate when mentioned: 64.6%
+Difference from overall: +10.2 percentage points
+
+By Condition:
+  UEQ: 97 mentions (21.3% of UEQ explanations)
+  UEEQ: 87 mentions (19.1% of UEEQ explanations)
+  RAW: 107 mentions (26.7% of RAW explanations)
+
+By Release Decision:
+  Accept: 188 mentions
+  Reject: 103 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P8] users find the design clear and easy to understand
+    [UEQ-P7] well explained and clear
+    [UEEQ-P6] "it is easy to use and you can depend on it "
+  Rejection examples:
+    [UEEQ-P8] would prefer simpler message
+    [UEEQ-P10] ui too simple and same color
+    [UEQ-P6] i would not release this interface design because the overall ux quality score (-0.85) is strongly negative, indicating substantial usability and enga...
+
+==================================================
+
+DATA DRIVEN
+-----------
+Description: Data-driven and metric-based reasoning
+Keywords: score, scores, data, metrics, numbers...
+Total mentions: 242 (18.4% of explanations)
+Acceptance rate when mentioned: 41.3%
+Difference from overall: -13.1 percentage points
+
+By Condition:
+  UEQ: 112 mentions (24.6% of UEQ explanations)
+  UEEQ: 121 mentions (26.5% of UEEQ explanations)
+  RAW: 9 mentions (2.2% of RAW explanations)
+
+By Release Decision:
+  Accept: 100 mentions
+  Reject: 142 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P2] the prediction scores highly and it seems reasonable to expect good user experience
+    [UEQ-P12] the prediction scores highly and it seems reasonable to expect good user experience
+    [UEEQ-P1] "high numbers indicate change "
+  Rejection examples:
+    [UEQ-P6] the ai prediction scores poorly, which leads me to think it would have a poor experience for users
+    [UEQ-P6] "too much negative scores which gives doubt for. room of improvement "
+    [UEEQ-P10] this evaluation shows bad numbers and this cant be released even for research purposes
+
+==================================================
+
+USER EXPERIENCE
+---------------
+Description: Overall user experience quality
+Keywords: experience, satisfaction, frustration, enjoyable, pleasant...
+Total mentions: 160 (12.2% of explanations)
+Acceptance rate when mentioned: 38.1%
+Difference from overall: -16.3 percentage points
+
+By Condition:
+  UEQ: 58 mentions (12.7% of UEQ explanations)
+  UEEQ: 72 mentions (15.8% of UEEQ explanations)
+  RAW: 30 mentions (7.5% of RAW explanations)
+
+By Release Decision:
+  Accept: 61 mentions
+  Reject: 99 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P2] the prediction scores highly and it seems reasonable to expect good user experience
+    [UEQ-P12] the prediction scores highly and it seems reasonable to expect good user experience
+    [UEQ-P5] i would release this interface design because the overall ux quality score (0.29) is positive, showing that the majority of users had a good experienc...
+  Rejection examples:
+    [UEQ-P4] "releasing the design given the evaluation details would likely result in poor feedback and lead to user frustration "
+    [UEQ-P6] the ai prediction scores poorly, which leads me to think it would have a poor experience for users
+    [UEQ-P9] the design is not well recevied by users and is overall unpleasant to interact with
+
+==================================================
+
+DESIGN QUALITY
+--------------
+Description: Visual design and aesthetic quality
+Keywords: attractive, aesthetics, beautiful, ugly, appealing...
+Total mentions: 130 (9.9% of explanations)
+Acceptance rate when mentioned: 46.2%
+Difference from overall: -8.2 percentage points
+
+By Condition:
+  UEQ: 31 mentions (6.8% of UEQ explanations)
+  UEEQ: 68 mentions (14.9% of UEEQ explanations)
+  RAW: 31 mentions (7.7% of RAW explanations)
+
+By Release Decision:
+  Accept: 60 mentions
+  Reject: 70 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P2] the overall ux score is slightly positive (0.23), with strong marks in clarity and ease of use. while stimulation and attractiveness are mildly negati...
+    [UEQ-P7] interface 12 demonstrates strong performance in efficiency and clarity, with high scores in organization and ease of use. while attractiveness and sti...
+    [UEQ-P12] the overall ux score is slightly positive (0.23), with strong marks in clarity and ease of use. while stimulation and attractiveness are mildly negati...
+  Rejection examples:
+    [UEEQ-P7] "is not attractive and the ux is very risky "
+    [UEEQ-P7] despite decent clarity and efficiency scores, the interface suffers from poor attractiveness, stimulation and trust metrics, which could harm user eng...
+    [UEQ-P3] the interface is confusing and not appealing
+
+==================================================
+
+RISK ASSESSMENT
+---------------
+Description: Risk assessment and safety concerns
+Keywords: risk, risky, dangerous, safe, caution...
+Total mentions: 113 (8.6% of explanations)
+Acceptance rate when mentioned: 46.0%
+Difference from overall: -8.4 percentage points
+
+By Condition:
+  UEQ: 31 mentions (6.8% of UEQ explanations)
+  UEEQ: 46 mentions (10.1% of UEEQ explanations)
+  RAW: 36 mentions (9.0% of RAW explanations)
+
+By Release Decision:
+  Accept: 52 mentions
+  Reject: 61 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P2] "it seems balanced although there are few areas o concern "
+    [UEQ-P12] "it seems balanced although there are few areas o concern "
+    [UEQ-P5] because many approve of the product so its safe to release it
+  Rejection examples:
+    [UEQ-P2] it is risky
+    [UEQ-P6] its not safe
+    [UEQ-P10] its not safe
+
+==================================================
+
+BUSINESS FOCUS
+--------------
+Description: Business and commercial considerations
+Keywords: business, commercial, profit, revenue, money...
+Total mentions: 111 (8.5% of explanations)
+Acceptance rate when mentioned: 74.8%
+Difference from overall: +20.4 percentage points
+
+By Condition:
+  UEQ: 26 mentions (5.7% of UEQ explanations)
+  UEEQ: 35 mentions (7.7% of UEEQ explanations)
+  RAW: 50 mentions (12.5% of RAW explanations)
+
+By Release Decision:
+  Accept: 83 mentions
+  Reject: 28 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P7] "design is in a competitive market "
+    [UEQ-P2] the overall ux score is slightly positive (0.23), with strong marks in clarity and ease of use. while stimulation and attractiveness are mildly negati...
+    [UEQ-P12] the overall ux score is slightly positive (0.23), with strong marks in clarity and ease of use. while stimulation and attractiveness are mildly negati...
+  Rejection examples:
+    [UEQ-P6] "lost value "
+    [UEQ-P7] "tend to lose value "
+    [UEEQ-P3] despite recieving business, marketing and supervisor approval, the user evaulation data reveals critical ux flaws that suggest this interface poses a ...
+
+==================================================
+
+ETHICS FOCUS
+------------
+Description: Ethical considerations and moral reasoning
+Keywords: ethical, unethical, manipulative, deceptive, misleading...
+Total mentions: 60 (4.6% of explanations)
+Acceptance rate when mentioned: 8.3%
+Difference from overall: -46.0 percentage points
+
+By Condition:
+  UEQ: 5 mentions (1.1% of UEQ explanations)
+  UEEQ: 43 mentions (9.4% of UEEQ explanations)
+  RAW: 12 mentions (3.0% of RAW explanations)
+
+By Release Decision:
+  Accept: 5 mentions
+  Reject: 55 mentions
+
+Examples:
+  Acceptance examples:
+    [UEQ-P5] fair score
+    [UEQ-P15] fair score
+    [UEEQ-P2] users seem to react well on the functionality and usability of the design. their only problems emerge on subjective topics, like it being attractive o...
+  Rejection examples:
+    [UEEQ-P7] "because it is not deceptive "
+    [UEEQ-P8] "i would launch because it is not deceptive "
+    [UEQ-P4] the ux assessment is a little bit fair but could be better.
+
+==================================================
+
+USER AUTONOMY
+-------------
+Description: User autonomy and control
+Keywords: autonomy, control, choice, freedom, forced...
+Total mentions: 55 (4.2% of explanations)
+Acceptance rate when mentioned: 40.0%
+Difference from overall: -14.4 percentage points
+
+By Condition:
+  UEQ: 1 mentions (0.2% of UEQ explanations)
+  UEEQ: 34 mentions (7.5% of UEEQ explanations)
+  RAW: 20 mentions (5.0% of RAW explanations)
+
+By Release Decision:
+  Accept: 22 mentions
+  Reject: 33 mentions
+
+Examples:
+  Acceptance examples:
+    [UEEQ-P2] "because there is not much of pressure "
+    [UEEQ-P12] "because there is not much of pressure "
+    [UEEQ-P5] this interface demostates solid usability and functional clarity, and while it has some minor drawbacks, they are not bad enough to block release, esp...
+  Rejection examples:
+    [UEEQ-P3] i would not release this design because it applies a lot of pressure to the user and not let them decide freely.
+    [UEEQ-P9] i would not release this design because it applies a lot of pressure to the user.
+    [UEEQ-P13] i would not release this design because it applies a lot of pressure to the user and not let them decide freely.
+
+==================================================

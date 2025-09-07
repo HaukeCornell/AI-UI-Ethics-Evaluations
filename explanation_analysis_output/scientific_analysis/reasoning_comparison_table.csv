@@ -1,0 +1,9 @@
+Category,Total_Mentions,Percentage,Acceptance_Rate,UEQ,UEEQ,RAW,Accept,Reject
+Business Focus,111,8.5%,74.8%,26,35,50,83,28
+Usability Focus,291,22.2%,64.6%,97,87,107,188,103
+User Experience,160,12.2%,38.1%,58,72,30,61,99
+Ethics Focus,60,4.6%,8.3%,5,43,12,5,55
+User Autonomy,55,4.2%,40.0%,1,34,20,22,33
+Data Driven,242,18.4%,41.3%,112,121,9,100,142
+Risk Assessment,113,8.6%,46.0%,31,46,36,52,61
+Design Quality,130,9.9%,46.2%,31,68,31,60,70

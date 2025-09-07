@@ -1,0 +1,32 @@
+SCIENTIFIC TEXT ANALYSIS SUMMARY
+CHI 2025: Evaluation Framework Effects on Ethical Design Judgment
+======================================================================
+
+METHODOLOGY
+-----------
+• Latent Dirichlet Allocation (LDA) for topic modeling
+• TF-IDF vectorization for feature extraction
+• VADER sentiment analysis for emotional valence
+• Statistical analysis of reasoning patterns
+• Cross-condition and cross-decision comparisons
+
+SCIENTIFIC VALIDITY
+------------------
+• Methods based on peer-reviewed NLP research
+• Established evaluation metrics and benchmarks
+• Reproducible analysis pipeline
+• Statistical significance testing where appropriate
+
+KEY CONTRIBUTIONS TO CHI LITERATURE
+-----------------------------------
+• First large-scale topic modeling of UX decision explanations
+• Quantitative evidence of evaluation framework effects on reasoning
+• Novel application of sentiment analysis to design ethics
+• Methodological contribution for analyzing professional explanations
+
+IMPLICATIONS FOR FUTURE RESEARCH
+--------------------------------
+• Framework for analyzing designer reasoning at scale
+• Benchmark for ethical evaluation method comparison
+• Template for mixed-methods analysis in HCI
+• Foundation for intervention design studies

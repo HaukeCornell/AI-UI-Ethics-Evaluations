@@ -1,0 +1,106 @@
+BUSINESS VS ETHICS FOCUS ANALYSIS
+========================================
+
+HYPOTHESIS TEST: RAW → Business Focus, UEEQ → Ethics Focus
+------------------------------------------------------------
+
+CONDITION COMPARISON:
+--------------------
+Condition  Business %   Ethics %   Ratio     
+------------------------------------------
+UEQ        1.1          1.1        1.0       
+UEEQ       1.1          1.1        1.0       
+RAW        1.2          1.2        1.0       
+
+============================================================
+
+UEQ CONDITION ANALYSIS
+----------------------
+Total explanations: 456
+Business focus: 5 (1.1%)
+Ethics focus: 5 (1.1%)
+
+BUSINESS-FOCUSED EXAMPLES:
+1. [P6, No] "Lost value "
+
+2. [P7, No] "Tend to lose value "
+
+3. [P7, Yes] "Design is in a competitive market "
+
+4. [P2, Yes] The overall UX score is slightly positive (0.23), with strong marks in clarity and ease of use. While stimulation and attractiveness are mildly negative, they don’t pose serious risks. Given the busin...
+
+5. [P10, No] I would not release this interface because the overall UX quality score (-0.57) is negative, indicating that user testing revealed more issues than positives. Key usability concerns include poor organ...
+
+ETHICS-FOCUSED EXAMPLES:
+1. [P5, Yes] fair score
+
+2. [P15, Yes] fair score
+
+3. [P4, No] The UX assessment is a little bit fair but could be better.
+
+4. [P14, No] The UX assessment is a little bit fair but could be better.
+
+5. [P10, No] "The design is flawed and has serious issues in terms of user experience which mean releasing it would negatively affect client retention and revenue generation.  "
+
+============================================================
+
+UEEQ CONDITION ANALYSIS
+-----------------------
+Total explanations: 456
+Business focus: 5 (1.1%)
+Ethics focus: 5 (1.1%)
+
+BUSINESS-FOCUSED EXAMPLES:
+1. [P3, No] Despite recieving business, marketing and supervisor approval, the user evaulation data reveals critical UX flaws that suggest this interface poses a high risk to the user retention and brand percepti...
+
+2. [P5, Yes] This interface demostates solid usability and functional clarity, and while it has some minor drawbacks, they are not bad enough to block release, especially given the strategic pressure to move fast ...
+
+3. [P13, No] Despite recieving business, marketing and supervisor approval, the user evaulation data reveals critical UX flaws that suggest this interface poses a high risk to the user retention and brand percepti...
+
+4. [P15, Yes] This interface demostates solid usability and functional clarity, and while it has some minor drawbacks, they are not bad enough to block release, especially given the strategic pressure to move fast ...
+
+5. [P3, No] While there are moderate positives in organization (0.69) and ease of use (0.53), the design suffers from severe negatives in user trust and emotional appeal. Supportiveness (-1.85), attractiveness (-...
+
+ETHICS-FOCUSED EXAMPLES:
+1. [P2, Yes] "Because there is not much of pressure "
+
+2. [P7, No] "Because it is not deceptive "
+
+3. [P8, No] "I would launch because it is not deceptive "
+
+4. [P12, Yes] "Because there is not much of pressure "
+
+5. [P3, No] I would not release this design because it applies a lot of pressure to the user and not let them decide freely.
+
+============================================================
+
+RAW CONDITION ANALYSIS
+----------------------
+Total explanations: 401
+Business focus: 5 (1.2%)
+Ethics focus: 5 (1.2%)
+
+BUSINESS-FOCUSED EXAMPLES:
+1. [P2, Yes] Common interface!
+
+2. [P12, Yes] Common interface!
+
+3. [P1, Yes] Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already begun integrating it, withholding my final approval would be a ...
+
+4. [P3, Yes] Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integrating it, withholding my final approval would be ...
+
+5. [P4, Yes] Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integrating it, withholding my final approval would be ...
+
+ETHICS-FOCUSED EXAMPLES:
+1. [P7, Yes] Fun - right?!
+
+2. [P3, No] "I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple ""do you wish to remove profile"" or something along those lines"
+
+3. [P13, No] "I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple ""do you wish to remove profile"" or something along those lines"
+
+4. [P3, No] "Unacceptable copy which is just guilt tripping the user. "
+
+5. [P13, No] "Unacceptable copy which is just guilt tripping the user. "
+
+============================================================
+

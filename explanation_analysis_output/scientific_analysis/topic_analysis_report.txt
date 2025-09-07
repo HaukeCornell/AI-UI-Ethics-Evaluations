@@ -1,0 +1,111 @@
+LDA TOPIC MODELING ANALYSIS REPORT
+=============================================
+
+TOPIC DEFINITIONS
+-----------------
+
+Topic 0: Business & Commercial Focus
+Top words: score, need, release, positive, negative, low, improvement, overall
+Documents: 321 (24.8%)
+By condition: UEQ=149 RAW=87 UEEQ=85 
+By release: Yes=169 No=152 
+
+Topic 1: Usability & User Experience
+Top words: easy, use, information, clear, easy use, simple, efficient, release
+Documents: 197 (15.2%)
+By condition: UEEQ=71 UEQ=68 RAW=58 
+By release: Yes=119 No=78 
+
+Topic 2: Technical & Functional Issues
+Top words: feel, risk, trust, issue, release, usability, confusing, clarity
+Documents: 164 (12.7%)
+By condition: UEEQ=81 UEQ=47 RAW=36 
+By release: No=125 Yes=39 
+
+Topic 3: Visual Design & Aesthetics
+Top words: notification, social, medium, social medium, friendly, way, message, app
+Documents: 176 (13.6%)
+By condition: RAW=78 UEEQ=55 UEQ=43 
+By release: Yes=116 No=60 
+
+Topic 4: Ethical & User Autonomy Concerns
+Top words: score, overall, attractiveness, experience, quality, negative, release, efficiency
+Documents: 129 (10.0%)
+By condition: UEEQ=73 UEQ=52 RAW=4 
+By release: No=68 Yes=61 
+
+Topic 5: Data-Driven Decision Making
+Top words: clear, button, people, option, clean, visual, annoying, element
+Documents: 134 (10.4%)
+By condition: RAW=62 UEQ=37 UEEQ=35 
+By release: Yes=77 No=57 
+
+Topic 6: Risk & Quality Assessment
+Top words: already, team, business, approved, competitive, market, marketing, competitive market
+Documents: 62 (4.8%)
+By condition: RAW=40 UEQ=11 UEEQ=11 
+By release: Yes=56 No=6 
+
+Topic 7: User Engagement & Satisfaction
+Top words: business, approval, release, engagement, evaluation, data, business marketing, business approval
+Documents: 110 (8.5%)
+By condition: UEEQ=44 UEQ=38 RAW=28 
+By release: Yes=60 No=50 
+
+=============================================
+TOPIC-CONDITION ANALYSIS
+------------------------
+
+UEQ Condition:
+  Business & Commercial Focus: 149 (33.5%)
+  Usability & User Experience: 68 (15.3%)
+  Technical & Functional Issues: 47 (10.6%)
+  Visual Design & Aesthetics: 43 (9.7%)
+  Ethical & User Autonomy Concerns: 52 (11.7%)
+  Data-Driven Decision Making: 37 (8.3%)
+  Risk & Quality Assessment: 11 (2.5%)
+  User Engagement & Satisfaction: 38 (8.5%)
+
+UEEQ Condition:
+  Business & Commercial Focus: 85 (18.7%)
+  Usability & User Experience: 71 (15.6%)
+  Technical & Functional Issues: 81 (17.8%)
+  Visual Design & Aesthetics: 55 (12.1%)
+  Ethical & User Autonomy Concerns: 73 (16.0%)
+  Data-Driven Decision Making: 35 (7.7%)
+  Risk & Quality Assessment: 11 (2.4%)
+  User Engagement & Satisfaction: 44 (9.7%)
+
+RAW Condition:
+  Business & Commercial Focus: 87 (22.1%)
+  Usability & User Experience: 58 (14.8%)
+  Technical & Functional Issues: 36 (9.2%)
+  Visual Design & Aesthetics: 78 (19.8%)
+  Ethical & User Autonomy Concerns: 4 (1.0%)
+  Data-Driven Decision Making: 62 (15.8%)
+  Risk & Quality Assessment: 40 (10.2%)
+  User Engagement & Satisfaction: 28 (7.1%)
+
+=============================================
+TOPIC-RELEASE DECISION ANALYSIS
+--------------------------------
+
+Release = Yes:
+  Business & Commercial Focus: 169 (24.2%)
+  Usability & User Experience: 119 (17.1%)
+  Technical & Functional Issues: 39 (5.6%)
+  Visual Design & Aesthetics: 116 (16.6%)
+  Ethical & User Autonomy Concerns: 61 (8.8%)
+  Data-Driven Decision Making: 77 (11.0%)
+  Risk & Quality Assessment: 56 (8.0%)
+  User Engagement & Satisfaction: 60 (8.6%)
+
+Release = No:
+  Business & Commercial Focus: 152 (25.5%)
+  Usability & User Experience: 78 (13.1%)
+  Technical & Functional Issues: 125 (21.0%)
+  Visual Design & Aesthetics: 60 (10.1%)
+  Ethical & User Autonomy Concerns: 68 (11.4%)
+  Data-Driven Decision Making: 57 (9.6%)
+  Risk & Quality Assessment: 6 (1.0%)
+  User Engagement & Satisfaction: 50 (8.4%)

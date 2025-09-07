@@ -1,0 +1,28 @@
+TARGETED QUALITATIVE ANALYSIS SUMMARY
+CHI 2025: Deep Insights into UX Professional Reasoning
+============================================================
+
+KEY RESEARCH QUESTIONS ADDRESSED:
+----------------------------------
+1. Do different conditions lead to different reasoning focus?
+   → Business focus in RAW vs Ethics focus in UEEQ
+
+2. What are the most revealing individual responses?
+   → Strong emotions, manipulation awareness, responsibility avoidance
+
+3. How do professionals justify controversial decisions?
+   → Industry conformity, aesthetic focus, delegation of responsibility
+
+METHODOLOGICAL CONTRIBUTIONS:
+-----------------------------
+• Pattern-based categorization of reasoning types
+• Identification of avoidance and conformity patterns
+• Framework for analyzing professional moral reasoning
+• Qualitative validation of quantitative topic modeling
+
+IMPLICATIONS FOR DESIGN EDUCATION:
+----------------------------------
+• Need to address responsibility avoidance in training
+• Importance of ethical reasoning beyond aesthetics
+• Critical evaluation of 'industry standard' justifications
+• Recognition of emotional responses to manipulative design

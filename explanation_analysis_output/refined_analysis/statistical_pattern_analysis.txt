@@ -1,0 +1,111 @@
+STATISTICAL ANALYSIS OF KEY REASONING PATTERNS
+=======================================================
+
+RESEARCH QUESTIONS:
+------------------
+1. Do evaluation frameworks influence reasoning patterns?
+2. Are there statistically significant differences between conditions?
+3. What are the effect sizes of these differences?
+
+PATTERN PREVALENCE BY CONDITION:
+---------------------------------
+Pattern                   UEQ %    UEEQ %    RAW %    χ² p-val   Effect  
+--------------------------------------------------------------------
+responsibility_avoidance  1.1      0.9       5.5      0.000      0.137   
+manipulation_awareness    0.0      16.7      3.5      0.000      0.289   
+industry_conformity       0.0      0.0       2.7      0.000      0.139   
+aesthetic_focus           5.7      11.6      4.7      0.000      0.116   
+emotional_reaction        0.7      3.5       1.7      0.008      0.086   
+
+====================================================================
+
+RESPONSIBILITY AVOIDANCE
+------------------------
+Hypothesis: More common in RAW condition
+Chi-square: χ² = 24.508, p = 0.000
+Effect size (Cramér's V): 0.137
+Statistically significant: Yes
+
+UEQ: 5/456 (1.1%)
+UEEQ: 4/456 (0.9%)
+RAW: 22/401 (5.5%)
+
+Most prevalent in RAW - Examples:
+1. [P1, Yes] Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already begun integra...
+2. [P3, Yes] Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integ...
+3. [P4, Yes] Given that the business team, marketing department, and my supervisor have all approved the design, and the development team has already started integ...
+
+====================================================================
+
+MANIPULATION AWARENESS
+----------------------
+Hypothesis: More common in UEEQ condition
+Chi-square: χ² = 109.424, p = 0.000
+Effect size (Cramér's V): 0.289
+Statistically significant: Yes
+
+UEQ: 0/456 (0.0%)
+UEEQ: 76/456 (16.7%)
+RAW: 14/401 (3.5%)
+
+Most prevalent in UEEQ - Examples:
+1. [P5, No] Its pressuring and that is not a good sign...
+2. [P15, No] Its pressuring and that is not a good sign...
+3. [P7, No] "Because it is not deceptive "...
+
+====================================================================
+
+INDUSTRY CONFORMITY
+-------------------
+Hypothesis: More common in RAW condition
+Chi-square: χ² = 25.229, p = 0.000
+Effect size (Cramér's V): 0.139
+Statistically significant: Yes
+
+UEQ: 0/456 (0.0%)
+UEEQ: 0/456 (0.0%)
+RAW: 11/401 (2.7%)
+
+Most prevalent in RAW - Examples:
+1. [P2, Yes] Common interface!...
+2. [P12, Yes] Common interface!...
+3. [P2, Yes] It's simple and provides the user several opportunities to stay engaged with their network by connecting to other social media platforms or by adding ...
+
+====================================================================
+
+AESTHETIC FOCUS
+---------------
+Hypothesis: Distributed across conditions
+Chi-square: χ² = 17.783, p = 0.000
+Effect size (Cramér's V): 0.116
+Statistically significant: Yes
+
+UEQ: 26/456 (5.7%)
+UEEQ: 53/456 (11.6%)
+RAW: 19/401 (4.7%)
+
+Most prevalent in UEEQ - Examples:
+1. [P7, No] Despite decent clarity and efficiency scores, the interface suffers from poor attractiveness, stimulation and trust metrics, which could harm user eng...
+2. [P8, Yes] This interface performs reasonably well on efficiency, clarity, and dependability, with a slightly positive overall UX score. While attractiveness and...
+3. [P10, No] FRIENDLINESS AND ATTRACTIVENESS IMPROVEMENTS AND REDUCING DECEPTION AND COERCION...
+
+====================================================================
+
+EMOTIONAL REACTION
+------------------
+Hypothesis: More intense in UEEQ condition due to metric exposure
+Chi-square: χ² = 9.711, p = 0.008
+Effect size (Cramér's V): 0.086
+Statistically significant: Yes
+
+UEQ: 3/456 (0.7%)
+UEEQ: 16/456 (3.5%)
+RAW: 7/401 (1.7%)
+
+Most prevalent in UEEQ - Examples:
+1. [P7, No] While the design scores positively in core usability—efficiency (0.34), clarity (0.61), and ease of use (1.06)—there are significant negatives in area...
+2. [P9, No] This interface has severe negative ratings across key UX areas. Efficiency (-0.71, -0.71) and clarity (-0.23) are weak, while supportiveness is extrem...
+3. [P3, No] the user data is bad again the design is rated as extremely annoying -215 and unfriendly -215 tt is also highly coercive -193 and deceptive -197 this ...
+
+====================================================================
+

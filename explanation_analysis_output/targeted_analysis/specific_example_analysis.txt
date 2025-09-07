@@ -1,0 +1,149 @@
+ANALYSIS OF SPECIFIC EXAMPLES
+===================================
+
+These are the specific quotes you mentioned and their full context:
+
+1. QUOTE MATCH: "I HATE the language that is being used"
+   Condition: RAW
+   Pattern: 3
+   Decision: No
+   Full explanation:
+   ""I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple ""do you wish to remove profile"" or something along those lines""
+
+----------------------------------------------------------------------
+
+2. QUOTE MATCH: "I HATE the language that is being used"
+   Condition: RAW
+   Pattern: 13
+   Decision: No
+   Full explanation:
+   ""I HATE the language that is being used. It feels a little disrespectful and hateful. Needs to be a simple ""do you wish to remove profile"" or something along those lines""
+
+----------------------------------------------------------------------
+
+3. QUOTE MATCH: "My supervior signing off on the designs"
+   Condition: RAW
+   Pattern: 2
+   Decision: Yes
+   Full explanation:
+   "My supervior signing off on the designs from a strategic perspective is a already a positive from me. I trust his decision."
+
+----------------------------------------------------------------------
+
+4. QUOTE MATCH: "My supervior signing off on the designs"
+   Condition: RAW
+   Pattern: 12
+   Decision: Yes
+   Full explanation:
+   "My supervior signing off on the designs from a strategic perspective is a already a positive from me. I trust his decision."
+
+----------------------------------------------------------------------
+
+5. QUOTE MATCH: "it lacks colors"
+   Condition: RAW
+   Pattern: 3
+   Decision: No
+   Full explanation:
+   "it lacks colors"
+
+----------------------------------------------------------------------
+
+6. QUOTE MATCH: "it lacks colors"
+   Condition: RAW
+   Pattern: 13
+   Decision: No
+   Full explanation:
+   "it lacks colors"
+
+----------------------------------------------------------------------
+
+7. QUOTE MATCH: "Unacceptable copy which is just guilt tripping"
+   Condition: RAW
+   Pattern: 3
+   Decision: No
+   Full explanation:
+   ""Unacceptable copy which is just guilt tripping the user. ""
+
+----------------------------------------------------------------------
+
+8. QUOTE MATCH: "Unacceptable copy which is just guilt tripping"
+   Condition: RAW
+   Pattern: 13
+   Decision: No
+   Full explanation:
+   ""Unacceptable copy which is just guilt tripping the user. ""
+
+----------------------------------------------------------------------
+
+9. QUOTE MATCH: "very manipulative, and it is like people are being forced"
+   Condition: RAW
+   Pattern: 3
+   Decision: No
+   Full explanation:
+   "it is very manipulative, and it is like people are being forced to use their account even when they need some time away from socials."
+
+----------------------------------------------------------------------
+
+10. QUOTE MATCH: "very manipulative, and it is like people are being forced"
+   Condition: RAW
+   Pattern: 13
+   Decision: No
+   Full explanation:
+   "it is very manipulative, and it is like people are being forced to use their account even when they need some time away from socials."
+
+----------------------------------------------------------------------
+
+11. QUOTE MATCH: "Great UI, follows similarly to other social media giants"
+   Condition: RAW
+   Pattern: 1
+   Decision: Yes
+   Full explanation:
+   "Great UI, follows similarly to other social media giants."
+
+----------------------------------------------------------------------
+
+12. QUOTE MATCH: "Great UI, follows similarly to other social media giants"
+   Condition: RAW
+   Pattern: 11
+   Decision: Yes
+   Full explanation:
+   "Great UI, follows similarly to other social media giants."
+
+----------------------------------------------------------------------
+
+13. QUOTE MATCH: "good way to lightly discourage users"
+   Condition: RAW
+   Pattern: 3
+   Decision: Yes
+   Full explanation:
+   ""It's a good way to lightly discourage users from deleting their profile, reminding them of their friends. ""
+
+----------------------------------------------------------------------
+
+14. QUOTE MATCH: "good way to lightly discourage users"
+   Condition: RAW
+   Pattern: 13
+   Decision: Yes
+   Full explanation:
+   ""It's a good way to lightly discourage users from deleting their profile, reminding them of their friends. ""
+
+----------------------------------------------------------------------
+
+15. QUOTE MATCH: "fundamentally deceptive: it tells users their geolocation is off"
+   Condition: UEEQ
+   Pattern: 4
+   Decision: No
+   Full explanation:
+   "I would not release this interface because it is fundamentally deceptive: it tells users their geolocation is off while still using their location data. The deception score of -1.76 and attractiveness scores below -1.8 show users find it highly annoying and dishonest."
+
+----------------------------------------------------------------------
+
+16. QUOTE MATCH: "fundamentally deceptive: it tells users their geolocation is off"
+   Condition: UEEQ
+   Pattern: 14
+   Decision: No
+   Full explanation:
+   "I would not release this interface because it is fundamentally deceptive: it tells users their geolocation is off while still using their location data. The deception score of -1.76 and attractiveness scores below -1.8 show users find it highly annoying and dishonest."
+
+----------------------------------------------------------------------
+
