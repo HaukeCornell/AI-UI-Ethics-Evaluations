@@ -1,0 +1,44 @@
+CONDITION COMPARISON REPORT
+==============================
+
+SUMMARY STATISTICS
+------------------
+Metric                    UEQ        UEEQ       RAW       
+-------------------------------------------------------
+Total Explanations        456        456        401       
+Yes Decisions             255        197        262       
+No Decisions              201        259        139       
+Yes Percentage            55.9       43.2       65.3      
+Avg Length (chars)        89.6       115.0      153.1     
+
+=======================================================
+
+TERMINOLOGY USAGE
+-----------------
+Term            UEQ        UEEQ       RAW       
+---------------------------------------------
+Score           105        110        0         
+User            152        233        170       
+Business        16         23         67        
+Ethical         0          11         4         
+Data            18         34         6         
+Experience      37         44         25        
+
+=============================================
+
+KEY INSIGHTS
+------------
+1. Release Rates:
+   - UEQ: 55.9% yes decisions
+   - UEEQ: 43.2% yes decisions
+   - RAW: 65.3% yes decisions
+
+2. Explanation Length:
+   - UEQ: 89.6 characters (shortest)
+   - UEEQ: 115.0 characters (medium)
+   - RAW: 153.1 characters (longest)
+
+3. Data-Driven Language:
+   - UEQ: 105 mentions of 'score'
+   - UEEQ: 110 mentions of 'score'
+   - RAW: 0 mentions of 'score'

@@ -1,0 +1,42 @@
+{
+  "total_explanations": 1313,
+  "explanations_by_condition": {
+    "UEQ": 456,
+    "UEEQ": 456,
+    "RAW": 401
+  },
+  "explanations_by_release": {
+    "Yes": 714,
+    "No": 599
+  },
+  "explanations_by_pattern": {
+    "2": 87,
+    "3": 87,
+    "4": 87,
+    "6": 90,
+    "7": 93,
+    "8": 94,
+    "9": 86,
+    "12": 87,
+    "13": 87,
+    "14": 87,
+    "5": 87,
+    "10": 88,
+    "15": 87,
+    "1": 83,
+    "11": 83
+  },
+  "average_explanation_length": 117.8,
+  "explanation_length_by_condition": {
+    "UEQ": 89.6,
+    "UEEQ": 115.0,
+    "RAW": 153.1
+  },
+  "explanation_length_by_release": {
+    "Yes": 110.3,
+    "No": 126.8
+  },
+  "total_unique_words": 2055,
+  "total_words": 12809,
+  "vocabulary_richness": 0.16
+}

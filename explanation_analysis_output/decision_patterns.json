@@ -1,0 +1,345 @@
+{
+  "certainty_high": {
+    "total": 12,
+    "by_condition": {
+      "UEQ": 2,
+      "UEEQ": 1,
+      "RAW": 9
+    },
+    "by_release": {
+      "Yes": 2,
+      "No": 10
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "definitely"
+        ],
+        "snippet": "it definitely shows and gives you options on what you prefer so ..it's good for users."
+      },
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "clearly"
+        ],
+        "snippet": "\"yes i would because the settings are clearly structured and each option includes an explanation and it increases userbility,it's not confusing. \""
+      },
+      {
+        "condition": "UEEQ",
+        "release": "No",
+        "keywords": [
+          "definitely"
+        ],
+        "snippet": "it's definitely annoying to see all these pictures duplicated."
+      }
+    ]
+  },
+  "certainty_low": {
+    "total": 50,
+    "by_condition": {
+      "UEQ": 6,
+      "UEEQ": 14,
+      "RAW": 30
+    },
+    "by_release": {
+      "Yes": 23,
+      "No": 27
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "could be"
+        ],
+        "snippet": "the ux assessment is a little bit fair but could be better."
+      },
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "could be"
+        ],
+        "snippet": "the ux assessment is a little bit fair but could be better."
+      },
+      {
+        "condition": "UEEQ",
+        "release": "Yes",
+        "keywords": [
+          "maybe"
+        ],
+        "snippet": "the ui is direct but there is no element that tells you that maybe you should reconsider."
+      }
+    ]
+  },
+  "data_reliance": {
+    "total": 53,
+    "by_condition": {
+      "UEQ": 19,
+      "UEEQ": 27,
+      "RAW": 7
+    },
+    "by_release": {
+      "Yes": 34,
+      "No": 19
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "based on"
+        ],
+        "snippet": "based on the logo is the best"
+      },
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "based on"
+        ],
+        "snippet": "based on the logo is the best"
+      },
+      {
+        "condition": "UEEQ",
+        "release": "No",
+        "keywords": [
+          "data shows"
+        ],
+        "snippet": "because the ux data shows significant risk of damaging the user relationship and brand perception."
+      }
+    ]
+  },
+  "emotional_response": {
+    "total": 49,
+    "by_condition": {
+      "UEQ": 3,
+      "UEEQ": 24,
+      "RAW": 22
+    },
+    "by_release": {
+      "Yes": 11,
+      "No": 38
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "feel"
+        ],
+        "snippet": "i would not release this interface because the overall ux quality score (-0.57) is negative, indicating that user testing revealed more issues than po..."
+      },
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "feel"
+        ],
+        "snippet": "\"no i will release until connection is clear and notification feel more engaging. \""
+      },
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "feel"
+        ],
+        "snippet": "\"no i will release until connection is clear and notification feel more engaging. \""
+      }
+    ]
+  },
+  "comparative": {
+    "total": 5,
+    "by_condition": {
+      "UEQ": 1,
+      "UEEQ": 4,
+      "RAW": 0
+    },
+    "by_release": {
+      "Yes": 2,
+      "No": 3
+    },
+    "examples": [
+      {
+        "condition": "UEEQ",
+        "release": "No",
+        "keywords": [
+          "compared to"
+        ],
+        "snippet": "the ux risk assessment shows the failure of the design, all the matrix categories as compared to the score is very poor."
+      },
+      {
+        "condition": "UEEQ",
+        "release": "No",
+        "keywords": [
+          "compared to"
+        ],
+        "snippet": "the ux risk assessment shows the failure of the design, all the matrix categories as compared to the score is very poor."
+      },
+      {
+        "condition": "UEEQ",
+        "release": "Yes",
+        "keywords": [
+          "versus"
+        ],
+        "snippet": "for some users this would make it easier for them to see there's notifications versus for other users they would not want to be reminded of such conte..."
+      }
+    ]
+  },
+  "conditional": {
+    "total": 200,
+    "by_condition": {
+      "UEQ": 35,
+      "UEEQ": 61,
+      "RAW": 104
+    },
+    "by_release": {
+      "Yes": 112,
+      "No": 88
+    },
+    "examples": [
+      {
+        "condition": "UEEQ",
+        "release": "Yes",
+        "keywords": [
+          "if"
+        ],
+        "snippet": "i think i would still release because they are but of what we are looking for even if we are not happy by the results"
+      },
+      {
+        "condition": "UEEQ",
+        "release": "Yes",
+        "keywords": [
+          "if"
+        ],
+        "snippet": "i think i would still release because they are but of what we are looking for even if we are not happy by the results"
+      },
+      {
+        "condition": "UEEQ",
+        "release": "No",
+        "keywords": [
+          "if"
+        ],
+        "snippet": "because the ux data shows significant risk of damaging the user relationship and brand perception."
+      }
+    ]
+  },
+  "risk_averse": {
+    "total": 93,
+    "by_condition": {
+      "UEQ": 28,
+      "UEEQ": 37,
+      "RAW": 28
+    },
+    "by_release": {
+      "Yes": 43,
+      "No": 50
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "risk",
+          "risky"
+        ],
+        "snippet": "it is risky"
+      },
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "safe"
+        ],
+        "snippet": "because many approve of the product so its safe to release it"
+      },
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "safe"
+        ],
+        "snippet": "its not safe"
+      }
+    ]
+  },
+  "user_focus": {
+    "total": 97,
+    "by_condition": {
+      "UEQ": 32,
+      "UEEQ": 38,
+      "RAW": 27
+    },
+    "by_release": {
+      "Yes": 48,
+      "No": 49
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "user experience"
+        ],
+        "snippet": "the prediction scores highly and it seems reasonable to expect good user experience"
+      },
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "for users"
+        ],
+        "snippet": "the ai prediction scores poorly, which leads me to think it would have a poor experience for users"
+      },
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "user experience"
+        ],
+        "snippet": "the prediction scores highly and it seems reasonable to expect good user experience"
+      }
+    ]
+  },
+  "business_focus": {
+    "total": 44,
+    "by_condition": {
+      "UEQ": 7,
+      "UEEQ": 11,
+      "RAW": 26
+    },
+    "by_release": {
+      "Yes": 32,
+      "No": 12
+    },
+    "examples": [
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "organization"
+        ],
+        "snippet": "interface 12 demonstrates strong performance in efficiency and clarity, with high scores in organization and ease of use. while attractiveness and sti..."
+      },
+      {
+        "condition": "UEQ",
+        "release": "No",
+        "keywords": [
+          "organization"
+        ],
+        "snippet": "i would not release this interface because the overall ux quality score (-0.57) is negative, indicating that user testing revealed more issues than po..."
+      },
+      {
+        "condition": "UEQ",
+        "release": "Yes",
+        "keywords": [
+          "profit"
+        ],
+        "snippet": "going to give back more profits"
+      }
+    ]
+  }
+}

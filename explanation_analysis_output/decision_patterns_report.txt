@@ -1,0 +1,161 @@
+DECISION-MAKING PATTERNS ANALYSIS
+========================================
+
+PATTERN PREVALENCE
+------------------
+Conditional          200 ( 15.2%)
+User Focus            97 (  7.4%)
+Risk Averse           93 (  7.1%)
+Data Reliance         53 (  4.0%)
+Certainty Low         50 (  3.8%)
+Emotional Response    49 (  3.7%)
+Business Focus        44 (  3.4%)
+Certainty High        12 (  0.9%)
+Comparative            5 (  0.4%)
+
+========================================
+
+CONDITIONAL
+-----------
+By Condition:
+  UEQ: 35
+  UEEQ: 61
+  RAW: 104
+By Release Decision:
+  Yes: 112
+  No: 88
+Examples:
+  - [UEEQ-Yes] i think i would still release because they are but of what we are looking for even if we are not happy by the results
+  - [UEEQ-Yes] i think i would still release because they are but of what we are looking for even if we are not happy by the results
+  - [UEEQ-No] because the ux data shows significant risk of damaging the user relationship and brand perception.
+
+----------------------------------------
+
+USER FOCUS
+----------
+By Condition:
+  UEQ: 32
+  UEEQ: 38
+  RAW: 27
+By Release Decision:
+  Yes: 48
+  No: 49
+Examples:
+  - [UEQ-Yes] the prediction scores highly and it seems reasonable to expect good user experience
+  - [UEQ-No] the ai prediction scores poorly, which leads me to think it would have a poor experience for users
+  - [UEQ-Yes] the prediction scores highly and it seems reasonable to expect good user experience
+
+----------------------------------------
+
+RISK AVERSE
+-----------
+By Condition:
+  UEQ: 28
+  UEEQ: 37
+  RAW: 28
+By Release Decision:
+  Yes: 43
+  No: 50
+Examples:
+  - [UEQ-No] it is risky
+  - [UEQ-Yes] because many approve of the product so its safe to release it
+  - [UEQ-No] its not safe
+
+----------------------------------------
+
+DATA RELIANCE
+-------------
+By Condition:
+  UEQ: 19
+  UEEQ: 27
+  RAW: 7
+By Release Decision:
+  Yes: 34
+  No: 19
+Examples:
+  - [UEQ-Yes] based on the logo is the best
+  - [UEQ-Yes] based on the logo is the best
+  - [UEEQ-No] because the ux data shows significant risk of damaging the user relationship and brand perception.
+
+----------------------------------------
+
+CERTAINTY LOW
+-------------
+By Condition:
+  UEQ: 6
+  UEEQ: 14
+  RAW: 30
+By Release Decision:
+  Yes: 23
+  No: 27
+Examples:
+  - [UEQ-No] the ux assessment is a little bit fair but could be better.
+  - [UEQ-No] the ux assessment is a little bit fair but could be better.
+  - [UEEQ-Yes] the ui is direct but there is no element that tells you that maybe you should reconsider.
+
+----------------------------------------
+
+EMOTIONAL RESPONSE
+------------------
+By Condition:
+  UEQ: 3
+  UEEQ: 24
+  RAW: 22
+By Release Decision:
+  Yes: 11
+  No: 38
+Examples:
+  - [UEQ-No] i would not release this interface because the overall ux quality score (-0.57) is negative, indicating that user testing revealed more issues than po...
+  - [UEQ-No] "no i will release until connection is clear and notification feel more engaging. "
+  - [UEQ-No] "no i will release until connection is clear and notification feel more engaging. "
+
+----------------------------------------
+
+BUSINESS FOCUS
+--------------
+By Condition:
+  UEQ: 7
+  UEEQ: 11
+  RAW: 26
+By Release Decision:
+  Yes: 32
+  No: 12
+Examples:
+  - [UEQ-Yes] interface 12 demonstrates strong performance in efficiency and clarity, with high scores in organization and ease of use. while attractiveness and sti...
+  - [UEQ-No] i would not release this interface because the overall ux quality score (-0.57) is negative, indicating that user testing revealed more issues than po...
+  - [UEQ-Yes] going to give back more profits
+
+----------------------------------------
+
+CERTAINTY HIGH
+--------------
+By Condition:
+  UEQ: 2
+  UEEQ: 1
+  RAW: 9
+By Release Decision:
+  Yes: 2
+  No: 10
+Examples:
+  - [UEQ-Yes] it definitely shows and gives you options on what you prefer so ..it's good for users.
+  - [UEQ-Yes] "yes i would because the settings are clearly structured and each option includes an explanation and it increases userbility,it's not confusing. "
+  - [UEEQ-No] it's definitely annoying to see all these pictures duplicated.
+
+----------------------------------------
+
+COMPARATIVE
+-----------
+By Condition:
+  UEQ: 1
+  UEEQ: 4
+  RAW: 0
+By Release Decision:
+  Yes: 2
+  No: 3
+Examples:
+  - [UEEQ-No] the ux risk assessment shows the failure of the design, all the matrix categories as compared to the score is very poor.
+  - [UEEQ-No] the ux risk assessment shows the failure of the design, all the matrix categories as compared to the score is very poor.
+  - [UEEQ-Yes] for some users this would make it easier for them to see there's notifications versus for other users they would not want to be reminded of such conte...
+
+----------------------------------------
+

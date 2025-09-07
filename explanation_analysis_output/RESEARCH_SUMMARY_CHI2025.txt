@@ -1,0 +1,85 @@
+EXPLANATION ANALYSIS RESEARCH SUMMARY
+CHI 2025 Paper: Evaluation Framework Effects on Ethical Design Judgment
+======================================================================
+
+EXECUTIVE SUMMARY
+-----------------
+• Total explanations analyzed: 1313
+• Three experimental conditions: UEQ (456), UEEQ (456), RAW (401)
+• Overall release decisions: 714 Yes, 599 No
+• Average explanation length: 117.8 characters
+
+KEY RESEARCH FINDINGS
+---------------------
+1. RELEASE RATE DIFFERENCES (Supporting H1: Framework Effects)
+   • RAW (no framework): 65.3% release rate (highest)
+   • UEQ (standard): 55.9% release rate (moderate)
+   • UEEQ (ethics-enhanced): 43.2% release rate (lowest)
+   • Effect size: 22.1 percentage points (RAW vs UEEQ)
+
+2. EXPLANATION DEPTH AND ELABORATION
+   • RAW explanations: 153.1 chars (most detailed)
+   • UEEQ explanations: 115.0 chars (moderate detail)
+   • UEQ explanations: 89.6 chars (most concise)
+   • Suggests framework presence affects reasoning depth
+
+3. DATA-DRIVEN LANGUAGE PATTERNS
+   • UEQ: 105 mentions of 'score' (high reliance on metrics)
+   • UEEQ: 110 mentions of 'score' (maintained metric focus)
+   • RAW: 0 mentions of 'score' (no metric anchoring)
+   • Frameworks increase quantitative reasoning references
+
+4. ETHICAL REASONING PREVALENCE
+   • UEEQ: 11 ethical mentions (enhanced framework effect)
+   • RAW: 4 ethical mentions (baseline)
+   • UEQ: 0 ethical mentions (standard framework)
+   • Ethics-enhanced framework increases moral reasoning
+
+5. QUALITATIVE THEME ANALYSIS
+   Top Decision Themes:
+   1. Usability: 20.4% of explanations
+   2. User Experience: 12.0% of explanations
+   3. Functionality: 11.7% of explanations
+   4. Design Quality: 9.9% of explanations
+   5. Business Value: 7.3% of explanations
+
+   Top Decision-Making Patterns:
+   1. Conditional: 15.2% of explanations
+   2. User Focus: 7.4% of explanations
+   3. Risk Averse: 7.1% of explanations
+
+IMPLICATIONS FOR CHI 2025 PAPER
+--------------------------------
+1. MEASUREMENT AS INTERVENTION:
+   • Clear evidence that evaluation frameworks shape decisions
+   • Ethics-enhanced metrics reduce dark pattern acceptance
+   • Supports 'measurement as design intervention' hypothesis
+
+2. PROFESSIONAL DECISION-MAKING:
+   • UX professionals use available data to justify decisions
+   • Framework type affects reasoning depth and focus
+   • Demonstrates bounded rationality in design contexts
+
+3. METHODOLOGICAL CONTRIBUTION:
+   • Large-scale analysis of professional explanations (N=1313)
+   • Mixed-methods approach combining quantitative and qualitative
+   • Replicable text analysis methodology for UX research
+
+4. PRACTICAL IMPLICATIONS:
+   • Organizations can influence ethical decisions through metrics
+   • Standard UX frameworks may inadvertently promote problematic designs
+   • Need for ethics-aware evaluation methods in practice
+
+LIMITATIONS AND FUTURE WORK
+---------------------------
+• Cross-sectional design limits causal inference
+• Self-reported explanations may contain social desirability bias
+• Limited to text-based interfaces and dark patterns
+• Future work: longitudinal studies, behavioral observations
+
+DATA AND REPRODUCIBILITY
+------------------------
+• All analysis code and data processing scripts available
+• Explanation text analysis methodology fully documented
+• Word frequency and theme analysis results provided
+• Supports open science practices for replication

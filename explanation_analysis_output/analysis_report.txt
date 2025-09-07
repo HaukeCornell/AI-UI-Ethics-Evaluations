@@ -1,0 +1,39 @@
+EXPLANATION ANALYSIS SUMMARY REPORT
+==================================================
+
+Total explanations analyzed: 1313
+
+Explanations by condition:
+  UEQ: 456
+  UEEQ: 456
+  RAW: 401
+
+Explanations by release decision:
+  Yes: 714
+  No: 599
+
+Average explanation length: 117.8 characters
+
+Average explanation length by condition:
+  UEQ: 89.6 characters
+  UEEQ: 115.0 characters
+  RAW: 153.1 characters
+
+Average explanation length by release decision:
+  Yes: 110.3 characters
+  No: 126.8 characters
+
+Total unique words: 2055
+Vocabulary richness: 0.16
+
+Most common patterns (by number of explanations):
+  Pattern 8: 94 explanations
+  Pattern 7: 93 explanations
+  Pattern 6: 90 explanations
+  Pattern 10: 88 explanations
+  Pattern 2: 87 explanations
+  Pattern 3: 87 explanations
+  Pattern 4: 87 explanations
+  Pattern 12: 87 explanations
+  Pattern 13: 87 explanations
+  Pattern 14: 87 explanations
