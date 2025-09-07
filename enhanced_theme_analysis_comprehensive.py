@@ -198,6 +198,27 @@ class EnhancedThemeAnalyzer:
                 ],
                 'hypothesis': 'Present across conditions but may be emphasized differently',
                 'expected_condition': 'RAW > UEQ > UEEQ'
+            },
+            'interface_design_elements': {
+                'keywords': [
+                    # Specific UI components
+                    'button', 'buttons', 'menu', 'dropdown', 'navigation', 'nav',
+                    'icon', 'icons', 'tab', 'tabs', 'sidebar', 'header', 'footer',
+                    
+                    # Layout and structure
+                    'layout', 'grid', 'spacing', 'alignment', 'hierarchy', 'structure',
+                    'organization', 'flow', 'sequence', 'arrangement',
+                    
+                    # Interactive elements
+                    'click', 'tap', 'swipe', 'scroll', 'hover', 'touch',
+                    'interactive', 'interface element', 'component',
+                    
+                    # Visual organization
+                    'clear', 'organized', 'structured', 'logical', 'intuitive',
+                    'consistent', 'coherent', 'systematic'
+                ],
+                'hypothesis': 'Technical design focus present across conditions',
+                'expected_condition': 'Similar across conditions'
             }
         }
         
