@@ -67,12 +67,10 @@ print(rej_tukey_results)
 cat("\nTENDENCY:\n")
 print(tend_tukey_results)
 
-# Function to get significance stars
-get_sig_stars <- function(p_value) {
-  if (p_value < 0.001) return("***")
-  if (p_value < 0.01) return("**")
-  if (p_value < 0.05) return("*")
-  return("ns")
+# Function to format p-values consistently
+format_p_value <- function(p_value) {
+  if (p_value < 0.001) return("p < 0.001")
+  return(paste0("p = ", sprintf("%.3f", p_value)))
 }
 
 # Calculate descriptive statistics for annotations
@@ -114,12 +112,12 @@ p_tendency <- ggplot(participant_data, aes(x = condition_new, y = mean_tendency,
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "gray50"),
-    plot.caption = element_text(size = 11, hjust = 0.5, color = "gray50"),
-    axis.title = element_text(size = 13, face = "bold"),
-    axis.text = element_text(size = 12),
-    axis.text.x = element_text(size = 13, face = "bold"),
+    plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 16, hjust = 0.5, color = "gray50"),
+    plot.caption = element_text(size = 14, hjust = 0.5, color = "gray50"),
+    axis.title = element_text(size = 17, face = "bold"),
+    axis.text = element_text(size = 16),
+    axis.text.x = element_text(size = 17, face = "bold"),
     legend.position = "none",
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank(),
@@ -136,8 +134,8 @@ p_tendency <- ggplot(participant_data, aes(x = condition_new, y = mean_tendency,
   geom_segment(aes(x = 2, xend = 2, y = 6.65, yend = 6.8), 
                color = "black", linewidth = 0.5, inherit.aes = FALSE) +
   annotate("text", x = 1.5, y = 6.95, 
-           label = get_sig_stars(tend_tukey_results["UEQ-UI", "p adj"]), 
-           color = "black", size = 4, fontface = "bold") +
+           label = format_p_value(tend_tukey_results["UEQ-UI", "p adj"]), 
+           color = "black", size = 5, fontface = "bold") +
   
   # UEQ vs UEQ-A
   geom_segment(aes(x = 2, xend = 3, y = 6.3, yend = 6.3), 
@@ -147,8 +145,8 @@ p_tendency <- ggplot(participant_data, aes(x = condition_new, y = mean_tendency,
   geom_segment(aes(x = 3, xend = 3, y = 6.15, yend = 6.3), 
                color = "black", linewidth = 0.5, inherit.aes = FALSE) +
   annotate("text", x = 2.5, y = 6.45, 
-           label = get_sig_stars(tend_tukey_results["UEQ-A-UEQ", "p adj"]), 
-           color = "black", size = 4, fontface = "bold") +
+           label = format_p_value(tend_tukey_results["UEQ-A-UEQ", "p adj"]), 
+           color = "black", size = 5, fontface = "bold") +
   
   # UI vs UEQ-A
   geom_segment(aes(x = 1, xend = 3, y = 7.3, yend = 7.3), 
@@ -158,8 +156,8 @@ p_tendency <- ggplot(participant_data, aes(x = condition_new, y = mean_tendency,
   geom_segment(aes(x = 3, xend = 3, y = 7.15, yend = 7.3), 
                color = "black", linewidth = 0.5, inherit.aes = FALSE) +
   annotate("text", x = 2, y = 7.45, 
-           label = get_sig_stars(tend_tukey_results["UEQ-A-UI", "p adj"]), 
-           color = "black", size = 4, fontface = "bold") +
+           label = format_p_value(tend_tukey_results["UEQ-A-UI", "p adj"]), 
+           color = "black", size = 5, fontface = "bold") +
   
   # Add visible mean and median text annotations
   annotate("text", x = 1, y = 0.7, 
@@ -210,12 +208,12 @@ p_rejection <- ggplot(participant_data, aes(x = condition_new, y = mean_rejectio
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "gray50"), 
-    plot.caption = element_text(size = 11, hjust = 0.5, color = "gray50"),
-    axis.title = element_text(size = 13, face = "bold"),
-    axis.text = element_text(size = 12),
-    axis.text.x = element_text(size = 13, face = "bold"),
+    plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 16, hjust = 0.5, color = "gray50"), 
+    plot.caption = element_text(size = 14, hjust = 0.5, color = "gray50"),
+    axis.title = element_text(size = 17, face = "bold"),
+    axis.text = element_text(size = 16),
+    axis.text.x = element_text(size = 17, face = "bold"),
     legend.position = "none",
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank(),
@@ -232,8 +230,8 @@ p_rejection <- ggplot(participant_data, aes(x = condition_new, y = mean_rejectio
   geom_segment(aes(x = 2, xend = 2, y = 82, yend = 85), 
                color = "black", linewidth = 0.5, inherit.aes = FALSE) +
   annotate("text", x = 1.5, y = 88, 
-           label = get_sig_stars(rej_tukey_results["UEQ-UI", "p adj"]), 
-           color = "black", size = 4, fontface = "bold") +
+           label = format_p_value(rej_tukey_results["UEQ-UI", "p adj"]), 
+           color = "black", size = 5, fontface = "bold") +
   
   # UEQ vs UEQ-A
   geom_segment(aes(x = 2, xend = 3, y = 75, yend = 75), 
@@ -243,8 +241,8 @@ p_rejection <- ggplot(participant_data, aes(x = condition_new, y = mean_rejectio
   geom_segment(aes(x = 3, xend = 3, y = 72, yend = 75), 
                color = "black", linewidth = 0.5, inherit.aes = FALSE) +
   annotate("text", x = 2.5, y = 78, 
-           label = get_sig_stars(rej_tukey_results["UEQ-A-UEQ", "p adj"]), 
-           color = "black", size = 4, fontface = "bold") +
+           label = format_p_value(rej_tukey_results["UEQ-A-UEQ", "p adj"]), 
+           color = "black", size = 5, fontface = "bold") +
   
   # UI vs UEQ-A
   geom_segment(aes(x = 1, xend = 3, y = 95, yend = 95), 
@@ -254,8 +252,8 @@ p_rejection <- ggplot(participant_data, aes(x = condition_new, y = mean_rejectio
   geom_segment(aes(x = 3, xend = 3, y = 92, yend = 95), 
                color = "black", linewidth = 0.5, inherit.aes = FALSE) +
   annotate("text", x = 2, y = 98, 
-           label = get_sig_stars(rej_tukey_results["UEQ-A-UI", "p adj"]), 
-           color = "black", size = 4, fontface = "bold") +
+           label = format_p_value(rej_tukey_results["UEQ-A-UI", "p adj"]), 
+           color = "black", size = 5, fontface = "bold") +
   
   # Add visible mean and median text annotations
   annotate("text", x = 1, y = -3, 
@@ -288,6 +286,105 @@ ggsave("plots/participant_tendency_publication_ready.png", p_tendency,
 ggsave("plots/participant_rejection_publication_ready.png", p_rejection, 
        width = 12, height = 8, dpi = 300)
 
+# === CREATE THUMBNAIL VERSIONS ===
+cat("Creating thumbnail versions...\n")
+
+# Function to get significance stars for thumbnails
+get_sig_stars <- function(p_value) {
+  if (p_value < 0.001) return("***")
+  if (p_value < 0.01) return("**")
+  if (p_value < 0.05) return("*")
+  return("ns")
+}
+
+# Tendency thumbnail
+p_tendency_thumb <- ggplot(participant_data, aes(x = condition_new, y = mean_tendency, fill = condition_new)) +
+  geom_boxplot(width = 0.6, alpha = 0.8, outlier.shape = NA) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 6, color = "black") +
+  
+  # Essential significance stars only
+  annotate("text", x = 1.5, y = 6.8, 
+           label = get_sig_stars(tend_tukey_results["UEQ-UI", "p adj"]), 
+           size = 8, fontface = "bold") +
+  annotate("text", x = 2.5, y = 6.3, 
+           label = get_sig_stars(tend_tukey_results["UEQ-A-UEQ", "p adj"]), 
+           size = 8, fontface = "bold") +
+  annotate("text", x = 2, y = 7.2, 
+           label = get_sig_stars(tend_tukey_results["UEQ-A-UI", "p adj"]), 
+           size = 8, fontface = "bold") +
+  
+  # Essential mean values
+  annotate("text", x = 1, y = 1.2, 
+           label = sprintf("%.2f", descriptive_stats$mean_tendency[1]), 
+           color = "black", size = 6, fontface = "bold") +
+  annotate("text", x = 2, y = 1.2, 
+           label = sprintf("%.2f", descriptive_stats$mean_tendency[2]), 
+           color = "black", size = 6, fontface = "bold") +
+  annotate("text", x = 3, y = 1.2, 
+           label = sprintf("%.2f", descriptive_stats$mean_tendency[3]), 
+           color = "black", size = 6, fontface = "bold") +
+  
+  scale_fill_manual(values = condition_colors) +
+  labs(title = "Release Tendency", x = "Condition", y = "Tendency (1-7)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 11),
+    axis.text.x = element_text(size = 12, face = "bold"),
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  ) +
+  scale_y_continuous(limits = c(1, 7.5), breaks = 1:7)
+
+# Rejection thumbnail  
+p_rejection_thumb <- ggplot(participant_data, aes(x = condition_new, y = mean_rejection_rate * 100, fill = condition_new)) +
+  geom_boxplot(width = 0.6, alpha = 0.8, outlier.shape = NA) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 6, color = "black") +
+  
+  # Essential significance stars only
+  annotate("text", x = 1.5, y = 82, 
+           label = get_sig_stars(rej_tukey_results["UEQ-UI", "p adj"]), 
+           size = 8, fontface = "bold") +
+  annotate("text", x = 2.5, y = 72, 
+           label = get_sig_stars(rej_tukey_results["UEQ-A-UEQ", "p adj"]), 
+           size = 8, fontface = "bold") +
+  annotate("text", x = 2, y = 92, 
+           label = get_sig_stars(rej_tukey_results["UEQ-A-UI", "p adj"]), 
+           size = 8, fontface = "bold") +
+  
+  # Essential mean values
+  annotate("text", x = 1, y = 5, 
+           label = paste0(sprintf("%.1f", descriptive_stats$mean_rejection[1] * 100), "%"), 
+           color = "black", size = 6, fontface = "bold") +
+  annotate("text", x = 2, y = 5, 
+           label = paste0(sprintf("%.1f", descriptive_stats$mean_rejection[2] * 100), "%"), 
+           color = "black", size = 6, fontface = "bold") +
+  annotate("text", x = 3, y = 5, 
+           label = paste0(sprintf("%.1f", descriptive_stats$mean_rejection[3] * 100), "%"), 
+           color = "black", size = 6, fontface = "bold") +
+  
+  scale_fill_manual(values = condition_colors) +
+  labs(title = "Rejection Rate", x = "Condition", y = "Rejection (%)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 11),
+    axis.text.x = element_text(size = 12, face = "bold"),
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  ) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))
+
+ggsave("plots/participant_tendency_thumbnail.png", p_tendency_thumb, 
+       width = 8, height = 6, dpi = 300)
+
+ggsave("plots/participant_rejection_thumbnail.png", p_rejection_thumb, 
+       width = 8, height = 6, dpi = 300)
+
 cat("✓ HIGH-QUALITY participant plots saved with:\n")
 cat("  • Boxplots showing quartiles\n")
 cat("  • Significance brackets and p-values\n")
@@ -296,3 +393,5 @@ cat("  • Jitter points showing individual participants\n")
 cat("  • Visible mean/median text annotations\n")
 cat("✓ Plot saved: plots/participant_tendency_publication_ready.png\n")
 cat("✓ Plot saved: plots/participant_rejection_publication_ready.png\n")
+cat("✓ Thumbnail saved: plots/participant_tendency_thumbnail.png\n")
+cat("✓ Thumbnail saved: plots/participant_rejection_thumbnail.png\n")

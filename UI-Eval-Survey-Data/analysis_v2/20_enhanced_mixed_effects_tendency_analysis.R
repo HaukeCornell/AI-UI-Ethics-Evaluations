@@ -109,23 +109,35 @@ stats_for_plot <- interface_data %>%
 # 4. Enhanced Visualization: Individual Evaluations Distribution with High-Quality Features
 cat("\n=== CREATING HIGH-QUALITY PER-EVALUATION VISUALIZATION ===\n")
 
+# First verify the calculated statistics
+cat("Calculated statistics for verification:\n")
+print(stats_for_plot)
+
 p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill = condition_new)) +
   # Violin plots for distribution
   geom_violin(alpha = 0.6, trim = FALSE) +
   
-  # BOXPLOTS (key enhancement) - FIXED: Ensure medians match calculated values
+  # BOXPLOTS (key enhancement) - these should automatically show correct medians
   geom_boxplot(width = 0.3, alpha = 0.8, outlier.shape = NA) +
   
-  # Individual evaluation jitter points (reduced noise for cleaner look)
+  # Individual evaluation jitter points (reduced for cleaner look)
   geom_jitter(width = 0.15, alpha = 0.2, size = 0.3, color = "black") +
   
-  # Large visible mean (black diamond) - FIXED: Ensure position matches calculated mean
-  stat_summary(fun = mean, geom = "point", shape = 18, size = 10, color = "white", stroke = 2) +
-  stat_summary(fun = mean, geom = "point", shape = 18, size = 9, color = "black") +
+  # Large visible mean (black diamond) - using calculated means
+  geom_point(data = stats_for_plot, 
+             aes(x = condition_new, y = mean_val), 
+             shape = 18, size = 12, color = "white", stroke = 2, inherit.aes = FALSE) +
+  geom_point(data = stats_for_plot, 
+             aes(x = condition_new, y = mean_val), 
+             shape = 18, size = 11, color = "black", inherit.aes = FALSE) +
   
-  # Large visible median (red line) - FIXED: Ensure position matches calculated median
-  stat_summary(fun = median, geom = "point", shape = 95, size = 12, color = "white", stroke = 2) +
-  stat_summary(fun = median, geom = "point", shape = 95, size = 11, color = "red") +
+  # Large visible median (red line) - using calculated medians
+  geom_point(data = stats_for_plot, 
+             aes(x = condition_new, y = median_val), 
+             shape = 95, size = 14, color = "white", stroke = 2, inherit.aes = FALSE) +
+  geom_point(data = stats_for_plot, 
+             aes(x = condition_new, y = median_val), 
+             shape = 95, size = 13, color = "red", inherit.aes = FALSE) +
   
   # SIGNIFICANCE BARS (UI vs UEQ)
   geom_segment(aes(x = 1, xend = 2, y = 6.5, yend = 6.5), color = "black", linewidth = 1.2) +
@@ -155,11 +167,11 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
   geom_text(data = stats_for_plot, 
             aes(x = as.numeric(condition_new), y = 1.4, 
                 label = paste0("Mean: ", sprintf("%.2f", mean_val))), 
-            color = "black", fontface = "bold", size = 4.5, hjust = 0.5) +
+            color = "black", fontface = "bold", size = 5.5, hjust = 0.5, inherit.aes = FALSE) +
   geom_text(data = stats_for_plot, 
             aes(x = as.numeric(condition_new), y = 1.2, 
                 label = paste0("Median: ", sprintf("%.0f", median_val))), 
-            color = "red", fontface = "bold", size = 4.5, hjust = 0.5) +
+            color = "red", fontface = "bold", size = 5.5, hjust = 0.5, inherit.aes = FALSE) +
   
   scale_fill_manual(values = condition_colors, name = "Condition") +
   labs(
@@ -174,12 +186,12 @@ p_evaluations <- ggplot(interface_data, aes(x = condition_new, y = tendency, fil
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(size = 14, hjust = 0.5, color = "gray50"),
-    plot.caption = element_text(size = 12, hjust = 0.5, color = "gray50"),
-    axis.title = element_text(size = 15, face = "bold"),
-    axis.text = element_text(size = 14),
-    axis.text.x = element_text(size = 15, face = "bold"),
+    plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 16, hjust = 0.5, color = "gray50"),
+    plot.caption = element_text(size = 14, hjust = 0.5, color = "gray50"),
+    axis.title = element_text(size = 17, face = "bold"),
+    axis.text = element_text(size = 16),
+    axis.text.x = element_text(size = 17, face = "bold"),
     legend.position = "none",
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank()
@@ -214,6 +226,54 @@ if(!dir.exists("plots")) dir.create("plots")
 
 ggsave("plots/per_evaluation_tendency_analysis_enhanced.png", p_evaluations, 
        width = 14, height = 10, dpi = 300)
+
+# Create THUMBNAIL version for overview
+p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill = condition_new)) +
+  # Boxplots only (cleaner for thumbnail)
+  geom_boxplot(width = 0.5, alpha = 0.8, outlier.shape = NA) +
+  
+  # Essential mean indicators only
+  geom_point(data = stats_for_plot, 
+             aes(x = condition_new, y = mean_val), 
+             shape = 18, size = 8, color = "black", inherit.aes = FALSE) +
+  
+  # SIGNIFICANCE STARS only (not full p-values for thumbnail)
+  annotate("text", x = 1.5, y = 6.5, 
+           label = if(ui_ueq_p < 0.001) "***" else if(ui_ueq_p < 0.01) "**" else if(ui_ueq_p < 0.05) "*" else "ns", 
+           size = 6, fontface = "bold") +
+  annotate("text", x = 2.5, y = 6.0, 
+           label = if(ueq_ueqa_p < 0.001) "***" else if(ueq_ueqa_p < 0.01) "**" else if(ueq_ueqa_p < 0.05) "*" else "ns", 
+           size = 6, fontface = "bold") +
+  annotate("text", x = 2, y = 6.8, 
+           label = if(ui_ueqa_p < 0.001) "***" else if(ui_ueqa_p < 0.01) "**" else if(ui_ueqa_p < 0.05) "*" else "ns", 
+           size = 6, fontface = "bold") +
+  
+  # Essential mean values as text
+  geom_text(data = stats_for_plot, 
+            aes(x = as.numeric(condition_new), y = 1.5, 
+                label = sprintf("%.2f", mean_val)), 
+            color = "black", fontface = "bold", size = 6, hjust = 0.5, inherit.aes = FALSE) +
+  
+  scale_fill_manual(values = condition_colors) +
+  labs(
+    title = "Release Tendency: Mixed Effects Analysis",
+    x = "Condition",
+    y = "Tendency (1-7)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 11),
+    axis.text.x = element_text(size = 12, face = "bold"),
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  ) +
+  scale_y_continuous(limits = c(1, 7), breaks = 1:7)
+
+ggsave("plots/per_evaluation_tendency_thumbnail.png", p_thumbnail, 
+       width = 8, height = 6, dpi = 300)
 
 # 6. Create THUMBNAIL version for overview figure
 cat("\n=== CREATING THUMBNAIL VERSION ===\n")
