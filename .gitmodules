@@ -1,6 +1,7 @@
 [submodule "overleaf-paper"]
 	path = overleaf-paper
 	url = https://github.com/HaukeCornell/2025-Quantifying-Ethical-UX-Full-Paper-.git
+	branch = main
 [submodule "Masterthesis_Doris"]
 	path = Masterthesis_Doris
 	url = https://github.com/HaukeCornell/Masterthesis_Doris.git
