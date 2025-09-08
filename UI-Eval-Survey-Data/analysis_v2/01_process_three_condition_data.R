@@ -12,14 +12,14 @@ cat("Data: sep2_completed_utf8.tsv (completed responses only)\n\n")
 
 # ===== LOAD EXCLUSION LIST =====
 cat("1. LOADING EXCLUSION LIST...\n")
-exclusion_list <- read.csv("../results/correct_exclusion_list.csv")
+exclusion_list <- read.csv("results/correct_exclusion_list.csv")
 flagged_ids <- exclusion_list$PROLIFIC_PID
 cat("• Participants to exclude:", length(flagged_ids), "\n")
 print(flagged_ids)
 
 # ===== LOAD RAW DATA =====
 cat("\n2. LOADING SEPTEMBER DATA (COMPLETED ONLY)...\n")
-raw_data <- read_tsv("../sep2_completed_utf8.tsv", show_col_types = FALSE)
+raw_data <- read_tsv("sep2_completed_utf8.tsv", show_col_types = FALSE)
 cat("• Total rows in dataset:", nrow(raw_data), "\n")
 
 # ===== CLEAN DATA =====

@@ -285,32 +285,27 @@ p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill 
   # Mean points (larger for visibility)
   stat_summary(fun = mean, geom = "point", shape = 18, size = 8, color = "black") +
   
-  # Significance bars with just stars
-  geom_segment(aes(x = 1, xend = 2, y = 6.5, yend = 6.5), color = "black", linewidth = 1.5) +
-  geom_segment(aes(x = 1, xend = 1, y = 6.3, yend = 6.5), color = "black", linewidth = 1.5) +
-  geom_segment(aes(x = 2, xend = 2, y = 6.3, yend = 6.5), color = "black", linewidth = 1.5) +
-  annotate("text", x = 1.5, y = 6.7, label = "***", size = 8, fontface = "bold") +
-  
-  geom_segment(aes(x = 2, xend = 3, y = 6.0, yend = 6.0), color = "black", linewidth = 1.5) +
-  geom_segment(aes(x = 2, xend = 2, y = 5.8, yend = 6.0), color = "black", linewidth = 1.5) +
-  geom_segment(aes(x = 3, xend = 3, y = 5.8, yend = 6.0), color = "black", linewidth = 1.5) +
-  annotate("text", x = 2.5, y = 6.2, label = "*", size = 8, fontface = "bold") +
-  
-  geom_segment(aes(x = 1, xend = 3, y = 7.0, yend = 7.0), color = "black", linewidth = 1.5) +
-  geom_segment(aes(x = 1, xend = 1, y = 6.8, yend = 7.0), color = "black", linewidth = 1.5) +
-  geom_segment(aes(x = 3, xend = 3, y = 6.8, yend = 7.0), color = "black", linewidth = 1.5) +
-  annotate("text", x = 2, y = 7.2, label = "***", size = 8, fontface = "bold") +
+  # SIGNIFICANCE STARS only (no bold lines for thumbnail)
+  annotate("text", x = 1.5, y = 6.5, 
+           label = if(ui_ueq_p < 0.001) "***" else if(ui_ueq_p < 0.01) "**" else if(ui_ueq_p < 0.05) "*" else "ns", 
+           size = 8, fontface = "bold") +
+  annotate("text", x = 2.5, y = 6.0, 
+           label = if(ueq_ueqa_p < 0.001) "***" else if(ueq_ueqa_p < 0.01) "**" else if(ueq_ueqa_p < 0.05) "*" else "ns", 
+           size = 8, fontface = "bold") +
+  annotate("text", x = 2, y = 6.8, 
+           label = if(ui_ueqa_p < 0.001) "***" else if(ui_ueqa_p < 0.01) "**" else if(ui_ueqa_p < 0.05) "*" else "ns", 
+           size = 8, fontface = "bold") +
   
   # Essential mean values next to boxplots
   geom_text(data = stats_for_plot, 
-            aes(x = as.numeric(condition_new), y = 1.2, 
+            aes(x = as.numeric(condition_new), y = 0.5, 
                 label = sprintf("%.2f", mean_val)), 
             color = "black", fontface = "bold", size = 6, hjust = 0.5) +
   
   scale_fill_manual(values = condition_colors, name = "Condition") +
   labs(
     x = "",
-    y = "Release Tendency"
+    y = "Release Tendency (0-7)"
   ) +
   theme_minimal() +
   theme(
@@ -322,7 +317,7 @@ p_thumbnail <- ggplot(interface_data, aes(x = condition_new, y = tendency, fill 
     panel.grid.major.x = element_blank(),
     plot.margin = margin(5, 5, 5, 5)
   ) +
-  scale_y_continuous(limits = c(1, 7.5), breaks = c(1, 3, 5, 7))
+  scale_y_continuous(limits = c(0, 7), breaks = 0:7)
 
 # Save thumbnail
 ggsave("plots/per_evaluation_tendency_thumbnail.png", p_thumbnail, 
