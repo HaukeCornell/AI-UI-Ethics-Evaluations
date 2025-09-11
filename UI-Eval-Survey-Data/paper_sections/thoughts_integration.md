@@ -10,3 +10,75 @@
 3. Measurement shapes behavior (Goodhart's Law in design practice)
 4. Your experimental evidence proves frameworks influence ethical decisions
 5. Integration needed rather than separate ethical assessment tools
+
+
+**Discussion with advisor Notes
+
+Build the Argument:
+
+1 Designers are receptive /****triggered** **to ethics frameworks sensibility
+
+2 Do designers want this? Irrespectively of what companies see as goals, design communities have shown interest in design ethics (VAP value sensitive design, etc.) Need to show evidence in own literature review section. Restructure**
+
+DP is a particular design trend, UX communities have classified as elements in interface (interactive) design that undermine ethical values SUCH as user autonomyy, privacy, security harm
+
+DP are a class of design elements that are counter-indications of ethical design
+
+Main finding of this work is that the UX metrics
+
+THEY make things salient,
+and ethically focused metrics can
+
+TRIGGER
+
+ethical sensibility.
+
+**Introduction**
+
+TAKES TO LONG TO GET INTO IT
+
+Directly:
+1\. DIVE INTO THE METRICS (most companies today rely on metrics, they are therfore very important)
+
+They are effective, useful etc.
+
+2\. Design community over a few decades has started showing interest in ethical aspects of interactive design, which we've seen in various literature (there are people who are interested in ethics), Dark Pattern community brings to attention that
+
+As much as designers might be commited What we are showing is that unless you explicitly include some metrics, for ethical commitment, **these tend not to be salient. Unless we take these metrics seriously,**
+
+3\. Metrics make a difference, but make them explicit.
+Bulleted Discussion points: Responsibility
+
+**Related work:**
+Values in design should be own section
+
+Proffessional Tools for being more ethical aware designer (much interest), games cards etc. exist
+
+Discussion (parts of it trickl up into intro)
+
+However our insighsts show Commitment through metrics, value commitment, dicusscio section, in big scheme of things, they migjht feel a duty if the company is complex and uses these metrics dutyfully. -**\> triggers ethical sensibility in the designers in the moment of evaluation
+
+**Our recommendation for achieving ethical design is that including methods like this should be done, however we recognize that for the most part there could be other currents that might make the inclusion of metrics such as these difficult - SOmetoimes people think they are not necessary, they think general ethical sensinility is sufficient, sometimes making such consaiderations salient could run contraty to company interest which is what we acknowldge. Our work is condition in that sense.
+
+How these metrics are generated, through user testing, experts can learn how to generate metrics to abstract insights.
+
+Measurement of user responses to particular design features,
+
+Different from designers say USE HELVETICA font because in studies they said users found HELVETICA most beautiful
+Translate into direct guideliens. Metrics unlike guidelines carry some empircial weight.
+
+Future work -
+Some people might argue that, this particular approach to revealign metrics in this style format, ethical sensibility,
+Some critiques might say this appraoch Its not replacing expertise this approach might
+
+Why now (needs to be in intro and Related work)? > FUTURE PROOFING ETHICAL DESIGN
+Companies will start/have utilizing computational and AI methods to create UI, metrics are a key guide for automating we want to trigger ethical consideration in computational design
+Metrics are already in use, and will likely be come even more important when some aspect of interatiojn desing will be automated.
+
+lastly
+SPRUCE UP, sleeken streamline the literatue review.
+introduction needs to be sharpened to get the argument right up front
+
+We need a new title
+Efficacy of metrics - **Influencing practitioner behavior**
+How User Experience Metrics Can Trigger Ethical Design Sensibilities
