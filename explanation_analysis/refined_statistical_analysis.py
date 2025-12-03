@@ -3,6 +3,21 @@
 Refined Statistical Analysis of Key Patterns
 Focus on the most significant differences between conditions
 
+IMPORTANT NOTE (CHI 2025 MANUSCRIPT COORDINATION)
+-------------------------------------------------
+This script was developed as an exploratory/statistical deep-dive on
+reasoning patterns (e.g., responsibility avoidance, manipulation
+awareness) 
+AFTER the main paper pipeline was finalised. The justification table
+and percentages reported in the CHI 2025 manuscript are NOT derived
+directly from this script, but from the earlier theme/keyword pipeline
+implemented in the explanation analysis scripts
+(`explanation_analysis_text_only.py` + `theme_analysis_detailed.json`).
+
+You can use this file to reproduce the additional robustness checks and
+effect-size estimates, but do not treat it as the ground truth source
+for the published table values.
+
 This script provides statistical evidence for the key patterns identified:
 1. Quantify responsibility avoidance in RAW condition
 2. Measure manipulation awareness in UEEQ condition

@@ -3,7 +3,17 @@
 Enhanced Comprehensive Theme Analysis
 Incorporating all discovered keywords from semantic search and domain expertise
 
-Key enhancements:
+IMPORTANT NOTE (LINK TO CHI 2025 PAPER)
+---------------------------------------
+This script is the one that actually generates
+``explanation_analysis_output/enhanced_theme_analysis/enhanced_theme_statistics.csv``.
+That CSV is the direct numeric source for the eight-theme
+justification-patterns table in the CHI 2025 manuscript (see
+`overleaf-paper/04_results.tex`). Counts, percentages, chi-square
+statistics and Cramér's V in that table are derived from this file
+after rounding.
+
+Key enhancements in this implementation:
 1. Manipulation awareness keywords found in RAW condition
 2. Aesthetic-focused language across conditions  
 3. Business-focused reasoning patterns
@@ -357,7 +367,7 @@ class EnhancedThemeAnalyzer:
         
         # Create and save results DataFrame
         results_df = pd.DataFrame(results)
-        results_df.to_csv(self.output_dir / "enhanced_theme_statistics.csv", index=False)
+        results_df.to_csv(self.output_dir / "enhanced_theme_statistics-Dec02.csv", index=False)
         
         # Summary of significant themes
         significant_themes = results_df[results_df['is_significant']]

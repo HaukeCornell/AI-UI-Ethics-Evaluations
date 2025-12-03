@@ -42,10 +42,10 @@ CONDITION BREAKDOWN:
     Top matched keywords: competitive market, supervisor
   UEEQ: 10/456 (2.2%)
     Keyword coverage: 12.8%
-    Top matched keywords: business team, team approved, limited runway, competitive market, supervisor
+    Top matched keywords: business team, supervisor, team approved, competitive market, limited runway
   RAW: 37/401 (9.2%)
     Keyword coverage: 74.4%
-    Top matched keywords: pivotal for success, final sign-off, my role at this stage, strategic perspective, momentum might be put at risk
+    Top matched keywords: already approved, competitive market, provide a final sign-off, withholding my final approval would be, developers are busy
 
 EXAMPLES FROM RAW (highest prevalence):
 1. [P1, Yes] Keywords: supervisor, business team, marketing department
@@ -77,10 +77,10 @@ CONDITION BREAKDOWN:
     Keyword coverage: 0.0%
   UEEQ: 102/456 (22.4%)
     Keyword coverage: 50.0%
-    Top matched keywords: manipulative, pressure, deceptive, deception, dishonest
+    Top matched keywords: terrible, coercion score, violating ethical, deception score, exploiting user behavior
   RAW: 21/401 (5.2%)
     Keyword coverage: 44.0%
-    Top matched keywords: manipulative, pressure, disrespectful, backfire, guilt tripping
+    Top matched keywords: undermines user trust, coercive language, emotionally coercive, poor taste, unacceptable copy
 
 EXAMPLES FROM UEEQ (highest prevalence):
 1. [P5, No] Keywords: pressuring
@@ -110,13 +110,13 @@ STATISTICAL RESULTS:
 CONDITION BREAKDOWN:
   UEQ: 16/456 (3.5%)
     Keyword coverage: 8.7%
-    Top matched keywords: right, fair, trust, wrong
+    Top matched keywords: right, wrong, trust, fair
   UEEQ: 56/456 (12.3%)
     Keyword coverage: 56.5%
-    Top matched keywords: honest, values I stand for, transparency, autonomy, ethical risks
+    Top matched keywords: ethical UX, unfair, ethical violation, right, user well-being and safety outweigh business
   RAW: 29/401 (7.2%)
     Keyword coverage: 19.6%
-    Top matched keywords: ethical UX, privacy, trust, transparency, transparent
+    Top matched keywords: autonomy, ethical UX, transparent, privacy, trust
 
 EXAMPLES FROM UEEQ (highest prevalence):
 1. [P4, No] Keywords: trust
@@ -150,7 +150,7 @@ CONDITION BREAKDOWN:
     Keyword coverage: 0.0%
   RAW: 12/401 (3.0%)
     Keyword coverage: 50.0%
-    Top matched keywords: social media giants, OS-level UX conventions, recognition and ease of use, platform-level, common interface
+    Top matched keywords: already in place by apple, OS-level UX conventions, social media giants, follows similarly, aligns with user expectations
 
 EXAMPLES FROM RAW (highest prevalence):
 1. [P2, Yes] Keywords: common interface
@@ -180,13 +180,13 @@ STATISTICAL RESULTS:
 CONDITION BREAKDOWN:
   UEQ: 36/456 (7.9%)
     Keyword coverage: 19.4%
-    Top matched keywords: appealing, visually appealing, boring, eye catching, attractiveness
+    Top matched keywords: eye catching, appealing, boring, attractiveness, looks good
   UEEQ: 69/456 (15.1%)
     Keyword coverage: 22.6%
-    Top matched keywords: appealing, boring, visually appealing, impressive, attractiveness
+    Top matched keywords: appealing, boring, attractiveness, impressive, looks good
   RAW: 41/401 (10.2%)
     Keyword coverage: 61.3%
-    Top matched keywords: visual hierarchy, visual elements, nothing special here, aesthetically pleasing, simple enough
+    Top matched keywords: eye catching, appealing, visual elements, layout is clean, well designed
 
 EXAMPLES FROM UEEQ (highest prevalence):
 1. [P9, Yes] Keywords: looks good
@@ -216,13 +216,13 @@ STATISTICAL RESULTS:
 CONDITION BREAKDOWN:
   UEQ: 25/456 (5.5%)
     Keyword coverage: 17.1%
-    Top matched keywords: excellent, extremely, love, highly, strongly
+    Top matched keywords: excellent, great, extremely, strongly, highly
   UEEQ: 50/456 (11.0%)
     Keyword coverage: 37.1%
-    Top matched keywords: highly unsuitable, extremely, impressive, love, perfect
+    Top matched keywords: highly unsuitable, terrible, extremely, great, strongly
   RAW: 23/401 (5.7%)
     Keyword coverage: 28.6%
-    Top matched keywords: absolutely, excellent, extremely, hate, wonderful
+    Top matched keywords: excellent, wonderful, absolutely, great, extremely
 
 EXAMPLES FROM UEEQ (highest prevalence):
 1. [P8, Yes] Keywords: great
@@ -252,13 +252,13 @@ STATISTICAL RESULTS:
 CONDITION BREAKDOWN:
   UEQ: 127/456 (27.9%)
     Keyword coverage: 38.9%
-    Top matched keywords: scores, data shows, composite score, metrics, results
+    Top matched keywords: scores, composite score, data, evaluation data, stimulation score
   UEEQ: 128/456 (28.1%)
     Keyword coverage: 66.7%
-    Top matched keywords: scores, assessment shows, results, attractiveness score, scores reveal
+    Top matched keywords: numbers indicate, statistics, metrics, numbers, efficiency score
   RAW: 11/401 (2.7%)
     Keyword coverage: 13.9%
-    Top matched keywords: metrics, numbers, feedback, evaluation data, data
+    Top matched keywords: data, evaluation data, metrics, numbers, feedback
 
 EXAMPLES FROM UEEQ (highest prevalence):
 1. [P1, Yes] Keywords: numbers, numbers indicate

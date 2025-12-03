@@ -1,0 +1,71 @@
+REPRODUCTION TEST: JUSTIFICATION THEME STATISTICS VS. PAPER TABLE
+=================================================================
+
+Source script: explanation_analysis/improved_hypothesis_driven_analysis.py
+Source CSV:    enhanced_theme_analysis/enhanced_theme_statistics.csv
+
+Values below are computed directly from the CSV and rounded
+to match the presentation in overleaf-paper/04_results.tex.
+
+Theme: Manipulation awareness
+  Counts per condition (UEQ, UEQ-A, UI): 2, 94, 25
+  Total coded instances: 121
+  Percentages: UEQ 1.7%, UEQ-A 77.7%, UI 20.7%
+  Chi-square: 117.06  -> reported as 117.1
+  Cramer's V: 0.2986  -> reported as 0.299
+
+Theme: Responsibility avoidance
+  Counts per condition (UEQ, UEQ-A, UI): 6, 10, 38
+  Total coded instances: 54
+  Percentages: UEQ 11.1%, UEQ-A 18.5%, UI 70.4%
+  Chi-square: 42.56   -> reported as 42.6
+  Cramer's V: 0.1800  -> reported as 0.180
+
+Theme: Ethics-focused reasoning
+  Counts per condition (UEQ, UEQ-A, UI): 13, 50, 28
+  Total coded instances: 91
+  Percentages: UEQ 14.3%, UEQ-A 54.9%, UI 30.8%
+  Chi-square: 23.27   -> reported as 23.3
+  Cramer's V: 0.1331  -> reported as 0.133
+
+Theme: Aesthetic-focused reasoning
+  Counts per condition (UEQ, UEQ-A, UI): 91, 96, 136
+  Total coded instances: 323
+  Percentages: UEQ 28.2%, UEQ-A 29.7%, UI 42.1%
+  Chi-square: 27.15   -> reported as 27.2
+  Cramer's V: 0.1438  -> reported as 0.144
+
+Theme: Business-focused reasoning
+  Counts per condition (UEQ, UEQ-A, UI): 50, 44, 78
+  Total coded instances: 172
+  Percentages: UEQ 29.1%, UEQ-A 25.6%, UI 45.3%
+  Chi-square: 20.81   -> reported as 20.8
+  Cramer's V: 0.1259  -> reported as 0.126
+
+Theme: Emotional intensity
+  Counts per condition (UEQ, UEQ-A, UI): 49, 81, 39
+  Total coded instances: 169
+  Percentages: UEQ 29.0%, UEQ-A 47.9%, UI 23.1%
+  Chi-square: 15.11   -> reported as 15.1
+  Cramer's V: 0.1073  -> reported as 0.107
+
+Theme: Interface design elements
+  Counts per condition (UEQ, UEQ-A, UI): 102, 113, 138
+  Total coded instances: 353
+  Percentages: UEQ 28.9%, UEQ-A 32.0%, UI 39.1%
+  Chi-square: 17.32   -> reported as 17.3
+  Cramer's V: 0.1149  -> reported as 0.115
+
+Theme: Conformity justification
+  Counts per condition (UEQ, UEQ-A, UI): 5, 10, 16
+  Total coded instances: 31
+  Percentages: UEQ 16.1%, UEQ-A 32.3%, UI 51.6%
+  Chi-square: 7.83    -> reported as 7.8
+  Cramer's V: 0.0772  -> reported as 0.077
+
+Note:
+- Percentages are computed as count / total_count for each theme.
+- The paper's table orders columns as UI, UEQ, UEQ-A; counts here
+  are listed in the script/CSV's UEQ, UEEQ, RAW order for clarity.
+- Bonferroni-corrected significance (alpha = 0.00625) matches the
+  CSV's is_significant flag: 7 of 8 themes significant.
