@@ -24,9 +24,9 @@ interface_patterns <- data.frame(
     "Overcomplicated Process", # UI 10
     "Pull to Refresh",       # UI 11
     "Social Connector",      # UI 12
-    "Social Pressure",       # UI 13
-    "Toying with Emotion",   # UI 14
-    "Trick Wording"          # UI 15
+    "Toying with Emotion",   # UI 13 - CORRECTED
+    "Trick Wording",         # UI 14 - CORRECTED  
+    "Social Pressure"        # UI 15 - CORRECTED
   )
 )
 

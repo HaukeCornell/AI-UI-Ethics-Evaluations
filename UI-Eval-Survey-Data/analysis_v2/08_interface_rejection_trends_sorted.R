@@ -9,10 +9,21 @@ cat("=== CREATING INTERFACE REJECTION TRENDS LINE PLOT (SORTED) ===\n")
 
 # Pattern names for each interface
 pattern_names <- c(
-  "Bad Defaults", "Content Customization", "Endlessness", "Expectation Result Mismatch",
-  "False Hierarchy", "Forced Access", "Gamification", "Hindering Account Deletion",
-  "Nagging", "Overcomplicated Process", "Pull to Refresh", "Social Connector",
-  "Social Pressure", "Toying with Emotion", "Trick Wording"
+  "Bad Defaults",           # UI 1
+  "Content Customization",  # UI 2 
+  "Endlessness",           # UI 3
+  "Expectation Result Mismatch", # UI 4
+  "False Hierarchy",       # UI 5
+  "Forced Access",         # UI 6
+  "Gamification",          # UI 7
+  "Hindering Account Deletion", # UI 8
+  "Nagging",               # UI 9
+  "Overcomplicated Process", # UI 10
+  "Pull to Refresh",       # UI 11
+  "Social Connector",      # UI 12
+  "Toying with Emotion",   # UI 13 - CORRECTED
+  "Trick Wording",         # UI 14 - CORRECTED  
+  "Social Pressure"        # UI 15 - CORRECTED
 )
 
 # Load data
@@ -42,14 +53,14 @@ summary_df$condition_new <- factor(summary_df$condition_new, levels = c("UI", "U
 # Add pattern names
 summary_df$pattern_name <- pattern_names[as.integer(gsub("ui", "", summary_df$interface))]
 
-# Calculate difference between UI and UEEQ-P for sorting (as described in paper caption)
-effect_order <- summary_df %>%
-  pivot_wider(id_cols = c(interface, pattern_name), names_from = condition_new, values_from = mean_rejection) %>%
-  mutate(diff = `UEEQ-P` - UI) %>%
-  arrange(desc(diff))
+# Calculate overall mean rejection per interface (across all conditions)
+overall_order <- summary_df %>%
+  group_by(interface, pattern_name) %>%
+  summarise(overall_mean = mean(mean_rejection), .groups = "drop") %>%
+  arrange(overall_mean)
 
 # Set factor levels for ordered plotting
-summary_df$pattern_name <- factor(summary_df$pattern_name, levels = effect_order$pattern_name)
+summary_df$pattern_name <- factor(summary_df$pattern_name, levels = overall_order$pattern_name)
 
 # Plot
 p <- ggplot(summary_df, aes(x = pattern_name, y = mean_rejection * 100, group = condition_new, color = condition_new)) +
@@ -61,7 +72,7 @@ p <- ggplot(summary_df, aes(x = pattern_name, y = mean_rejection * 100, group = 
                      name = "Condition") +
   labs(
     title = "Rejection Rates by Interface and Condition (Sorted)",
-    subtitle = "Ordered by magnitude of difference between UI and UEEQ-P conditions (largest to smallest effect)",
+    subtitle = "Ordered by overall mean rejection rate (lowest to highest)",
     x = "Pattern Name",
     y = "Rejection Rate (%)"
   ) +
