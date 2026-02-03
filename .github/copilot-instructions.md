@@ -14,6 +14,20 @@ This repository hosts the LaTeX source (and supporting markdown notes) for the C
   - `key_changes_done.md`: log of major, reviewer-visible changes.
 - `overleaf-paper/library.bib` and `overleaf-paper/old bib/` contain bibliographic data; the main paper currently cites from `library.bib`.
 
+## Core Argument Spine (for agents)
+
+- The paper studies how **questionnaire-based UX metrics** influence UX professionals' release decisions for social media dark pattern interfaces.
+- Dark patterns are treated as **normatively problematic by design**, based on existing taxonomies; the taxonomy work is only used to select realistic, commonly used but unethical stimuli, not claimed as a main contribution.
+- For these stimuli, **refusal and non-release** are treated as the ethically preferable outcome, grounded in reflective design and refusal literature and in dark pattern work.
+- The empirical claim is that extending a widely used UX questionnaire (UEQ) with **autonomy-focused items** makes autonomy harms visible in familiar workflows, which:
+  - increases rejection of these dark pattern interfaces,
+  - shifts justifications from business/aesthetic reasoning toward manipulation, autonomy, and user harm,
+  - while designers remain highly confident in their decisions across conditions.
+- Practitioners are portrayed as **constrained but committed**: they care about user autonomy and trust but work under organisational and metric pressures; questionnaire-based UX metrics can help them negotiate boundaries of unethical design and support decisions **not to release** problematic interfaces.
+- Metric choice is especially important where UX questionnaires feed into A/B testing and AI-supported optimisation, because what is measured becomes what gets improved; autonomy-focused metrics offer a modest, embedded lever in these pipelines.
+
+When editing, keep this spine intact, avoid introducing new conceptual labels beyond those in `terminology-glossary.md`, and de-emphasise the taxonomy as a standalone contribution.
+
 ## Build & Verification
 
 - LaTeX builds are configured via `overleaf-paper/latexmkrc` to use a `build/` directory and `pdflatex`:

@@ -1,17 +1,17 @@
-# Update Publication Plots with UI, UEQ, UEQ-A Naming and Consistent Colors
+# Update Publication Plots with UI, UEQ, UEEQ-P Naming and Consistent Colors
 # Updated for final paper submission
 
 library(tidyverse)
 library(scales)
 
 # Set working directory
-setwd("/Users/hgs52/Documents/Github/AI-UI-Ethics-Evaluations/UI-Eval-Survey-Data/analysis_v2")
+# setwd("/Users/hgs52/Documents/Github/AI-UI-Ethics-Evaluations/UI-Eval-Survey-Data/analysis_v2")
 
 # Define consistent color scheme
 condition_colors <- c(
   "UI" = "#FF8888",      # RGB(255, 136, 136) - Light red/salmon
   "UEQ" = "#ABE2AB",     # RGB(171, 226, 171) - Light green  
-  "UEQ-A" = "#AE80FF"    # RGB(174, 128, 255) - Light purple
+  "UEEQ-P" = "#AE80FF"    # RGB(174, 128, 255) - Light purple
 )
 
 # Load the participant-level data
@@ -32,7 +32,7 @@ print(head(interface_data))
 condition_mapping <- c(
   "RAW" = "UI",
   "UEQ" = "UEQ", 
-  "UEQ+Autonomy" = "UEQ-A"
+  "UEQ+Autonomy" = "UEEQ-P"
 )
 
 # Apply condition mapping to interface data
@@ -76,7 +76,7 @@ print(condition_stats)
 
 # Create factor with correct order
 participant_summary$condition_new <- factor(participant_summary$condition_new, 
-                                          levels = c("UI", "UEQ", "UEQ-A"))
+                                          levels = c("UI", "UEQ", "UEEQ-P"))
 
 # 1. PARTICIPANT TENDENCY PUBLICATION READY PLOT
 print("Creating participant tendency publication plot...")
@@ -245,12 +245,12 @@ interface_rejection_trends <- interface_data %>%
 
 # Convert back to long format for plotting
 interface_trends_long <- interface_rejection_trends %>%
-  select(interface, interface_ordered, rejection_UI, rejection_UEQ, `rejection_UEQ-A`) %>%
+  select(interface, interface_ordered, rejection_UI, rejection_UEQ, `rejection_UEEQ-P`) %>%
   pivot_longer(cols = starts_with("rejection_"), 
                names_to = "condition", 
                values_to = "rejection_rate",
                names_prefix = "rejection_") %>%
-  mutate(condition = factor(condition, levels = c("UI", "UEQ", "UEQ-A")))
+  mutate(condition = factor(condition, levels = c("UI", "UEQ", "UEEQ-P")))
 
 p_trends <- ggplot(interface_trends_long, aes(x = interface_ordered, y = rejection_rate, 
                                              color = condition, group = condition)) +
@@ -282,7 +282,7 @@ p_trends <- ggplot(interface_trends_long, aes(x = interface_ordered, y = rejecti
 ggsave("plots/interface_rejection_trends_sorted.png", p_trends, 
        width = 12, height = 8, dpi = 300, bg = "white")
 
-print("All publication plots updated successfully with UI, UEQ, UEQ-A naming!")
+print("All publication plots updated successfully with UI, UEQ, UEEQ-P naming!")
 print("Updated plots:")
 print("- plots/participant_tendency_publication_ready.png")
 print("- plots/participant_rejection_publication_ready.png") 

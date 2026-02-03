@@ -10,7 +10,7 @@ library(emmeans)
 cat("=== CONFIDENCE ANALYSIS: EXTRACTING AND ANALYZING CONFIDENCE DATA ===\n")
 
 # Read raw survey data (use UTF-8 converted file)
-raw_data <- read.delim("../sep2_completed_utf8.tsv", 
+raw_data <- read.delim("data/sep2_completed_utf8.tsv", 
                        sep = "\t", stringsAsFactors = FALSE)
 
 cat("Raw data loaded:", nrow(raw_data), "participants\n")

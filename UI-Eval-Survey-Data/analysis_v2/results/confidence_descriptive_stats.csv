@@ -1,0 +1,4 @@
+"condition_new","n_evaluations","n_participants","n_interfaces","mean_confidence","sd_confidence","median_confidence","q25","q75"
+"UI",450,45,15,5.80222222222222,1.38509226195056,6,5,7
+"UEQ",520,52,15,5.35192307692308,1.72402164426947,6,4,7
+"UEEQ-P",550,54,15,5.55454545454545,1.38549842836999,6,5,7

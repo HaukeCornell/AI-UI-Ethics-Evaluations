@@ -1,7 +1,7 @@
 # Create Overall Tendency and Rejection Violin Plots with Significance Annotations
 # Tests the hypothesis: More evaluation data → More user-focused perspective
-# Tendency: RAW > UEQ > UEQ+Autonomy (more evaluation = more critical)
-# Rejection: UEQ+Autonomy > UEQ > RAW (more evaluation = more rejection)
+# Tendency: UI > UEQ > UEEQ-P (more evaluation = more critical)
+# Rejection: UEEQ-P > UEQ > UI (more evaluation = more rejection)
 
 library(dplyr)
 library(ggplot2)
@@ -20,7 +20,7 @@ data$rejection <- 1 - data$release_binary
 # Set condition order according to hypothesis
 data$condition_f <- factor(data$condition, 
                           levels = c("RAW", "UEQ", "UEQ+Autonomy"),
-                          labels = c("RAW", "UEQ", "UEQ+A"))
+                          labels = c("UI", "UEQ", "UEEQ-P"))
 
 # Calculate overall statistics
 overall_stats <- data %>%
@@ -80,7 +80,7 @@ p_tendency <- ggplot(data, aes(x = condition_f, y = tendency_numeric, fill = con
   geom_violin(alpha = 0.7, trim = FALSE, scale = "width") +
   geom_jitter(width = 0.2, alpha = 0.3, size = 0.5) +
   stat_summary(fun = mean, geom = "point", shape = 18, size = 4, color = "white") +
-  scale_fill_manual(values = c("RAW" = "#2ecc71", "UEQ" = "#3498db", "UEQ+A" = "#e74c3c")) +
+  scale_fill_manual(values = c("UI" = "#FF8888", "UEQ" = "#ABE2AB", "UEEQ-P" = "#AE80FF")) +
   scale_y_continuous(limits = c(0.5, 7.5), breaks = 1:7) +
   labs(
     title = "Overall Release Tendency by Condition",
@@ -89,7 +89,7 @@ p_tendency <- ggplot(data, aes(x = condition_f, y = tendency_numeric, fill = con
                      "N = ", nrow(data), " evaluations"),
     x = "Condition",
     y = "Release Tendency (1-7 scale)",
-    caption = "White diamonds = means • RAW > UEQ > UEQ+Autonomy pattern confirmed"
+    caption = "White diamonds = means • UI > UEQ > UEEQ-P pattern confirmed"
   ) +
   theme_minimal() +
   theme(
@@ -134,7 +134,7 @@ p_rejection <- ggplot(data, aes(x = condition_f, y = rejection, fill = condition
   geom_violin(alpha = 0.7, trim = FALSE, scale = "width") +
   geom_jitter(width = 0.2, alpha = 0.3, size = 0.5) +
   stat_summary(fun = mean, geom = "point", shape = 18, size = 4, color = "white") +
-  scale_fill_manual(values = c("RAW" = "#2ecc71", "UEQ" = "#3498db", "UEQ+A" = "#e74c3c")) +
+  scale_fill_manual(values = c("UI" = "#FF8888", "UEQ" = "#ABE2AB", "UEEQ-P" = "#AE80FF")) +
   scale_y_continuous(limits = c(-0.05, 1.15), labels = scales::percent) +
   labs(
     title = "Overall Rejection Rate by Condition",
@@ -143,7 +143,7 @@ p_rejection <- ggplot(data, aes(x = condition_f, y = rejection, fill = condition
                      "N = ", nrow(data), " evaluations"),
     x = "Condition", 
     y = "Rejection Rate (%)",
-    caption = "White diamonds = means • UEQ+Autonomy > UEQ > RAW pattern confirmed"
+    caption = "White diamonds = means • UEEQ-P > UEQ > UI pattern confirmed"
   ) +
   theme_minimal() +
   theme(

@@ -91,15 +91,15 @@ create_interface_plot <- function(ui_num) {
   
   # Set condition order and labels
   ui_data$condition_f <- factor(ui_data$condition, 
-                               levels = c("UEQ", "UEQ+Autonomy", "RAW"),
-                               labels = c("UEQ", "UEQ+A", "RAW"))
+                               levels = c("RAW", "UEQ", "UEQ+Autonomy"),
+                               labels = c("UI", "UEQ", "UEEQ-P"))
   
   # Create the plot with violin plots
   p <- ggplot(ui_data, aes(x = condition_f, y = tendency, fill = condition_f)) +
     geom_violin(alpha = 0.7, trim = FALSE) +
     geom_jitter(width = 0.15, alpha = 0.5, size = 0.8) +
     stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "white") +
-    scale_fill_manual(values = c("UEQ" = "#3498db", "UEQ+A" = "#e74c3c", "RAW" = "#2ecc71")) +
+    scale_fill_manual(values = c("UI" = "#FF8888", "UEQ" = "#ABE2AB", "UEEQ-P" = "#AE80FF")) +
     labs(
       title = title_text,
       x = "",  # Remove x-axis label to reduce repetition

@@ -24,14 +24,14 @@
 ### **Release Tendency (0-7 scale):**
 - **UI:** 4.66 (baseline confidence in UI alone)
 - **UEQ:** 3.80 (more conservative with usability metrics) 
-- **UEQ-A:** 3.14 (most conservative with ethics information)
+- **UEEQ-P:** 3.14 (most conservative with ethics information)
 - **Statistics:** χ²(2) = 32.65, p < 0.001 (highly significant)
 - **Effect sizes:** Medium to large (Cohen's d: 0.37-0.67)
 
 ### **Decision Confidence (0-7 scale) - NEW FINDING:**
 - **UI:** 5.80 (highest confidence with least information!)
 - **UEQ:** 5.35 (confidence doesn't increase with more data)
-- **UEQ-A:** 5.55 (still high despite complexity)
+- **UEEQ-P:** 5.55 (still high despite complexity)
 - **Statistics:** χ²(2) = 4.26, p = 0.119 (NOT significant)
 - **Key insight:** High confidence maintained despite behavioral changes
 
@@ -43,7 +43,7 @@
 "Alongside each release tendency decision, participants rated their confidence on a 0-7 scale to examine whether additional evaluation information influenced decision certainty."
 
 ### **Results Addition (2-3 sentences):**
-"Confidence analysis revealed no significant differences between conditions (χ²(2) = 4.26, p = 0.119), with consistently high ratings across UI (5.80), UEQ (5.35), and UEQ-A (5.55) conditions. All medians equaled 6, indicating high confidence regardless of information availability."
+"Confidence analysis revealed no significant differences between conditions (χ²(2) = 4.26, p = 0.119), with consistently high ratings across UI (5.80), UEQ (5.35), and UEEQ-P (5.55) conditions. All medians equaled 6, indicating high confidence regardless of information availability."
 
 ### **Discussion Insights (for Overleaf):**
 - **Designer overconfidence paradox:** Behavior changes significantly, confidence doesn't
@@ -63,7 +63,7 @@
 ---
 
 ## 🎨 **Visualization Style Consistency:**
-✅ **All plots use identical style:** UI=#FF8888, UEQ=#ABE2AB, UEQ-A=#AE80FF  
+✅ **All plots use identical style:** UI=#FF8888, UEQ=#ABE2AB, UEEQ-P=#AE80FF  
 ✅ **All scales corrected:** 0-7 Likert scale properly represented  
 ✅ **High-quality features:** Boxplots + significance brackets + visible means/medians  
 ✅ **Thumbnail versions:** Clean for presentations without detailed annotations

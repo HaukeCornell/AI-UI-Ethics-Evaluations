@@ -35,7 +35,7 @@ data$rejection <- 1 - data$release_binary
 data$condition_new <- case_when(
   data$condition == "RAW" ~ "UI",
   data$condition == "UEQ" ~ "UEQ", 
-  data$condition == "UEQ+Autonomy" ~ "UEQ-A",
+  data$condition == "UEQ+Autonomy" ~ "UEEQ-P",
   TRUE ~ data$condition
 )
 
@@ -67,7 +67,7 @@ p <- ggplot(summary_df, aes(x = pattern_name, y = mean_rejection * 100, group = 
   geom_point(size = 2) +
   geom_errorbar(aes(ymin = (mean_rejection - se_rejection) * 100, ymax = (mean_rejection + se_rejection) * 100),
                 width = 0.2, linewidth = 0.7) +
-  scale_color_manual(values = c("UI" = "#FF8888", "UEQ" = "#ABE2AB", "UEQ-A" = "#AE80FF"),
+  scale_color_manual(values = c("UI" = "#FF8888", "UEQ" = "#ABE2AB", "UEEQ-P" = "#AE80FF"),
                      name = "Condition") +
   labs(
     title = "Rejection Rates by Interface and Condition (Sorted)",
