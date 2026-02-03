@@ -11,7 +11,7 @@ This folder contains the data and scripts necessary to replicate the figures in 
 
 ## Prerequisites
 - R (tested on version 4.2+)
-- Required R packages: `dplyr`, `readr`, `tidyr`, `ggplot2`, `patchwork`, `scales`, `lme4`, `car`, `emmeans`
+- Required R packages: `dplyr`, `readr`, `tidyr`, `ggplot2`, `patchwork`, `scales`, `lme4`, `car`, `emmeans`, `gridExtra`, `effsize`
 
 ## How to Reproduce
 Simply open R or RStudio in this folder and run:
