@@ -11,7 +11,7 @@ library(scales)
 condition_colors <- c(
   "UI" = "#FF8888",      # RGB(255, 136, 136) - Light red/salmon
   "UEQ" = "#ABE2AB",     # RGB(171, 226, 171) - Light green  
-  "UEEQ-P" = "#AE80FF"    # RGB(174, 128, 255) - Light purple
+  "UEQ+P" = "#AE80FF"    # RGB(174, 128, 255) - Light purple
 )
 
 # Load the participant-level data
@@ -32,7 +32,7 @@ print(head(interface_data))
 condition_mapping <- c(
   "RAW" = "UI",
   "UEQ" = "UEQ", 
-  "UEQ+Autonomy" = "UEEQ-P"
+  "UEQ+Autonomy" = "UEQ+P"
 )
 
 # Apply condition mapping to interface data
@@ -76,7 +76,7 @@ print(condition_stats)
 
 # Create factor with correct order
 participant_summary$condition_new <- factor(participant_summary$condition_new, 
-                                          levels = c("UI", "UEQ", "UEEQ-P"))
+                                          levels = c("UI", "UEQ", "UEQ+P"))
 
 # 1. PARTICIPANT TENDENCY PUBLICATION READY PLOT
 print("Creating participant tendency publication plot...")
@@ -115,8 +115,12 @@ p_tendency <- p_tendency +
   annotate("segment", x = 1, xend = 3, y = 6.9, yend = 6.9, color = "black") +
   annotate("text", x = 2, y = 7.0, label = "***", size = 4, hjust = 0.5)
 
-# Add mean/median text annotations
+# Add mean/median text annotations (ordered to match plot x-axis)
 means_text <- condition_stats %>%
+  mutate(
+    condition_new = factor(condition_new, levels = c("UI", "UEQ", "UEQ+P"))
+  ) %>%
+  arrange(condition_new) %>%
   mutate(
     label = sprintf("M=%.2f\nMd=%.2f", mean_tendency, median_tendency),
     y_pos = 1.5
@@ -135,11 +139,13 @@ ggsave("plots/participant_tendency_publication_ready.png", p_tendency,
 print("Creating participant rejection publication plot...")
 
 p_rejection <- ggplot(participant_summary, aes(x = condition_new, y = mean_rejection_rate, fill = condition_new)) +
-  geom_violin(alpha = 0.6, trim = FALSE) +
-  geom_boxplot(width = 0.2, alpha = 0.8, outlier.shape = NA) +
-  stat_summary(fun = mean, geom = "point", shape = 23, size = 3, fill = "white", stroke = 1.5) +
-  stat_summary(fun = median, geom = "point", shape = 3, size = 2, color = "black") +
+  geom_violin(alpha = 0.5, trim = FALSE) +
+  geom_boxplot(width = 0.2, alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(aes(color = condition_new), width = 0.12, alpha = 0.5, size = 1.8) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 4, fill = "white", stroke = 1.5) +
+  stat_summary(fun = median, geom = "point", shape = 3, size = 3, color = "black") +
   scale_fill_manual(values = condition_colors) +
+  scale_color_manual(values = c("UI" = "#CC5555", "UEQ" = "#55AA55", "UEQ+P" = "#7744CC"), guide = "none") +
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), labels = percent_format()) +
   labs(
     title = "Rejection Rate by Evaluation Condition",
@@ -150,26 +156,30 @@ p_rejection <- ggplot(participant_summary, aes(x = condition_new, y = mean_rejec
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 14, hjust = 0.5, face = "bold"),
-    plot.subtitle = element_text(size = 12, hjust = 0.5),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 11),
+    plot.title = element_text(size = 16, hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(size = 14, hjust = 0.5),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 13),
     legend.position = "none",
     panel.grid.minor = element_blank(),
-    plot.caption = element_text(size = 9, hjust = 0.5, color = "gray40")
+    plot.caption = element_text(size = 11, hjust = 0.5, color = "gray40")
   )
 
 # Add significance brackets
 p_rejection <- p_rejection +
   annotate("segment", x = 1, xend = 2, y = 0.85, yend = 0.85, color = "black") +
-  annotate("text", x = 1.5, y = 0.87, label = "***", size = 4, hjust = 0.5) +
+  annotate("text", x = 1.5, y = 0.87, label = "***", size = 5, hjust = 0.5) +
   annotate("segment", x = 2, xend = 3, y = 0.90, yend = 0.90, color = "black") +
-  annotate("text", x = 2.5, y = 0.92, label = "***", size = 4, hjust = 0.5) +
+  annotate("text", x = 2.5, y = 0.92, label = "***", size = 5, hjust = 0.5) +
   annotate("segment", x = 1, xend = 3, y = 0.95, yend = 0.95, color = "black") +
-  annotate("text", x = 2, y = 0.97, label = "***", size = 4, hjust = 0.5)
+  annotate("text", x = 2, y = 0.97, label = "***", size = 5, hjust = 0.5)
 
-# Add mean/median text annotations for rejection
+# Add mean/median text annotations for rejection (ordered to match plot x-axis)
 means_text_rej <- condition_stats %>%
+  mutate(
+    condition_new = factor(condition_new, levels = c("UI", "UEQ", "UEQ+P"))
+  ) %>%
+  arrange(condition_new) %>%
   mutate(
     label = sprintf("M=%.1f%%\nMd=%.1f%%", mean_rejection*100, median_rejection*100),
     y_pos = 0.1
@@ -177,8 +187,8 @@ means_text_rej <- condition_stats %>%
 
 for(i in 1:nrow(means_text_rej)) {
   p_rejection <- p_rejection +
-    annotate("text", x = i, y = means_text_rej$y_pos[i], 
-             label = means_text_rej$label[i], size = 3, hjust = 0.5, color = "gray30")
+    annotate("text", x = i, y = means_text_rej$y_pos[i],
+             label = means_text_rej$label[i], size = 4.5, hjust = 0.5, fontface = "bold", color = "gray20")
 }
 
 ggsave("plots/participant_rejection_publication_ready.png", p_rejection, 
@@ -245,12 +255,12 @@ interface_rejection_trends <- interface_data %>%
 
 # Convert back to long format for plotting
 interface_trends_long <- interface_rejection_trends %>%
-  select(interface, interface_ordered, rejection_UI, rejection_UEQ, `rejection_UEEQ-P`) %>%
+  select(interface, interface_ordered, rejection_UI, rejection_UEQ, `rejection_UEQ+P`) %>%
   pivot_longer(cols = starts_with("rejection_"), 
                names_to = "condition", 
                values_to = "rejection_rate",
                names_prefix = "rejection_") %>%
-  mutate(condition = factor(condition, levels = c("UI", "UEQ", "UEEQ-P")))
+  mutate(condition = factor(condition, levels = c("UI", "UEQ", "UEQ+P")))
 
 p_trends <- ggplot(interface_trends_long, aes(x = interface_ordered, y = rejection_rate, 
                                              color = condition, group = condition)) +
@@ -282,7 +292,7 @@ p_trends <- ggplot(interface_trends_long, aes(x = interface_ordered, y = rejecti
 ggsave("plots/interface_rejection_trends_sorted.png", p_trends, 
        width = 12, height = 8, dpi = 300, bg = "white")
 
-print("All publication plots updated successfully with UI, UEQ, UEEQ-P naming!")
+print("All publication plots updated successfully with UI, UEQ, UEQ+P naming!")
 print("Updated plots:")
 print("- plots/participant_tendency_publication_ready.png")
 print("- plots/participant_rejection_publication_ready.png") 
